@@ -11,6 +11,10 @@
     "lint": "expo lint",
     "test": "jest"
   },
+  "jest": {
+    "preset": "jest-expo",
+    "setupFileAfterEnv": ["<rootDir>/jest.setup.js"]
+  },
   "expo": {
     "doctor": {
       "reactNativeDirectoryCheck": {
