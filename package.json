@@ -9,11 +9,14 @@
     "ios": "DARK_MODE=media expo start --ios",
     "web": "DARK_MODE=media expo start --web",
     "lint": "expo lint",
-    "test": "jest"
+    "test": "jest",
+    "prepare": "husky install"
   },
   "jest": {
     "preset": "jest-expo",
-    "setupFileAfterEnv": ["<rootDir>/jest.setup.js"]
+    "setupFileAfterEnv": [
+      "<rootDir>/jest.setup.js"
+    ]
   },
   "expo": {
     "doctor": {
@@ -71,9 +74,11 @@
     "eslint-plugin-prettier": "^5.4.0",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-native": "^5.0.0",
+    "husky": "^9.1.7",
     "jest": "^29.7.0",
     "jest-expo": "^53.0.5",
     "jscodeshift": "^0.15.2",
+    "lint-staged": "^15.5.2",
     "prettier": "^3.5.3",
     "typescript": "~5.8.3"
   },
