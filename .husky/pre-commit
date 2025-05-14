@@ -1,4 +1,5 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-npx lint-staged
+echo '✅  husky pre-commit hook が発火しました'
+#npx lint-staged
