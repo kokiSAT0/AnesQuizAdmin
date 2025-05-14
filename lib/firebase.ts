@@ -1,3 +1,4 @@
+// lib/firebase.ts
 import Constants from 'expo-constants';
 import { initializeApp, getApps, FirebaseApp } from 'firebase/app';
 import {
@@ -8,13 +9,12 @@ import {
   getDocs,
   query,
   where,
-  increment,
-  updateDoc,
   writeBatch,
+  increment,
 } from 'firebase/firestore';
-import type { Question, QuestionStat } from '@/types/firestore';
+import type { Question } from '@/types/firestore'; // ← スキーマに合わせてパス調整
 
-// ------- Firebase 初期化（Singleton） -------
+/* ---------- Firebase 初期化 (Singleton) ---------- */
 let _app: FirebaseApp;
 export function getFirebaseApp(): FirebaseApp {
   if (_app) return _app;
@@ -30,21 +30,20 @@ export function getFirebaseApp(): FirebaseApp {
         messagingSenderId: cfg.FIREBASE_MESSAGING_SENDER_ID,
         appId: cfg.FIREBASE_APP_ID,
       });
-
   return _app;
 }
 
 export const db = getFirestore(getFirebaseApp());
 
-// ------- CRUD ラッパー -------
+/* ---------- CRUD ラッパー ---------- */
 
-// Q. 指定 ID の問題を取得
+// 単一問題取得
 export async function getQuestionById(id: string): Promise<Question | null> {
   const snap = await getDoc(doc(db, 'questions', id));
   return snap.exists() ? (snap.data() as Question) : null;
 }
 
-// Q. レベル別取得（カテゴリ OR タグ絞り込みも拡張可）
+// レベル別取得
 export async function getQuestionsByLevel(
   level: Question['difficulty']['level'],
 ): Promise<Question[]> {
@@ -56,17 +55,16 @@ export async function getQuestionsByLevel(
   return snap.docs.map((d) => d.data() as Question);
 }
 
-// Q. 解答結果を書き込み（オフラインキャッシュ OK）
+// 解答ログ書き込み（オフライン対応）
 export async function writeAnswerLog(
   questionId: string,
   isCorrect: boolean,
 ): Promise<void> {
-  // ① ログコレクションはサブに束ねる想定
-  const ref = doc(collection(db, 'questionLogs'), crypto.randomUUID());
+  const logRef = doc(collection(db, 'questionLogs'));
   const statRef = doc(db, 'questionStats', questionId);
 
   const batch = writeBatch(db);
-  batch.set(ref, {
+  batch.set(logRef, {
     question_id: questionId,
     correct: isCorrect,
     answered_at: Date.now(),
@@ -81,17 +79,4 @@ export async function writeAnswerLog(
     { merge: true },
   );
   await batch.commit();
-}
-
-// --- 追加ユーティリティ（必要に応じて） ---
-export async function getRandomQuestions(
-  n: number,
-  level?: Question['difficulty']['level'],
-): Promise<Question[]> {
-  const pool = level
-    ? await getQuestionsByLevel(level)
-    : (await getDocs(collection(db, 'questions'))).docs.map(
-        (d) => d.data() as Question,
-      );
-  return pool.sort(() => 0.5 - Math.random()).slice(0, n);
 }
