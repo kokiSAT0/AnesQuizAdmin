@@ -12,12 +12,6 @@
     "test": "jest",
     "prepare": "husky install"
   },
-  "jest": {
-    "preset": "jest-expo",
-    "setupFilesAfterEnv": [
-      "<rootDir>/jest.setup.js"
-    ]
-  },
   "expo": {
     "doctor": {
       "reactNativeDirectoryCheck": {
