@@ -80,3 +80,51 @@ export async function writeAnswerLog(
   );
   await batch.commit();
 }
+
+/* ---------- 追加 Utility ---------- */
+
+/** 指定レベルからランダムに n 問取得（levels undefined なら全レベル） */
+export async function getRandomQuestions(
+  n: number,
+  level?: Question['difficulty']['level'],
+): Promise<Question[]> {
+  const src = level
+    ? await getQuestionsByLevel(level)
+    : (await getDocs(collection(db, 'questions'))).docs.map(
+        (d) => d.data() as Question,
+      );
+  return src.sort(() => 0.5 - Math.random()).slice(0, n);
+}
+
+/** 複数回答をまとめて送信 */
+export async function submitAnswers(
+  answers: { id: string; correct: boolean }[],
+) {
+  const batch = writeBatch(db);
+
+  answers.forEach(({ id, correct }) => {
+    // questionLogs
+    batch.set(
+      doc(collection(db, 'questionLogs')),
+      {
+        question_id: id,
+        correct,
+        answered_at: Date.now(),
+      },
+      { merge: false },
+    );
+
+    // questionStats
+    batch.set(
+      doc(db, 'questionStats', id),
+      {
+        attempts: increment(1),
+        correct: increment(correct ? 1 : 0),
+        updated_at: Date.now(),
+      },
+      { merge: true },
+    );
+  });
+
+  await batch.commit();
+}
