@@ -10,7 +10,9 @@
     "web": "DARK_MODE=media expo start --web",
     "lint": "expo lint",
     "test": "jest --passWithNoTests",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "seed": "tsx scripts/bulkInsertQuestions.ts",
+    "seed:prod": "tsx scripts/bulkInsertQuestions.ts --prod"
   },
   "expo": {
     "doctor": {
@@ -89,6 +91,7 @@
     "lint-staged": "^15.5.2",
     "prettier": "^3.5.3",
     "ts-node": "^10.9.2",
+    "tsx": "^4.19.4",
     "typescript": "~5.8.3"
   },
   "private": true
