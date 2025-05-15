@@ -1,54 +1,3 @@
-# Welcome to your Expo app 👋
-
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
-
-## Get started
-
-1. Install dependencies
-
-   ```bash
-   npm install
-   ```
-
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
-
 | ライブラリ / ツール          | 推奨バージョン (2025年)            | 備考                                   |
 | ---------------------------- | ---------------------------------- | -------------------------------------- |
 | Zustand                      | **5.0.4 以上**（v5 系）            | RN 0.79 対応の安定版                   |
@@ -64,3 +13,49 @@ Join our community of developers creating universal apps.
 | TypeScript                   | **5.8.x**（例: 5.8.3）             | Expo 推奨バージョン                    |
 | @react-navigation/native     | **7.x 系列**（例: 7.1.9）          | React Navigation 7（最新）             |
 | @react-navigation/stack      | **7.x 系列**（例: 7.3.1）          | React Navigation 7 対応版              |
+
+---
+
+## 🛠️ 開発環境セットアップ
+
+### 1. 前提ソフト
+
+| ツール       | 推奨バージョン | インストール例                              |
+| ------------ | -------------- | ------------------------------------------- |
+| **Node.js**  | ≥ 18.x LTS     | <https://nodejs.org/ja>                     |
+| **npm**      | ≥ 10.x         | Node 同梱（`npm i -g npm@latest` で更新可） |
+| **Expo CLI** | ≥ 7.x          | `npm i -g expo-cli`                         |
+| **Git**      | ≥ 2.40         | <https://git-scm.com/>                      |
+
+> Windows は **PowerShell**、Mac は **zsh** を想定。  
+> WSL/ターミナルでも手順は同一です。
+
+### 2. リポジトリ取得
+
+```bash
+git clone https://github.com/<YOUR_ORG>/AnesQuiz.git
+cd AnesQuiz
+npm install
+
+### 3. 環境変数 .env
+
+```
+
+ルートに .env を作成（コミットしない）
+
+Firebase の各種キーを記入してください。
+
+# .env 例
+
+FIREBASE_API_KEY="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+FIREBASE_AUTH_DOMAIN="anesquiz.firebaseapp.com"
+FIREBASE_PROJECT_ID="anesquiz"
+FIREBASE_STORAGE_BUCKET="anesquiz.appspot.com"
+FIREBASE_MESSAGING_SENDER_ID="1234567890"
+FIREBASE_APP_ID="1:1234567890:web:abcdef123456"
+
+### 4. 開発サーバ起動
+
+# キャッシュクリア付き起動を推奨
+
+npx expo start --clear
