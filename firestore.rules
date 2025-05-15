@@ -1,0 +1,22 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    /* クイズ本文：誰でも読み取り可 */
+    match /questions/{id} {
+      allow read;
+    }
+
+    /* 解答ログ：匿名書き込みのみ許可 */
+    match /questionLogs/{id} {
+      allow create: if true;
+      allow read, update, delete: if false;
+    }
+
+    /* 集計データ：読み取りのみ／直接書き込み禁止 */
+    match /questionStats/{id} {
+      allow read;
+      allow write: if false;
+    }
+  }
+}

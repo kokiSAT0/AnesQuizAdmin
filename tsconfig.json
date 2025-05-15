@@ -3,12 +3,8 @@
   "compilerOptions": {
     "strict": true,
     "paths": {
-      "@/*": [
-        "./*"
-      ],
-      "tailwind.config": [
-        "./tailwind.config.js"
-      ]
+      "@/*": ["./*"],
+      "tailwind.config": ["./tailwind.config.js"]
     }
   },
   "include": [
@@ -17,5 +13,9 @@
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
     "nativewind-env.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "__tests__" // 👈 追加：テストは Task #9 で整備
   ]
 }
