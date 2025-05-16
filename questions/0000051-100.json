@@ -1,0 +1,1562 @@
+[
+  {
+    "id": "an0000051",
+    "type": "single_choice",
+    "categories": ["術前評価・麻酔計画"],
+    "tags": ["初級", "血液検査"],
+    "difficulty": {
+      "level": "初級",
+      "correct_rate": 0.0
+    },
+    "question": "術前に実施する血液検査の目的として最も適切なのはどれか？",
+    "options": [
+      "手術中の細菌感染を特定するため",
+      "麻酔や手術に耐えられるかの全身状態評価",
+      "麻酔薬の効果時間を正確に測定するため",
+      "手術執刀医の体調把握のため"
+    ],
+    "correct_answers": [1],
+    "explanation": "血液検査は全身状態を評価し、貧血や凝固機能など術中・術後のリスクを把握する目的で行われる。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000052",
+    "type": "single_choice",
+    "categories": ["輸液・輸血"],
+    "tags": ["初級", "凝固因子製剤"],
+    "difficulty": {
+      "level": "初級",
+      "correct_rate": 0.0
+    },
+    "question": "新鮮凍結血漿（FFP）の主な用途として最も適切なのはどれか？",
+    "options": [
+      "水分補給が目的",
+      "白血球増加が目的",
+      "凝固因子補充が目的",
+      "酸素運搬能の改善が目的"
+    ],
+    "correct_answers": [2],
+    "explanation": "FFPは凝固因子を含むため、出血時や凝固障害の際の凝固因子補充を目的に使用される。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000053",
+    "type": "multiple_choice",
+    "categories": ["区域麻酔"],
+    "tags": ["初級", "脊椎麻酔"],
+    "difficulty": {
+      "level": "初級",
+      "correct_rate": 0.0
+    },
+    "question": "脊椎麻酔の特徴として正しいものを2つ選べ。",
+    "options": [
+      "硬膜外麻酔よりも少量の局所麻酔薬で十分な麻酔効果を得られる",
+      "麻酔効果の発現は非常に遅く、30分程度必要",
+      "血圧低下を起こすことがあるため、循環管理に注意が必要",
+      "脊椎麻酔では気管挿管が必須となる",
+      "硬膜外麻酔と比べて硬膜外カテーテルによる持続投与が行いやすい"
+    ],
+    "correct_answers": [0, 2],
+    "explanation": "脊椎麻酔は少量の局所麻酔薬で広い麻酔範囲が得られ、急激な血圧低下を起こしやすいので注意が必要。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000054",
+    "type": "single_choice",
+    "categories": ["呼吸管理"],
+    "tags": ["初級", "酸素療法"],
+    "difficulty": {
+      "level": "初級",
+      "correct_rate": 0.0
+    },
+    "question": "酸素療法において最も基本的な投与経路といえるのはどれか？",
+    "options": [
+      "鼻カニュラ",
+      "気管切開チューブ",
+      "高流量鼻カニュラ（HFNC）",
+      "非侵襲的陽圧換気（NPPV）"
+    ],
+    "correct_answers": [0],
+    "explanation": "酸素療法の基本的な方法として低流量で用いられるのは鼻カニュラである。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000055",
+    "type": "single_choice",
+    "categories": ["循環管理"],
+    "tags": ["初級", "不整脈"],
+    "difficulty": {
+      "level": "初級",
+      "correct_rate": 0.0
+    },
+    "question": "術中に新たな頻脈性不整脈（例：上室性頻拍）が発生した場合、初期対応として最も適切なのはどれか？",
+    "options": [
+      "麻酔をすぐに中止し、術後ICUで観察する",
+      "カルシウム製剤を大量投与する",
+      "バイタルサインを確認し、原因検索とともに必要に応じて薬物療法を検討する",
+      "ただちに除細動（DCショック）を実施する"
+    ],
+    "correct_answers": [2],
+    "explanation": "頻脈性不整脈発生時は血圧やSpO2などバイタルサインの変化を確認し、原因（疼痛、血液量不足、刺激など）の除去や薬物療法を検討する。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000056",
+    "type": "single_choice",
+    "categories": ["気道管理"],
+    "tags": ["初級", "声門上器具"],
+    "difficulty": {
+      "level": "初級",
+      "correct_rate": 0.0
+    },
+    "question": "声門上器具（LMAなど）の特徴として最も正しいのはどれか？",
+    "options": [
+      "声門を直接展開する必要があり、挿管と同じ手技を要する",
+      "基本的に口腔や咽頭を塞がないため胃内容物誤嚥予防に優れる",
+      "声門レベルでシールを得るため、気道確保が簡便で挿管に比べて刺激が少ない",
+      "気管チューブよりも太いため気道確保が困難な患者に優先される"
+    ],
+    "correct_answers": [2],
+    "explanation": "声門上器具は声門部を覆う形でシールを得られ、挿管よりも操作が簡単で刺激が少ない利点があるが、誤嚥リスクには注意が必要。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000057",
+    "type": "single_choice",
+    "categories": ["術後・疼痛管理"],
+    "tags": ["初級", "NSAIDs"],
+    "difficulty": {
+      "level": "初級",
+      "correct_rate": 0.0
+    },
+    "question": "術後鎮痛でNSAIDs（非ステロイド性消炎鎮痛薬）を使用する際に注意すべき代表的な副作用はどれか？",
+    "options": [
+      "腎機能障害や胃腸障害",
+      "急性の呼吸抑制",
+      "悪性高熱症",
+      "重篤な低血圧"
+    ],
+    "correct_answers": [0],
+    "explanation": "NSAIDsは腎血流量低下や胃腸障害（胃潰瘍など）を引き起こす可能性があるため、リスク評価が重要。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000058",
+    "type": "single_choice",
+    "categories": ["麻酔薬"],
+    "tags": ["初級", "ケタミン"],
+    "difficulty": {
+      "level": "初級",
+      "correct_rate": 0.0
+    },
+    "question": "ケタミンの作用特性として正しいのはどれか？",
+    "options": [
+      "強い呼吸抑制作用がある",
+      "血圧や心拍数を上昇させる傾向がある",
+      "脳圧を低下させる",
+      "筋弛緩作用が強い"
+    ],
+    "correct_answers": [1],
+    "explanation": "ケタミンは交感神経刺激により血圧や心拍数を上昇させることがある。呼吸抑制は比較的少なく、解離性麻酔を起こす。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000059",
+    "type": "single_choice",
+    "categories": ["緊急対応"],
+    "tags": ["初級", "心停止"],
+    "difficulty": {
+      "level": "初級",
+      "correct_rate": 0.0
+    },
+    "question": "手術中に患者が心停止状態となった場合の初期対応として最も適切なのはどれか？",
+    "options": [
+      "術者の指示があるまで待機する",
+      "胸骨圧迫を即時に開始し、救命チームを呼ぶ",
+      "アドレナリンを投与せずに輸液速度のみを上げる",
+      "術中の麻酔薬を全て追加投与する"
+    ],
+    "correct_answers": [1],
+    "explanation": "心停止時は即時に胸骨圧迫を開始するとともに、周囲にアラートを行い救命チームを呼ぶ。ACLSプロトコルに従って対応する。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000060",
+    "type": "multiple_choice",
+    "categories": ["術中モニタリング"],
+    "tags": ["初級", "ETCO2"],
+    "difficulty": {
+      "level": "初級",
+      "correct_rate": 0.0
+    },
+    "question": "術中モニタとしてのETCO₂（呼気終末二酸化炭素濃度計測）について、正しいものを2つ選べ。",
+    "options": [
+      "心停止が起きてもETCO₂には変化がない",
+      "循環・換気状態を把握する指標の一つになる",
+      "麻酔機が故障していてもETCO₂計測は必要ない",
+      "挿管チューブの気管内留置を確認する手段となる",
+      "ETCO₂値は常にPaCO₂値を超える"
+    ],
+    "correct_answers": [1, 3],
+    "explanation": "ETCO₂は換気だけでなく循環状態の変化にも敏感で、挿管チューブが正しく気管内に入っているかを確認する目的でも用いられる。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000061",
+    "type": "single_choice",
+    "categories": ["麻酔合併症"],
+    "tags": ["中級", "術中覚醒"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "術中覚醒（意識覚醒）のリスクが高いとされる状況として最も適切なのはどれか？",
+    "options": [
+      "過度の鎮静薬投与が行われる場合",
+      "体温が低下し過ぎている場合",
+      "緊急手術で低血圧・循環不安定な患者に最小限の麻酔しかできない場合",
+      "高齢者で日常的に睡眠薬を服用している場合"
+    ],
+    "correct_answers": [2],
+    "explanation": "術中覚醒は循環動態が不安定で、麻酔薬を十分に投与できない状況（例：低血圧時など）でリスクが高まる。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000062",
+    "type": "multiple_choice",
+    "categories": ["術中モニタリング"],
+    "tags": ["中級", "CVP", "動脈圧"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "CVP（中心静脈圧）と直接動脈圧モニタリングに関する説明として正しいものを2つ選べ。",
+    "options": [
+      "CVPは右房圧を反映し、輸液負荷や右室機能の評価の一助となる",
+      "CVP測定には常に気管切開が必要である",
+      "直接動脈圧モニタではビート・トゥ・ビートでの血圧監視が可能",
+      "CVP測定と直接動脈圧モニタリングは同じカテーテルで実施できる",
+      "動脈圧ライン挿入部位の管理を怠ると感染や血栓のリスクが高まる"
+    ],
+    "correct_answers": [0, 2],
+    "explanation": "CVPは右房圧の近似値として輸液負荷の指標に用いられ、直接動脈圧モニタは拍動ごとの血圧変化をリアルタイムでモニターできる。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000063",
+    "type": "single_choice",
+    "categories": ["術前評価・麻酔計画"],
+    "tags": ["中級", "糖尿病患者"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "糖尿病患者の術前評価で最も重要とされる合併症評価はどれか？",
+    "options": [
+      "泌尿器系感染症の有無",
+      "肝機能障害の有無",
+      "気管支喘息の既往",
+      "心血管系合併症の有無"
+    ],
+    "correct_answers": [3],
+    "explanation": "糖尿病患者の術前評価では、特に心血管合併症（虚血性心疾患など）のリスク評価が重要である。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000064",
+    "type": "multiple_choice",
+    "categories": ["輸液・輸血"],
+    "tags": ["中級", "クリスタロイド", "コロイド"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "クリスタロイドとコロイドの選択に関する説明として正しいものを2つ選べ。",
+    "options": [
+      "クリスタロイドは速やかに血管内にとどまり、血圧維持に長く貢献する",
+      "コロイドは膠質浸透圧により血管内に水分を保持しやすい",
+      "コロイドはアナフィラキシー様反応のリスクがある場合もある",
+      "クリスタロイドは使用を控えるべきであり、常にコロイドを優先する",
+      "コロイドは必ずしもクリスタロイドより高コストとは限らない"
+    ],
+    "correct_answers": [1, 2],
+    "explanation": "コロイドは膠質浸透圧によって血管内ボリュームを維持しやすく、稀にアナフィラキシー様反応を引き起こすことがある。クリスタロイドは血管外への移行が比較的早い。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000065",
+    "type": "single_choice",
+    "categories": ["緊急対応"],
+    "tags": ["中級", "出血性ショック"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "出血性ショックが疑われる患者への初期対応として最も適切なのはどれか？",
+    "options": [
+      "血管収縮薬のみで対応し、輸液は控える",
+      "生理食塩液や乳酸リンゲルなどの速やかな大量輸液を開始する",
+      "輸血製剤を用いた場合、凝固因子の補充は不要",
+      "ショックバイタルでも手術室以外で経過観察を継続する"
+    ],
+    "correct_answers": [1],
+    "explanation": "出血性ショックでは血圧維持と循環血液量の確保が急務であり、早急な輸液・輸血管理が必要となる。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000066",
+    "type": "multiple_choice",
+    "categories": ["呼吸管理"],
+    "tags": ["中級", "肺コンプライアンス"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "術中の機械換気で肺コンプライアンスが低下する原因として考えられるものを2つ選べ。",
+    "options": [
+      "過度の鎮静",
+      "気管チューブの位置異常による片肺換気",
+      "肺の過膨張によるバロトラウマ",
+      "換気回路のリーク（空気漏れ）",
+      "気腹操作（腹腔鏡手術）による横隔膜挙上"
+    ],
+    "correct_answers": [1, 4],
+    "explanation": "片肺換気や気腹による横隔膜挙上は肺の可動域減少を引き起こし、肺コンプライアンスの低下につながる。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000067",
+    "type": "single_choice",
+    "categories": ["麻酔薬"],
+    "tags": ["中級", "筋弛緩薬"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "スガマデクスの作用機序について最も正しいのはどれか？",
+    "options": [
+      "アセチルコリン受容体を阻害して筋弛緩を強める",
+      "血漿中のシュワーン細胞数を増加させる",
+      "ステロイド系筋弛緩薬（ロクロニウムなど）と結合して無効化する",
+      "ベクロニウムなどのベンゾジアゼピン系薬剤と結合して代謝促進する"
+    ],
+    "correct_answers": [2],
+    "explanation": "スガマデクスはステロイド骨格を有する筋弛緩薬（ロクロニウムなど）を包合・結合することで効果を速やかに解除する。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000068",
+    "type": "multiple_choice",
+    "categories": ["麻酔関連機器"],
+    "tags": ["中級", "アネセジアマシン"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "麻酔器の安全装置に関して正しいものを2つ選べ。",
+    "options": [
+      "酸素センサー（O₂アナライザ）によって誤って窒素ガスのみを投与してしまう事故を防げる",
+      "酸素フローメータはガス混合で一番手前に配置されるのが通例",
+      "酸素圧が低下すると自動的にN₂O供給を遮断する機構（Fail-safe system）がある",
+      "呼吸回路リークを検知すると自動的に回路を閉鎖して換気を止める",
+      "Vaporizer interlock systemにより複数の吸入麻酔薬が同時に気化されるのを防ぐ"
+    ],
+    "correct_answers": [2, 4],
+    "explanation": "酸素圧低下時のFail-safe systemや、2つの揮発器が同時に作動しないVaporizer interlock systemは麻酔器の主要な安全装置である。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000069",
+    "type": "single_choice",
+    "categories": ["ICU管理"],
+    "tags": ["中級", "sepsis"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "Sepsis（敗血症）の管理指針において早期に行うべき処置として最も適切なのはどれか？",
+    "options": [
+      "ステロイドの連続投与を始める",
+      "輸液は控え、循環作動薬のみを使用する",
+      "体液量確保（IVフルイド）と早期の適切な抗菌薬投与",
+      "必ず機械的換気を開始する"
+    ],
+    "correct_answers": [2],
+    "explanation": "Sepsisの初期対応では十分な輸液負荷と早期抗菌薬投与が最も重要とされる（サバイビングシープシスキャンペーン）。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000070",
+    "type": "multiple_choice",
+    "categories": ["術後・疼痛管理"],
+    "tags": ["中級", "硬膜外鎮痛"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "術後の硬膜外鎮痛に関する説明として正しいものを2つ選べ。",
+    "options": [
+      "腹部手術後の疼痛管理に効果的であり、術後回復を促進する可能性がある",
+      "頭蓋内圧を低下させる直接的効果がある",
+      "合併症としては血圧低下や尿閉、硬膜外血腫などに注意が必要",
+      "硬膜外鎮痛は術後呼吸機能を必ず悪化させる",
+      "鎮静効果が強いため患者の覚醒状態を常に低下させる"
+    ],
+    "correct_answers": [0, 2],
+    "explanation": "硬膜外鎮痛は術後疼痛管理に有効で、特に開腹術などでの鎮痛と早期回復が期待できる。一方で低血圧や尿閉、硬膜外血腫などの合併症に注意が必要。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000071",
+    "type": "single_choice",
+    "categories": ["気道管理"],
+    "tags": ["中級", "イントゥベーション"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "患者が難易度の高い挿管と予測される場合に備えて推奨される事前準備として最も適切なのはどれか？",
+    "options": [
+      "マスク換気が不可能になる可能性は低いと判断し、初回から小径チューブのみ準備する",
+      "ビデオ喉頭鏡や可視化デバイスなどの補助器具を用意する",
+      "硬性挿管チューブガイドは誤嚥のリスクを上げるため準備しない",
+      "チューブ交換カテーテルよりも麻酔深度モニタにだけ注意を払う"
+    ],
+    "correct_answers": [1],
+    "explanation": "困難気道が予測される場合には可視化デバイスや各種補助器具の準備が推奨される。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000072",
+    "type": "multiple_choice",
+    "categories": ["呼吸管理"],
+    "tags": ["中級", "換気モード"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "PCV（Pressure Controlled Ventilation）の特徴として正しいものを2つ選べ。",
+    "options": [
+      "吸気圧を一定に保つため、1回換気量は常に一定となる",
+      "吸気圧（PIP）を上限に設定することで肺保護が期待できる",
+      "気道抵抗が変化しても設定したピーク圧までは供給される",
+      "急激なコンプライアンス低下で1回換気量が増加する",
+      "吸気流速が一定なのでピークフローの調節が不要"
+    ],
+    "correct_answers": [1, 2],
+    "explanation": "PCVは圧制御式で、設定圧まで圧を上げて一定圧を維持する。これにより気道抵抗の変化によって1回換気量が変化しやすいが、ピーク圧を超えないため肺障害リスクを低減できる。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000073",
+    "type": "single_choice",
+    "categories": ["区域麻酔"],
+    "tags": ["中級", "硬膜外麻酔"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "硬膜外麻酔においてテストドーズを投与する目的として最も正しいのはどれか？",
+    "options": [
+      "局所麻酔薬の総投与量を増やすため",
+      "意識レベルを評価するため",
+      "硬膜外腔内留置が適切か、また血管内留置やクモ膜下腔穿刺でないかを確認するため",
+      "ブロックレベルを素早く上昇させるため"
+    ],
+    "correct_answers": [2],
+    "explanation": "テストドーズで急激な血中濃度上昇（血管内留置）や脊椎麻酔様のブロック（クモ膜下腔穿刺）になっていないかを確認する。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000074",
+    "type": "multiple_choice",
+    "categories": ["麻酔薬"],
+    "tags": ["中級", "オピオイドローテーション"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "オピオイドローテーション（オピオイドの置換）に関して正しいものを2つ選べ。",
+    "options": [
+      "オピオイド間の換算比率（equianalgesic dose）を無視して変更してもよい",
+      "耐性や副作用軽減のために別のオピオイドに切り替える場合がある",
+      "一度モルヒネからフェンタニルへ変更したら元に戻せない",
+      "複数のオピオイドを併用しながら投与量を増やすのが基本",
+      "使用薬剤の特徴や半減期、患者状態に合わせた換算が必要"
+    ],
+    "correct_answers": [1, 4],
+    "explanation": "オピオイドローテーションでは、オピオイド間の換算比率を考慮し、患者の耐性・副作用・疾患状態に合わせて薬剤や用量を調整する。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000075",
+    "type": "single_choice",
+    "categories": ["麻酔関連機器"],
+    "tags": ["中級", "輸液ポンプ"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "シリンジポンプを用いた静脈麻酔で注意すべき点として最も正しいのはどれか？",
+    "options": [
+      "AC電源が切れても電池駆動に切り替わるため、投与速度が全く変化しないことが多い",
+      "投与中にシリンジサイズを変更しても設定確認は不要",
+      "チューブの閉塞や患者側の不具合があっても自動検知アラームが作動する",
+      "機械の初期設定通りなら輸液ラインの気泡検知は必要ない"
+    ],
+    "correct_answers": [2],
+    "explanation": "シリンジポンプは閉塞時や気泡検知などのアラーム機能があり、安全装置として機能する。ただし依存しすぎず、定期的なチェックは重要。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000076",
+    "type": "multiple_choice",
+    "categories": ["術後・疼痛管理"],
+    "tags": ["中級", "多模式鎮痛"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "多模式鎮痛（マルチモーダル鎮痛）に関して正しい説明を2つ選べ。",
+    "options": [
+      "オピオイド単剤での鎮痛が望ましい",
+      "複数の異なる作用機序の鎮痛薬を併用して副作用を軽減しつつ鎮痛効果を高める",
+      "鎮痛薬の併用は肝臓への負担が大きいため推奨されない",
+      "NSAIDsやアセトアミノフェン、局所麻酔薬ブロックなどを組み合わせる",
+      "患者の病態や手術侵襲にかかわらず、全患者に同一のプロトコルを適用する"
+    ],
+    "correct_answers": [1, 3],
+    "explanation": "多模式鎮痛では、オピオイドを含む複数の鎮痛法を組み合わせて効果を高め、副作用を抑えることが狙いである。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000077",
+    "type": "single_choice",
+    "categories": ["緊急対応"],
+    "tags": ["中級", "出血量推定"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "術中出血量を推定する際に考慮すべきこととして最も適切なのはどれか？",
+    "options": [
+      "術野の吸引量は洗浄液の量を差し引かない",
+      "ガーゼの重量増加量から血液量を推定する",
+      "洗浄液の総量は出血量とは無関係",
+      "拭き取られた血液量は出血量として最も大きな比率を占める"
+    ],
+    "correct_answers": [1],
+    "explanation": "出血量は吸引ボトルの量と使用した洗浄液量との差、ガーゼの重量増加分からおおよそ推定する。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000078",
+    "type": "multiple_choice",
+    "categories": ["術前評価・麻酔計画"],
+    "tags": ["中級", "禁食時間"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "術前の禁食ガイドライン（成人）に関して正しいものを2つ選べ。",
+    "options": [
+      "清澄な水分摂取は手術直前まで許容される",
+      "脂肪食は摂取後8時間以上あけることが推奨される",
+      "母乳は成人に適用されない",
+      "牛乳や濃厚ジュースは固形物とみなされる場合がある",
+      "炭酸飲料は摂取後2時間で胃内容が十分にクリアになる"
+    ],
+    "correct_answers": [1, 3],
+    "explanation": "ガイドラインでは脂肪食やフルメニュー食は8時間以上、牛乳などは固形物扱いとなる場合があり、より長い禁食時間が必要とされる。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000079",
+    "type": "single_choice",
+    "categories": ["ICU管理"],
+    "tags": ["中級", "鎮静スケール"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "ICUで用いられるRASS（Richmond Agitation-Sedation Scale）で、「穏やかに覚醒し声かけにすぐ応答する」状態はどのレベルに近いと考えられるか？",
+    "options": ["RASS +2", "RASS 0", "RASS -2", "RASS -4"],
+    "correct_answers": [1],
+    "explanation": "RASS 0は意識清明、患者が落ち着いて覚醒している状態に相当する。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000080",
+    "type": "multiple_choice",
+    "categories": ["医療安全・ヒューマンファクター"],
+    "tags": ["中級", "手術チェックリスト"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "手術安全チェックリスト（WHO式など）の導入における効果として正しいものを2つ選べ。",
+    "options": [
+      "手術時間を大幅に短縮できる",
+      "チーム間コミュニケーションが向上する",
+      "手術部位の誤認手術が増加する",
+      "合併症や死亡率低減につながる可能性がある",
+      "チェックリストを使うと手技の進行が妨げられて危険性が増す"
+    ],
+    "correct_answers": [1, 3],
+    "explanation": "手術安全チェックリストはチーム内の情報共有と確認を促進し、医療事故や合併症率の低減に寄与する可能性が示されている。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000081",
+    "type": "single_choice",
+    "categories": ["麻酔合併症"],
+    "tags": ["悪性高熱症", "上級"],
+    "difficulty": {
+      "level": "上級",
+      "correct_rate": 0.0
+    },
+    "question": "悪性高熱症の急性期対応でダントロレン投与後も体温が上昇し続ける場合の追加対策として最も適切なのはどれか？",
+    "options": [
+      "筋弛緩薬を追加投与する",
+      "積極的な身体冷却法（アイスパック、冷却ブランケット）を併用する",
+      "オピオイドを大幅に減量する",
+      "吸入酸素濃度を21%に下げる"
+    ],
+    "correct_answers": [1],
+    "explanation": "ダントロレン投与だけでは体温上昇を抑制しきれない場合があり、積極的な身体冷却が必要となる。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000082",
+    "type": "multiple_choice",
+    "categories": ["循環管理"],
+    "tags": ["上級", "不整脈管理"],
+    "difficulty": {
+      "level": "上級",
+      "correct_rate": 0.0
+    },
+    "question": "術中に致死性不整脈（例：心室細動、無脈性VT）が発生した際の対応として正しいものを2つ選べ。",
+    "options": [
+      "基本的には胸骨圧迫よりもまずアミオダロン静注を優先する",
+      "即時に胸骨圧迫を開始し、除細動可能な状態であれば早期に電気的除細動を実施する",
+      "麻酔レベルの調整が最優先であり、心肺蘇生は術後に行う",
+      "アドレナリンの投与が考慮される",
+      "気道確保は不要であり、酸素投与も必要ない"
+    ],
+    "correct_answers": [1, 3],
+    "explanation": "致死性不整脈では直ちに胸骨圧迫を開始し、電気的除細動を迅速に行う。アドレナリン投与もガイドラインに沿って考慮される。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000083",
+    "type": "single_choice",
+    "categories": ["特殊患者"],
+    "tags": ["上級", "小児麻酔"],
+    "difficulty": {
+      "level": "上級",
+      "correct_rate": 0.0
+    },
+    "question": "小児麻酔で特に注意すべき点として最も適切なのはどれか？",
+    "options": [
+      "成人と比較して脂溶性薬物の分布容積が大幅に増加する",
+      "体温調節機能が未熟なため、低体温を来しやすい",
+      "筋弛緩薬の投与量は成人に比べて極端に減量する必要はない",
+      "気道が硬く拡張しやすいため、マスク換気が容易"
+    ],
+    "correct_answers": [1],
+    "explanation": "小児は体温調節機能が未熟で、手術室環境などにより低体温になりやすいため十分な保温管理が重要。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000084",
+    "type": "single_choice",
+    "categories": ["区域麻酔"],
+    "tags": ["上級", "胸部傍脊椎ブロック"],
+    "difficulty": {
+      "level": "上級",
+      "correct_rate": 0.0
+    },
+    "question": "胸部傍脊椎ブロック（thoracic paravertebral block）の合併症として最も注意が必要なのはどれか？",
+    "options": ["気道狭窄", "腸閉塞", "気胸", "尿閉"],
+    "correct_answers": [2],
+    "explanation": "胸部傍脊椎ブロックは胸膜に近いため、穿刺の際に気胸を生じるリスクがある。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000085",
+    "type": "multiple_choice",
+    "categories": ["麻酔薬"],
+    "tags": ["上級", "吸入麻酔薬"],
+    "difficulty": {
+      "level": "上級",
+      "correct_rate": 0.0
+    },
+    "question": "低フロー麻酔において注意すべき事項として正しいものを2つ選べ。",
+    "options": [
+      "麻酔器回路内の吸入麻酔薬濃度変化が速いため、導入時間の短縮が期待できる",
+      "ソーダライムなどのCO2吸収剤の性能や交換時期が重要となる",
+      "麻酔器のリークがあっても酸素消費量は変化しない",
+      "体温や呼気の水分を回路内で再利用できるため保湿効果が高い",
+      "新鮮ガス流量を増やすほど揮発性麻酔薬の消費が減る"
+    ],
+    "correct_answers": [1, 3],
+    "explanation": "低フロー麻酔では回路内のガス循環率が高く、CO2吸収剤の吸収性能や適切な交換が特に重要。また湿度と熱が保たれやすい利点もある。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000086",
+    "type": "single_choice",
+    "categories": ["麻酔関連機器"],
+    "tags": ["上級", "モニタリング機器"],
+    "difficulty": {
+      "level": "上級",
+      "correct_rate": 0.0
+    },
+    "question": "NIRS（近赤外線分光法）による脳酸素モニタリングに関して最も正しいのはどれか？",
+    "options": [
+      "呼吸停止時でも一定値を示し、脳虚血の早期検出には向かない",
+      "脳表面付近の組織酸素飽和度（rSO₂）をリアルタイムで反映する",
+      "装着部位は常に後頭部が推奨される",
+      "加齢とともに測定値が常に上昇する傾向がある"
+    ],
+    "correct_answers": [1],
+    "explanation": "NIRSは脳近表層の組織酸素飽和度をリアルタイムに測定し、脳虚血の早期検出などに役立つ。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000087",
+    "type": "multiple_choice",
+    "categories": ["術後・疼痛管理"],
+    "tags": ["上級", "エビデンスベースド鎮痛"],
+    "difficulty": {
+      "level": "上級",
+      "correct_rate": 0.0
+    },
+    "question": "エビデンスに基づいた術後鎮痛戦略に関して正しいものを2つ選べ。",
+    "options": [
+      "多模式鎮痛が副作用軽減と鎮痛効果増強に寄与するという報告がある",
+      "オピオイド単独投与は常に最良の選択とされる",
+      "神経ブロックの使用は早期離床と回復を促進する可能性がある",
+      "エビデンス上、患者の鎮痛満足度は考慮されない",
+      "術後鎮痛が不十分でも呼吸器合併症のリスクは低い"
+    ],
+    "correct_answers": [0, 2],
+    "explanation": "多模式鎮痛の活用や神経ブロックの導入によって、術後合併症減少や早期離床が期待されるエビデンスがある。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000088",
+    "type": "single_choice",
+    "categories": ["医療安全・ヒューマンファクター"],
+    "tags": ["上級", "ハインリッヒの法則"],
+    "difficulty": {
+      "level": "上級",
+      "correct_rate": 0.0
+    },
+    "question": "ハインリッヒの法則（1件の重大事故の背後に29件の軽微な事故と300件のヒヤリハットがある）を医療安全に活かすために最も重要なことはどれか？",
+    "options": [
+      "重篤なインシデントのみ報告し、軽微なものは特に報告しない",
+      "ヒヤリハットを見逃さずに収集・解析することで大きな事故を防ぐ",
+      "医療事故は完全に防ぎきることは不可能なので報告の価値がない",
+      "医療スタッフ個人の能力に依存して防ぐべきで、システム変更は不要"
+    ],
+    "correct_answers": [1],
+    "explanation": "ハインリッヒの法則から、ヒヤリハットや軽微な事故の段階で報告・改善を行うことで重大事故の発生を抑える効果が期待できる。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000089",
+    "type": "single_choice",
+    "categories": ["ICU管理"],
+    "tags": ["上級", "鎮痛鎮静スコア"],
+    "difficulty": {
+      "level": "上級",
+      "correct_rate": 0.0
+    },
+    "question": "ICUでの深い鎮静を長期にわたり行うことのリスクとして最も考えられるのはどれか？",
+    "options": [
+      "早期離床やリハビリテーションの遅れによるICU滞在期間の延長",
+      "患者の自覚的疼痛評価が向上する",
+      "せん妄が全く起きなくなる",
+      "鎮静薬依存の減少"
+    ],
+    "correct_answers": [0],
+    "explanation": "過度に深い鎮静は覚醒遅延やせん妄、リハビリ開始の遅れなどを招き、ICU滞在期間の延長や予後の悪化につながる可能性がある。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000090",
+    "type": "multiple_choice",
+    "categories": ["緊急対応"],
+    "tags": ["上級", "trauma"],
+    "difficulty": {
+      "level": "上級",
+      "correct_rate": 0.0
+    },
+    "question": "外傷患者の初期評価における優先順位として正しいものを2つ選べ。",
+    "options": [
+      "エアウェイ（気道確保）は呼吸音聴取より後に行う",
+      "大出血のコントロールは可能な限り早期に行う",
+      "FAST（Focused Assessment with Sonography in Trauma）は腹腔内出血を簡便に評価できる",
+      "気道通過障害がない場合、早期挿管は絶対的に避ける",
+      "低血圧がある場合でも髄液穿刺による追加検査が最優先"
+    ],
+    "correct_answers": [1, 2],
+    "explanation": "外傷患者の初期対応では、止血を含む循環管理と同時にFASTなどで腹腔内出血の有無を迅速に評価することが重要とされる。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000091",
+    "type": "single_choice",
+    "categories": ["麻酔薬"],
+    "tags": ["オピオイドスイッチング", "上級"],
+    "difficulty": {
+      "level": "上級",
+      "correct_rate": 0.0
+    },
+    "question": "術後鎮痛におけるオピオイドスイッチング（ローテーション）で注意すべき点として最も適切なのはどれか？",
+    "options": [
+      "無条件に等価換算表の用量をそのまま適用すればよい",
+      "他剤へ切り替える際に交差耐性を考慮し、用量を調整する",
+      "スイッチング時に鎮痛効果が常に増強する",
+      "副作用は必ず低減するため、一気に高用量に移行できる"
+    ],
+    "correct_answers": [1],
+    "explanation": "オピオイド間には交差耐性があり、等価換算量を目安としつつも患者の副作用や反応を見ながら適切に調整する必要がある。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000092",
+    "type": "multiple_choice",
+    "categories": ["気道管理"],
+    "tags": ["困難気道アルゴリズム", "上級"],
+    "difficulty": {
+      "level": "上級",
+      "correct_rate": 0.0
+    },
+    "question": "ASA（アメリカ麻酔学会）の困難気道アルゴリズムにおける重要ポイントとして正しいものを2つ選べ。",
+    "options": [
+      "初回の喉頭鏡挿管で失敗しても、同じ方法を繰り返すのが原則",
+      "複数回失敗した場合は、覚醒下挿管や他の気道確保方法を検討する",
+      "マスク換気不能・挿管不能の場合は迅速に前頸部アクセス（輪状甲状膜切開など）を検討する",
+      "ビデオ喉頭鏡は気管支ファイバースコープより常に優先される",
+      "困難気道が予測される場合は事前に経鼻チューブのみを準備しておけば十分"
+    ],
+    "correct_answers": [1, 2],
+    "explanation": "困難気道で複数回失敗した場合は別のアプローチを検討し、マスク換気も不可能なら外科的気道確保を考慮する。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000093",
+    "type": "single_choice",
+    "categories": ["循環管理"],
+    "tags": ["心機能評価", "上級"],
+    "difficulty": {
+      "level": "上級",
+      "correct_rate": 0.0
+    },
+    "question": "心エコー（TTEまたはTEE）による術中モニタリングで、左室の前負荷を最も直接的に評価できる指標はどれか？",
+    "options": [
+      "左室拡張末期径（LVEDD）",
+      "左室射出分画（EF）",
+      "大動脈弁流速（Vmax）",
+      "僧帽弁逆流量"
+    ],
+    "correct_answers": [0],
+    "explanation": "左室拡張末期径(LVEDD)や左室拡張末期容積は左室の前負荷を反映する指標となる。EFは収縮機能の評価に適している。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000094",
+    "type": "multiple_choice",
+    "categories": ["呼吸管理"],
+    "tags": ["一酸化炭素分圧", "上級"],
+    "difficulty": {
+      "level": "上級",
+      "correct_rate": 0.0
+    },
+    "question": "手術中の麻酔機使用で吸入ガス回路内に一酸化炭素（CO）が生成される原因として考えられるものを2つ選べ。",
+    "options": [
+      "ソーダライムが乾燥し過ぎている",
+      "循環式呼吸回路で酸素流量を大きくし過ぎる",
+      "デスフルランなど一部の揮発性麻酔薬が吸収剤と反応する",
+      "吸入麻酔薬のボイリングポイントが低いほど生成される",
+      "二酸化炭素吸収剤を2日以上連続して使用すると必ずCOが生じる"
+    ],
+    "correct_answers": [0, 2],
+    "explanation": "乾燥したソーダライムとデスフルランなどの一部吸入麻酔薬が反応してCOが生成されることが知られている。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000095",
+    "type": "single_choice",
+    "categories": ["区域麻酔"],
+    "tags": ["TAP block", "上級"],
+    "difficulty": {
+      "level": "上級",
+      "correct_rate": 0.0
+    },
+    "question": "TAPブロック（transversus abdominis plane block）の主な作用部位はどれか？",
+    "options": [
+      "腰神経叢の根部（L1-L4）",
+      "腹横筋と内腹斜筋の間にある神経走行層",
+      "肋間神経（T1-T11）",
+      "胸鎖乳突筋と斜角筋の間"
+    ],
+    "correct_answers": [1],
+    "explanation": "TAPブロックは腹横筋と内腹斜筋の間を走行する前枝神経をブロックし、下腹壁の鎮痛に有効である。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000096",
+    "type": "multiple_choice",
+    "categories": ["術中モニタリング"],
+    "tags": ["上級", "EEG"],
+    "difficulty": {
+      "level": "上級",
+      "correct_rate": 0.0
+    },
+    "question": "麻酔深度モニタリングで脳波（EEG）を利用した解析を行う場合、正しい特徴を2つ選べ。",
+    "options": [
+      "BIS値は0に近いほど覚醒している状態を示す",
+      "脳波でバーストサプレッションが観察される場合、深い麻酔または脳血流低下を疑う",
+      "SEF（Spectral Edge Frequency）などの周波数解析指標が用いられる",
+      "低周波数帯域の増加は覚醒傾向を示す",
+      "EEG誘発電位（AEP）は脳血管抵抗の測定に用いられる"
+    ],
+    "correct_answers": [1, 2],
+    "explanation": "バーストサプレッションは深麻酔や脳血流低下でみられ、BISやSEFなど周波数解析が麻酔深度モニタに活用される。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000097",
+    "type": "single_choice",
+    "categories": ["術後・疼痛管理"],
+    "tags": ["上級", "慢性疼痛予防"],
+    "difficulty": {
+      "level": "上級",
+      "correct_rate": 0.0
+    },
+    "question": "術後慢性疼痛（CPSP）の予防において有効とされる手段として最も適切なのはどれか？",
+    "options": [
+      "術後はNSAIDsのみで鎮痛を行う",
+      "神経ブロックや多模式鎮痛を用い、術中・術後の痛みを可能な限り抑える",
+      "オピオイドを長期投与することで痛みに対する閾値を下げる",
+      "術後のリハビリは遅らせる方が痛みの軽減につながる"
+    ],
+    "correct_answers": [1],
+    "explanation": "CPSPの発症には術中・術後の急性疼痛管理が重要とされ、神経ブロックや多模式鎮痛で痛みを最小限に抑えることが推奨される。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000098",
+    "type": "multiple_choice",
+    "categories": ["緊急対応"],
+    "tags": ["上級", "災害医療"],
+    "difficulty": {
+      "level": "上級",
+      "correct_rate": 0.0
+    },
+    "question": "大規模災害時の手術室運用やトリアージで考慮すべき要点として正しいものを2つ選べ。",
+    "options": [
+      "限られた資源の中で重症度と救命可能性を見極めた優先度付けが必要",
+      "トリアージでは最も軽傷の患者から優先的に手術を行う",
+      "手術室の設備や麻酔薬が不足する可能性があるため代替手段を考慮する",
+      "複数の手術チームが同時に使用できるよう消耗品の個別管理を行わない",
+      "通常時より厳密な無菌操作を維持するため、患者受け入れ数を極端に制限する"
+    ],
+    "correct_answers": [0, 2],
+    "explanation": "災害時には医療資源が限られる中でトリアージを行い、重症度や救命可能性を見極める。器材や薬剤の不足を想定し代替手段を確保する必要がある。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000099",
+    "type": "single_choice",
+    "categories": ["麻酔合併症"],
+    "tags": ["上級", "局所麻酔薬中毒"],
+    "difficulty": {
+      "level": "上級",
+      "correct_rate": 0.0
+    },
+    "question": "局所麻酔薬中毒（LAST）による重篤な心毒性の初期対応で最も適切なのはどれか？",
+    "options": [
+      "早期に脂質製剤（20%脂肪乳剤）を投与する",
+      "まず大量輸液をしてその後に気道確保を検討する",
+      "低酸素血症を誘発し意識レベルを低下させる",
+      "全ての局所麻酔薬の投与を継続して中毒を抑える"
+    ],
+    "correct_answers": [0],
+    "explanation": "LASTの重篤な心毒性には20%脂肪乳剤の早期投与が有効とされ、合わせてACLSガイドラインに従った心肺蘇生を行う。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000100",
+    "type": "single_choice",
+    "categories": ["ICU管理"],
+    "tags": ["上級", "栄養管理"],
+    "difficulty": {
+      "level": "上級",
+      "correct_rate": 0.0
+    },
+    "question": "ICUにおける経腸栄養開始のタイミングに関して推奨される考え方として最も適切なのはどれか？",
+    "options": [
+      "ICU入室後すぐに経腸栄養を開始すると腸管内細菌増殖が増加するため避ける",
+      "ICU入室後24〜48時間以内に可能なら経腸栄養を開始し、腸管粘膜のバリア機能を保護する",
+      "経腸栄養は常に経静脈栄養より優先度が低い",
+      "重症患者では絶食状態を1週間以上継続することで代謝ストレスを防ぐ"
+    ],
+    "correct_answers": [1],
+    "explanation": "早期経腸栄養（24〜48時間以内）を行うことで腸管粘膜のバリア機能維持や感染リスク軽減が期待されるとされる。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  }
+]
