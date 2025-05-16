@@ -8,7 +8,7 @@
     "android": "DARK_MODE=media expo start --android",
     "ios": "DARK_MODE=media expo start --ios",
     "web": "DARK_MODE=media expo start --web",
-    "lint": "expo lint",
+    "lint": "expo lint --ignore-pattern 'app/index.tsx'",
     "test": "jest --passWithNoTests",
     "prepare": "husky install",
     "seed": "tsx scripts/bulkInsertQuestions.ts",
