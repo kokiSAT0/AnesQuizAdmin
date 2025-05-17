@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { router } from 'expo-router';
+import React, { useEffect, useState } from 'react';
+import { router, useLocalSearchParams } from 'expo-router';
 import {
   SafeAreaView,
   View,
@@ -10,38 +10,52 @@ import {
   Dimensions,
 } from 'react-native';
 import { AntDesign, Feather } from '@expo/vector-icons';
+import { getQuestionById } from '@/src/utils/db';
+import type { Question } from '@/types/firestore';
 
 const { width } = Dimensions.get('window');
 
-/* ===  仮データ  ====================== */
-const total = 30;
-const questionObj = {
-  text: '一般的な全身麻酔導入に用いられる\n鎮静薬を1つ選べ',
-  options: ['フェンタニル', 'プロポフォール', 'ロクロニウム', '生ける屍の水薬'],
-  correctIndex: 1,
-};
-/* ==================================== */
-
 export default function Quiz() {
+  const { ids } = useLocalSearchParams<{ ids?: string }>();
+  const [questionIds, setQuestionIds] = useState<string[]>([]);
+  const [question, setQuestion] = useState<Question | null>(null);
   const [selected, setSelected] = useState<number | null>(null);
   const [isAnswered, setIsAnswered] = useState(false);
-  const current = 2; // ←本来はパラメータなどから取得
 
-  /* 解答確定 */
+  useEffect(() => {
+    if (typeof ids === 'string') {
+      const list = ids.split(',').filter(Boolean);
+      setQuestionIds(list);
+      if (list[0]) {
+        loadQuestion(list[0]);
+      }
+    }
+  }, [ids]);
+
+  const loadQuestion = async (id: string) => {
+    const q = await getQuestionById(id);
+    if (q) setQuestion(q);
+  };
+
   const onSubmit = () => {
-    if (selected === null) return;
-
-    const correct = selected === questionObj.correctIndex;
+    if (selected === null || !question) return;
+    const correct = question.correct_answers.includes(selected);
     setIsAnswered(true);
-
-    // 0.5 s 後に解説画面へ遷移（UX のためワンテンポ置く）
     setTimeout(() => {
-      router.push({
-        pathname: '/result',
-        params: { correct: String(correct) },
-      });
+      router.push({ pathname: '/result', params: { correct: String(correct) } });
     }, 500);
   };
+
+  if (!question) {
+    return (
+      <View style={styles.loading}>
+        <Text>読み込み中...</Text>
+      </View>
+    );
+  }
+
+  const total = questionIds.length;
+  const current = 1; // 今回は1問目のみ表示
 
   return (
     <SafeAreaView style={styles.root}>
@@ -50,22 +64,18 @@ export default function Quiz() {
         <Pressable onPress={() => router.back()}>
           <Feather name="menu" size={28} color="#333" />
         </Pressable>
-        <Text
-          style={styles.headerTitle}
-        >{`クイズ（${current} / ${total}）`}</Text>
+        <Text style={styles.headerTitle}>{`クイズ（${current} / ${total}）`}</Text>
         <AntDesign name="user" size={28} color="#333" />
       </View>
 
       {/* 進捗バー */}
       <View style={styles.progressBg}>
-        <View
-          style={[styles.progressFg, { width: `${(current / total) * 100}%` }]}
-        />
+        <View style={[styles.progressFg, { width: `${(current / total) * 100}%` }]} />
       </View>
 
       {/* ───────── 問題カード ───────── */}
       <View style={styles.card}>
-        <Text style={styles.questionTxt}>{questionObj.text}</Text>
+        <Text style={styles.questionTxt}>{question.question}</Text>
         <AntDesign
           name="star"
           size={24}
@@ -75,7 +85,7 @@ export default function Quiz() {
       </View>
 
       {/* ───────── 選択肢 ───────── */}
-      {questionObj.options.map((opt, idx) => {
+      {question.options.map((opt, idx) => {
         const chosen = selected === idx;
         return (
           <TouchableOpacity
@@ -145,4 +155,5 @@ const styles = StyleSheet.create({
   submitBtn: { ...baseBtn, backgroundColor: '#86efac', marginTop: 16 },
   submitDisabled: { backgroundColor: '#d1d5db' },
   submitTxt: { fontSize: 18, color: '#fff', fontWeight: '700' },
+  loading: { flex: 1, justifyContent: 'center', alignItems: 'center' },
 });
