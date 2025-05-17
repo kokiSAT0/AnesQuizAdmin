@@ -95,8 +95,6 @@ export default function IndexScreen() {
     }
   };
 
-
-export default function Home() {
   return (
     <View style={styles.container}>
       <Text style={styles.header}>AnesQuiz α版</Text>
