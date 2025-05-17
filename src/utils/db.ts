@@ -165,3 +165,74 @@ export async function getQuestionsLimit5(): Promise<any[]> {
   const db = await getDB();
   return await db.getAllAsync('SELECT * FROM Questions ORDER BY id LIMIT 5;');
 }
+
+/* ------------------------------------------------------------------ */
+/* 5. すべての問題IDを取得                                             */
+/* ------------------------------------------------------------------ */
+export async function getAllQuestionIds(): Promise<string[]> {
+  const db = await getDB();
+  const rows = await db.getAllAsync<{ id: string }>(
+    'SELECT id FROM Questions ORDER BY id;'
+  );
+  return rows.map((r) => r.id);
+}
+
+/* ------------------------------------------------------------------ */
+/* 6. ID を指定して問題を取得                                          */
+/* ------------------------------------------------------------------ */
+export interface SQLiteQuestionRow {
+  id: string;
+  type: string;
+  category_json: string;
+  tag_json: string;
+  difficulty_level: string | null;
+  difficulty_correct_rate: number | null;
+  question: string;
+  option_json: string;
+  correct_json: string;
+  explanation: string;
+  media_json: string;
+  reference_json: string;
+  created_at: string;
+  updated_at: string;
+  created_by: string;
+  reviewed: number;
+  attempts: number;
+  correct: number;
+}
+
+export async function getQuestionById(id: string) {
+  const db = await getDB();
+  const row = await db.getFirstAsync<SQLiteQuestionRow>(
+    'SELECT * FROM Questions WHERE id = ?;',
+    [id]
+  );
+  if (!row) return null;
+
+  return {
+    id: row.id,
+    type: row.type,
+    categories: JSON.parse(row.category_json),
+    tags: JSON.parse(row.tag_json),
+    difficulty: {
+      level: row.difficulty_level,
+      correct_rate: row.difficulty_correct_rate,
+    },
+    question: row.question,
+    options: JSON.parse(row.option_json),
+    correct_answers: JSON.parse(row.correct_json),
+    explanation: row.explanation,
+    media_urls: JSON.parse(row.media_json),
+    references: JSON.parse(row.reference_json),
+    metadata: {
+      created_at: row.created_at,
+      updated_at: row.updated_at,
+      created_by: row.created_by,
+      reviewed: !!row.reviewed,
+    },
+    statistics: {
+      attempts: row.attempts,
+      correct: row.correct,
+    },
+  };
+}
