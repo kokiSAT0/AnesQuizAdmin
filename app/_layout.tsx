@@ -1,12 +1,28 @@
 import { Stack } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
+import { View, StyleSheet } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function RootLayout() {
+  const insets = useSafeAreaInsets();
+
   return (
-    <Stack
-      screenOptions={{
-        headerShown: false, // 各画面で独自ヘッダを作るため非表示
-        animation: 'slide_from_right',
-      }}
-    />
+    <View style={[styles.container, { paddingTop: insets.top }]}>
+      <StatusBar style="dark" backgroundColor="#fff" /> {/* ← 全画面共通 */}
+      <Stack
+        screenOptions={{
+          headerShown: false,
+          animation: 'slide_from_right',
+          contentStyle: { backgroundColor: '#fff' }, // 下地色を統一
+        }}
+      />
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+});
