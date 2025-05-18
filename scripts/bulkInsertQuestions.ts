@@ -24,6 +24,7 @@ import chalk from 'chalk';
     // ── 本番 Firestore：サービスアカウント必須 ──
     const keyPath = process.env.GOOGLE_APPLICATION_CREDENTIALS;
     if (!keyPath) {
+      /* eslint-disable no-console */
       console.error(
         '❌  Set GOOGLE_APPLICATION_CREDENTIALS to your serviceAccount.json path',
       );

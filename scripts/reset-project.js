@@ -50,6 +50,7 @@ const moveDirectories = async (userInput) => {
     if (userInput === 'y') {
       // Create the app-example directory
       await fs.promises.mkdir(exampleDirPath, { recursive: true });
+      /* eslint-disable no-console */
       console.log(`📁 /${exampleDir} directory created.`);
     }
 
