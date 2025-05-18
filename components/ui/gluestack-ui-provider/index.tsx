@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { config } from './config';
-import { View, ViewProps } from 'react-native';
+import { View, ViewProps, StyleSheet } from 'react-native';
 import { OverlayProvider } from '@gluestack-ui/overlay';
 import { ToastProvider } from '@gluestack-ui/toast';
 import { useColorScheme } from 'nativewind';
@@ -23,16 +23,13 @@ export function GluestackUIProvider({
   }, [mode]);
 
   return (
-    <View
-      style={[
-        config[colorScheme!],
-        { flex: 1, height: '100%', width: '100%' },
-        props.style,
-      ]}
-    >
+    <View style={[config[colorScheme!], styles.fullScreen, props.style]}>
       <OverlayProvider>
         <ToastProvider>{props.children}</ToastProvider>
       </OverlayProvider>
     </View>
   );
 }
+const styles = StyleSheet.create({
+  fullScreen: { flex: 1, height: '100%', width: '100%' },
+});

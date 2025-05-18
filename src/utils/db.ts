@@ -172,7 +172,7 @@ export async function getQuestionsLimit5(): Promise<any[]> {
 export async function getAllQuestionIds(): Promise<string[]> {
   const db = await getDB();
   const rows = await db.getAllAsync<{ id: string }>(
-    'SELECT id FROM Questions ORDER BY id;'
+    'SELECT id FROM Questions ORDER BY id;',
   );
   return rows.map((r) => r.id);
 }
@@ -205,7 +205,7 @@ export async function getQuestionById(id: string) {
   const db = await getDB();
   const row = await db.getFirstAsync<SQLiteQuestionRow>(
     'SELECT * FROM Questions WHERE id = ?;',
-    [id]
+    [id],
   );
   if (!row) return null;
 

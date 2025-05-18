@@ -16,8 +16,8 @@ import {
   initializeDatabaseIfNeeded,
   getQuestionsCount,
   getQuestionsLimit5,
-} from '../src/utils/db';
-import { syncFirestoreToSQLite } from '../src/utils/firestoreSync';
+} from '@/src/utils/db';
+import { syncFirestoreToSQLite } from '@/src/utils/firestoreSync';
 
 export default function IndexScreen() {
   const [isSyncing, setIsSyncing] = useState(false); // 同期中フラグ（複数連打防止）

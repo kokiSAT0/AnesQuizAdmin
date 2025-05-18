@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import { View, Text, StyleSheet, Button, Alert } from 'react-native';
 import { router } from 'expo-router';
 import { getAllQuestionIds } from '@/src/utils/db';
 
@@ -12,7 +12,9 @@ export default function SelectScreen() {
         const list = await getAllQuestionIds();
         setIds(list);
       } catch (e) {
-        console.error('ID 取得失敗', e);
+        // eslint-disable-next-line no-console
+        if (__DEV__) console.error('ID 取得失敗', e); // dev 環境のみログ
+        Alert.alert('データ取得エラー', '問題一覧を読み込めませんでした。');
       }
     })();
   }, []);
@@ -25,7 +27,11 @@ export default function SelectScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>クイズ選択画面</Text>
-      <Button title="クイズ開始" onPress={startQuiz} disabled={ids.length === 0} />
+      <Button
+        title="クイズ開始"
+        onPress={startQuiz}
+        disabled={ids.length === 0}
+      />
     </View>
   );
 }
