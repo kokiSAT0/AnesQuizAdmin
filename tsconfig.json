@@ -12,10 +12,10 @@
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
-    "nativewind-env.d.ts"
+    "nativewind-env.d.ts",
+    "__tests__/**/*"   // ★追加
   ],
   "exclude": [
     "node_modules",
-    "__tests__" // 👈 追加：テストは Task #9 で整備
   ]
 }

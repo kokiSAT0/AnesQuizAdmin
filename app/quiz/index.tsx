@@ -42,7 +42,10 @@ export default function Quiz() {
     const correct = question.correct_answers.includes(selected);
     setIsAnswered(true);
     setTimeout(() => {
-      router.push({ pathname: '/result', params: { correct: String(correct) } });
+      router.push({
+        pathname: '/result',
+        params: { correct: String(correct) },
+      });
     }, 500);
   };
 
@@ -64,24 +67,23 @@ export default function Quiz() {
         <Pressable onPress={() => router.back()}>
           <Feather name="menu" size={28} color="#333" />
         </Pressable>
-        <Text style={styles.headerTitle}>{`クイズ（${current} / ${total}）`}</Text>
+        <Text
+          style={styles.headerTitle}
+        >{`クイズ（${current} / ${total}）`}</Text>
         <AntDesign name="user" size={28} color="#333" />
       </View>
 
       {/* 進捗バー */}
       <View style={styles.progressBg}>
-        <View style={[styles.progressFg, { width: `${(current / total) * 100}%` }]} />
+        <View
+          style={[styles.progressFg, { width: `${(current / total) * 100}%` }]}
+        />
       </View>
 
       {/* ───────── 問題カード ───────── */}
       <View style={styles.card}>
         <Text style={styles.questionTxt}>{question.question}</Text>
-        <AntDesign
-          name="star"
-          size={24}
-          color="#333"
-          style={{ position: 'absolute', top: 12, right: 12 }}
-        />
+        <AntDesign name="star" size={24} color="#333" style={styles.starIcon} />
       </View>
 
       {/* ───────── 選択肢 ───────── */}
@@ -155,5 +157,6 @@ const styles = StyleSheet.create({
   submitBtn: { ...baseBtn, backgroundColor: '#86efac', marginTop: 16 },
   submitDisabled: { backgroundColor: '#d1d5db' },
   submitTxt: { fontSize: 18, color: '#fff', fontWeight: '700' },
+  starIcon: { position: 'absolute', top: 12, right: 12 },
   loading: { flex: 1, justifyContent: 'center', alignItems: 'center' },
 });
