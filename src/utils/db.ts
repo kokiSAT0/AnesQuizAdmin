@@ -32,6 +32,7 @@ export async function initializeDatabaseIfNeeded(): Promise<void> {
 
   if (user_version === 0) {
     // ② トランザクション内でテーブル作成 & user_version 更新
+    // トランザクションとは複数の処理をひとまとめにして、途中で失敗したら全部なかったことにする仕組みです
     await db.withTransactionAsync(async () => {
       await db.execAsync(`
         CREATE TABLE IF NOT EXISTS Questions (
@@ -52,7 +53,24 @@ export async function initializeDatabaseIfNeeded(): Promise<void> {
           created_by TEXT,
           reviewed INTEGER,
           attempts INTEGER,
-          correct INTEGER
+          correct INTEGER,
+          is_favorite INTEGER,
+          last_answer_correct INTEGER,
+          last_answered_at TEXT,
+          last_correct_at TEXT,
+          last_incorrect_at TEXT
+        );
+      `);
+
+      await db.execAsync(`
+        CREATE TABLE IF NOT EXISTS LearningDailyLogs (
+          -- 日ごとの学習記録を保存するテーブル
+          user_id TEXT,
+          learning_date TEXT,
+          answers_json TEXT,
+          created_at TEXT,
+          updated_at TEXT,
+          PRIMARY KEY (user_id, learning_date)
         );
       `);
 
@@ -217,6 +235,11 @@ export interface SQLiteQuestionRow {
   reviewed: number;
   attempts: number;
   correct: number;
+  is_favorite: number; // お気に入り登録されているかどうか（0/1）
+  last_answer_correct: number; // 直近の回答が正解かどうか（0/1）
+  last_answered_at: string | null; // 最後に回答した日時
+  last_correct_at: string | null; // 最後に正解した日時
+  last_incorrect_at: string | null; // 最後に不正解だった日時
 }
 
 export async function getQuestionById(id: string) {
@@ -252,6 +275,11 @@ export async function getQuestionById(id: string) {
       attempts: row.attempts,
       correct: row.correct,
     },
+    is_favorite: !!row.is_favorite,
+    last_answer_correct: !!row.last_answer_correct,
+    last_answered_at: row.last_answered_at,
+    last_correct_at: row.last_correct_at,
+    last_incorrect_at: row.last_incorrect_at,
   };
 }
 
