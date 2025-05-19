@@ -21,7 +21,23 @@ erDiagram
       int     reviewed
       int     attempts
       int     correct
+      int     is_favorite
+      int     last_answer_correct
+      string  last_answered_at
+      string  last_correct_at
+      string  last_incorrect_at
     }
+
+    LEARNINGDAILYLOGS {
+      string  user_id PK
+      string  learning_date PK
+      string  answers_json
+      string  created_at
+      string  updated_at
+    }
+
+    QUESTIONS ||--o{ LEARNINGDAILYLOGS : "question_id（JSON 内で参照）"
+
 ```
 
 - `Questions` テーブルのみを使用します。

@@ -214,6 +214,29 @@ export async function getAllQuestionIds(): Promise<string[]> {
 }
 
 /* ------------------------------------------------------------------ */
+/* 5-1. 難易度を指定して問題IDを取得                                   */
+/* ------------------------------------------------------------------ */
+export async function getQuestionIdsByDifficulty(
+  levels: string[],
+): Promise<string[]> {
+  const db = await getDB();
+
+  if (levels.length === 0) {
+    const rows = await db.getAllAsync<{ id: string }>(
+      'SELECT id FROM Questions ORDER BY id;',
+    );
+    return rows.map((r) => r.id);
+  }
+
+  const placeholders = levels.map(() => '?').join(', ');
+  const rows = await db.getAllAsync<{ id: string }>(
+    `SELECT id FROM Questions WHERE difficulty_level IN (${placeholders}) ORDER BY id;`,
+    levels,
+  );
+  return rows.map((r) => r.id);
+}
+
+/* ------------------------------------------------------------------ */
 /* 6. ID を指定して問題を取得                                          */
 /* ------------------------------------------------------------------ */
 export interface SQLiteQuestionRow {
