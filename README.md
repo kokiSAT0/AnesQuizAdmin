@@ -59,3 +59,10 @@ FIREBASE_APP_ID="1:1234567890:web:abcdef123456"
 # キャッシュクリア付き起動を推奨
 
 npx expo start --clear
+
+---
+
+## ドキュメント
+
+- Firestore の構成: [docs/firestore_schema.md](docs/firestore_schema.md)
+- SQLite の構成: [docs/sqlite_schema.md](docs/sqlite_schema.md)
