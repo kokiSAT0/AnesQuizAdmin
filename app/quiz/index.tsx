@@ -65,7 +65,7 @@ export default function Quiz() {
       {/* ───────── ヘッダ ───────── */}
       <View style={styles.header}>
         <Pressable onPress={() => router.back()}>
-          <Feather name="menu" size={28} color="#333" />
+          <Feather name="arrow-left" size={28} color="#333" />
         </Pressable>
         <Text
           style={styles.headerTitle}
