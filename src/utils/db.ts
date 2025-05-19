@@ -237,6 +237,31 @@ export async function getQuestionIdsByDifficulty(
 }
 
 /* ------------------------------------------------------------------ */
+/* 5-2. 難易度を指定して問題数をカウントする                           */
+/* ------------------------------------------------------------------ */
+export async function countQuestionsByDifficulty(
+  levels: string[],
+): Promise<number> {
+  const db = await getDB();
+
+  // 難易度が選択されていない場合は全件数を返す
+  if (levels.length === 0) {
+    const { total } = await db.getFirstAsync<{ total: number }>(
+      'SELECT COUNT(*) AS total FROM Questions;',
+    );
+    return total;
+  }
+
+  // IN 句の ? をレベルの個数分並べる
+  const placeholders = levels.map(() => '?').join(', ');
+  const { total } = await db.getFirstAsync<{ total: number }>(
+    `SELECT COUNT(*) AS total FROM Questions WHERE difficulty_level IN (${placeholders});`,
+    levels,
+  );
+  return total;
+}
+
+/* ------------------------------------------------------------------ */
 /* 6. ID を指定して問題を取得                                          */
 /* ------------------------------------------------------------------ */
 export interface SQLiteQuestionRow {

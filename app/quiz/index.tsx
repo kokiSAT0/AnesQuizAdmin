@@ -16,21 +16,34 @@ import type { Question } from '@/types/firestore';
 const { width } = Dimensions.get('window');
 
 export default function Quiz() {
-  const { ids } = useLocalSearchParams<{ ids?: string }>();
+  // ids: 出題する問題IDの一覧
+  // current: 現在の問題番号（0始まり）をクエリから取得
+  const { ids, current } = useLocalSearchParams<{
+    ids?: string;
+    current?: string;
+  }>();
   const [questionIds, setQuestionIds] = useState<string[]>([]);
+  const [currentIndex, setCurrentIndex] = useState(0); // 今何問目かを記憶
   const [question, setQuestion] = useState<Question | null>(null);
   const [selected, setSelected] = useState<number | null>(null);
   const [isAnswered, setIsAnswered] = useState(false);
 
   useEffect(() => {
     if (typeof ids === 'string') {
+      // クエリ文字列からID一覧を配列に変換
       const list = ids.split(',').filter(Boolean);
       setQuestionIds(list);
-      if (list[0]) {
-        loadQuestion(list[0]);
+
+      // current が無ければ 0 (最初の問題) を採用
+      const idx = current ? parseInt(current, 10) : 0;
+      setCurrentIndex(idx);
+
+      // その番号の問題を読み込む
+      if (list[idx]) {
+        loadQuestion(list[idx]);
       }
     }
-  }, [ids]);
+  }, [ids, current]);
 
   const loadQuestion = async (id: string) => {
     const q = await getQuestionById(id);
@@ -43,8 +56,14 @@ export default function Quiz() {
     setIsAnswered(true);
     setTimeout(() => {
       router.push({
-        pathname: '/result',
-        params: { correct: String(correct) },
+        pathname: '/quiz/answer',
+        params: {
+          correct: String(correct),
+          // 今回答えた問題のIDと次に表示する情報を渡す
+          questionId: question.id,
+          ids: ids ?? '',
+          current: String(currentIndex),
+        },
       });
     }, 500);
   };
@@ -58,7 +77,9 @@ export default function Quiz() {
   }
 
   const total = questionIds.length;
-  const current = 1; // 今回は1問目のみ表示
+  // 表示用の番号。0 始まりの currentIndex に 1 を足す
+  // 変数名が上のクエリと被らないよう currentNo にしています
+  const currentNo = currentIndex + 1;
 
   return (
     <SafeAreaView style={styles.root}>
@@ -69,14 +90,17 @@ export default function Quiz() {
         </Pressable>
         <Text
           style={styles.headerTitle}
-        >{`クイズ（${current} / ${total}）`}</Text>
+        >{`クイズ（${currentNo} / ${total}）`}</Text>
         <AntDesign name="user" size={28} color="#333" />
       </View>
 
       {/* 進捗バー */}
       <View style={styles.progressBg}>
         <View
-          style={[styles.progressFg, { width: `${(current / total) * 100}%` }]}
+          style={[
+            styles.progressFg,
+            { width: `${(currentNo / total) * 100}%` },
+          ]}
         />
       </View>
 

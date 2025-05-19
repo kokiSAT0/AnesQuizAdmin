@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -9,7 +9,10 @@ import {
   Switch,
 } from 'react-native';
 import { router } from 'expo-router';
-import { getQuestionIdsByDifficulty } from '@/src/utils/db';
+import {
+  getQuestionIdsByDifficulty,
+  countQuestionsByDifficulty,
+} from '@/src/utils/db';
 
 // 選択可能な難易度のリスト
 const LEVELS = ['初級', '中級', '上級'] as const;
@@ -36,6 +39,15 @@ function CheckBox({
 export default function SelectScreen() {
   const [selected, setSelected] = useState<Level[]>([]);
   const [random, setRandom] = useState(false);
+  const [matchCount, setMatchCount] = useState<number>(0);
+
+  // 選択が変わるたびに件数を再計算する
+  useEffect(() => {
+    (async () => {
+      const count = await countQuestionsByDifficulty(selected);
+      setMatchCount(count);
+    })();
+  }, [selected]);
 
   const toggleLevel = (level: Level) => {
     setSelected((prev) =>
@@ -76,6 +88,8 @@ export default function SelectScreen() {
         <Text style={styles.randomLabel}>ランダムに出題する</Text>
         <Switch value={random} onValueChange={setRandom} />
       </View>
+      {/* 選択条件に合致する問題数を表示 */}
+      <Text style={styles.countText}>該当問題数: {matchCount} 件</Text>
       <Button title="クイズ開始" onPress={startQuiz} />
     </View>
   );
@@ -117,6 +131,10 @@ const styles = StyleSheet.create({
   },
   randomLabel: {
     marginRight: 8,
+    fontSize: 16,
+  },
+  countText: {
+    marginVertical: 8,
     fontSize: 16,
   },
 });
