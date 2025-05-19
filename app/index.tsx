@@ -16,6 +16,7 @@ import {
   initializeDatabaseIfNeeded,
   getQuestionsCount,
   getQuestionsLimit5,
+  getOrCreateUserId,
 } from '@/src/utils/db';
 import { syncFirestoreToSQLite } from '@/src/utils/firestoreSync';
 
@@ -34,7 +35,8 @@ export default function IndexScreen() {
     (async () => {
       try {
         await initializeDatabaseIfNeeded();
-        appendLog('DB initialization complete');
+        const id = await getOrCreateUserId();
+        appendLog(`DB initialization complete (user_id: ${id})`);
       } catch (err: any) {
         appendLog(`DB init error: ${err.message}`);
       }
