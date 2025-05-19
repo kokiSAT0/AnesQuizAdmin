@@ -8,7 +8,7 @@ export default function RootLayout() {
 
   return (
     <View style={[styles.container, { paddingTop: insets.top }]}>
-      <StatusBar style="dark" backgroundColor="#fff" /> {/* ← 全画面共通 */}
+      <StatusBar style="dark" backgroundColor="#fff" />
       <Stack
         screenOptions={{
           headerShown: false,
