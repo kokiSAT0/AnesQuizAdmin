@@ -10,7 +10,12 @@ import {
   Dimensions,
 } from 'react-native';
 import { AntDesign, Feather } from '@expo/vector-icons';
-import { getQuestionById, updateLearningDailyLog } from '@/src/utils/db';
+import {
+  getQuestionById,
+  updateLearningDailyLog,
+  recordAnswer,
+  updateFavorite,
+} from '@/src/utils/db';
 
 import type { Question } from '@/types/firestore';
 
@@ -28,6 +33,14 @@ export default function Quiz() {
   const [question, setQuestion] = useState<Question | null>(null);
   const [selected, setSelected] = useState<number | null>(null);
   const [isAnswered, setIsAnswered] = useState(false);
+
+  // お気に入り切り替え
+  const toggleFavorite = async () => {
+    if (!question) return;
+    const newFlag = !question.is_favorite;
+    await updateFavorite(question.id, newFlag);
+    setQuestion({ ...question, is_favorite: newFlag });
+  };
 
   useEffect(() => {
     if (typeof ids === 'string') {
@@ -57,6 +70,8 @@ export default function Quiz() {
     setIsAnswered(true);
     // 日次ログに解答結果を保存（失敗してもアプリは続行）
     void updateLearningDailyLog(question.id, correct);
+    // 問題テーブルの統計も更新
+    void recordAnswer(question.id, correct);
     setTimeout(() => {
       router.push({
         pathname: '/quiz/answer',
@@ -88,7 +103,12 @@ export default function Quiz() {
     <SafeAreaView style={styles.root}>
       {/* ───────── ヘッダ ───────── */}
       <View style={styles.header}>
-        <Pressable onPress={() => router.back()}>
+        {/*
+          戻るボタンを押したら選択画面へ遷移させます。
+          router.replace を使うと履歴が残らないため、
+          ユーザーが無駄に戻る操作をしなくて済みます。
+        */}
+        <Pressable onPress={() => router.replace('/select')}>
           <Feather name="arrow-left" size={28} color="#333" />
         </Pressable>
         <Text
@@ -110,7 +130,13 @@ export default function Quiz() {
       {/* ───────── 問題カード ───────── */}
       <View style={styles.card}>
         <Text style={styles.questionTxt}>{question.question}</Text>
-        <AntDesign name="star" size={24} color="#333" style={styles.starIcon} />
+        <Pressable onPress={toggleFavorite} style={styles.starIcon}>
+          {question.is_favorite ? (
+            <AntDesign name="star" size={24} color="#facc15" />
+          ) : (
+            <AntDesign name="staro" size={24} color="#333" />
+          )}
+        </Pressable>
       </View>
 
       {/* ───────── 選択肢 ───────── */}

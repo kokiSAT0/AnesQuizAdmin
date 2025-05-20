@@ -332,6 +332,60 @@ export async function getQuestionById(id: string) {
 }
 
 /* ------------------------------------------------------------------ */
+/* 7. お気に入りフラグを更新                                          */
+/* ------------------------------------------------------------------ */
+export async function updateFavorite(id: string, flag: boolean): Promise<void> {
+  const db = await getDB();
+  await db.runAsync('UPDATE Questions SET is_favorite = ? WHERE id = ?;', [
+    flag ? 1 : 0,
+    id,
+  ]);
+}
+
+/* ------------------------------------------------------------------ */
+/* 8. 回答結果を Questions テーブルに記録                              */
+/* ------------------------------------------------------------------ */
+export async function recordAnswer(
+  id: string,
+  isCorrect: boolean,
+): Promise<void> {
+  const db = await getDB();
+  const now = new Date().toISOString();
+  const lastCorrect = isCorrect ? now : null;
+  const lastIncorrect = isCorrect ? null : now;
+  await db.runAsync(
+    `UPDATE Questions
+        SET attempts = attempts + 1,
+            correct = correct + ?,
+            last_answer_correct = ?,
+            last_answered_at = ?,
+            last_correct_at = COALESCE(?, last_correct_at),
+            last_incorrect_at = COALESCE(?, last_incorrect_at)
+      WHERE id = ?;`,
+    [isCorrect ? 1 : 0, isCorrect ? 1 : 0, now, lastCorrect, lastIncorrect, id],
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* 9. テーブル削除（開発用）                                          */
+/* ------------------------------------------------------------------ */
+export async function dropQuestionsTable(): Promise<void> {
+  const db = await getDB();
+  await db.execAsync('DROP TABLE IF EXISTS Questions;');
+  await db.execAsync('PRAGMA user_version = 0;');
+}
+
+export async function dropAppInfoTable(): Promise<void> {
+  const db = await getDB();
+  await db.execAsync('DROP TABLE IF EXISTS AppInfo;');
+}
+
+export async function dropLearningLogsTable(): Promise<void> {
+  const db = await getDB();
+  await db.execAsync('DROP TABLE IF EXISTS LearningDailyLogs;');
+}
+
+/* ------------------------------------------------------------------ */
 /* 7. user_id を取得（なければ生成）                                   */
 /* ------------------------------------------------------------------ */
 export async function getOrCreateUserId(): Promise<string> {

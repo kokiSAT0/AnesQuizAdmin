@@ -18,4 +18,14 @@ export interface Question {
     reviewed: boolean;
   };
   statistics: { attempts: number; correct: number };
+  /** お気に入り登録フラグ */
+  is_favorite: boolean;
+  /** 直近の回答が正解かどうか */
+  last_answer_correct: boolean;
+  /** 最後に回答した日時 (ISO 文字列) */
+  last_answered_at: string | null;
+  /** 最後に正解した日時 (ISO 文字列) */
+  last_correct_at: string | null;
+  /** 最後に不正解だった日時 (ISO 文字列) */
+  last_incorrect_at: string | null;
 }
