@@ -160,6 +160,7 @@ export default function IndexScreen() {
         <Button title="📂 SQLite の内容表示" onPress={handleShowData} />
         <Button title="📜 学習ログ表示" onPress={handleShowLogs} />
         <Button title="クイズを始める" onPress={() => router.push('/select')} />
+        <Button title="rnp test" onPress={() => router.push('/rnptest')} />
         <Button title="Questions 削除" onPress={handleDropQuestions} />
         <Button title="AppInfo 削除" onPress={handleDropAppInfo} />
         <Button title="Logs 削除" onPress={handleDropLogsTbl} />
