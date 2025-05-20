@@ -1,13 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Button,
-  Alert,
-  Pressable,
-  Switch,
-} from 'react-native';
+import { View, Pressable, Alert } from 'react-native';
+import { Text, Button, Switch, Checkbox } from 'react-native-paper';
 import { router } from 'expo-router';
 import {
   getQuestionIdsByDifficulty,
@@ -18,8 +11,9 @@ import {
 const LEVELS = ['初級', '中級', '上級'] as const;
 type Level = (typeof LEVELS)[number];
 
-// 簡易チェックボックスコンポーネント
-function CheckBox({
+// チェックボックス付きの行を表示するコンポーネント
+// "コンポーネント" とは画面の部品をまとめた再利用可能な要素のことです
+function CheckBoxRow({
   label,
   checked,
   onToggle,
@@ -29,9 +23,10 @@ function CheckBox({
   onToggle: () => void;
 }) {
   return (
-    <Pressable style={styles.checkRow} onPress={onToggle}>
-      <View style={[styles.checkBox, checked && styles.checked]} />
-      <Text style={styles.checkLabel}>{label}</Text>
+    <Pressable className="flex-row items-center my-1" onPress={onToggle}>
+      {/* react-native-paper の Checkbox を使用 */}
+      <Checkbox status={checked ? 'checked' : 'unchecked'} onPress={onToggle} />
+      <Text className="ml-2 text-lg">{label}</Text>
     </Pressable>
   );
 }
@@ -74,69 +69,41 @@ export default function SelectScreen() {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>クイズ選択画面</Text>
+    <View className="flex-1 p-4 bg-gray-50">
+      <Text variant="titleLarge" className="text-center mb-3">
+        クイズ選択画面
+      </Text>
       {LEVELS.map((lv) => (
-        <CheckBox
+        <CheckBoxRow
           key={lv}
           label={lv}
           checked={selected.includes(lv)}
           onToggle={() => toggleLevel(lv)}
         />
       ))}
-      <View style={styles.randomRow}>
-        <Text style={styles.randomLabel}>ランダムに出題する</Text>
+      <View className="flex-row items-center my-2">
+        <Text className="mr-2 text-base">ランダムに出題する</Text>
         <Switch value={random} onValueChange={setRandom} />
       </View>
       {/* 選択条件に合致する問題数を表示 */}
-      <Text style={styles.countText}>該当問題数: {matchCount} 件</Text>
-      <Button title="クイズ開始" onPress={startQuiz} />
-      {/* 戻るボタン。router.back() で前の画面へ戻ります */}
-      <Button title="戻る" onPress={() => router.back()} />
+      <Text className="my-2 text-base">該当問題数: {matchCount} 件</Text>
+      <View className="items-center space-y-2">
+        <Button
+          mode="contained"
+          onPress={startQuiz}
+          className="w-full max-w-sm"
+        >
+          クイズ開始
+        </Button>
+        {/* router.back() で前の画面へ戻ります */}
+        <Button
+          mode="outlined"
+          onPress={() => router.back()}
+          className="w-full max-w-sm"
+        >
+          戻る
+        </Button>
+      </View>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-  },
-  checkRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginVertical: 4,
-  },
-  checkBox: {
-    width: 20,
-    height: 20,
-    borderWidth: 1,
-    borderColor: '#333',
-    marginRight: 8,
-  },
-  checked: {
-    backgroundColor: '#60a5fa',
-  },
-  checkLabel: {
-    fontSize: 18,
-  },
-  randomRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginVertical: 8,
-  },
-  randomLabel: {
-    marginRight: 8,
-    fontSize: 16,
-  },
-  countText: {
-    marginVertical: 8,
-    fontSize: 16,
-  },
-});

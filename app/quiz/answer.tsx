@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { router, useLocalSearchParams } from 'expo-router';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  Pressable,
-} from 'react-native';
+import { View, ScrollView, Pressable } from 'react-native';
+import { Text, Button } from 'react-native-paper';
 import { Feather, AntDesign } from '@expo/vector-icons';
 import { getQuestionById, updateFavorite } from '@/src/utils/db';
 
@@ -75,55 +70,46 @@ export default function AnswerScreen() {
   };
 
   return (
-    <View style={styles.container}>
+    <View className="flex-1 px-6 py-12 bg-white">
       {/*
-        画面上部に戻るボタンを配置します。
-        押すと選択画面へ移動し、クイズを途中で終了できます。
+        画面上部の戻るボタン。押すと選択画面へ戻ります。
+        「Pressable」はタップを検知するためのコンポーネントです。
       */}
-      <View style={styles.header}>
+      <View className="absolute top-6 left-4">
         <Pressable onPress={() => router.replace('/select')}>
           <Feather name="arrow-left" size={28} color="#333" />
         </Pressable>
       </View>
-      <Pressable onPress={toggleFavorite} style={styles.starIcon}>
+
+      {/* お気に入り切り替えアイコン */}
+      <Pressable onPress={toggleFavorite} className="absolute top-6 right-4">
         {favorite ? (
           <AntDesign name="star" size={24} color="#facc15" />
         ) : (
           <AntDesign name="staro" size={24} color="#333" />
         )}
       </Pressable>
-      <Text style={styles.result}>{correct ? '正解！🎉' : '残念…'}</Text>
-      <Text style={styles.explain}>{explanation}</Text>
-      <TouchableOpacity style={styles.btn} onPress={goNext}>
-        <Text style={styles.btnTxt}>次の問題へ</Text>
-      </TouchableOpacity>
+
+      <View className="flex-1 justify-center">
+        {/* 正解・不正解の表示 */}
+        <Text variant="headlineMedium" className="text-center mb-6">
+          {correct ? '正解！🎉' : '残念…'}
+        </Text>
+
+        {/* 解説文。長い場合にスクロールできるよう ScrollView を使用 */}
+        <ScrollView className="mb-8">
+          <Text className="text-base leading-6">{explanation}</Text>
+        </ScrollView>
+
+        {/* 次の問題へ進むボタン */}
+        <Button
+          mode="contained"
+          onPress={goNext}
+          className="self-center w-full max-w-sm"
+        >
+          次の問題へ
+        </Button>
+      </View>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 24,
-    justifyContent: 'center',
-    backgroundColor: '#fff',
-    position: 'relative',
-  },
-  // ヘッダ用スタイル。戻るボタンを左上に配置します
-  header: { position: 'absolute', top: 24, left: 16 },
-  result: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginBottom: 24,
-  },
-  explain: { fontSize: 16, lineHeight: 22, marginBottom: 40 },
-  btn: { backgroundColor: '#22c55e', padding: 16, borderRadius: 8 },
-  btnTxt: {
-    color: '#fff',
-    textAlign: 'center',
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  starIcon: { position: 'absolute', top: 24, right: 24 },
-});

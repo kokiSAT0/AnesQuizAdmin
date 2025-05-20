@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import {
   View,
-  Text,
-  Button,
   StyleSheet,
   Modal,
   ActivityIndicator,
   ScrollView,
   Platform,
 } from 'react-native';
+import { Text, Button } from 'react-native-paper';
 import NetInfo from '@react-native-community/netinfo';
 import { router } from 'expo-router';
 
@@ -148,29 +147,69 @@ export default function IndexScreen() {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}>AnesQuiz α版</Text>
+    <View className="flex-1 p-4 bg-gray-50">
+      <Text variant="titleLarge" className="text-center mb-3">
+        AnesQuiz α版
+      </Text>
 
-      <View style={styles.buttonContainer}>
+      <View className="items-center space-y-2">
         <Button
-          title="🔄 Firestore → SQLite 同期"
+          mode="contained"
           onPress={handleSync}
           disabled={!isConnected || isSyncing}
-        />
-        <Button title="📂 SQLite の内容表示" onPress={handleShowData} />
-        <Button title="📜 学習ログ表示" onPress={handleShowLogs} />
-        <Button title="クイズを始める" onPress={() => router.push('/select')} />
-        <Button title="rnp test" onPress={() => router.push('/rnptest')} />
-        <Button title="Questions 削除" onPress={handleDropQuestions} />
-        <Button title="AppInfo 削除" onPress={handleDropAppInfo} />
-        <Button title="Logs 削除" onPress={handleDropLogsTbl} />
+          className="w-full max-w-sm"
+        >
+          🔄 Firestore → SQLite 同期
+        </Button>
+        <Button
+          mode="contained"
+          onPress={handleShowData}
+          className="w-full max-w-sm"
+        >
+          📂 SQLite の内容表示
+        </Button>
+        <Button
+          mode="contained"
+          onPress={handleShowLogs}
+          className="w-full max-w-sm"
+        >
+          📜 学習ログ表示
+        </Button>
+        <Button
+          mode="contained"
+          onPress={() => router.push('/select')}
+          className="w-full max-w-sm"
+        >
+          クイズを始める
+        </Button>
+        <Button
+          mode="outlined"
+          onPress={handleDropQuestions}
+          className="w-full max-w-sm"
+        >
+          Questions 削除
+        </Button>
+        <Button
+          mode="outlined"
+          onPress={handleDropAppInfo}
+          className="w-full max-w-sm"
+        >
+          AppInfo 削除
+        </Button>
+        <Button
+          mode="outlined"
+          onPress={handleDropLogsTbl}
+          className="w-full max-w-sm"
+        >
+          Logs 削除
+        </Button>
       </View>
 
       {/* 結果・ログ表示 */}
-      <View style={styles.logContainer}>
+      <View className="flex-1 mt-2 bg-gray-200 rounded p-2">
         <ScrollView>
           {logMessages.map((msg, idx) => (
-            <Text key={idx} style={styles.logText}>
+            <Text key={idx} className="text-xs my-1">
               {msg}
             </Text>
           ))}
@@ -179,7 +218,7 @@ export default function IndexScreen() {
 
       {/* 同期中スピナー */}
       {isSyncing && (
-        <View style={styles.syncOverlay}>
+        <View className="absolute inset-0 bg-black/30 items-center justify-center">
           <ActivityIndicator size="large" color="#fff" />
         </View>
       )}
@@ -190,15 +229,17 @@ export default function IndexScreen() {
         animationType="slide"
         onRequestClose={() => setShowDataModal(false)}
       >
-        <View style={styles.modalContainer}>
-          <Text style={styles.modalTitle}>SQLite レコード内容</Text>
+        <View className="flex-1 mt-12 p-4 bg-white">
+          <Text variant="titleMedium" className="text-center mb-3">
+            SQLite レコード内容
+          </Text>
           <Text>合計件数: {totalRecords}</Text>
-          <ScrollView style={styles.jsonArea}>
+          <ScrollView className="flex-1 my-2 bg-gray-100 rounded p-2">
             <Text selectable style={styles.jsonText}>
               {JSON.stringify(fetchedRows, null, 2)}
             </Text>
           </ScrollView>
-          <Button title="閉じる" onPress={() => setShowDataModal(false)} />
+          <Button onPress={() => setShowDataModal(false)}>閉じる</Button>
         </View>
       </Modal>
       {/* 学習ログを表示するモーダル */}
@@ -207,14 +248,16 @@ export default function IndexScreen() {
         animationType="slide"
         onRequestClose={() => setShowLogModal(false)}
       >
-        <View style={styles.modalContainer}>
-          <Text style={styles.modalTitle}>最近の学習ログ</Text>
-          <ScrollView style={styles.jsonArea}>
+        <View className="flex-1 mt-12 p-4 bg-white">
+          <Text variant="titleMedium" className="text-center mb-3">
+            最近の学習ログ
+          </Text>
+          <ScrollView className="flex-1 my-2 bg-gray-100 rounded p-2">
             <Text selectable style={styles.jsonText}>
               {JSON.stringify(dailyLogs, null, 2)}
             </Text>
           </ScrollView>
-          <Button title="閉じる" onPress={() => setShowLogModal(false)} />
+          <Button onPress={() => setShowLogModal(false)}>閉じる</Button>
         </View>
       </Modal>
     </View>
@@ -222,62 +265,6 @@ export default function IndexScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-    backgroundColor: '#fafafa',
-  },
-  header: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    marginBottom: 12,
-    textAlign: 'center',
-  },
-  buttonContainer: {
-    flexDirection: 'column',
-    alignItems: 'center',
-    marginBottom: 16,
-  },
-  logContainer: {
-    flex: 1,
-    marginTop: 8,
-    backgroundColor: '#eee',
-    borderRadius: 4,
-    padding: 8,
-  },
-  logText: {
-    fontSize: 12,
-    marginVertical: 2,
-  },
-  syncOverlay: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: 'rgba(0,0,0,0.3)',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  modalContainer: {
-    flex: 1,
-    marginTop: 50,
-    padding: 16,
-    backgroundColor: '#fff',
-  },
-  modalTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 12,
-    textAlign: 'center',
-  },
-  jsonArea: {
-    flex: 1,
-    marginVertical: 8,
-    backgroundColor: '#f5f5f5',
-    borderRadius: 4,
-    padding: 8,
-  },
   jsonText: {
     fontFamily: Platform.select({ ios: 'Courier', android: 'monospace' }),
     fontSize: 12,
