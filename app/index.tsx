@@ -104,7 +104,9 @@ export default function IndexScreen() {
   const handleShowLogs = async () => {
     try {
       const rows = await getLatestLearningLogs();
-      setLearningLogs(rows);
+      // dailyLogs ステートの値を更新
+      // 「ステート」とは React で扱う画面の状態を指します
+      setDailyLogs(rows);
       setShowLogModal(true);
     } catch (err: any) {
       appendLog(`ログ取得エラー: ${err.message}`);

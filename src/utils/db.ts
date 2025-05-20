@@ -62,18 +62,6 @@ export async function initializeDatabaseIfNeeded(): Promise<void> {
         );
       `);
 
-      await db.execAsync(`
-        CREATE TABLE IF NOT EXISTS LearningDailyLogs (
-          -- 日ごとの学習記録を保存するテーブル
-          user_id TEXT,
-          learning_date TEXT,
-          answers_json TEXT,
-          created_at TEXT,
-          updated_at TEXT,
-          PRIMARY KEY (user_id, learning_date)
-        );
-      `);
-
       // user_version を 1 に設定
       await db.execAsync(`PRAGMA user_version = 1;`);
     });
@@ -86,6 +74,18 @@ export async function initializeDatabaseIfNeeded(): Promise<void> {
       created_at TEXT
     );
   `);
+
+  // LearningDailyLogs テーブルを必ず作成しておく（古い DB 対策）
+  await db.execAsync(`
+      CREATE TABLE IF NOT EXISTS LearningDailyLogs (
+        user_id TEXT,
+        learning_date TEXT,
+        answers_json TEXT,
+        created_at TEXT,
+        updated_at TEXT,
+        PRIMARY KEY (user_id, learning_date)
+      );
+    `);
 }
 
 /* ------------------------------------------------------------------ */
