@@ -91,6 +91,8 @@ export default function SelectScreen() {
       {/* 選択条件に合致する問題数を表示 */}
       <Text style={styles.countText}>該当問題数: {matchCount} 件</Text>
       <Button title="クイズ開始" onPress={startQuiz} />
+      {/* 戻るボタン。router.back() で前の画面へ戻ります */}
+      <Button title="戻る" onPress={() => router.back()} />
     </View>
   );
 }
