@@ -10,7 +10,8 @@ import {
   Dimensions,
 } from 'react-native';
 import { AntDesign, Feather } from '@expo/vector-icons';
-import { getQuestionById } from '@/src/utils/db';
+import { getQuestionById, updateLearningDailyLog } from '@/src/utils/db';
+
 import type { Question } from '@/types/firestore';
 
 const { width } = Dimensions.get('window');
@@ -54,6 +55,8 @@ export default function Quiz() {
     if (selected === null || !question) return;
     const correct = question.correct_answers.includes(selected);
     setIsAnswered(true);
+    // 日次ログに解答結果を保存（失敗してもアプリは続行）
+    void updateLearningDailyLog(question.id, correct);
     setTimeout(() => {
       router.push({
         pathname: '/quiz/answer',

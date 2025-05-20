@@ -17,6 +17,7 @@ import {
   getQuestionsCount,
   getQuestionsLimit5,
   getOrCreateUserId,
+  getLatestLearningLogs,
 } from '@/src/utils/db';
 import { syncFirestoreToSQLite } from '@/src/utils/firestoreSync';
 
@@ -29,6 +30,8 @@ export default function IndexScreen() {
   const [showDataModal, setShowDataModal] = useState(false);
   const [totalRecords, setTotalRecords] = useState(0);
   const [fetchedRows, setFetchedRows] = useState<any[]>([]);
+  const [showLogModal, setShowLogModal] = useState(false);
+  const [learningLogs, setLearningLogs] = useState<any[]>([]);
 
   // 起動時に DB 初期化
   useEffect(() => {
@@ -97,6 +100,17 @@ export default function IndexScreen() {
     }
   };
 
+  // LearningDailyLogs を表示
+  const handleShowLogs = async () => {
+    try {
+      const rows = await getLatestLearningLogs();
+      setLearningLogs(rows);
+      setShowLogModal(true);
+    } catch (err: any) {
+      appendLog(`ログ取得エラー: ${err.message}`);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.header}>AnesQuiz α版</Text>
@@ -108,6 +122,7 @@ export default function IndexScreen() {
           disabled={!isConnected || isSyncing}
         />
         <Button title="📂 SQLite の内容表示" onPress={handleShowData} />
+        <Button title="📜 学習ログ表示" onPress={handleShowLogs} />
         <Button title="クイズを始める" onPress={() => router.push('/select')} />
       </View>
 
@@ -144,6 +159,22 @@ export default function IndexScreen() {
             </Text>
           </ScrollView>
           <Button title="閉じる" onPress={() => setShowDataModal(false)} />
+        </View>
+      </Modal>
+      {/* LearningDailyLogs を表示するモーダル */}
+      <Modal
+        visible={showLogModal}
+        animationType="slide"
+        onRequestClose={() => setShowLogModal(false)}
+      >
+        <View style={styles.modalContainer}>
+          <Text style={styles.modalTitle}>LearningDailyLogs</Text>
+          <ScrollView style={styles.jsonArea}>
+            <Text selectable style={styles.jsonText}>
+              {JSON.stringify(learningLogs, null, 2)}
+            </Text>
+          </ScrollView>
+          <Button title="閉じる" onPress={() => setShowLogModal(false)} />
         </View>
       </Modal>
     </View>

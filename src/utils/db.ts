@@ -356,3 +356,41 @@ export async function getOrCreateUserId(): Promise<string> {
 
   return newId;
 }
+
+/* ------------------------------------------------------------------ */
+/* 8. 解答ログを LearningDailyLogs に記録                              */
+/* ------------------------------------------------------------------ */
+export async function updateLearningDailyLog(
+  questionId: string,
+  isCorrect: boolean,
+): Promise<void> {
+  const db = await getDB();
+  const userId = await getOrCreateUserId();
+  const today = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+  const now = new Date().toISOString();
+
+  const row = await db.getFirstAsync<{ answers_json: string }>(
+    'SELECT answers_json FROM LearningDailyLogs WHERE user_id = ? AND learning_date = ?;',
+    [userId, today],
+  );
+
+  const answers = row ? JSON.parse(row.answers_json) : {};
+  const current = answers[questionId] ?? { attempts: 0, correct: 0 };
+  current.attempts += 1;
+  if (isCorrect) current.correct += 1;
+  answers[questionId] = current;
+
+  const jsonStr = JSON.stringify(answers);
+
+  if (row) {
+    await db.runAsync(
+      'UPDATE LearningDailyLogs SET answers_json = ?, updated_at = ? WHERE user_id = ? AND learning_date = ?;',
+      [jsonStr, now, userId, today],
+    );
+  } else {
+    await db.runAsync(
+      'INSERT INTO LearningDailyLogs (user_id, learning_date, answers_json, created_at, updated_at) VALUES (?, ?, ?, ?, ?);',
+      [userId, today, jsonStr, now, now],
+    );
+  }
+}
