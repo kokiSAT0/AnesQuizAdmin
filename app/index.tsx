@@ -17,6 +17,10 @@ import {
   getQuestionsCount,
   getQuestionsLimit5,
   getOrCreateUserId,
+  getLatestLearningLogs,
+  dropQuestionsTable,
+  dropAppInfoTable,
+  dropLearningLogsTable,
 } from '@/src/utils/db';
 import { syncFirestoreToSQLite } from '@/src/utils/firestoreSync';
 
@@ -29,6 +33,8 @@ export default function IndexScreen() {
   const [showDataModal, setShowDataModal] = useState(false);
   const [totalRecords, setTotalRecords] = useState(0);
   const [fetchedRows, setFetchedRows] = useState<any[]>([]);
+  const [showLogModal, setShowLogModal] = useState(false);
+  const [dailyLogs, setDailyLogs] = useState<any[]>([]);
 
   // 起動時に DB 初期化
   useEffect(() => {
@@ -97,6 +103,50 @@ export default function IndexScreen() {
     }
   };
 
+  // LearningDailyLogs を表示
+  const handleShowLogs = async () => {
+    try {
+      const rows = await getLatestLearningLogs();
+      // dailyLogs ステートの値を更新
+      // 「ステート」とは React で扱う画面の状態を指します
+      setDailyLogs(rows);
+      setShowLogModal(true);
+    } catch (err: any) {
+      appendLog(`ログ取得エラー: ${err.message}`);
+    }
+  };
+
+  // テーブル削除 (Questions)
+  const handleDropQuestions = async () => {
+    try {
+      await dropQuestionsTable();
+      await initializeDatabaseIfNeeded();
+      appendLog('Questions テーブルを削除しました');
+    } catch (err: any) {
+      appendLog(`削除エラー: ${err.message}`);
+    }
+  };
+
+  // テーブル削除 (AppInfo)
+  const handleDropAppInfo = async () => {
+    try {
+      await dropAppInfoTable();
+      appendLog('AppInfo テーブルを削除しました');
+    } catch (err: any) {
+      appendLog(`削除エラー: ${err.message}`);
+    }
+  };
+
+  // テーブル削除 (LearningDailyLogs)
+  const handleDropLogsTbl = async () => {
+    try {
+      await dropLearningLogsTable();
+      appendLog('LearningDailyLogs テーブルを削除しました');
+    } catch (err: any) {
+      appendLog(`削除エラー: ${err.message}`);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.header}>AnesQuiz α版</Text>
@@ -108,7 +158,11 @@ export default function IndexScreen() {
           disabled={!isConnected || isSyncing}
         />
         <Button title="📂 SQLite の内容表示" onPress={handleShowData} />
+        <Button title="📜 学習ログ表示" onPress={handleShowLogs} />
         <Button title="クイズを始める" onPress={() => router.push('/select')} />
+        <Button title="Questions 削除" onPress={handleDropQuestions} />
+        <Button title="AppInfo 削除" onPress={handleDropAppInfo} />
+        <Button title="Logs 削除" onPress={handleDropLogsTbl} />
       </View>
 
       {/* 結果・ログ表示 */}
@@ -144,6 +198,22 @@ export default function IndexScreen() {
             </Text>
           </ScrollView>
           <Button title="閉じる" onPress={() => setShowDataModal(false)} />
+        </View>
+      </Modal>
+      {/* 学習ログを表示するモーダル */}
+      <Modal
+        visible={showLogModal}
+        animationType="slide"
+        onRequestClose={() => setShowLogModal(false)}
+      >
+        <View style={styles.modalContainer}>
+          <Text style={styles.modalTitle}>最近の学習ログ</Text>
+          <ScrollView style={styles.jsonArea}>
+            <Text selectable style={styles.jsonText}>
+              {JSON.stringify(dailyLogs, null, 2)}
+            </Text>
+          </ScrollView>
+          <Button title="閉じる" onPress={() => setShowLogModal(false)} />
         </View>
       </Modal>
     </View>

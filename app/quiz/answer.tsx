@@ -1,20 +1,37 @@
 import React, { useEffect, useState } from 'react';
 import { router, useLocalSearchParams } from 'expo-router';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { getQuestionById } from '@/src/utils/db';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Pressable,
+} from 'react-native';
+import { Feather, AntDesign } from '@expo/vector-icons';
+import { getQuestionById, updateFavorite } from '@/src/utils/db';
 
 export default function AnswerScreen() {
-  // correct: 問題が正解だったかどうか
   // questionId: 今表示する解説対象のID
   // ids/current: 次の問題を出すための情報
-  const { correct, questionId, ids, current } = useLocalSearchParams<{
+  // selected: ユーザーが選んだ選択肢の番号一覧（カンマ区切り）
+  const { questionId, ids, current, selected } = useLocalSearchParams<{
     correct: string;
     questionId: string;
     ids?: string;
     current?: string;
+    selected?: string;
   }>();
 
   const [explanation, setExplanation] = useState('');
+  const [favorite, setFavorite] = useState(false);
+  const [correct, setCorrect] = useState(false);
+
+  const toggleFavorite = async () => {
+    if (!questionId) return;
+    const newFlag = !favorite;
+    await updateFavorite(questionId, newFlag);
+    setFavorite(newFlag);
+  };
 
   useEffect(() => {
     // useEffect は画面表示後に実行される React の仕組みです
@@ -23,9 +40,22 @@ export default function AnswerScreen() {
       if (questionId) {
         const q = await getQuestionById(questionId);
         setExplanation(q?.explanation ?? '');
+        setFavorite(q?.is_favorite ?? false);
+        if (q) {
+          const ans = selected
+            ? selected
+                .split(',')
+                .filter(Boolean)
+                .map((n) => parseInt(n, 10))
+            : [];
+          const sort = (arr: number[]) => [...arr].sort((a, b) => a - b);
+          const isCorrect =
+            sort(ans).join(',') === sort(q.correct_answers).join(',');
+          setCorrect(isCorrect);
+        }
       }
     })();
-  }, [questionId]);
+  }, [questionId, selected]);
 
   const goNext = () => {
     // current は 0 始まりなので次の問題番号を +1 する
@@ -46,9 +76,23 @@ export default function AnswerScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.result}>
-        {correct === 'true' ? '正解！🎉' : '残念…'}
-      </Text>
+      {/*
+        画面上部に戻るボタンを配置します。
+        押すと選択画面へ移動し、クイズを途中で終了できます。
+      */}
+      <View style={styles.header}>
+        <Pressable onPress={() => router.replace('/select')}>
+          <Feather name="arrow-left" size={28} color="#333" />
+        </Pressable>
+      </View>
+      <Pressable onPress={toggleFavorite} style={styles.starIcon}>
+        {favorite ? (
+          <AntDesign name="star" size={24} color="#facc15" />
+        ) : (
+          <AntDesign name="staro" size={24} color="#333" />
+        )}
+      </Pressable>
+      <Text style={styles.result}>{correct ? '正解！🎉' : '残念…'}</Text>
       <Text style={styles.explain}>{explanation}</Text>
       <TouchableOpacity style={styles.btn} onPress={goNext}>
         <Text style={styles.btnTxt}>次の問題へ</Text>
@@ -63,7 +107,10 @@ const styles = StyleSheet.create({
     padding: 24,
     justifyContent: 'center',
     backgroundColor: '#fff',
+    position: 'relative',
   },
+  // ヘッダ用スタイル。戻るボタンを左上に配置します
+  header: { position: 'absolute', top: 24, left: 16 },
   result: {
     fontSize: 32,
     fontWeight: 'bold',
@@ -78,4 +125,5 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
   },
+  starIcon: { position: 'absolute', top: 24, right: 24 },
 });

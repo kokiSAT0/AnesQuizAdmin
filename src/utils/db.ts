@@ -62,18 +62,6 @@ export async function initializeDatabaseIfNeeded(): Promise<void> {
         );
       `);
 
-      await db.execAsync(`
-        CREATE TABLE IF NOT EXISTS LearningDailyLogs (
-          -- 日ごとの学習記録を保存するテーブル
-          user_id TEXT,
-          learning_date TEXT,
-          answers_json TEXT,
-          created_at TEXT,
-          updated_at TEXT,
-          PRIMARY KEY (user_id, learning_date)
-        );
-      `);
-
       // user_version を 1 に設定
       await db.execAsync(`PRAGMA user_version = 1;`);
     });
@@ -86,6 +74,18 @@ export async function initializeDatabaseIfNeeded(): Promise<void> {
       created_at TEXT
     );
   `);
+
+  // LearningDailyLogs テーブルを必ず作成しておく（古い DB 対策）
+  await db.execAsync(`
+      CREATE TABLE IF NOT EXISTS LearningDailyLogs (
+        user_id TEXT,
+        learning_date TEXT,
+        answers_json TEXT,
+        created_at TEXT,
+        updated_at TEXT,
+        PRIMARY KEY (user_id, learning_date)
+      );
+    `);
 }
 
 /* ------------------------------------------------------------------ */
@@ -332,6 +332,60 @@ export async function getQuestionById(id: string) {
 }
 
 /* ------------------------------------------------------------------ */
+/* 7. お気に入りフラグを更新                                          */
+/* ------------------------------------------------------------------ */
+export async function updateFavorite(id: string, flag: boolean): Promise<void> {
+  const db = await getDB();
+  await db.runAsync('UPDATE Questions SET is_favorite = ? WHERE id = ?;', [
+    flag ? 1 : 0,
+    id,
+  ]);
+}
+
+/* ------------------------------------------------------------------ */
+/* 8. 回答結果を Questions テーブルに記録                              */
+/* ------------------------------------------------------------------ */
+export async function recordAnswer(
+  id: string,
+  isCorrect: boolean,
+): Promise<void> {
+  const db = await getDB();
+  const now = new Date().toISOString();
+  const lastCorrect = isCorrect ? now : null;
+  const lastIncorrect = isCorrect ? null : now;
+  await db.runAsync(
+    `UPDATE Questions
+        SET attempts = attempts + 1,
+            correct = correct + ?,
+            last_answer_correct = ?,
+            last_answered_at = ?,
+            last_correct_at = COALESCE(?, last_correct_at),
+            last_incorrect_at = COALESCE(?, last_incorrect_at)
+      WHERE id = ?;`,
+    [isCorrect ? 1 : 0, isCorrect ? 1 : 0, now, lastCorrect, lastIncorrect, id],
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* 9. テーブル削除（開発用）                                          */
+/* ------------------------------------------------------------------ */
+export async function dropQuestionsTable(): Promise<void> {
+  const db = await getDB();
+  await db.execAsync('DROP TABLE IF EXISTS Questions;');
+  await db.execAsync('PRAGMA user_version = 0;');
+}
+
+export async function dropAppInfoTable(): Promise<void> {
+  const db = await getDB();
+  await db.execAsync('DROP TABLE IF EXISTS AppInfo;');
+}
+
+export async function dropLearningLogsTable(): Promise<void> {
+  const db = await getDB();
+  await db.execAsync('DROP TABLE IF EXISTS LearningDailyLogs;');
+}
+
+/* ------------------------------------------------------------------ */
 /* 7. user_id を取得（なければ生成）                                   */
 /* ------------------------------------------------------------------ */
 export async function getOrCreateUserId(): Promise<string> {
@@ -355,4 +409,79 @@ export async function getOrCreateUserId(): Promise<string> {
   );
 
   return newId;
+}
+
+/* ------------------------------------------------------------------ */
+/* 8. 解答ログを LearningDailyLogs に記録                              */
+/* ------------------------------------------------------------------ */
+export async function updateLearningDailyLog(
+  questionId: string,
+  isCorrect: boolean,
+): Promise<void> {
+  const db = await getDB();
+  const userId = await getOrCreateUserId();
+  const today = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+  const now = new Date().toISOString();
+
+  const row = await db.getFirstAsync<{ answers_json: string }>(
+    'SELECT answers_json FROM LearningDailyLogs WHERE user_id = ? AND learning_date = ?;',
+    [userId, today],
+  );
+
+  const answers = row ? JSON.parse(row.answers_json) : {};
+  const current = answers[questionId] ?? { attempts: 0, correct: 0 };
+  current.attempts += 1;
+  if (isCorrect) current.correct += 1;
+  answers[questionId] = current;
+
+  const jsonStr = JSON.stringify(answers);
+
+  if (row) {
+    await db.runAsync(
+      'UPDATE LearningDailyLogs SET answers_json = ?, updated_at = ? WHERE user_id = ? AND learning_date = ?;',
+      [jsonStr, now, userId, today],
+    );
+  } else {
+    await db.runAsync(
+      'INSERT INTO LearningDailyLogs (user_id, learning_date, answers_json, created_at, updated_at) VALUES (?, ?, ?, ?, ?);',
+      [userId, today, jsonStr, now, now],
+    );
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* 9. 最新の学習ログを取得（デバッグ用）                              */
+/* ------------------------------------------------------------------ */
+export interface LearningDailyLog {
+  learning_date: string;
+  answers: Record<string, { attempts: number; correct: number }>;
+  created_at: string;
+  updated_at: string;
+}
+
+export async function getLatestLearningLogs(
+  limit = 7,
+): Promise<LearningDailyLog[]> {
+  const db = await getDB();
+  const userId = await getOrCreateUserId();
+  const rows = await db.getAllAsync<{
+    learning_date: string;
+    answers_json: string;
+    created_at: string;
+    updated_at: string;
+  }>(
+    `SELECT learning_date, answers_json, created_at, updated_at
+       FROM LearningDailyLogs
+      WHERE user_id = ?
+      ORDER BY learning_date DESC
+      LIMIT ?;`,
+    [userId, limit],
+  );
+
+  return rows.map((r) => ({
+    learning_date: r.learning_date,
+    answers: JSON.parse(r.answers_json),
+    created_at: r.created_at,
+    updated_at: r.updated_at,
+  }));
 }
