@@ -31,7 +31,7 @@ export default function IndexScreen() {
   const [totalRecords, setTotalRecords] = useState(0);
   const [fetchedRows, setFetchedRows] = useState<any[]>([]);
   const [showLogModal, setShowLogModal] = useState(false);
-  const [learningLogs, setLearningLogs] = useState<any[]>([]);
+  const [dailyLogs, setDailyLogs] = useState<any[]>([]);
 
   // 起動時に DB 初期化
   useEffect(() => {
@@ -161,17 +161,17 @@ export default function IndexScreen() {
           <Button title="閉じる" onPress={() => setShowDataModal(false)} />
         </View>
       </Modal>
-      {/* LearningDailyLogs を表示するモーダル */}
+      {/* 学習ログを表示するモーダル */}
       <Modal
         visible={showLogModal}
         animationType="slide"
         onRequestClose={() => setShowLogModal(false)}
       >
         <View style={styles.modalContainer}>
-          <Text style={styles.modalTitle}>LearningDailyLogs</Text>
+          <Text style={styles.modalTitle}>最近の学習ログ</Text>
           <ScrollView style={styles.jsonArea}>
             <Text selectable style={styles.jsonText}>
-              {JSON.stringify(learningLogs, null, 2)}
+              {JSON.stringify(dailyLogs, null, 2)}
             </Text>
           </ScrollView>
           <Button title="閉じる" onPress={() => setShowLogModal(false)} />

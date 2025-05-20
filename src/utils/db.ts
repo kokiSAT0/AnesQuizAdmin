@@ -394,3 +394,40 @@ export async function updateLearningDailyLog(
     );
   }
 }
+
+/* ------------------------------------------------------------------ */
+/* 9. 最新の学習ログを取得（デバッグ用）                              */
+/* ------------------------------------------------------------------ */
+export interface LearningDailyLog {
+  learning_date: string;
+  answers: Record<string, { attempts: number; correct: number }>;
+  created_at: string;
+  updated_at: string;
+}
+
+export async function getLatestLearningLogs(
+  limit = 7,
+): Promise<LearningDailyLog[]> {
+  const db = await getDB();
+  const userId = await getOrCreateUserId();
+  const rows = await db.getAllAsync<{
+    learning_date: string;
+    answers_json: string;
+    created_at: string;
+    updated_at: string;
+  }>(
+    `SELECT learning_date, answers_json, created_at, updated_at
+       FROM LearningDailyLogs
+      WHERE user_id = ?
+      ORDER BY learning_date DESC
+      LIMIT ?;`,
+    [userId, limit],
+  );
+
+  return rows.map((r) => ({
+    learning_date: r.learning_date,
+    answers: JSON.parse(r.answers_json),
+    created_at: r.created_at,
+    updated_at: r.updated_at,
+  }));
+}
