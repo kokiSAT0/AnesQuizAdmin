@@ -1,5 +1,15 @@
 import { SQLiteDatabase, openDatabaseAsync } from 'expo-sqlite';
 
+/** UUID を簡易生成するヘルパー */
+function generateUUID(): string {
+  // x と y をランダムな 16 進数に置き換えて UUID v4 形式の文字列を作る
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+    const r = Math.floor(Math.random() * 16);
+    const v = c === 'x' ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
+}
+
 let dbPromise: Promise<SQLiteDatabase> | null = null;
 
 /** シングルトンで DB を取得（新 API 版） */
@@ -22,6 +32,7 @@ export async function initializeDatabaseIfNeeded(): Promise<void> {
 
   if (user_version === 0) {
     // ② トランザクション内でテーブル作成 & user_version 更新
+    // トランザクションとは複数の処理をひとまとめにして、途中で失敗したら全部なかったことにする仕組みです
     await db.withTransactionAsync(async () => {
       await db.execAsync(`
         CREATE TABLE IF NOT EXISTS Questions (
@@ -42,7 +53,24 @@ export async function initializeDatabaseIfNeeded(): Promise<void> {
           created_by TEXT,
           reviewed INTEGER,
           attempts INTEGER,
-          correct INTEGER
+          correct INTEGER,
+          is_favorite INTEGER,
+          last_answer_correct INTEGER,
+          last_answered_at TEXT,
+          last_correct_at TEXT,
+          last_incorrect_at TEXT
+        );
+      `);
+
+      await db.execAsync(`
+        CREATE TABLE IF NOT EXISTS LearningDailyLogs (
+          -- 日ごとの学習記録を保存するテーブル
+          user_id TEXT,
+          learning_date TEXT,
+          answers_json TEXT,
+          created_at TEXT,
+          updated_at TEXT,
+          PRIMARY KEY (user_id, learning_date)
         );
       `);
 
@@ -50,6 +78,14 @@ export async function initializeDatabaseIfNeeded(): Promise<void> {
       await db.execAsync(`PRAGMA user_version = 1;`);
     });
   }
+
+  // AppInfo テーブルを作成（存在しない場合のみ）
+  await db.execAsync(`
+    CREATE TABLE IF NOT EXISTS AppInfo (
+      user_id TEXT PRIMARY KEY,
+      created_at TEXT
+    );
+  `);
 }
 
 /* ------------------------------------------------------------------ */
@@ -178,6 +214,54 @@ export async function getAllQuestionIds(): Promise<string[]> {
 }
 
 /* ------------------------------------------------------------------ */
+/* 5-1. 難易度を指定して問題IDを取得                                   */
+/* ------------------------------------------------------------------ */
+export async function getQuestionIdsByDifficulty(
+  levels: string[],
+): Promise<string[]> {
+  const db = await getDB();
+
+  if (levels.length === 0) {
+    const rows = await db.getAllAsync<{ id: string }>(
+      'SELECT id FROM Questions ORDER BY id;',
+    );
+    return rows.map((r) => r.id);
+  }
+
+  const placeholders = levels.map(() => '?').join(', ');
+  const rows = await db.getAllAsync<{ id: string }>(
+    `SELECT id FROM Questions WHERE difficulty_level IN (${placeholders}) ORDER BY id;`,
+    levels,
+  );
+  return rows.map((r) => r.id);
+}
+
+/* ------------------------------------------------------------------ */
+/* 5-2. 難易度を指定して問題数をカウントする                           */
+/* ------------------------------------------------------------------ */
+export async function countQuestionsByDifficulty(
+  levels: string[],
+): Promise<number> {
+  const db = await getDB();
+
+  // 難易度が選択されていない場合は全件数を返す
+  if (levels.length === 0) {
+    const { total } = await db.getFirstAsync<{ total: number }>(
+      'SELECT COUNT(*) AS total FROM Questions;',
+    );
+    return total;
+  }
+
+  // IN 句の ? をレベルの個数分並べる
+  const placeholders = levels.map(() => '?').join(', ');
+  const { total } = await db.getFirstAsync<{ total: number }>(
+    `SELECT COUNT(*) AS total FROM Questions WHERE difficulty_level IN (${placeholders});`,
+    levels,
+  );
+  return total;
+}
+
+/* ------------------------------------------------------------------ */
 /* 6. ID を指定して問題を取得                                          */
 /* ------------------------------------------------------------------ */
 export interface SQLiteQuestionRow {
@@ -199,6 +283,11 @@ export interface SQLiteQuestionRow {
   reviewed: number;
   attempts: number;
   correct: number;
+  is_favorite: number; // お気に入り登録されているかどうか（0/1）
+  last_answer_correct: number; // 直近の回答が正解かどうか（0/1）
+  last_answered_at: string | null; // 最後に回答した日時
+  last_correct_at: string | null; // 最後に正解した日時
+  last_incorrect_at: string | null; // 最後に不正解だった日時
 }
 
 export async function getQuestionById(id: string) {
@@ -234,5 +323,36 @@ export async function getQuestionById(id: string) {
       attempts: row.attempts,
       correct: row.correct,
     },
+    is_favorite: !!row.is_favorite,
+    last_answer_correct: !!row.last_answer_correct,
+    last_answered_at: row.last_answered_at,
+    last_correct_at: row.last_correct_at,
+    last_incorrect_at: row.last_incorrect_at,
   };
+}
+
+/* ------------------------------------------------------------------ */
+/* 7. user_id を取得（なければ生成）                                   */
+/* ------------------------------------------------------------------ */
+export async function getOrCreateUserId(): Promise<string> {
+  const db = await getDB();
+
+  // 既に保存されている user_id を取得
+  const row = await db.getFirstAsync<{ user_id: string }>(
+    'SELECT user_id FROM AppInfo LIMIT 1;',
+  );
+
+  if (row?.user_id) {
+    return row.user_id;
+  }
+
+  // 無ければ生成して保存
+  const newId = generateUUID();
+  const now = new Date().toISOString();
+  await db.runAsync(
+    'INSERT INTO AppInfo (user_id, created_at) VALUES (?, ?);',
+    [newId, now],
+  );
+
+  return newId;
 }
