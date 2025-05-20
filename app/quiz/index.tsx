@@ -31,8 +31,21 @@ export default function Quiz() {
   const [questionIds, setQuestionIds] = useState<string[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0); // 今何問目かを記憶
   const [question, setQuestion] = useState<Question | null>(null);
-  const [selected, setSelected] = useState<number | null>(null);
+  // 選択した選択肢の番号を保持します
+  const [selected, setSelected] = useState<number[]>([]);
   const [isAnswered, setIsAnswered] = useState(false);
+
+  // 選択肢をタップした時の処理
+  const toggleSelect = (idx: number) => {
+    if (!question) return;
+    if (question.type === 'multiple_choice') {
+      setSelected((prev) =>
+        prev.includes(idx) ? prev.filter((n) => n !== idx) : [...prev, idx],
+      );
+    } else {
+      setSelected([idx]);
+    }
+  };
 
   // お気に入り切り替え
   const toggleFavorite = async () => {
@@ -61,12 +74,20 @@ export default function Quiz() {
 
   const loadQuestion = async (id: string) => {
     const q = await getQuestionById(id);
-    if (q) setQuestion(q);
+    if (q) {
+      setQuestion(q);
+      setSelected([]); // 新しい問題では選択をリセット
+      setIsAnswered(false);
+    }
   };
 
+  // 解答ボタンが押されたときの処理
   const onSubmit = () => {
-    if (selected === null || !question) return;
-    const correct = question.correct_answers.includes(selected);
+    if (!question || selected.length === 0) return;
+    // 選択された番号と正解番号を昇順で比較し、完全一致なら正解とする
+    const sort = (arr: number[]) => [...arr].sort((a, b) => a - b);
+    const correct =
+      sort(selected).join(',') === sort(question.correct_answers).join(',');
     setIsAnswered(true);
     // 日次ログに解答結果を保存（失敗してもアプリは続行）
     void updateLearningDailyLog(question.id, correct);
@@ -76,11 +97,12 @@ export default function Quiz() {
       router.push({
         pathname: '/quiz/answer',
         params: {
-          correct: String(correct),
           // 今回答えた問題のIDと次に表示する情報を渡す
           questionId: question.id,
           ids: ids ?? '',
           current: String(currentIndex),
+          // ユーザーが選んだ選択肢を文字列で渡す
+          selected: selected.join(','),
         },
       });
     }, 500);
@@ -141,12 +163,12 @@ export default function Quiz() {
 
       {/* ───────── 選択肢 ───────── */}
       {question.options.map((opt, idx) => {
-        const chosen = selected === idx;
+        const chosen = selected.includes(idx);
         return (
           <TouchableOpacity
             key={idx}
             style={[styles.optionBtn, chosen && styles.optionChosen]}
-            onPress={() => setSelected(idx)}
+            onPress={() => toggleSelect(idx)}
             disabled={isAnswered}
           >
             <Text style={styles.optionTxt}>{opt}</Text>
@@ -156,9 +178,12 @@ export default function Quiz() {
 
       {/* ───────── 解答ボタン ───────── */}
       <TouchableOpacity
-        style={[styles.submitBtn, selected === null && styles.submitDisabled]}
+        style={[
+          styles.submitBtn,
+          selected.length === 0 && styles.submitDisabled,
+        ]}
         onPress={onSubmit}
-        disabled={selected === null}
+        disabled={selected.length === 0}
       >
         <Text style={styles.submitTxt}>解答する</Text>
       </TouchableOpacity>

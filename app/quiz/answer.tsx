@@ -11,18 +11,20 @@ import { Feather, AntDesign } from '@expo/vector-icons';
 import { getQuestionById, updateFavorite } from '@/src/utils/db';
 
 export default function AnswerScreen() {
-  // correct: 問題が正解だったかどうか
   // questionId: 今表示する解説対象のID
   // ids/current: 次の問題を出すための情報
-  const { correct, questionId, ids, current } = useLocalSearchParams<{
+  // selected: ユーザーが選んだ選択肢の番号一覧（カンマ区切り）
+  const { questionId, ids, current, selected } = useLocalSearchParams<{
     correct: string;
     questionId: string;
     ids?: string;
     current?: string;
+    selected?: string;
   }>();
 
   const [explanation, setExplanation] = useState('');
   const [favorite, setFavorite] = useState(false);
+  const [correct, setCorrect] = useState(false);
 
   const toggleFavorite = async () => {
     if (!questionId) return;
@@ -39,9 +41,21 @@ export default function AnswerScreen() {
         const q = await getQuestionById(questionId);
         setExplanation(q?.explanation ?? '');
         setFavorite(q?.is_favorite ?? false);
+        if (q) {
+          const ans = selected
+            ? selected
+                .split(',')
+                .filter(Boolean)
+                .map((n) => parseInt(n, 10))
+            : [];
+          const sort = (arr: number[]) => [...arr].sort((a, b) => a - b);
+          const isCorrect =
+            sort(ans).join(',') === sort(q.correct_answers).join(',');
+          setCorrect(isCorrect);
+        }
       }
     })();
-  }, [questionId]);
+  }, [questionId, selected]);
 
   const goNext = () => {
     // current は 0 始まりなので次の問題番号を +1 する
@@ -78,9 +92,7 @@ export default function AnswerScreen() {
           <AntDesign name="staro" size={24} color="#333" />
         )}
       </Pressable>
-      <Text style={styles.result}>
-        {correct === 'true' ? '正解！🎉' : '残念…'}
-      </Text>
+      <Text style={styles.result}>{correct ? '正解！🎉' : '残念…'}</Text>
       <Text style={styles.explain}>{explanation}</Text>
       <TouchableOpacity style={styles.btn} onPress={goNext}>
         <Text style={styles.btnTxt}>次の問題へ</Text>
