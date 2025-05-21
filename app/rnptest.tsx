@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
+import { Screen } from '@/components/Screen';
 import { Card, Button, TextInput, Text } from 'react-native-paper';
 
 // react-native-paper と nativewind の組み合わせ確認用ページ
@@ -11,7 +12,7 @@ export default function PaperNativewindTest() {
 
   return (
     // className に Tailwind CSS のクラスを指定
-    <View className="flex-1 items-center justify-center bg-blue-50 p-4">
+    <Screen className="items-center justify-center bg-blue-50">
       {/* Card はカード型の表示コンポーネントです */}
       <Card className="w-full max-w-md">
         <Card.Title title="テストページ" />
@@ -31,6 +32,6 @@ export default function PaperNativewindTest() {
       </Card>
       {/* 入力内容を表示する例 */}
       <Text className="mt-4">現在の入力: {value}</Text>
-    </View>
+    </Screen>
   );
 }

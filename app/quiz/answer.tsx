@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { router, useLocalSearchParams } from 'expo-router';
 import { View, ScrollView, Pressable } from 'react-native';
+import { Screen } from '@/components/Screen';
 import { Text, Button } from 'react-native-paper';
 import { Feather, AntDesign } from '@expo/vector-icons';
 import { getQuestionById, updateFavorite } from '@/src/utils/db';
@@ -70,7 +71,7 @@ export default function AnswerScreen() {
   };
 
   return (
-    <View className="flex-1 px-6 py-12 bg-white">
+    <Screen className="bg-white">
       {/*
         画面上部の戻るボタン。押すと選択画面へ戻ります。
         「Pressable」はタップを検知するためのコンポーネントです。
@@ -110,6 +111,6 @@ export default function AnswerScreen() {
           次の問題へ
         </Button>
       </View>
-    </View>
+    </Screen>
   );
 }
