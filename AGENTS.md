@@ -32,3 +32,7 @@
 ## SQLite Migration
 
 - If `db/schema.sql` is modified, run `npm run migrate:sqlite` and commit the new `db/migrations/*.sql`.
+
+## UI 禁止事項
+
+1. ハードコードの HEX 値を使わない。必ず `theme\tokens.ts` を import。
