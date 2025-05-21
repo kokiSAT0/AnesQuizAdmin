@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { router, useLocalSearchParams } from 'expo-router';
 import { View, Pressable, Dimensions } from 'react-native';
+import { Screen } from '@/components/Screen';
 import { Text, Button } from 'react-native-paper';
 import { AntDesign, Feather } from '@expo/vector-icons';
 import {
@@ -116,7 +117,7 @@ export default function Quiz() {
   const currentNo = currentIndex + 1;
 
   return (
-    <View className="flex-1 bg-white">
+    <Screen className="bg-white">
       {/* ───────── ヘッダ ───────── */}
       <View className="h-14 px-4 flex-row items-center justify-between">
         {/* 戻るボタン。router.replace を使い履歴を残さない */}
@@ -175,6 +176,6 @@ export default function Quiz() {
       >
         解答する
       </Button>
-    </View>
+    </Screen>
   );
 }

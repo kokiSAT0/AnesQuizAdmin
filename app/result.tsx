@@ -1,11 +1,12 @@
 import { router, useLocalSearchParams } from 'expo-router';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { Screen } from '@/components/Screen';
 
 export default function Result() {
   const { correct } = useLocalSearchParams<{ correct: string }>();
 
   return (
-    <View style={styles.container}>
+    <Screen style={styles.container}>
       <Text style={styles.result}>
         {correct === 'true' ? '正解！🎉' : '残念…'}
       </Text>
@@ -19,13 +20,11 @@ export default function Result() {
       >
         <Text style={styles.btnTxt}>次の問題を選ぶ</Text>
       </TouchableOpacity>
-    </View>
+    </Screen>
   );
 }
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    padding: 24,
     justifyContent: 'center',
     backgroundColor: '#fff',
   },

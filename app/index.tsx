@@ -7,6 +7,8 @@ import {
   ScrollView,
   Platform,
 } from 'react-native';
+import { Screen } from '@/components/Screen';
+import { ModalScreen } from '@/components/ModalScreen';
 import { Text, Button } from 'react-native-paper';
 import NetInfo from '@react-native-community/netinfo';
 import { router } from 'expo-router';
@@ -147,7 +149,8 @@ export default function IndexScreen() {
   };
 
   return (
-    <View className="flex-1 p-4 bg-gray-50">
+    {/* Screen コンポーネントで全体の余白を統一 */}
+    <Screen className="bg-gray-50">
       <Text variant="titleLarge" className="text-center mb-3">
         AnesQuiz α版
       </Text>
@@ -229,7 +232,8 @@ export default function IndexScreen() {
         animationType="slide"
         onRequestClose={() => setShowDataModal(false)}
       >
-        <View className="flex-1 mt-12 p-4 bg-white">
+        {/* ModalScreen でモーダル内の余白を調整 */}
+        <ModalScreen className="bg-white">
           <Text variant="titleMedium" className="text-center mb-3">
             SQLite レコード内容
           </Text>
@@ -240,7 +244,7 @@ export default function IndexScreen() {
             </Text>
           </ScrollView>
           <Button onPress={() => setShowDataModal(false)}>閉じる</Button>
-        </View>
+        </ModalScreen>
       </Modal>
       {/* 学習ログを表示するモーダル */}
       <Modal
@@ -248,7 +252,7 @@ export default function IndexScreen() {
         animationType="slide"
         onRequestClose={() => setShowLogModal(false)}
       >
-        <View className="flex-1 mt-12 p-4 bg-white">
+        <ModalScreen className="bg-white">
           <Text variant="titleMedium" className="text-center mb-3">
             最近の学習ログ
           </Text>
@@ -258,9 +262,9 @@ export default function IndexScreen() {
             </Text>
           </ScrollView>
           <Button onPress={() => setShowLogModal(false)}>閉じる</Button>
-        </View>
+        </ModalScreen>
       </Modal>
-    </View>
+    </Screen>
   );
 }
 

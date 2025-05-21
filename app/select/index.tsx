@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Alert } from 'react-native';
+import { Screen } from '@/components/Screen';
 import { Text, Button, Switch, Chip, Card } from 'react-native-paper';
 import { router } from 'expo-router';
 import {
@@ -73,7 +74,7 @@ export default function SelectScreen() {
   };
 
   return (
-    <View className="flex-1 p-4 bg-gray-50">
+    <Screen className="bg-gray-50">
       <Text variant="titleLarge" className="text-center mb-4">
         クイズ選択画面
       </Text>
@@ -116,6 +117,6 @@ export default function SelectScreen() {
           戻る
         </Button>
       </View>
-    </View>
+    </Screen>
   );
 }
