@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { View, Pressable, Alert } from 'react-native';
-import { Text, Button, Switch, Checkbox } from 'react-native-paper';
+import { View, Alert } from 'react-native';
+import { Text, Button, Switch, Chip, Card } from 'react-native-paper';
 import { router } from 'expo-router';
 import {
   getQuestionIdsByDifficulty,
@@ -11,23 +11,27 @@ import {
 const LEVELS = ['初級', '中級', '上級'] as const;
 type Level = (typeof LEVELS)[number];
 
-// チェックボックス付きの行を表示するコンポーネント
-// "コンポーネント" とは画面の部品をまとめた再利用可能な要素のことです
-function CheckBoxRow({
+// レベル選択用の Chip を表示するコンポーネント
+// "Chip" は小さなボタンのような UI 部品です
+function LevelChip({
   label,
-  checked,
+  selected,
   onToggle,
 }: {
   label: string;
-  checked: boolean;
+  selected: boolean;
   onToggle: () => void;
 }) {
   return (
-    <Pressable className="flex-row items-center my-1" onPress={onToggle}>
-      {/* react-native-paper の Checkbox を使用 */}
-      <Checkbox status={checked ? 'checked' : 'unchecked'} onPress={onToggle} />
-      <Text className="ml-2 text-lg">{label}</Text>
-    </Pressable>
+    <Chip
+      // 選択されているときは塗りつぶし、そうでないときは枠線のみ
+      mode={selected ? 'flat' : 'outlined'}
+      selected={selected}
+      onPress={onToggle}
+      className="m-1"
+    >
+      {label}
+    </Chip>
   );
 }
 
@@ -70,17 +74,25 @@ export default function SelectScreen() {
 
   return (
     <View className="flex-1 p-4 bg-gray-50">
-      <Text variant="titleLarge" className="text-center mb-3">
+      <Text variant="titleLarge" className="text-center mb-4">
         クイズ選択画面
       </Text>
-      {LEVELS.map((lv) => (
-        <CheckBoxRow
-          key={lv}
-          label={lv}
-          checked={selected.includes(lv)}
-          onToggle={() => toggleLevel(lv)}
-        />
-      ))}
+      {/* ───────── レベル選択 ───────── */}
+      <Card className="mb-4">
+        <Card.Title title="レベル" />
+        <Card.Content>
+          <View className="flex-row flex-wrap">
+            {LEVELS.map((lv) => (
+              <LevelChip
+                key={lv}
+                label={lv}
+                selected={selected.includes(lv)}
+                onToggle={() => toggleLevel(lv)}
+              />
+            ))}
+          </View>
+        </Card.Content>
+      </Card>
       <View className="flex-row items-center my-2">
         <Text className="mr-2 text-base">ランダムに出題する</Text>
         <Switch value={random} onValueChange={setRandom} />
