@@ -149,8 +149,8 @@ export default function IndexScreen() {
   };
 
   return (
-    {/* Screen コンポーネントで全体の余白を統一 */}
     <Screen className="bg-gray-50">
+      {/* Screen コンポーネントで全体の余白を統一 */}
       <Text variant="titleLarge" className="text-center mb-3">
         AnesQuiz α版
       </Text>
