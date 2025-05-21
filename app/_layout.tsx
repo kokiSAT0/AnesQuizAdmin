@@ -5,23 +5,40 @@ import {
   MD3DarkTheme,
   MD3LightTheme,
 } from 'react-native-paper';
+import { colors } from '@/theme/tokens';
 import { View, StyleSheet, useColorScheme } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function RootLayout() {
   const insets = useSafeAreaInsets();
   const scheme = useColorScheme();
-  const theme = scheme === 'dark' ? MD3DarkTheme : MD3LightTheme;
+  // tokens.ts で定義したカラーを React Native Paper のテーマに組み込みます
+  // scheme には端末の設定に応じた 'light' か 'dark' が入ります
+  const lightTheme = {
+    ...MD3LightTheme,
+    colors: { ...MD3LightTheme.colors, ...colors.light },
+  };
+  const darkTheme = {
+    ...MD3DarkTheme,
+    colors: { ...MD3DarkTheme.colors, ...colors.dark },
+  };
+  const theme = scheme === 'dark' ? darkTheme : lightTheme;
 
   return (
     <PaperProvider theme={theme}>
-      <View style={[styles.container, { paddingTop: insets.top }]}>
-        <StatusBar style="dark" backgroundColor="#fff" />
+      <View
+        style={[
+          styles.container,
+          { paddingTop: insets.top, backgroundColor: theme.colors.background },
+        ]}
+      >
+        <StatusBar style="dark" backgroundColor={theme.colors.background} />
         <Stack
           screenOptions={{
             headerShown: false,
             animation: 'slide_from_right',
-            contentStyle: { backgroundColor: '#fff' }, // 下地色を統一
+            // 画面遷移時の下地色。Paper テーマの背景色を利用
+            contentStyle: { backgroundColor: theme.colors.background },
           }}
         />
       </View>
@@ -32,6 +49,7 @@ export default function RootLayout() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    // デフォルト背景色。tokens.ts のライトテーマを利用
+    backgroundColor: colors.light.background,
   },
 });
