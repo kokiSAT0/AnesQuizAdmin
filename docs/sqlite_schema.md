@@ -21,6 +21,8 @@ erDiagram
       int     reviewed
       int     attempts
       int     correct
+      int     first_attempt_correct
+      string  first_attempted_at
       int     is_favorite
       int     last_answer_correct
       string  last_answered_at
@@ -41,10 +43,11 @@ erDiagram
 ```
 
 - `Questions` テーブルのみを使用します。
-- 各カラムはアプリで扱う `Question` 型（`types/firestore.ts`）に対応しています。
+- 各カラムはアプリ側の `Question` 型 (`types/firestore.ts`) に対応します。Firestore 上では `FirestoreQuestion` 型として個人データは保存されません。
 - `*_json` と付くカラムは配列やオブジェクトを **JSON 文字列** として保存しています。
 - `reviewed` は **0/1 の整数**で、`boolean` として扱います。
-- 統計情報として `attempts` (解答数) と `correct` (正解数) を記録します。
+- 統計情報として `attempts` (解答数)、`correct` (正解数) に加え
+  `first_attempt_correct` と `first_attempted_at` を記録します。
 
 ### LearningDailyLogs テーブルの記録ルール
 

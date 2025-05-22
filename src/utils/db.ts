@@ -54,6 +54,8 @@ export async function initializeDatabaseIfNeeded(): Promise<void> {
           reviewed INTEGER,
           attempts INTEGER,
           correct INTEGER,
+          first_attempt_correct INTEGER,
+          first_attempted_at TEXT,
           is_favorite INTEGER,
           last_answer_correct INTEGER,
           last_answered_at TEXT,
@@ -374,6 +376,8 @@ export interface SQLiteQuestionRow {
   reviewed: number;
   attempts: number;
   correct: number;
+  first_attempt_correct: number | null; // 初回解答が正解かどうか（0/1）
+  first_attempted_at: string | null; // 初回解答日時
   is_favorite: number; // お気に入り登録されているかどうか（0/1）
   last_answer_correct: number; // 直近の回答が正解かどうか（0/1）
   last_answered_at: string | null; // 最後に回答した日時
@@ -414,6 +418,9 @@ export async function getQuestionById(id: string) {
       attempts: row.attempts,
       correct: row.correct,
     },
+    first_attempt_correct:
+      row.first_attempt_correct === null ? null : !!row.first_attempt_correct,
+    first_attempted_at: row.first_attempted_at,
     is_favorite: !!row.is_favorite,
     last_answer_correct: !!row.last_answer_correct,
     last_answered_at: row.last_answered_at,
@@ -454,6 +461,24 @@ export async function recordAnswer(
             last_incorrect_at = COALESCE(?, last_incorrect_at)
       WHERE id = ?;`,
     [isCorrect ? 1 : 0, isCorrect ? 1 : 0, now, lastCorrect, lastIncorrect, id],
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* 8-1. 初回解答を記録                                                */
+/* ------------------------------------------------------------------ */
+export async function recordFirstAttempt(
+  id: string,
+  isCorrect: boolean,
+): Promise<void> {
+  const db = await getDB();
+  const now = new Date().toISOString();
+  await db.runAsync(
+    `UPDATE Questions
+        SET first_attempt_correct = ?,
+            first_attempted_at = ?
+      WHERE id = ? AND first_attempt_correct IS NULL;`,
+    [isCorrect ? 1 : 0, now, id],
   );
 }
 

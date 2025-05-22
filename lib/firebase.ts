@@ -12,7 +12,7 @@ import {
   writeBatch,
   increment,
 } from 'firebase/firestore';
-import type { Question } from '@/types/firestore'; // ← スキーマに合わせてパス調整
+import type { FirestoreQuestion } from '@/types/firestore'; // ← Firestore 用型
 
 /* ---------- Firebase 初期化 (Singleton) ---------- */
 let _app: FirebaseApp;
@@ -38,21 +38,23 @@ export const db = getFirestore(getFirebaseApp());
 /* ---------- CRUD ラッパー ---------- */
 
 // 単一問題取得
-export async function getQuestionById(id: string): Promise<Question | null> {
+export async function getQuestionById(
+  id: string,
+): Promise<FirestoreQuestion | null> {
   const snap = await getDoc(doc(db, 'questions', id));
-  return snap.exists() ? (snap.data() as Question) : null;
+  return snap.exists() ? (snap.data() as FirestoreQuestion) : null;
 }
 
 // レベル別取得
 export async function getQuestionsByLevel(
-  level: Question['difficulty']['level'],
-): Promise<Question[]> {
+  level: FirestoreQuestion['difficulty']['level'],
+): Promise<FirestoreQuestion[]> {
   const q = query(
     collection(db, 'questions'),
     where('difficulty.level', '==', level),
   );
   const snap = await getDocs(q);
-  return snap.docs.map((d) => d.data() as Question);
+  return snap.docs.map((d) => d.data() as FirestoreQuestion);
 }
 
 // 解答ログ書き込み（オフライン対応）
@@ -86,12 +88,12 @@ export async function writeAnswerLog(
 /** 指定レベルからランダムに n 問取得（levels undefined なら全レベル） */
 export async function getRandomQuestions(
   n: number,
-  level?: Question['difficulty']['level'],
-): Promise<Question[]> {
+  level?: FirestoreQuestion['difficulty']['level'],
+): Promise<FirestoreQuestion[]> {
   const src = level
     ? await getQuestionsByLevel(level)
     : (await getDocs(collection(db, 'questions'))).docs.map(
-        (d) => d.data() as Question,
+        (d) => d.data() as FirestoreQuestion,
       );
   return src.sort(() => 0.5 - Math.random()).slice(0, n);
 }
