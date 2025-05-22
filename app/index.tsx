@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { Screen } from '@/components/Screen';
 import { ModalScreen } from '@/components/ModalScreen';
-import { Text, Button } from 'react-native-paper';
+import { Text, Button, useTheme } from 'react-native-paper';
 import NetInfo from '@react-native-community/netinfo';
 import { router } from 'expo-router';
 
@@ -26,6 +26,7 @@ import {
 import { syncFirestoreToSQLite } from '@/src/utils/firestoreSync';
 
 export default function IndexScreen() {
+  const theme = useTheme();
   const [isSyncing, setIsSyncing] = useState(false); // 同期中フラグ（複数連打防止）
   const [isConnected, setIsConnected] = useState(true); // ネットワーク接続状態
   const [logMessages, setLogMessages] = useState<string[]>([]);
@@ -149,70 +150,81 @@ export default function IndexScreen() {
   };
 
   return (
-    <Screen className="bg-gray-50">
+    <Screen style={{ backgroundColor: theme.colors.background }}>
       {/* Screen コンポーネントで全体の余白を統一 */}
-      <Text variant="titleLarge" className="text-center mb-3">
+      <Text
+        variant="titleLarge"
+        style={{ textAlign: 'center', marginBottom: 12 }}
+      >
         AnesQuiz α版
       </Text>
 
-      <View className="items-center space-y-2">
+      <View style={{ alignItems: 'center' }}>
         <Button
           mode="contained"
           onPress={handleSync}
           disabled={!isConnected || isSyncing}
-          className="w-full max-w-sm"
+          style={{ width: '100%', maxWidth: 320, marginVertical: 4 }}
         >
           🔄 Firestore → SQLite 同期
         </Button>
         <Button
           mode="contained"
           onPress={handleShowData}
-          className="w-full max-w-sm"
+          style={{ width: '100%', maxWidth: 320, marginVertical: 4 }}
         >
           📂 SQLite の内容表示
         </Button>
         <Button
           mode="contained"
           onPress={handleShowLogs}
-          className="w-full max-w-sm"
+          style={{ width: '100%', maxWidth: 320, marginVertical: 4 }}
         >
           📜 学習ログ表示
         </Button>
         <Button
           mode="contained"
           onPress={() => router.push('/select')}
-          className="w-full max-w-sm"
+          style={{ width: '100%', maxWidth: 320, marginVertical: 4 }}
         >
           クイズを始める
         </Button>
         <Button
           mode="outlined"
           onPress={handleDropQuestions}
-          className="w-full max-w-sm"
+          style={{ width: '100%', maxWidth: 320, marginVertical: 4 }}
         >
           Questions 削除
         </Button>
         <Button
           mode="outlined"
           onPress={handleDropAppInfo}
-          className="w-full max-w-sm"
+          style={{ width: '100%', maxWidth: 320, marginVertical: 4 }}
         >
           AppInfo 削除
         </Button>
         <Button
           mode="outlined"
           onPress={handleDropLogsTbl}
-          className="w-full max-w-sm"
+          style={{ width: '100%', maxWidth: 320, marginVertical: 4 }}
         >
           Logs 削除
         </Button>
       </View>
 
       {/* 結果・ログ表示 */}
-      <View className="flex-1 mt-2 bg-gray-200 rounded p-2">
+      <View
+        style={{
+          flex: 1,
+          marginTop: 8,
+          backgroundColor: theme.colors.surfaceVariant,
+          borderRadius: 4,
+          padding: 8,
+        }}
+      >
         <ScrollView>
           {logMessages.map((msg, idx) => (
-            <Text key={idx} className="text-xs my-1">
+            <Text key={idx} style={{ fontSize: 12, marginVertical: 4 }}>
               {msg}
             </Text>
           ))}
@@ -221,8 +233,17 @@ export default function IndexScreen() {
 
       {/* 同期中スピナー */}
       {isSyncing && (
-        <View className="absolute inset-0 bg-black/30 items-center justify-center">
-          <ActivityIndicator size="large" color="#fff" />
+        <View
+          style={[
+            StyleSheet.absoluteFillObject,
+            {
+              backgroundColor: 'rgba(0,0,0,0.3)',
+              alignItems: 'center',
+              justifyContent: 'center',
+            },
+          ]}
+        >
+          <ActivityIndicator size="large" color={theme.colors.onPrimary} />
         </View>
       )}
 
@@ -233,12 +254,23 @@ export default function IndexScreen() {
         onRequestClose={() => setShowDataModal(false)}
       >
         {/* ModalScreen でモーダル内の余白を調整 */}
-        <ModalScreen className="bg-white">
-          <Text variant="titleMedium" className="text-center mb-3">
+        <ModalScreen style={{ backgroundColor: theme.colors.background }}>
+          <Text
+            variant="titleMedium"
+            style={{ textAlign: 'center', marginBottom: 12 }}
+          >
             SQLite レコード内容
           </Text>
           <Text>合計件数: {totalRecords}</Text>
-          <ScrollView className="flex-1 my-2 bg-gray-100 rounded p-2">
+          <ScrollView
+            style={{
+              flex: 1,
+              marginVertical: 8,
+              backgroundColor: theme.colors.surfaceVariant,
+              borderRadius: 4,
+              padding: 8,
+            }}
+          >
             <Text selectable style={styles.jsonText}>
               {JSON.stringify(fetchedRows, null, 2)}
             </Text>
@@ -252,11 +284,22 @@ export default function IndexScreen() {
         animationType="slide"
         onRequestClose={() => setShowLogModal(false)}
       >
-        <ModalScreen className="bg-white">
-          <Text variant="titleMedium" className="text-center mb-3">
+        <ModalScreen style={{ backgroundColor: theme.colors.background }}>
+          <Text
+            variant="titleMedium"
+            style={{ textAlign: 'center', marginBottom: 12 }}
+          >
             最近の学習ログ
           </Text>
-          <ScrollView className="flex-1 my-2 bg-gray-100 rounded p-2">
+          <ScrollView
+            style={{
+              flex: 1,
+              marginVertical: 8,
+              backgroundColor: theme.colors.surfaceVariant,
+              borderRadius: 4,
+              padding: 8,
+            }}
+          >
             <Text selectable style={styles.jsonText}>
               {JSON.stringify(dailyLogs, null, 2)}
             </Text>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { router, useLocalSearchParams } from 'expo-router';
 import { View, Pressable, Dimensions } from 'react-native';
 import { Screen } from '@/components/Screen';
-import { Text, Button } from 'react-native-paper';
+import { Text, Button, useTheme } from 'react-native-paper';
 import { AntDesign, Feather } from '@expo/vector-icons';
 import {
   getQuestionById,
@@ -15,6 +15,7 @@ import type { Question } from '@/types/firestore';
 const { width } = Dimensions.get('window');
 
 export default function Quiz() {
+  const theme = useTheme();
   // ids: 出題する問題ID一覧、current: 現在の問題番号（0始まり）
   const { ids, current } = useLocalSearchParams<{
     ids?: string;
@@ -106,7 +107,7 @@ export default function Quiz() {
 
   if (!question) {
     return (
-      <View className="flex-1 items-center justify-center">
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Text>読み込み中...</Text>
       </View>
     );
@@ -117,33 +118,76 @@ export default function Quiz() {
   const currentNo = currentIndex + 1;
 
   return (
-    <Screen className="bg-white">
+    <Screen style={{ backgroundColor: theme.colors.background }}>
       {/* ───────── ヘッダ ───────── */}
-      <View className="h-14 px-4 flex-row items-center justify-between">
+      <View
+        style={{
+          height: 56,
+          paddingHorizontal: 16,
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}
+      >
         {/* 戻るボタン。router.replace を使い履歴を残さない */}
         <Pressable onPress={() => router.replace('/select')}>
-          <Feather name="arrow-left" size={28} color="#333" />
+          <Feather
+            name="arrow-left"
+            size={28}
+            color={theme.colors.onBackground}
+          />
         </Pressable>
         <Text variant="titleMedium">{`クイズ（${currentNo} / ${total}）`}</Text>
-        <AntDesign name="user" size={28} color="#333" />
+        <AntDesign name="user" size={28} color={theme.colors.onBackground} />
       </View>
 
       {/* 進捗バー */}
-      <View className="h-1 bg-gray-200 mb-3 mx-4 rounded">
+      <View
+        style={{
+          height: 4,
+          backgroundColor: theme.colors.surfaceVariant,
+          marginBottom: 12,
+          marginHorizontal: 16,
+          borderRadius: 4,
+        }}
+      >
         <View
-          style={{ width: `${(currentNo / total) * 100}%` }}
-          className="h-1 bg-blue-500 rounded"
+          style={{
+            width: `${(currentNo / total) * 100}%`,
+            height: 4,
+            backgroundColor: theme.colors.primary,
+            borderRadius: 4,
+          }}
         />
       </View>
 
       {/* ───────── 問題カード ───────── */}
-      <View className="m-4 p-6 border border-gray-800 rounded-xl min-h-[140px] justify-center">
-        <Text className="text-center leading-6">{question.question}</Text>
-        <Pressable onPress={toggleFavorite} className="absolute top-3 right-3">
+      <View
+        style={{
+          margin: 16,
+          padding: 24,
+          borderWidth: 1,
+          borderColor: theme.colors.outline,
+          borderRadius: 16,
+          minHeight: 140,
+          justifyContent: 'center',
+        }}
+      >
+        <Text style={{ textAlign: 'center', lineHeight: 24 }}>
+          {question.question}
+        </Text>
+        <Pressable
+          onPress={toggleFavorite}
+          style={{ position: 'absolute', top: 12, right: 12 }}
+        >
           {question.is_favorite ? (
-            <AntDesign name="star" size={24} color="#facc15" />
+            <AntDesign name="star" size={24} color={theme.colors.tertiary} />
           ) : (
-            <AntDesign name="staro" size={24} color="#333" />
+            <AntDesign
+              name="staro"
+              size={24}
+              color={theme.colors.onBackground}
+            />
           )}
         </Pressable>
       </View>
@@ -154,14 +198,29 @@ export default function Quiz() {
         return (
           <Pressable
             key={idx}
-            style={{ width: width * 0.9 }}
-            className={`self-center py-4 my-2 rounded-full items-center ${
-              chosen ? 'bg-sky-300' : 'bg-cyan-100'
-            }`}
+            style={{
+              width: width * 0.9,
+              alignSelf: 'center',
+              paddingVertical: 16,
+              marginVertical: 8,
+              borderRadius: 9999,
+              alignItems: 'center',
+              backgroundColor: chosen
+                ? theme.colors.primary
+                : theme.colors.secondaryContainer,
+            }}
             onPress={() => toggleSelect(idx)}
             disabled={isAnswered}
           >
-            <Text className="text-lg font-semibold text-white">{opt}</Text>
+            <Text
+              style={{
+                fontSize: 18,
+                fontWeight: '600',
+                color: theme.colors.onPrimary,
+              }}
+            >
+              {opt}
+            </Text>
           </Pressable>
         );
       })}
@@ -169,8 +228,7 @@ export default function Quiz() {
       {/* ───────── 解答ボタン ───────── */}
       <Button
         mode="contained"
-        style={{ width: width * 0.9 }}
-        className="self-center mt-4"
+        style={{ width: width * 0.9, alignSelf: 'center', marginTop: 16 }}
         onPress={onSubmit}
         disabled={selected.length === 0}
       >

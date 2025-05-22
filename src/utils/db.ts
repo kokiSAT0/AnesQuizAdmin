@@ -237,6 +237,52 @@ export async function getQuestionIdsByDifficulty(
 }
 
 /* ------------------------------------------------------------------ */
+/* 5-1b. レベルとカテゴリを指定して問題IDを取得                         */
+/* ------------------------------------------------------------------ */
+export async function getQuestionIdsByFilter(
+  levels: string[],
+  categories: string[],
+  favoriteOnly = false,
+): Promise<string[]> {
+  const db = await getDB();
+
+  // レベルまたはカテゴリが未選択の場合は空配列を返す
+  // AND 条件を満たす組み合わせが存在しないため
+  if (levels.length === 0 || categories.length === 0) {
+    return [];
+  }
+
+  const conditions: string[] = [];
+  const params: any[] = [];
+
+  if (levels.length) {
+    const placeholders = levels.map(() => '?').join(', ');
+    conditions.push(`difficulty_level IN (${placeholders})`);
+    params.push(...levels);
+  }
+
+  if (categories.length) {
+    const placeholders = categories.map(() => '?').join(', ');
+    conditions.push(
+      `EXISTS (SELECT 1 FROM json_each(Questions.category_json) WHERE value IN (${placeholders}))`,
+    );
+    params.push(...categories);
+  }
+
+  if (favoriteOnly) {
+    conditions.push('is_favorite = 1');
+  }
+
+  const where = conditions.length ? `WHERE ${conditions.join(' AND ')}` : '';
+
+  const rows = await db.getAllAsync<{ id: string }>(
+    `SELECT id FROM Questions ${where} ORDER BY id;`,
+    params,
+  );
+  return rows.map((r) => r.id);
+}
+
+/* ------------------------------------------------------------------ */
 /* 5-2. 難易度を指定して問題数をカウントする                           */
 /* ------------------------------------------------------------------ */
 export async function countQuestionsByDifficulty(
@@ -257,6 +303,51 @@ export async function countQuestionsByDifficulty(
   const { total } = await db.getFirstAsync<{ total: number }>(
     `SELECT COUNT(*) AS total FROM Questions WHERE difficulty_level IN (${placeholders});`,
     levels,
+  );
+  return total;
+}
+
+/* ------------------------------------------------------------------ */
+/* 5-2b. レベルとカテゴリを指定して問題数をカウントする                 */
+/* ------------------------------------------------------------------ */
+export async function countQuestionsByFilter(
+  levels: string[],
+  categories: string[],
+  favoriteOnly = false,
+): Promise<number> {
+  const db = await getDB();
+
+  // レベルかカテゴリが未選択なら 0 件とする
+  if (levels.length === 0 || categories.length === 0) {
+    return 0;
+  }
+
+  const conditions: string[] = [];
+  const params: any[] = [];
+
+  if (levels.length) {
+    const placeholders = levels.map(() => '?').join(', ');
+    conditions.push(`difficulty_level IN (${placeholders})`);
+    params.push(...levels);
+  }
+
+  if (categories.length) {
+    const placeholders = categories.map(() => '?').join(', ');
+    conditions.push(
+      `EXISTS (SELECT 1 FROM json_each(Questions.category_json) WHERE value IN (${placeholders}))`,
+    );
+    params.push(...categories);
+  }
+
+  if (favoriteOnly) {
+    conditions.push('is_favorite = 1');
+  }
+
+  const where = conditions.length ? `WHERE ${conditions.join(' AND ')}` : '';
+
+  const { total } = await db.getFirstAsync<{ total: number }>(
+    `SELECT COUNT(*) AS total FROM Questions ${where};`,
+    params,
   );
   return total;
 }
