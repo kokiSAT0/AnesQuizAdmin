@@ -246,6 +246,12 @@ export async function getQuestionIdsByFilter(
 ): Promise<string[]> {
   const db = await getDB();
 
+  // レベルまたはカテゴリが未選択の場合は空配列を返す
+  // AND 条件を満たす組み合わせが存在しないため
+  if (levels.length === 0 || categories.length === 0) {
+    return [];
+  }
+
   const conditions: string[] = [];
   const params: any[] = [];
 
@@ -310,6 +316,11 @@ export async function countQuestionsByFilter(
   favoriteOnly = false,
 ): Promise<number> {
   const db = await getDB();
+
+  // レベルかカテゴリが未選択なら 0 件とする
+  if (levels.length === 0 || categories.length === 0) {
+    return 0;
+  }
 
   const conditions: string[] = [];
   const params: any[] = [];
