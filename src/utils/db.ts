@@ -242,6 +242,7 @@ export async function getQuestionIdsByDifficulty(
 export async function getQuestionIdsByFilter(
   levels: string[],
   categories: string[],
+  favoriteOnly = false,
 ): Promise<string[]> {
   const db = await getDB();
 
@@ -260,6 +261,10 @@ export async function getQuestionIdsByFilter(
       `EXISTS (SELECT 1 FROM json_each(Questions.category_json) WHERE value IN (${placeholders}))`,
     );
     params.push(...categories);
+  }
+
+  if (favoriteOnly) {
+    conditions.push('is_favorite = 1');
   }
 
   const where = conditions.length ? `WHERE ${conditions.join(' AND ')}` : '';
@@ -302,6 +307,7 @@ export async function countQuestionsByDifficulty(
 export async function countQuestionsByFilter(
   levels: string[],
   categories: string[],
+  favoriteOnly = false,
 ): Promise<number> {
   const db = await getDB();
 
@@ -320,6 +326,10 @@ export async function countQuestionsByFilter(
       `EXISTS (SELECT 1 FROM json_each(Questions.category_json) WHERE value IN (${placeholders}))`,
     );
     params.push(...categories);
+  }
+
+  if (favoriteOnly) {
+    conditions.push('is_favorite = 1');
   }
 
   const where = conditions.length ? `WHERE ${conditions.join(' AND ')}` : '';

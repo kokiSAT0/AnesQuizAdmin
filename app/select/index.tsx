@@ -80,15 +80,20 @@ export default function SelectScreen() {
   const [selected, setSelected] = useState<Level[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
   const [random, setRandom] = useState(false);
+  const [favoriteOnly, setFavoriteOnly] = useState(false);
   const [matchCount, setMatchCount] = useState<number>(0);
 
   // レベルやカテゴリの選択が変わるたびに件数を再計算する
   useEffect(() => {
     (async () => {
-      const count = await countQuestionsByFilter(selected, selectedCategories);
+      const count = await countQuestionsByFilter(
+        selected,
+        selectedCategories,
+        favoriteOnly,
+      );
       setMatchCount(count);
     })();
-  }, [selected, selectedCategories]);
+  }, [selected, selectedCategories, favoriteOnly]);
 
   const toggleLevel = (level: Level) => {
     setSelected((prev) =>
@@ -106,7 +111,11 @@ export default function SelectScreen() {
 
   const startQuiz = async () => {
     try {
-      const ids = await getQuestionIdsByFilter(selected, selectedCategories);
+      const ids = await getQuestionIdsByFilter(
+        selected,
+        selectedCategories,
+        favoriteOnly,
+      );
       if (ids.length === 0) {
         Alert.alert('該当する問題がありません');
         return;
@@ -171,6 +180,18 @@ export default function SelectScreen() {
       >
         <Text style={{ marginRight: 8, fontSize: 16 }}>ランダムに出題する</Text>
         <Switch value={random} onValueChange={setRandom} />
+      </View>
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          marginVertical: 8,
+        }}
+      >
+        <Text style={{ marginRight: 8, fontSize: 16 }}>
+          お気に入りのみ出題する
+        </Text>
+        <Switch value={favoriteOnly} onValueChange={setFavoriteOnly} />
       </View>
       {/* 選択条件に合致する問題数を表示 */}
       <Text style={{ marginVertical: 8, fontSize: 16 }}>
