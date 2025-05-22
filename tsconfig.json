@@ -3,8 +3,7 @@
   "compilerOptions": {
     "strict": true,
     "paths": {
-      "@/*": ["./*"],
-      "tailwind.config": ["./tailwind.config.js"]
+      "@/*": ["./*"]
     }
   },
   "include": [
@@ -12,10 +11,7 @@
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
-    "nativewind-env.d.ts",
-    "__tests__/**/*"   // ★追加
+    "__tests__/**/*" // ★追加
   ],
-  "exclude": [
-    "node_modules",
-  ]
+  "exclude": ["node_modules"]
 }

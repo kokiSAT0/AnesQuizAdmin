@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Alert } from 'react-native';
 import { Screen } from '@/components/Screen';
-import { Text, Button, Switch, Chip, Card } from 'react-native-paper';
+import { Text, Button, Switch, Chip, Card, useTheme } from 'react-native-paper';
 import { router } from 'expo-router';
 import {
   getQuestionIdsByDifficulty,
@@ -29,7 +29,7 @@ function LevelChip({
       mode={selected ? 'flat' : 'outlined'}
       selected={selected}
       onPress={onToggle}
-      className="m-1"
+      style={{ margin: 4 }}
     >
       {label}
     </Chip>
@@ -37,6 +37,7 @@ function LevelChip({
 }
 
 export default function SelectScreen() {
+  const theme = useTheme();
   const [selected, setSelected] = useState<Level[]>([]);
   const [random, setRandom] = useState(false);
   const [matchCount, setMatchCount] = useState<number>(0);
@@ -74,15 +75,18 @@ export default function SelectScreen() {
   };
 
   return (
-    <Screen className="bg-gray-50">
-      <Text variant="titleLarge" className="text-center mb-4">
+    <Screen style={{ backgroundColor: theme.colors.background }}>
+      <Text
+        variant="titleLarge"
+        style={{ textAlign: 'center', marginBottom: 16 }}
+      >
         クイズ選択画面
       </Text>
       {/* ───────── レベル選択 ───────── */}
-      <Card className="mb-4">
+      <Card style={{ marginBottom: 16 }}>
         <Card.Title title="レベル" />
         <Card.Content>
-          <View className="flex-row flex-wrap">
+          <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
             {LEVELS.map((lv) => (
               <LevelChip
                 key={lv}
@@ -94,17 +98,25 @@ export default function SelectScreen() {
           </View>
         </Card.Content>
       </Card>
-      <View className="flex-row items-center my-2">
-        <Text className="mr-2 text-base">ランダムに出題する</Text>
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          marginVertical: 8,
+        }}
+      >
+        <Text style={{ marginRight: 8, fontSize: 16 }}>ランダムに出題する</Text>
         <Switch value={random} onValueChange={setRandom} />
       </View>
       {/* 選択条件に合致する問題数を表示 */}
-      <Text className="my-2 text-base">該当問題数: {matchCount} 件</Text>
-      <View className="items-center space-y-2">
+      <Text style={{ marginVertical: 8, fontSize: 16 }}>
+        該当問題数: {matchCount} 件
+      </Text>
+      <View style={{ alignItems: 'center' }}>
         <Button
           mode="contained"
           onPress={startQuiz}
-          className="w-full max-w-sm"
+          style={{ width: '100%', maxWidth: 320, marginVertical: 4 }}
         >
           クイズ開始
         </Button>
@@ -112,7 +124,7 @@ export default function SelectScreen() {
         <Button
           mode="outlined"
           onPress={() => router.back()}
-          className="w-full max-w-sm"
+          style={{ width: '100%', maxWidth: 320, marginVertical: 4 }}
         >
           戻る
         </Button>
