@@ -83,7 +83,8 @@ export default function SelectScreen() {
   const [favoriteOnly, setFavoriteOnly] = useState(false);
   const [matchCount, setMatchCount] = useState<number>(0);
 
-  // レベルやカテゴリの選択が変わるたびに件数を再計算する
+  // レベルとカテゴリのどちらも選ばれている場合のみ件数を取得
+  // どちらか片方でも未選択なら 0 件になる
   useEffect(() => {
     (async () => {
       const count = await countQuestionsByFilter(
