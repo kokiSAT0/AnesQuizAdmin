@@ -8,6 +8,7 @@ import {
   getQuestionById,
   updateLearningDailyLog,
   recordAnswer,
+  recordFirstAttempt,
   updateFavorite,
 } from '@/src/utils/db';
 import type { Question } from '@/types/firestore';
@@ -89,6 +90,16 @@ export default function Quiz() {
     setIsAnswered(true);
     // 解答結果を DB に保存します。void で非同期実行
     void updateLearningDailyLog(question.id, correct);
+
+    // 初めての解答なら first_attempt_* を記録
+    if (question.first_attempt_correct === null) {
+      void recordFirstAttempt(question.id, correct);
+      setQuestion({
+        ...question,
+        first_attempt_correct: correct,
+        first_attempted_at: new Date().toISOString(),
+      });
+    }
 
     void recordAnswer(question.id, correct);
     // 少し待ってから解説画面へ
