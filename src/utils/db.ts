@@ -237,6 +237,41 @@ export async function getQuestionIdsByDifficulty(
 }
 
 /* ------------------------------------------------------------------ */
+/* 5-1b. レベルとカテゴリを指定して問題IDを取得                         */
+/* ------------------------------------------------------------------ */
+export async function getQuestionIdsByFilter(
+  levels: string[],
+  categories: string[],
+): Promise<string[]> {
+  const db = await getDB();
+
+  const conditions: string[] = [];
+  const params: any[] = [];
+
+  if (levels.length) {
+    const placeholders = levels.map(() => '?').join(', ');
+    conditions.push(`difficulty_level IN (${placeholders})`);
+    params.push(...levels);
+  }
+
+  if (categories.length) {
+    const placeholders = categories.map(() => '?').join(', ');
+    conditions.push(
+      `EXISTS (SELECT 1 FROM json_each(Questions.category_json) WHERE value IN (${placeholders}))`,
+    );
+    params.push(...categories);
+  }
+
+  const where = conditions.length ? `WHERE ${conditions.join(' AND ')}` : '';
+
+  const rows = await db.getAllAsync<{ id: string }>(
+    `SELECT id FROM Questions ${where} ORDER BY id;`,
+    params,
+  );
+  return rows.map((r) => r.id);
+}
+
+/* ------------------------------------------------------------------ */
 /* 5-2. 難易度を指定して問題数をカウントする                           */
 /* ------------------------------------------------------------------ */
 export async function countQuestionsByDifficulty(
@@ -257,6 +292,41 @@ export async function countQuestionsByDifficulty(
   const { total } = await db.getFirstAsync<{ total: number }>(
     `SELECT COUNT(*) AS total FROM Questions WHERE difficulty_level IN (${placeholders});`,
     levels,
+  );
+  return total;
+}
+
+/* ------------------------------------------------------------------ */
+/* 5-2b. レベルとカテゴリを指定して問題数をカウントする                 */
+/* ------------------------------------------------------------------ */
+export async function countQuestionsByFilter(
+  levels: string[],
+  categories: string[],
+): Promise<number> {
+  const db = await getDB();
+
+  const conditions: string[] = [];
+  const params: any[] = [];
+
+  if (levels.length) {
+    const placeholders = levels.map(() => '?').join(', ');
+    conditions.push(`difficulty_level IN (${placeholders})`);
+    params.push(...levels);
+  }
+
+  if (categories.length) {
+    const placeholders = categories.map(() => '?').join(', ');
+    conditions.push(
+      `EXISTS (SELECT 1 FROM json_each(Questions.category_json) WHERE value IN (${placeholders}))`,
+    );
+    params.push(...categories);
+  }
+
+  const where = conditions.length ? `WHERE ${conditions.join(' AND ')}` : '';
+
+  const { total } = await db.getFirstAsync<{ total: number }>(
+    `SELECT COUNT(*) AS total FROM Questions ${where};`,
+    params,
   );
   return total;
 }

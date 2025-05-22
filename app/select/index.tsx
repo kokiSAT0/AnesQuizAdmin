@@ -3,14 +3,31 @@ import { View, Alert } from 'react-native';
 import { Screen } from '@/components/Screen';
 import { Text, Button, Switch, Chip, Card, useTheme } from 'react-native-paper';
 import { router } from 'expo-router';
-import {
-  getQuestionIdsByDifficulty,
-  countQuestionsByDifficulty,
-} from '@/src/utils/db';
+import { getQuestionIdsByFilter, countQuestionsByFilter } from '@/src/utils/db';
 
 // 選択可能な難易度のリスト
 const LEVELS = ['初級', '中級', '上級'] as const;
 type Level = (typeof LEVELS)[number];
+
+// ───────── カテゴリ一覧 ─────────
+const CATEGORIES = [
+  'ICU管理',
+  '区域麻酔',
+  '医療安全・ヒューマンファクター',
+  '呼吸管理',
+  '循環管理',
+  '気道管理',
+  '特殊患者',
+  '緊急対応',
+  '術中モニタリング',
+  '術前評価・麻酔計画',
+  '術後・疼痛管理',
+  '輸液・輸血',
+  '麻酔合併症',
+  '麻酔薬',
+  '麻酔関連機器',
+] as const;
+type Category = (typeof CATEGORIES)[number];
 
 // レベル選択用の Chip を表示するコンポーネント
 // "Chip" は小さなボタンのような UI 部品です
@@ -36,19 +53,42 @@ function LevelChip({
   );
 }
 
+// カテゴリ選択用の Chip コンポーネント
+function CategoryChip({
+  label,
+  selected,
+  onToggle,
+}: {
+  label: string;
+  selected: boolean;
+  onToggle: () => void;
+}) {
+  return (
+    <Chip
+      mode={selected ? 'flat' : 'outlined'}
+      selected={selected}
+      onPress={onToggle}
+      style={{ margin: 4 }}
+    >
+      {label}
+    </Chip>
+  );
+}
+
 export default function SelectScreen() {
   const theme = useTheme();
   const [selected, setSelected] = useState<Level[]>([]);
+  const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
   const [random, setRandom] = useState(false);
   const [matchCount, setMatchCount] = useState<number>(0);
 
-  // 選択が変わるたびに件数を再計算する
+  // レベルやカテゴリの選択が変わるたびに件数を再計算する
   useEffect(() => {
     (async () => {
-      const count = await countQuestionsByDifficulty(selected);
+      const count = await countQuestionsByFilter(selected, selectedCategories);
       setMatchCount(count);
     })();
-  }, [selected]);
+  }, [selected, selectedCategories]);
 
   const toggleLevel = (level: Level) => {
     setSelected((prev) =>
@@ -56,9 +96,17 @@ export default function SelectScreen() {
     );
   };
 
+  const toggleCategory = (category: Category) => {
+    setSelectedCategories((prev) =>
+      prev.includes(category)
+        ? prev.filter((c) => c !== category)
+        : [...prev, category],
+    );
+  };
+
   const startQuiz = async () => {
     try {
-      const ids = await getQuestionIdsByDifficulty(selected);
+      const ids = await getQuestionIdsByFilter(selected, selectedCategories);
       if (ids.length === 0) {
         Alert.alert('該当する問題がありません');
         return;
@@ -93,6 +141,22 @@ export default function SelectScreen() {
                 label={lv}
                 selected={selected.includes(lv)}
                 onToggle={() => toggleLevel(lv)}
+              />
+            ))}
+          </View>
+        </Card.Content>
+      </Card>
+      {/* ───────── カテゴリ選択 ───────── */}
+      <Card style={{ marginBottom: 16 }}>
+        <Card.Title title="カテゴリ" />
+        <Card.Content>
+          <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+            {CATEGORIES.map((cat) => (
+              <CategoryChip
+                key={cat}
+                label={cat}
+                selected={selectedCategories.includes(cat)}
+                onToggle={() => toggleCategory(cat)}
               />
             ))}
           </View>
