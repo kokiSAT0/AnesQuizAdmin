@@ -101,12 +101,32 @@ export default function SelectScreen() {
     );
   };
 
+  // レベルをすべて選択する
+  const selectAllLevels = () => {
+    setSelected([...LEVELS]);
+  };
+
+  // レベルの選択をすべて解除する
+  const clearLevels = () => {
+    setSelected([]);
+  };
+
   const toggleCategory = (category: Category) => {
     setSelectedCategories((prev) =>
       prev.includes(category)
         ? prev.filter((c) => c !== category)
         : [...prev, category],
     );
+  };
+
+  // カテゴリをすべて選択する
+  const selectAllCategories = () => {
+    setSelectedCategories([...CATEGORIES]);
+  };
+
+  // カテゴリの選択をすべて解除する
+  const clearCategories = () => {
+    setSelectedCategories([]);
   };
 
   const startQuiz = async () => {
@@ -141,7 +161,20 @@ export default function SelectScreen() {
       </Text>
       {/* ───────── レベル選択 ───────── */}
       <Card style={{ marginBottom: 16 }}>
-        <Card.Title title="レベル" />
+        <Card.Title
+          title="レベル"
+          right={() => (
+            <View style={{ flexDirection: 'row' }}>
+              {/* "compact" を付けて小さいボタンにしています */}
+              <Button compact onPress={selectAllLevels}>
+                すべて選択
+              </Button>
+              <Button compact onPress={clearLevels}>
+                選択解除
+              </Button>
+            </View>
+          )}
+        />
         <Card.Content>
           <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
             {LEVELS.map((lv) => (
@@ -157,7 +190,19 @@ export default function SelectScreen() {
       </Card>
       {/* ───────── カテゴリ選択 ───────── */}
       <Card style={{ marginBottom: 16 }}>
-        <Card.Title title="カテゴリ" />
+        <Card.Title
+          title="カテゴリ"
+          right={() => (
+            <View style={{ flexDirection: 'row' }}>
+              <Button compact onPress={selectAllCategories}>
+                すべて選択
+              </Button>
+              <Button compact onPress={clearCategories}>
+                選択解除
+              </Button>
+            </View>
+          )}
+        />
         <Card.Content>
           <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
             {CATEGORIES.map((cat) => (
