@@ -4,6 +4,7 @@ import { ScrollableScreen } from '@/components/ScrollableScreen';
 import { Text, Button, Switch, Chip, Card, useTheme } from 'react-native-paper';
 import { router } from 'expo-router';
 import { getQuestionIdsByFilter, countQuestionsByFilter } from '@/src/utils/db';
+import { SelectableChip } from '@/components/SelectableChip';
 
 // 選択可能な難易度のリスト
 const LEVELS = ['初級', '中級', '上級'] as const;
@@ -33,71 +34,10 @@ const PROGRESS = ['正解', '不正解', '未学習'] as const;
 type Progress = (typeof PROGRESS)[number];
 
 // レベル選択用の Chip を表示するコンポーネント
-// "Chip" は小さなボタンのような UI 部品です
-function LevelChip({
-  label,
-  selected,
-  onToggle,
-}: {
-  label: string;
-  selected: boolean;
-  onToggle: () => void;
-}) {
-  return (
-    <Chip
-      // 選択されているときは塗りつぶし、そうでないときは枠線のみ
-      mode={selected ? 'flat' : 'outlined'}
-      selected={selected}
-      onPress={onToggle}
-      style={{ margin: 4 }}
-    >
-      {label}
-    </Chip>
-  );
-}
 
-// カテゴリ選択用の Chip コンポーネント
-function CategoryChip({
-  label,
-  selected,
-  onToggle,
-}: {
-  label: string;
-  selected: boolean;
-  onToggle: () => void;
-}) {
-  return (
-    <Chip
-      mode={selected ? 'flat' : 'outlined'}
-      selected={selected}
-      onPress={onToggle}
-      style={{ margin: 4 }}
-    >
-      {label}
-    </Chip>
-  );
-}
-
-function ProgressChip({
-  label,
-  selected,
-  onToggle,
-}: {
-  label: string;
-  selected: boolean;
-  onToggle: () => void;
-}) {
-  return (
-    <Chip
-      mode={selected ? 'flat' : 'outlined'}
-      selected={selected}
-      onPress={onToggle}
-      style={{ margin: 4 }}
-    >
-      {label}
-    </Chip>
-  );
-}
+const LevelChip = SelectableChip;
+const CategoryChip = SelectableChip;
+const ProgressChip = SelectableChip;
 
 export default function SelectScreen() {
   const theme = useTheme();
@@ -320,7 +260,7 @@ export default function SelectScreen() {
         <Button
           mode="contained"
           onPress={startQuiz}
-          style={{ width: '100%', maxWidth: 320, marginVertical: 4 }}
+          style={{ width: '100%', marginVertical: 4 }}
         >
           クイズ開始
         </Button>
@@ -328,7 +268,7 @@ export default function SelectScreen() {
         <Button
           mode="outlined"
           onPress={() => router.back()}
-          style={{ width: '100%', maxWidth: 320, marginVertical: 4 }}
+          style={{ width: '100%', marginVertical: 4 }}
         >
           戻る
         </Button>
