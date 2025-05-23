@@ -45,9 +45,13 @@ type Progress = (typeof PROGRESS)[number];
 
 // レベル選択用の Chip を表示するコンポーネント
 
-const LevelChip = SelectableChip;
-const CategoryChip = SelectableChip;
-const ProgressChip = SelectableChip;
+const LevelChip = (p: any) => <SelectableChip {...p} selectedColor="#C2DEF9" />;
+const CategoryChip = (p: any) => (
+  <SelectableChip {...p} selectedColor="#C7EFD9" />
+);
+const ProgressChip = (p: any) => (
+  <SelectableChip {...p} selectedColor="#FCE8CE" />
+);
 
 export default function SelectScreen() {
   const theme = useTheme();

@@ -5,15 +5,23 @@ type Props = {
   label: string;
   selected: boolean;
   onToggle: () => void;
+  selectedColor: string;
 };
 
-export function SelectableChip({ label, selected, onToggle }: Props) {
+export function SelectableChip({
+  label,
+  selected,
+  onToggle,
+  selectedColor,
+}: Props) {
   return (
     <Chip
-      mode={selected ? 'flat' : 'outlined'}
-      selected={selected}
+      mode="outlined"
       onPress={onToggle}
-      style={{ margin: 4 }}
+      style={{
+        margin: 4,
+        backgroundColor: selected ? selectedColor : 'white',
+      }}
     >
       {label}
     </Chip>
