@@ -13,10 +13,11 @@ service cloud.firestore {
       allow read, update, delete: if false;
     }
 
-    /* 集計データ：読み取りのみ／直接書き込み禁止 */
+    /* 集計データ：読み取りと書き込み(作成/更新)を許可 */
     match /questionStats/{id} {
       allow read;
-      allow write: if false;
+      allow create, update: if true;
+      allow delete: if false;
     }
   }
 }

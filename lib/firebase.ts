@@ -11,6 +11,7 @@ import {
   where,
   writeBatch,
   updateDoc,
+  setDoc,
   increment,
 } from 'firebase/firestore';
 import type { FirestoreQuestion } from '@/types/firestore'; // ← Firestore 用型
@@ -77,7 +78,8 @@ export async function writeAnswerLog(
     {
       attempts: increment(1),
       correct: increment(isCorrect ? 1 : 0),
-      updated_at: Date.now(),
+      // 更新日時は ISO 形式の文字列で保存
+      updated_at: new Date().toISOString(),
     },
     { merge: true },
   );
@@ -123,7 +125,8 @@ export async function submitAnswers(
       {
         attempts: increment(1),
         correct: increment(correct ? 1 : 0),
-        updated_at: Date.now(),
+        // 更新日時を ISO 形式(例: 2025-05-13T00:00:00Z) で保存
+        updated_at: new Date().toISOString(),
       },
       { merge: true },
     );
@@ -141,9 +144,16 @@ export async function incrementQuestionStatistics(
   id: string,
   isCorrect: boolean,
 ) {
-  // statistics.attempts と statistics.correct を更新
-  await updateDoc(doc(db, 'questions', id), {
-    'statistics.attempts': increment(1),
-    'statistics.correct': increment(isCorrect ? 1 : 0),
-  });
+  // Firestore 上の集計データ(questionStats)を増やす
+  // set(..., { merge: true }) で既存フィールドに加算します
+  await setDoc(
+    doc(db, 'questionStats', id),
+    {
+      attempts: increment(1),
+      correct: increment(isCorrect ? 1 : 0),
+      // 更新日時を ISO 形式で記録
+      updated_at: new Date().toISOString(),
+    },
+    { merge: true },
+  );
 }
