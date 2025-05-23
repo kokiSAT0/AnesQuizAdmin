@@ -11,6 +11,7 @@ import {
   recordFirstAttempt,
   updateFavorite,
 } from '@/src/utils/db';
+import { incrementQuestionStatistics } from '@/lib/firebase';
 import type { Question } from '@/types/firestore';
 
 const { width } = Dimensions.get('window');
@@ -91,9 +92,14 @@ export default function Quiz() {
     // 解答結果を DB に保存します。void で非同期実行
     void updateLearningDailyLog(question.id, correct);
 
-    // 初めての解答なら first_attempt_* を記録
+    // 初回解答なら SQLite と Firestore の統計を更新
     if (question.first_attempt_correct === null) {
+      // SQLite 側には初回正誤と日時を記録
       void recordFirstAttempt(question.id, correct);
+      // Firestore の statistics も増加させる
+      void incrementQuestionStatistics(question.id, correct);
+
+      // 状態も更新して画面に反映
       setQuestion({
         ...question,
         first_attempt_correct: correct,
