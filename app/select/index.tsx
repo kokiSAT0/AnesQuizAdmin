@@ -29,6 +29,9 @@ const CATEGORIES = [
 ] as const;
 type Category = (typeof CATEGORIES)[number];
 
+const PROGRESS = ['正解', '不正解', '未学習'] as const;
+type Progress = (typeof PROGRESS)[number];
+
 // レベル選択用の Chip を表示するコンポーネント
 // "Chip" は小さなボタンのような UI 部品です
 function LevelChip({
@@ -75,10 +78,33 @@ function CategoryChip({
   );
 }
 
+function ProgressChip({
+  label,
+  selected,
+  onToggle,
+}: {
+  label: string;
+  selected: boolean;
+  onToggle: () => void;
+}) {
+  return (
+    <Chip
+      mode={selected ? 'flat' : 'outlined'}
+      selected={selected}
+      onPress={onToggle}
+      style={{ margin: 4 }}
+    >
+      {label}
+    </Chip>
+  );
+}
+
 export default function SelectScreen() {
   const theme = useTheme();
   const [selected, setSelected] = useState<Level[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
+  const [selectedProgress, setSelectedProgress] = useState<Progress[]>([]);
+
   const [random, setRandom] = useState(false);
   const [favoriteOnly, setFavoriteOnly] = useState(false);
   const [matchCount, setMatchCount] = useState<number>(0);
@@ -91,10 +117,11 @@ export default function SelectScreen() {
         selected,
         selectedCategories,
         favoriteOnly,
+        selectedProgress,
       );
       setMatchCount(count);
     })();
-  }, [selected, selectedCategories, favoriteOnly]);
+  }, [selected, selectedCategories, favoriteOnly, selectedProgress]);
 
   const toggleLevel = (level: Level) => {
     setSelected((prev) =>
@@ -130,12 +157,30 @@ export default function SelectScreen() {
     setSelectedCategories([]);
   };
 
+  //学習達成度
+  const toggleProgress = (status: Progress) => {
+    setSelectedProgress((prev) =>
+      prev.includes(status)
+        ? prev.filter((s) => s !== status)
+        : [...prev, status],
+    );
+  };
+
+  const selectAllProgress = () => {
+    setSelectedProgress([...PROGRESS]);
+  };
+
+  const clearProgress = () => {
+    setSelectedProgress([]);
+  };
+
   const startQuiz = async () => {
     try {
       const ids = await getQuestionIdsByFilter(
         selected,
         selectedCategories,
         favoriteOnly,
+        selectedProgress,
       );
       if (ids.length === 0) {
         Alert.alert('該当する問題がありません');
@@ -212,6 +257,34 @@ export default function SelectScreen() {
                 label={cat}
                 selected={selectedCategories.includes(cat)}
                 onToggle={() => toggleCategory(cat)}
+              />
+            ))}
+          </View>
+        </Card.Content>
+      </Card>
+      {/* ───────── カテゴリ選択 ───────── */}
+      <Card style={{ marginBottom: 16 }}>
+        <Card.Title
+          title="学習達成度"
+          right={() => (
+            <View style={{ flexDirection: 'row' }}>
+              <Button compact onPress={selectAllProgress}>
+                すべて選択
+              </Button>
+              <Button compact onPress={clearProgress}>
+                選択解除
+              </Button>
+            </View>
+          )}
+        />
+        <Card.Content>
+          <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+            {PROGRESS.map((p) => (
+              <ProgressChip
+                key={p}
+                label={p}
+                selected={selectedProgress.includes(p)}
+                onToggle={() => toggleProgress(p)}
               />
             ))}
           </View>
