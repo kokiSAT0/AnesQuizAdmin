@@ -96,7 +96,7 @@ export default function Quiz() {
     if (question.first_attempt_correct === null) {
       // SQLite 側には初回正誤と日時を記録
       void recordFirstAttempt(question.id, correct);
-      // Firestore の statistics も増加させる
+      // Firestore の集計(questionStats)も増加させる
       void incrementQuestionStatistics(question.id, correct);
 
       // 状態も更新して画面に反映
