@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Alert } from 'react-native';
-import { Screen } from '@/components/Screen';
+import { ScrollableScreen } from '@/components/ScrollableScreen';
 import { Text, Button, Switch, Chip, Card, useTheme } from 'react-native-paper';
 import { router } from 'expo-router';
 import { getQuestionIdsByFilter, countQuestionsByFilter } from '@/src/utils/db';
@@ -153,7 +153,7 @@ export default function SelectScreen() {
   };
 
   return (
-    <Screen style={{ backgroundColor: theme.colors.background }}>
+    <ScrollableScreen style={{ backgroundColor: theme.colors.background }}>
       <Text
         variant="titleLarge"
         style={{ textAlign: 'center', marginBottom: 16 }}
@@ -260,6 +260,6 @@ export default function SelectScreen() {
           戻る
         </Button>
       </View>
-    </Screen>
+    </ScrollableScreen>
   );
 }
