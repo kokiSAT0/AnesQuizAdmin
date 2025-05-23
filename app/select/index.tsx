@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { View, Alert, TouchableOpacity } from 'react-native';
-import { ScrollableScreen } from '@/components/ScrollableScreen';
+import { View, Alert, TouchableOpacity, ScrollView } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import {
   Text,
   Button,
@@ -147,181 +147,215 @@ export default function SelectScreen() {
     }
   };
 
-  return (
-    <ScrollableScreen style={{ backgroundColor: theme.colors.background }}>
-      <Text
-        variant="titleLarge"
-        style={{ textAlign: 'center', marginBottom: 16 }}
-      >
-        クイズ選択画面
-      </Text>
-      {/* ───────── レベル選択 ───────── */}
-      <Card style={{ marginBottom: 16, backgroundColor: '#E8F4FD' }}>
-        <Card.Title
-          title="レベル"
-          right={() => (
-            <View style={{ flexDirection: 'row' }}>
-              {/* "compact" を付けて小さいボタンにしています */}
-              <Button compact onPress={selectAllLevels}>
-                すべて選択
-              </Button>
-              <Button compact onPress={clearLevels}>
-                選択解除
-              </Button>
-            </View>
-          )}
-        />
-        <Card.Content>
-          <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-            {LEVELS.map((lv) => (
-              <LevelChip
-                key={lv}
-                label={lv}
-                selected={selected.includes(lv)}
-                onToggle={() => toggleLevel(lv)}
-              />
-            ))}
-          </View>
-        </Card.Content>
-      </Card>
-      {/* ───────── カテゴリ選択 ───────── */}
-      <Card style={{ marginBottom: 16, backgroundColor: '#E9F7EF' }}>
-        <Card.Title
-          title="カテゴリ"
-          right={() => (
-            <View style={{ flexDirection: 'row' }}>
-              <Button compact onPress={selectAllCategories}>
-                すべて選択
-              </Button>
-              <Button compact onPress={clearCategories}>
-                選択解除
-              </Button>
-            </View>
-          )}
-        />
-        <Card.Content>
-          <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-            {CATEGORIES.map((cat) => (
-              <CategoryChip
-                key={cat}
-                label={cat}
-                selected={selectedCategories.includes(cat)}
-                onToggle={() => toggleCategory(cat)}
-              />
-            ))}
-          </View>
-        </Card.Content>
-      </Card>
-      {/* ───────── カテゴリ選択 ───────── */}
-      <Card style={{ marginBottom: 16, backgroundColor: '#FEF5E7' }}>
-        <Card.Title
-          title="学習達成度"
-          right={() => (
-            <View style={{ flexDirection: 'row' }}>
-              <Button compact onPress={selectAllProgress}>
-                すべて選択
-              </Button>
-              <Button compact onPress={clearProgress}>
-                選択解除
-              </Button>
-            </View>
-          )}
-        />
-        <Card.Content>
-          <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-            {PROGRESS.map((p) => (
-              <ProgressChip
-                key={p}
-                label={p}
-                selected={selectedProgress.includes(p)}
-                onToggle={() => toggleProgress(p)}
-              />
-            ))}
-          </View>
-        </Card.Content>
-      </Card>
+  const insets = useSafeAreaInsets();
 
+  return (
+    <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
+      {/* ───────── 固定ヘッダー ───────── */}
       <View
         style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
           flexDirection: 'row',
           alignItems: 'center',
-          marginVertical: 8,
+          paddingTop: insets.top,
+          height: 56 + insets.top,
+          paddingHorizontal: 8,
+          backgroundColor: theme.colors.background,
+          borderBottomWidth: 1,
+          borderBottomColor: '#ddd',
+          zIndex: 10,
         }}
       >
-        <Text style={{ marginRight: 8, fontSize: 16 }}>
-          お気に入りのみ出題する
+        <IconButton icon="arrow-left" onPress={() => router.back()} />
+        <Text
+          variant="titleLarge"
+          style={{ flex: 1, textAlign: 'center', marginRight: 48 }}
+        >
+          クイズ選択画面
         </Text>
-        <Switch value={favoriteOnly} onValueChange={setFavoriteOnly} />
       </View>
-      {/* 選択条件に合致する問題数を表示 */}
-      <Text style={{ marginVertical: 8, fontSize: 16 }}>
-        該当問題数: {matchCount} 件
-      </Text>
 
-      {/* ───────── ランダム出題のアイコンボタン ───────── */}
-      <TouchableOpacity
-        onPress={() => setRandom(!random)}
-        activeOpacity={0.8}
-        style={{
-          flexDirection: 'row-reverse',
-          alignItems: 'center',
-          marginVertical: 8,
+      {/* ───────── スクロール領域 ───────── */}
+
+      <ScrollView
+        contentContainerStyle={{
+          paddingTop: 56 + insets.top + 16, // ヘッダー高さ分 + 余白
+          paddingBottom: 72 + insets.bottom, // フッター高さ分 + 余白
+          paddingHorizontal: 16,
         }}
       >
-        <View
+        {/* ───────── ランダム出題のアイコンボタン ───────── */}
+        <TouchableOpacity
+          onPress={() => setRandom(!random)}
+          activeOpacity={0.8}
           style={{
-            backgroundColor: random
-              ? theme.colors.primaryContainer
-              : 'transparent',
-            borderRadius: 20,
-            elevation: random ? 4 : 0,
-            marginLeft: 8,
+            flexDirection: 'row-reverse',
+            alignItems: 'center',
+            marginVertical: 8,
           }}
         >
-          <MaterialCommunityIcons
-            name="shuffle-variant"
-            size={28}
-            color={
-              random ? theme.colors.primary : theme.colors.onSurfaceVariant
-            }
-            style={{ padding: 6 }}
+          <Text style={{ fontSize: 16 }}>
+            ランダム出題：{random ? 'ON' : 'OFF'}
+          </Text>
+          <View
+            style={{
+              backgroundColor: random
+                ? theme.colors.primaryContainer
+                : 'transparent',
+              borderRadius: 20,
+              elevation: random ? 4 : 0,
+              marginLeft: 8,
+            }}
+          >
+            <MaterialCommunityIcons
+              name="shuffle-variant"
+              size={28}
+              color={
+                random ? theme.colors.primary : theme.colors.onSurfaceVariant
+              }
+              style={{ padding: 6 }}
+            />
+          </View>
+        </TouchableOpacity>
+        {/* ───────── レベル選択 ───────── */}
+        <Card style={{ marginBottom: 16, backgroundColor: '#E8F4FD' }}>
+          <Card.Title
+            title="レベル"
+            right={() => (
+              <View style={{ flexDirection: 'row' }}>
+                {/* "compact" を付けて小さいボタンにしています */}
+                <Button compact onPress={selectAllLevels}>
+                  すべて選択
+                </Button>
+                <Button compact onPress={clearLevels}>
+                  選択解除
+                </Button>
+              </View>
+            )}
           />
-        </View>
-        <Text style={{ fontSize: 16 }}>
-          ランダム出題：{random ? 'ON' : 'OFF'}
-        </Text>
-      </TouchableOpacity>
+          <Card.Content>
+            <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+              {LEVELS.map((lv) => (
+                <LevelChip
+                  key={lv}
+                  label={lv}
+                  selected={selected.includes(lv)}
+                  onToggle={() => toggleLevel(lv)}
+                />
+              ))}
+            </View>
+          </Card.Content>
+        </Card>
+        {/* ───────── カテゴリ選択 ───────── */}
+        <Card style={{ marginBottom: 16, backgroundColor: '#E9F7EF' }}>
+          <Card.Title
+            title="カテゴリ"
+            right={() => (
+              <View style={{ flexDirection: 'row' }}>
+                <Button compact onPress={selectAllCategories}>
+                  すべて選択
+                </Button>
+                <Button compact onPress={clearCategories}>
+                  選択解除
+                </Button>
+              </View>
+            )}
+          />
+          <Card.Content>
+            <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+              {CATEGORIES.map((cat) => (
+                <CategoryChip
+                  key={cat}
+                  label={cat}
+                  selected={selectedCategories.includes(cat)}
+                  onToggle={() => toggleCategory(cat)}
+                />
+              ))}
+            </View>
+          </Card.Content>
+        </Card>
+        {/* ───────── カテゴリ選択 ───────── */}
+        <Card style={{ marginBottom: 16, backgroundColor: '#FEF5E7' }}>
+          <Card.Title
+            title="学習達成度"
+            right={() => (
+              <View style={{ flexDirection: 'row' }}>
+                <Button compact onPress={selectAllProgress}>
+                  すべて選択
+                </Button>
+                <Button compact onPress={clearProgress}>
+                  選択解除
+                </Button>
+              </View>
+            )}
+          />
+          <Card.Content>
+            <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+              {PROGRESS.map((p) => (
+                <ProgressChip
+                  key={p}
+                  label={p}
+                  selected={selectedProgress.includes(p)}
+                  onToggle={() => toggleProgress(p)}
+                />
+              ))}
+            </View>
+          </Card.Content>
+        </Card>
 
-      {/*  */}
-      {/*<View*/}
-      {/*  style={{*/}
-      {/*    flexDirection: 'row',*/}
-      {/*    alignItems: 'center',*/}
-      {/*    marginVertical: 8,*/}
-      {/*  }}*/}
-      {/*>*/}
-      {/*  <Text style={{ marginRight: 8, fontSize: 16 }}>ランダムに出題する</Text>*/}
-      {/*  <Switch value={random} onValueChange={setRandom} />*/}
-      {/*</View>*/}
-      {/*  */}
-
-      <View style={{ alignItems: 'center' }}>
-        <Button
-          mode="contained"
-          onPress={startQuiz}
-          style={{ width: '100%', marginVertical: 4 }}
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginVertical: 8,
+          }}
         >
+          <Text style={{ marginRight: 8, fontSize: 16 }}>
+            お気に入りのみ出題する
+          </Text>
+          <Switch value={favoriteOnly} onValueChange={setFavoriteOnly} />
+        </View>
+        {/* 選択条件に合致する問題数を表示 */}
+        <Text style={{ marginVertical: 8, fontSize: 16 }}>
+          該当問題数: {matchCount} 件
+        </Text>
+
+        {/*  */}
+        {/*<View*/}
+        {/*  style={{*/}
+        {/*    flexDirection: 'row',*/}
+        {/*    alignItems: 'center',*/}
+        {/*    marginVertical: 8,*/}
+        {/*  }}*/}
+        {/*>*/}
+        {/*  <Text style={{ marginRight: 8, fontSize: 16 }}>ランダムに出題する</Text>*/}
+        {/*  <Switch value={random} onValueChange={setRandom} />*/}
+        {/*</View>*/}
+        {/*  */}
+      </ScrollView>
+
+      {/* ───────── 固定フッター ───────── */}
+      <View
+        style={{
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          right: 0,
+          paddingBottom: insets.bottom,
+          paddingTop: 8,
+          backgroundColor: theme.colors.background,
+          borderTopWidth: 1,
+          borderTopColor: '#ddd',
+          alignItems: 'center',
+        }}
+      >
+        <Button mode="contained" onPress={startQuiz} style={{ width: '90%' }}>
           クイズ開始
         </Button>
-        {/* router.back() で前の画面へ戻ります */}
-        <Button
-          mode="outlined"
-          onPress={() => router.back()}
-          style={{ width: '100%', marginVertical: 4 }}
-        >
-          戻る
-        </Button>
       </View>
-    </ScrollableScreen>
+    </View>
   );
 }
