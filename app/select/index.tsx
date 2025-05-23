@@ -1,10 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { View, Alert } from 'react-native';
+import { View, Alert, TouchableOpacity } from 'react-native';
 import { ScrollableScreen } from '@/components/ScrollableScreen';
-import { Text, Button, Switch, Chip, Card, useTheme } from 'react-native-paper';
+import {
+  Text,
+  Button,
+  Switch,
+  Chip,
+  Card,
+  useTheme,
+  IconButton,
+} from 'react-native-paper';
 import { router } from 'expo-router';
 import { getQuestionIdsByFilter, countQuestionsByFilter } from '@/src/utils/db';
 import { SelectableChip } from '@/components/SelectableChip';
+
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 // 選択可能な難易度のリスト
 const LEVELS = ['初級', '中級', '上級'] as const;
@@ -230,16 +240,7 @@ export default function SelectScreen() {
           </View>
         </Card.Content>
       </Card>
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          marginVertical: 8,
-        }}
-      >
-        <Text style={{ marginRight: 8, fontSize: 16 }}>ランダムに出題する</Text>
-        <Switch value={random} onValueChange={setRandom} />
-      </View>
+
       <View
         style={{
           flexDirection: 'row',
@@ -256,6 +257,54 @@ export default function SelectScreen() {
       <Text style={{ marginVertical: 8, fontSize: 16 }}>
         該当問題数: {matchCount} 件
       </Text>
+
+      {/* ───────── ランダム出題のアイコンボタン ───────── */}
+      <TouchableOpacity
+        onPress={() => setRandom(!random)}
+        activeOpacity={0.8}
+        style={{
+          flexDirection: 'row-reverse',
+          alignItems: 'center',
+          marginVertical: 8,
+        }}
+      >
+        <View
+          style={{
+            backgroundColor: random
+              ? theme.colors.primaryContainer
+              : 'transparent',
+            borderRadius: 20,
+            elevation: random ? 4 : 0,
+            marginLeft: 8,
+          }}
+        >
+          <MaterialCommunityIcons
+            name="shuffle-variant"
+            size={28}
+            color={
+              random ? theme.colors.primary : theme.colors.onSurfaceVariant
+            }
+            style={{ padding: 6 }}
+          />
+        </View>
+        <Text style={{ fontSize: 16 }}>
+          ランダム出題：{random ? 'ON' : 'OFF'}
+        </Text>
+      </TouchableOpacity>
+
+      {/*  */}
+      {/*<View*/}
+      {/*  style={{*/}
+      {/*    flexDirection: 'row',*/}
+      {/*    alignItems: 'center',*/}
+      {/*    marginVertical: 8,*/}
+      {/*  }}*/}
+      {/*>*/}
+      {/*  <Text style={{ marginRight: 8, fontSize: 16 }}>ランダムに出題する</Text>*/}
+      {/*  <Switch value={random} onValueChange={setRandom} />*/}
+      {/*</View>*/}
+      {/*  */}
+
       <View style={{ alignItems: 'center' }}>
         <Button
           mode="contained"
