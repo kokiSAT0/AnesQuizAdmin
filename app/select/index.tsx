@@ -146,7 +146,7 @@ export default function SelectScreen() {
         クイズ選択画面
       </Text>
       {/* ───────── レベル選択 ───────── */}
-      <Card style={{ marginBottom: 16 }}>
+      <Card style={{ marginBottom: 16, backgroundColor: '#E8F4FD' }}>
         <Card.Title
           title="レベル"
           right={() => (
@@ -175,7 +175,7 @@ export default function SelectScreen() {
         </Card.Content>
       </Card>
       {/* ───────── カテゴリ選択 ───────── */}
-      <Card style={{ marginBottom: 16 }}>
+      <Card style={{ marginBottom: 16, backgroundColor: '#E9F7EF' }}>
         <Card.Title
           title="カテゴリ"
           right={() => (
@@ -203,7 +203,7 @@ export default function SelectScreen() {
         </Card.Content>
       </Card>
       {/* ───────── カテゴリ選択 ───────── */}
-      <Card style={{ marginBottom: 16 }}>
+      <Card style={{ marginBottom: 16, backgroundColor: '#FEF5E7' }}>
         <Card.Title
           title="学習達成度"
           right={() => (
