@@ -10,6 +10,7 @@ import {
   query,
   where,
   writeBatch,
+  updateDoc,
   increment,
 } from 'firebase/firestore';
 import type { FirestoreQuestion } from '@/types/firestore'; // ← Firestore 用型
@@ -129,4 +130,20 @@ export async function submitAnswers(
   });
 
   await batch.commit();
+}
+
+/**
+ * 初回解答時に問題の統計情報を更新します
+ * @param id 更新対象の問題ID
+ * @param isCorrect 正解なら true
+ */
+export async function incrementQuestionStatistics(
+  id: string,
+  isCorrect: boolean,
+) {
+  // statistics.attempts と statistics.correct を更新
+  await updateDoc(doc(db, 'questions', id), {
+    'statistics.attempts': increment(1),
+    'statistics.correct': increment(isCorrect ? 1 : 0),
+  });
 }
