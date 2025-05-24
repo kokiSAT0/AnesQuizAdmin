@@ -188,6 +188,8 @@ export default function SelectScreen() {
         >
           クイズ選択画面
         </Text>
+        {/* ←―― 右上の歯車アイコン ――― */}
+        <IconButton icon="cog" onPress={() => router.push('/settings')} />
       </View>
 
       {/* ───────── スクロール領域 ───────── */}
