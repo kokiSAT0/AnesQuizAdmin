@@ -233,7 +233,9 @@ export default function SelectScreen() {
           </View>
         </TouchableOpacity>
         {/* ───────── レベル選択 ───────── */}
-        <Card style={{ marginBottom: 16, backgroundColor: '#E8F4FD' }}>
+        <Card
+          style={{ marginBottom: 16, backgroundColor: theme.colors.levelCard }}
+        >
           <Card.Title
             title="レベル"
             right={() => (
@@ -262,7 +264,12 @@ export default function SelectScreen() {
           </Card.Content>
         </Card>
         {/* ───────── カテゴリ選択 ───────── */}
-        <Card style={{ marginBottom: 16, backgroundColor: '#E9F7EF' }}>
+        <Card
+          style={{
+            marginBottom: 16,
+            backgroundColor: theme.colors.categoryCard,
+          }}
+        >
           <Card.Title
             title="カテゴリ"
             right={() => (
@@ -290,7 +297,12 @@ export default function SelectScreen() {
           </Card.Content>
         </Card>
         {/* ───────── カテゴリ選択 ───────── */}
-        <Card style={{ marginBottom: 16, backgroundColor: '#FEF5E7' }}>
+        <Card
+          style={{
+            marginBottom: 16,
+            backgroundColor: theme.colors.progressCard,
+          }}
+        >
           <Card.Title
             title="学習達成度"
             right={() => (

@@ -32,7 +32,10 @@ export default function RootLayout() {
           { paddingTop: insets.top, backgroundColor: theme.colors.background },
         ]}
       >
-        <StatusBar style="dark" backgroundColor={theme.colors.background} />
+        <StatusBar
+          style={scheme === 'dark' ? 'light' : 'dark'}
+          backgroundColor={theme.colors.background}
+        />
         <Stack
           screenOptions={{
             headerShown: false,
