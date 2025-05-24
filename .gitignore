@@ -41,3 +41,5 @@ app-example
 
 # 🔒 credentials（追加行）
 credentials/*.json
+
+.vscode

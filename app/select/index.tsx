@@ -45,19 +45,27 @@ type Progress = (typeof PROGRESS)[number];
 
 // レベル選択用の Chip を表示するコンポーネント
 
-const LevelChip = (p: any) => <SelectableChip {...p} selectedColor="#C2DEF9" />;
-const CategoryChip = (p: any) => (
-  <SelectableChip {...p} selectedColor="#C7EFD9" />
+const LevelChip = (p: any) => (
+  <SelectableChip {...p} selectedColorToken="levelChipSelected" />
 );
+
+const CategoryChip = (p: any) => (
+  <SelectableChip {...p} selectedColorToken="categoryChipSelected" />
+);
+
 const ProgressChip = (p: any) => (
-  <SelectableChip {...p} selectedColor="#FCE8CE" />
+  <SelectableChip {...p} selectedColorToken="progressChipSelected" />
 );
 
 export default function SelectScreen() {
   const theme = useTheme();
-  const [selected, setSelected] = useState<Level[]>([]);
-  const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
-  const [selectedProgress, setSelectedProgress] = useState<Progress[]>([]);
+  const [selected, setSelected] = useState<Level[]>([...LEVELS]);
+  const [selectedCategories, setSelectedCategories] = useState<Category[]>([
+    ...CATEGORIES,
+  ]);
+  const [selectedProgress, setSelectedProgress] = useState<Progress[]>([
+    ...PROGRESS,
+  ]);
 
   const [random, setRandom] = useState(false);
   const [favoriteOnly, setFavoriteOnly] = useState(false);
@@ -225,7 +233,9 @@ export default function SelectScreen() {
           </View>
         </TouchableOpacity>
         {/* ───────── レベル選択 ───────── */}
-        <Card style={{ marginBottom: 16, backgroundColor: '#E8F4FD' }}>
+        <Card
+          style={{ marginBottom: 16, backgroundColor: theme.colors.levelCard }}
+        >
           <Card.Title
             title="レベル"
             right={() => (
@@ -254,7 +264,12 @@ export default function SelectScreen() {
           </Card.Content>
         </Card>
         {/* ───────── カテゴリ選択 ───────── */}
-        <Card style={{ marginBottom: 16, backgroundColor: '#E9F7EF' }}>
+        <Card
+          style={{
+            marginBottom: 16,
+            backgroundColor: theme.colors.categoryCard,
+          }}
+        >
           <Card.Title
             title="カテゴリ"
             right={() => (
@@ -282,7 +297,12 @@ export default function SelectScreen() {
           </Card.Content>
         </Card>
         {/* ───────── カテゴリ選択 ───────── */}
-        <Card style={{ marginBottom: 16, backgroundColor: '#FEF5E7' }}>
+        <Card
+          style={{
+            marginBottom: 16,
+            backgroundColor: theme.colors.progressCard,
+          }}
+        >
           <Card.Title
             title="学習達成度"
             right={() => (

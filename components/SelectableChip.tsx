@@ -1,26 +1,27 @@
 import React from 'react';
-import { Chip } from 'react-native-paper';
+import { Chip, useTheme } from 'react-native-paper';
 
 type Props = {
   label: string;
   selected: boolean;
   onToggle: () => void;
-  selectedColor: string;
+  selectedColorToken: keyof ColorScheme;
 };
 
 export function SelectableChip({
   label,
   selected,
   onToggle,
-  selectedColor,
+  selectedColorToken,
 }: Props) {
+  const { colors } = useTheme();
   return (
     <Chip
       mode="outlined"
       onPress={onToggle}
       style={{
         margin: 4,
-        backgroundColor: selected ? selectedColor : 'white',
+        backgroundColor: selected ? colors[selectedColorToken] : '#FFFFFF',
       }}
     >
       {label}

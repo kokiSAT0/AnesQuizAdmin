@@ -42,6 +42,21 @@ export const colors = {
     inverseOnSurface: '#F1F0F4',
     inversePrimary: '#A9C7FF',
     shadow: '#000000',
+
+    /* --- Quiz-App custom chips (light) --------------------- */
+    levelChip: '#E8F4FD', // 従来の薄色
+    levelChipSelected: '#C2DEF9', // 1トーン濃い
+
+    categoryChip: '#E9F7EF',
+    categoryChipSelected: '#C7EFD9',
+
+    progressChip: '#FEF5E7',
+    progressChipSelected: '#FCE8CE',
+
+    /* --- Quiz-App custom cards (light) ------------------- */
+    levelCard: '#E8F4FD',
+    categoryCard: '#E9F7EF',
+    progressCard: '#FEF5E7',
   },
 
   dark: {
@@ -77,6 +92,21 @@ export const colors = {
     inverseOnSurface: '#1A1C1E',
     inversePrimary: '#0061A9',
     shadow: '#000000',
+
+    /* --- Quiz-App custom chips (dark) ---------------------- */
+    levelChip: '#27486B',
+    levelChipSelected: '#335B85',
+
+    categoryChip: '#234437',
+    categoryChipSelected: '#2E5547',
+
+    progressChip: '#56391A',
+    progressChipSelected: '#644826',
+
+    /* --- Quiz-App custom cards (light) ------------------- */
+    levelCard: '#27486B',
+    categoryCard: '#234437',
+    progressCard: '#56391A',
   },
 } as const;
 
