@@ -218,6 +218,15 @@ export default function Quiz() {
 
         {/* ───────── 問題カード ───────── */}
         <View style={[styles.card, { borderColor: theme.colors.outline }]}>
+          {/* ─ カテゴリ表示 ─ */}
+          <View style={styles.categoryRow}>
+            {question.categories.map((cat) => (
+              <View key={cat} style={styles.categoryChip}>
+                <Text style={styles.categoryText}>{cat}</Text>
+              </View>
+            ))}
+          </View>
+
           <Text style={tStyles.question}>{question.question}</Text>
           <Pressable onPress={toggleFavorite} style={styles.favoriteBtn}>
             {question.is_favorite ? (
@@ -308,6 +317,28 @@ const styles = StyleSheet.create({
     minHeight: 140,
     justifyContent: 'center',
   },
+
+  categoryRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    position: 'absolute',
+    top: 8,
+    left: 8,
+    right: 48,
+  },
+  categoryChip: {
+    backgroundColor: '#E0E0E0', // お好みで
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 12,
+    marginRight: 4,
+    marginBottom: 4,
+  },
+  categoryText: {
+    fontSize: 12,
+    color: '#444', // テーマに無ければ '#fff' など
+  },
+
   favoriteBtn: {
     position: 'absolute',
     top: 12,
