@@ -92,7 +92,8 @@ export default function IndexScreen() {
         <Button
           mode="contained"
           onPress={() => router.push('/select')}
-          style={{ width: '100%', maxWidth: 320, marginVertical: 4 }}
+          style={styles.startButton}
+          contentStyle={styles.startButtonContent}
         >
           クイズを始める
         </Button>
@@ -129,11 +130,22 @@ export default function IndexScreen() {
 }
 
 const styles = StyleSheet.create({
+  // ログ表示エリア
   logArea: {
     flex: 1,
     width: '100%',
     marginTop: 8,
     borderRadius: 4,
     padding: 8,
+  },
+  // クイズ開始ボタンのスタイル
+  startButton: {
+    width: 320,
+    alignSelf: 'center',
+    marginVertical: 4,
+  },
+  // ボタン内部の高さ調整
+  startButtonContent: {
+    height: 60,
   },
 });
