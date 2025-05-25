@@ -320,15 +320,6 @@ export default function SelectScreen() {
         <Text style={[styles.label, styles.matchCount]}>
           該当問題数: {matchCount} 件
         </Text>
-        <Text style={[styles.label, styles.matchCount]}>
-          該当問題数: {matchCount} 件
-        </Text>
-        <Text style={[styles.label, styles.matchCount]}>
-          該当問題数: {matchCount} 件
-        </Text>
-        <Text style={[styles.label, styles.matchCount]}>
-          該当問題数: {matchCount} 件
-        </Text>
       </ScrollView>
 
       {/* ───────── 固定フッター ───────── */}
