@@ -167,6 +167,8 @@ export default function SelectScreen() {
 
   const insets = useSafeAreaInsets();
 
+  const FOOTER_HEIGHT = 64;
+
   return (
     <View
       style={[styles.container, { backgroundColor: theme.colors.background }]}
@@ -183,7 +185,7 @@ export default function SelectScreen() {
       <ScrollView
         contentContainerStyle={[
           styles.scrollContent,
-          { paddingBottom: insets.bottom }, // フッター余白を加算
+          { paddingBottom: FOOTER_HEIGHT + insets.bottom }, // フッター余白を加算
         ]}
       >
         {/* ───────── ランダム出題のアイコンボタン ───────── */}
@@ -315,6 +317,15 @@ export default function SelectScreen() {
           <Switch value={favoriteOnly} onValueChange={setFavoriteOnly} />
         </View>
         {/* 選択条件に合致する問題数を表示 */}
+        <Text style={[styles.label, styles.matchCount]}>
+          該当問題数: {matchCount} 件
+        </Text>
+        <Text style={[styles.label, styles.matchCount]}>
+          該当問題数: {matchCount} 件
+        </Text>
+        <Text style={[styles.label, styles.matchCount]}>
+          該当問題数: {matchCount} 件
+        </Text>
         <Text style={[styles.label, styles.matchCount]}>
           該当問題数: {matchCount} 件
         </Text>

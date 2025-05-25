@@ -17,6 +17,7 @@ import { AppHeader } from '@/components/AppHeader';
 import { getQuestionById, updateFavorite } from '@/src/utils/db';
 
 const { width } = Dimensions.get('window');
+const FOOTER_HEIGHT = 64;
 
 export default function AnswerScreen() {
   const theme = useTheme();
@@ -62,7 +63,6 @@ export default function AnswerScreen() {
     );
   }, [question, userChoices]);
 
-
   // 不正解だった場合は自動でお気に入りに追加します
   const didAutoFavorite = useRef(false);
   useEffect(() => {
@@ -75,7 +75,6 @@ export default function AnswerScreen() {
       !question.is_favorite &&
       !didAutoFavorite.current
     ) {
-
       didAutoFavorite.current = true; // 連続実行を防ぐフラグ
 
       (async () => {
@@ -83,7 +82,6 @@ export default function AnswerScreen() {
           await updateFavorite(question.id, true);
           // question ステートを更新して UI を即時反映
           setQuestion((prev) => (prev ? { ...prev, is_favorite: true } : prev));
-
         } catch (e) {
           console.error('自動お気に入り失敗', e);
         }
@@ -95,7 +93,6 @@ export default function AnswerScreen() {
   const headerColor = isCorrect
     ? theme.colors.categoryChipSelected
     : theme.colors.error;
-
 
   /* ───── お気に入り切替 ───── */
   const toggleFavorite = async () => {
@@ -110,7 +107,6 @@ export default function AnswerScreen() {
     } catch (err) {
       console.error('お気に入り更新失敗', err);
     }
-
   };
 
   /* ───── 次の問題へ ───── */
@@ -153,7 +149,12 @@ export default function AnswerScreen() {
       />
 
       {/* ─── スクロール領域 ─── */}
-      <ScrollView contentContainerStyle={[styles.scrollContent]}>
+      <ScrollView
+        contentContainerStyle={[
+          styles.scrollContent,
+          { paddingBottom: FOOTER_HEIGHT + insets.bottom },
+        ]}
+      >
         {/* ───── 問題カード（位置・サイズは quiz/index と同じ） ───── */}
         <View style={[styles.card, { borderColor: theme.colors.outline }]}>
           <Text style={styles.question}>{question.question}</Text>

@@ -23,6 +23,7 @@ import { incrementQuestionStatistics } from '@/lib/firebase';
 import type { Question } from '@/types/firestore';
 
 const { width } = Dimensions.get('window');
+const FOOTER_HEIGHT = 64;
 
 export default function Quiz() {
   const theme = useTheme();
@@ -175,7 +176,12 @@ export default function Quiz() {
       {/* ───────── 固定ヘッダー ここまで───────── */}
 
       {/* ───────── スクロール可能コンテンツ ───────── */}
-      <ScrollView contentContainerStyle={[styles.scrollContent]}>
+      <ScrollView
+        contentContainerStyle={[
+          styles.scrollContent,
+          { paddingBottom: FOOTER_HEIGHT + insets.bottom },
+        ]}
+      >
         {/* 進捗バー */}
 
         <View
