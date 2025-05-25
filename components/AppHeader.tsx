@@ -30,7 +30,7 @@ export const AppHeader: React.FC<Props> = ({
     <View
       style={[
         styles.container,
-        { paddingTop: top, backgroundColor: theme.colors.background },
+        { backgroundColor: theme.colors.background },
         additionalStyles,
       ]}
     >

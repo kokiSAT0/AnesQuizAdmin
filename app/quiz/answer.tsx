@@ -61,12 +61,20 @@ export default function AnswerScreen() {
     );
   }, [question, userChoices]);
 
+  const headerColor = isCorrect ? '#4CAF50' : '#E53935'; // 緑 / 赤
+
   /* ───── お気に入り切替 ───── */
   const toggleFavorite = async () => {
     if (!question) return;
-    const next = !isFavorite;
-    await updateFavorite(question.id, next);
-    setIsFavorite(next);
+    const newFlag = !question.is_favorite;
+    // まずローカル SQLite を更新（await で完了を待つ）
+    try {
+      await updateFavorite(question.id, newFlag);
+    } catch (err) {
+      console.error('お気に入り更新失敗', err);
+      return;
+    }
+    setQuestion((prev) => (prev ? { ...prev, is_favorite: newFlag } : prev));
   };
 
   /* ───── 次の問題へ ───── */
@@ -104,13 +112,14 @@ export default function AnswerScreen() {
         onBack={() => router.replace('/select')}
         rightIcon="cog"
         onRightPress={() => router.push('/settings')}
+        additionalStyles={{ backgroundColor: headerColor }}
       />
 
       {/* ─── スクロール領域 ─── */}
       <ScrollView
         contentContainerStyle={[
           styles.scrollContent,
-          { paddingTop: 56 + insets.top + 12 },
+          { paddingTop: insets.top },
         ]}
       >
         {/* ───── 問題カード（位置・サイズは quiz/index と同じ） ───── */}

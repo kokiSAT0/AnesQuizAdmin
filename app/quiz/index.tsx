@@ -166,7 +166,7 @@ export default function Quiz() {
       <ScrollView
         contentContainerStyle={[
           styles.scrollContent,
-          { paddingTop: 56 + insets.top + 12 }, // 動的分だけ残す
+          { paddingTop: insets.top }, // 動的分だけ残す
         ]}
       >
         {/* 進捗バー */}
