@@ -1,127 +1,251 @@
-import React, { useEffect, useState } from 'react';
+// app/quiz/answer.tsx
+import React, { useEffect, useState, useMemo } from 'react';
 import { router, useLocalSearchParams } from 'expo-router';
-import { View, ScrollView, Pressable } from 'react-native';
-import { Screen } from '@/components/Screen';
+import {
+  View,
+  ScrollView,
+  Pressable,
+  Dimensions,
+  StyleSheet,
+} from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Text, Button, useTheme } from 'react-native-paper';
-import { Feather, AntDesign } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
+import { AppHeader } from '@/components/AppHeader';
 import { getQuestionById, updateFavorite } from '@/src/utils/db';
+
+const { width } = Dimensions.get('window');
 
 export default function AnswerScreen() {
   const theme = useTheme();
-  // questionId: 今表示する解説対象のID
-  // ids/current: 次の問題を出すための情報
-  // selected: ユーザーが選んだ選択肢の番号一覧（カンマ区切り）
+  const insets = useSafeAreaInsets();
+
+  /* ───── URL パラメータ ───── */
   const { questionId, ids, current, selected } = useLocalSearchParams<{
-    correct: string;
     questionId: string;
     ids?: string;
     current?: string;
     selected?: string;
   }>();
 
-  const [explanation, setExplanation] = useState('');
-  const [favorite, setFavorite] = useState(false);
-  const [correct, setCorrect] = useState(false);
+  /* ───── state ───── */
+  const [question, setQuestion] = useState<Awaited<
+    ReturnType<typeof getQuestionById>
+  > | null>(null);
+  const [isFavorite, setIsFavorite] = useState(false);
 
+  /* ───── DB から問題を取得 ───── */
+  useEffect(() => {
+    if (questionId)
+      void (async () => {
+        const q = await getQuestionById(questionId);
+        setQuestion(q);
+        setIsFavorite(q?.is_favorite ?? false);
+      })();
+  }, [questionId]);
+
+  /* ───── 正解判定／ユーザー選択配列 ───── */
+  const userChoices = useMemo<number[]>(() => {
+    if (!selected) return [];
+    return selected
+      .split(',')
+      .filter(Boolean)
+      .map((n) => parseInt(n, 10));
+  }, [selected]);
+
+  const isCorrect = useMemo(() => {
+    if (!question) return false;
+    const sort = (arr: number[]) => [...arr].sort((a, b) => a - b);
+    return (
+      sort(userChoices).join(',') === sort(question.correct_answers).join(',')
+    );
+  }, [question, userChoices]);
+
+  /* ───── お気に入り切替 ───── */
   const toggleFavorite = async () => {
-    if (!questionId) return;
-    const newFlag = !favorite;
-    await updateFavorite(questionId, newFlag);
-    setFavorite(newFlag);
+    if (!question) return;
+    const next = !isFavorite;
+    await updateFavorite(question.id, next);
+    setIsFavorite(next);
   };
 
-  useEffect(() => {
-    // useEffect は画面表示後に実行される React の仕組みです
-    // DB から解説文を読み込み、state に保存します
-    (async () => {
-      if (questionId) {
-        const q = await getQuestionById(questionId);
-        setExplanation(q?.explanation ?? '');
-        setFavorite(q?.is_favorite ?? false);
-        if (q) {
-          const ans = selected
-            ? selected
-                .split(',')
-                .filter(Boolean)
-                .map((n) => parseInt(n, 10))
-            : [];
-          const sort = (arr: number[]) => [...arr].sort((a, b) => a - b);
-          const isCorrect =
-            sort(ans).join(',') === sort(q.correct_answers).join(',');
-          setCorrect(isCorrect);
-        }
-      }
-    })();
-  }, [questionId, selected]);
-
+  /* ───── 次の問題へ ───── */
   const goNext = () => {
-    // current は 0 始まりなので次の問題番号を +1 する
     const nextIndex = (current ? parseInt(current, 10) : 0) + 1;
     const list = ids?.split(',').filter(Boolean) ?? [];
-
     if (nextIndex < list.length) {
-      // 問題がまだ残っていれば次の問題へ
       router.replace({
         pathname: '/quiz',
         params: { ids, current: String(nextIndex) },
       });
     } else {
-      // すべて解き終わったら選択画面へ戻る
       router.replace('/select');
     }
   };
 
-  return (
-    <Screen style={{ backgroundColor: theme.colors.background }}>
-      {/*
-        画面上部の戻るボタン。押すと選択画面へ戻ります。
-        「Pressable」はタップを検知するためのコンポーネントです。
-      */}
-      <View style={{ position: 'absolute', top: 24, left: 16 }}>
-        <Pressable onPress={() => router.replace('/select')}>
-          <Feather
-            name="arrow-left"
-            size={28}
-            color={theme.colors.onBackground}
-          />
-        </Pressable>
+  if (!question) {
+    return (
+      <View style={styles.center}>
+        <Text>読み込み中...</Text>
       </View>
+    );
+  }
 
-      {/* お気に入り切り替えアイコン */}
-      <Pressable
-        onPress={toggleFavorite}
-        style={{ position: 'absolute', top: 24, right: 16 }}
+  /* ───── タグ文字列 (#tag1 #tag2) ───── */
+  const tagChips = JSON.parse(question.tag_json ?? '[]') as string[];
+
+  return (
+    <View
+      style={[styles.container, { backgroundColor: theme.colors.background }]}
+    >
+      {/* ─── ヘッダー ─── */}
+      <AppHeader
+        title={isCorrect ? '正解！' : '不正解'}
+        onBack={() => router.replace('/select')}
+        rightIcon="cog"
+        onRightPress={() => router.push('/settings')}
+      />
+
+      {/* ─── スクロール領域 ─── */}
+      <ScrollView
+        contentContainerStyle={[
+          styles.scrollContent,
+          { paddingTop: 56 + insets.top + 12 },
+        ]}
       >
-        {favorite ? (
-          <AntDesign name="star" size={24} color={theme.colors.tertiary} />
-        ) : (
-          <AntDesign name="staro" size={24} color={theme.colors.onBackground} />
-        )}
-      </Pressable>
+        {/* ───── 問題カード（位置・サイズは quiz/index と同じ） ───── */}
+        <View style={[styles.card, { borderColor: theme.colors.outline }]}>
+          <Text style={styles.question}>{question.question}</Text>
+          <Pressable onPress={toggleFavorite} style={styles.favoriteBtn}>
+            {question.is_favorite ? (
+              <AntDesign
+                name="star"
+                size={24}
+                color={theme.colors.onBackground}
+              />
+            ) : (
+              <AntDesign
+                name="staro"
+                size={24}
+                color={theme.colors.onBackground}
+              />
+            )}
+          </Pressable>
+        </View>
 
-      <View style={{ flex: 1, justifyContent: 'center' }}>
-        {/* 正解・不正解の表示 */}
-        <Text
-          variant="headlineMedium"
-          style={{ textAlign: 'center', marginBottom: 24 }}
+        {/* ───── 選択肢 ───── */}
+        {question.options.map((opt, idx) => {
+          const isAnswer = question.correct_answers.includes(idx);
+          const isUserWrong = userChoices.includes(idx) && !isAnswer;
+          const bg = isAnswer
+            ? '#4CAF50'
+            : isUserWrong
+              ? '#E53935'
+              : theme.colors.secondaryContainer;
+
+          return (
+            <View
+              key={idx}
+              style={[
+                styles.choice,
+                { width: width * 0.9, backgroundColor: bg },
+              ]}
+            >
+              <Text style={styles.choiceText}>{opt}</Text>
+            </View>
+          );
+        })}
+
+        {/* ───── 解説カード ───── */}
+        <View
+          style={[styles.explainCard, { borderColor: theme.colors.outline }]}
         >
-          {correct ? '正解！🎉' : '残念…'}
-        </Text>
+          {/* タグ表示 */}
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            {tagChips.map((tag) => (
+              <View key={tag} style={styles.tagChip}>
+                <Text style={styles.tagText}>#{tag}</Text>
+              </View>
+            ))}
+          </ScrollView>
 
-        {/* 解説文。長い場合にスクロールできるよう ScrollView を使用 */}
-        <ScrollView style={{ marginBottom: 32 }}>
-          <Text style={{ fontSize: 16, lineHeight: 24 }}>{explanation}</Text>
-        </ScrollView>
-
-        {/* 次の問題へ進むボタン */}
+          {/* 解説本文 */}
+          <Text style={styles.explanation}>{question.explanation}</Text>
+        </View>
+      </ScrollView>
+      {/* ───────── 固定フッター ───────── */}
+      <View
+        style={[
+          styles.footer,
+          {
+            paddingBottom: insets.bottom,
+            backgroundColor: theme.colors.background,
+          },
+        ]}
+      >
+        {/* ───── 次の問題ボタン ───── */}
         <Button
           mode="contained"
           onPress={goNext}
-          style={{ alignSelf: 'center', width: '100%', maxWidth: 320 }}
+          style={[styles.nextBtn, { width: width * 0.9 }]}
         >
           次の問題へ
         </Button>
       </View>
-    </Screen>
+    </View>
   );
 }
+
+/* ──────────────────────────────── */
+const styles = StyleSheet.create({
+  container: { flex: 1 },
+  center: { flex: 1, alignItems: 'center', justifyContent: 'center' },
+
+  scrollContent: { paddingBottom: 32 },
+
+  card: {
+    margin: 16,
+    padding: 24,
+    borderWidth: 1,
+    borderRadius: 16,
+    minHeight: 140,
+    justifyContent: 'center',
+  },
+  question: { textAlign: 'center', lineHeight: 24 },
+
+  favoriteBtn: {
+    position: 'absolute',
+    top: 12,
+    right: 12,
+  },
+
+  choice: {
+    alignSelf: 'center',
+    paddingVertical: 16,
+    marginVertical: 8,
+    borderRadius: 9999,
+    alignItems: 'center',
+  },
+  choiceText: { fontSize: 18, fontWeight: '600', color: '#fff' },
+
+  explainCard: {
+    margin: 16,
+    marginTop: 8,
+    padding: 16,
+    borderWidth: 1,
+    borderRadius: 12,
+  },
+  tagChip: {
+    backgroundColor: '#E0E0E0',
+    borderRadius: 12,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    marginRight: 8,
+    marginBottom: 8,
+  },
+  tagText: { fontSize: 12, color: '#444' },
+
+  explanation: { fontSize: 16, lineHeight: 24 },
+
+  nextBtn: { alignSelf: 'center', marginTop: 24 },
+});

@@ -1,3 +1,4 @@
+// app/quiz/index.tsx
 import React, { useEffect, useState } from 'react';
 import { router, useLocalSearchParams } from 'expo-router';
 import {
@@ -238,7 +239,17 @@ export default function Quiz() {
             </Pressable>
           );
         })}
-
+      </ScrollView>
+      {/* ───────── 固定フッター ───────── */}
+      <View
+        style={[
+          styles.footer,
+          {
+            paddingBottom: insets.bottom,
+            backgroundColor: theme.colors.background,
+          },
+        ]}
+      >
         {/* ───────── 解答ボタン ───────── */}
         <Button
           mode="contained"
@@ -248,7 +259,7 @@ export default function Quiz() {
         >
           解答する
         </Button>
-      </ScrollView>
+      </View>
     </View>
   );
 }
