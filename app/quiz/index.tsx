@@ -239,30 +239,24 @@ export default function Quiz() {
         {/* ───────── 選択肢 ───────── */}
         {shuffledOptions.map((opt) => {
           const chosen = selected.includes(opt.idx);
+          // ❶ Material 3 既存トークンで色セットを決める
+          const bg = chosen
+            ? theme.colors.primary
+            : theme.colors.secondaryContainer; // 少し濃いグレー
+          const fg = chosen
+            ? theme.colors.onPrimary
+            : theme.colors.onSecondaryContainer; // ⿊に近い文字⾊
           return (
             <Pressable
               key={opt.idx}
               style={[
                 styles.choice,
-                {
-                  width: width * 0.9,
-                  backgroundColor: chosen
-                    ? theme.colors.primary
-                    : theme.colors.secondaryContainer,
-                },
+                { width: width * 0.9, backgroundColor: bg },
               ]}
               onPress={() => toggleSelect(opt.idx)}
               disabled={isAnswered}
             >
-              <Text
-                style={{
-                  fontSize: 18,
-                  fontWeight: '600',
-                  color: theme.colors.onPrimary,
-                }}
-              >
-                {opt.text}
-              </Text>
+              <Text style={[styles.choiceText, { color: fg }]}>{opt.text}</Text>
             </Pressable>
           );
         })}
@@ -325,6 +319,10 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     borderRadius: 9999,
     alignItems: 'center',
+  },
+  choiceText: {
+    fontSize: 18,
+    fontWeight: '600',
   },
   answerBtn: {
     alignSelf: 'center',

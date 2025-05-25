@@ -19,6 +19,13 @@ import { getQuestionById, updateFavorite } from '@/src/utils/db';
 const { width } = Dimensions.get('window');
 const FOOTER_HEIGHT = 64;
 
+const pickPair = (theme: any, key: keyof typeof theme.colors) => ({
+  bg: theme.colors[key],
+  fg: theme.colors[
+    ('on' + key[0].toUpperCase() + key.slice(1)) as keyof typeof theme.colors
+  ],
+});
+
 export default function AnswerScreen() {
   const theme = useTheme();
   const insets = useSafeAreaInsets();
@@ -103,7 +110,6 @@ export default function AnswerScreen() {
   const headerColor = isCorrect
     ? theme.colors.categoryChipSelected
     : theme.colors.error;
-
 
   // 受け取った順序で選択肢を並べ替える
   const orderedOptions = useMemo(() => {
@@ -201,11 +207,11 @@ export default function AnswerScreen() {
         {orderedOptions.map((opt) => {
           const isAnswer = question.correct_answers.includes(opt.idx);
           const isUserWrong = userChoices.includes(opt.idx) && !isAnswer;
-          const bg = isAnswer
-            ? theme.colors.categoryChipSelected
+          const { bg, fg } = isAnswer
+            ? pickPair(theme, 'categoryChipSelected')
             : isUserWrong
-              ? theme.colors.error
-              : theme.colors.secondaryContainer;
+              ? pickPair(theme, 'error')
+              : pickPair(theme, 'secondaryContainer');
 
           return (
             <View
@@ -215,7 +221,7 @@ export default function AnswerScreen() {
                 { width: width * 0.9, backgroundColor: bg },
               ]}
             >
-              <Text style={styles.choiceText}>{opt.text}</Text>
+              <Text style={[styles.choiceText, { color: fg }]}>{opt.text}</Text>
             </View>
           );
         })}
@@ -291,7 +297,7 @@ const styles = StyleSheet.create({
     borderRadius: 9999,
     alignItems: 'center',
   },
-  choiceText: { fontSize: 18, fontWeight: '600', color: '#fff' },
+  choiceText: { fontSize: 18, fontWeight: '600' },
 
   explainCard: {
     margin: 16,
