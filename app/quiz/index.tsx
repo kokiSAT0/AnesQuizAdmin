@@ -11,6 +11,7 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { AppHeader } from '@/components/AppHeader';
 import { Text, Button, useTheme } from 'react-native-paper';
+import { createQuestionTextStyle } from '@/components/TextStyles';
 import { AntDesign } from '@expo/vector-icons';
 import {
   getQuestionById,
@@ -27,6 +28,7 @@ const FOOTER_HEIGHT = 64;
 
 export default function Quiz() {
   const theme = useTheme();
+  const tStyles = createQuestionTextStyle(theme);
   const insets = useSafeAreaInsets();
   // ids: 出題する問題ID一覧、current: 現在の問題番号（0始まり）
   const { ids, current } = useLocalSearchParams<{
@@ -216,9 +218,7 @@ export default function Quiz() {
 
         {/* ───────── 問題カード ───────── */}
         <View style={[styles.card, { borderColor: theme.colors.outline }]}>
-          <Text style={{ textAlign: 'center', lineHeight: 24 }}>
-            {question.question}
-          </Text>
+          <Text style={tStyles.question}>{question.question}</Text>
           <Pressable onPress={toggleFavorite} style={styles.favoriteBtn}>
             {question.is_favorite ? (
               <AntDesign
@@ -322,7 +322,7 @@ const styles = StyleSheet.create({
   },
   choiceText: {
     fontSize: 18,
-    fontWeight: '600',
+    fontWeight: '400',
   },
   answerBtn: {
     alignSelf: 'center',

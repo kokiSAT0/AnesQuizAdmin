@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Text, Button, useTheme } from 'react-native-paper';
+import { createQuestionTextStyle } from '@/components/TextStyles';
 import { AntDesign } from '@expo/vector-icons';
 import { AppHeader } from '@/components/AppHeader';
 import { getQuestionById, updateFavorite } from '@/src/utils/db';
@@ -28,6 +29,7 @@ const pickPair = (theme: any, key: keyof typeof theme.colors) => ({
 
 export default function AnswerScreen() {
   const theme = useTheme();
+  const tStyles = createQuestionTextStyle(theme);
   const insets = useSafeAreaInsets();
 
   /* ───── URL パラメータ ───── */
@@ -185,7 +187,7 @@ export default function AnswerScreen() {
       >
         {/* ───── 問題カード（位置・サイズは quiz/index と同じ） ───── */}
         <View style={[styles.card, { borderColor: theme.colors.outline }]}>
-          <Text style={styles.question}>{question.question}</Text>
+          <Text style={tStyles.question}>{question.question}</Text>
           <Pressable onPress={toggleFavorite} style={styles.favoriteBtn}>
             {question.is_favorite ? (
               <AntDesign
@@ -297,7 +299,7 @@ const styles = StyleSheet.create({
     borderRadius: 9999,
     alignItems: 'center',
   },
-  choiceText: { fontSize: 18, fontWeight: '600' },
+  choiceText: { fontSize: 18, fontWeight: '400' },
 
   explainCard: {
     margin: 16,
