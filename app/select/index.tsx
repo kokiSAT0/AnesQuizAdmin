@@ -183,8 +183,7 @@ export default function SelectScreen() {
       <ScrollView
         contentContainerStyle={[
           styles.scrollContent,
-          { paddingTop: 56 + insets.top + 16 }, // ヘッダー分だけ動的
-          { paddingBottom: 72 + insets.bottom }, // フッター余白を加算
+          { paddingBottom: insets.bottom }, // フッター余白を加算
         ]}
       >
         {/* ───────── ランダム出題のアイコンボタン ───────── */}

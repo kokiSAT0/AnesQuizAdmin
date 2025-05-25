@@ -175,12 +175,7 @@ export default function Quiz() {
       {/* ───────── 固定ヘッダー ここまで───────── */}
 
       {/* ───────── スクロール可能コンテンツ ───────── */}
-      <ScrollView
-        contentContainerStyle={[
-          styles.scrollContent,
-          { paddingTop: 56 + insets.top + 12 }, // 動的分だけ残す
-        ]}
-      >
+      <ScrollView contentContainerStyle={[styles.scrollContent]}>
         {/* 進捗バー */}
 
         <View

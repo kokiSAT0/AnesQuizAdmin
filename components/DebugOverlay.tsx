@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { View, ScrollView, StyleSheet } from 'react-native';
 import { Text, useTheme } from 'react-native-paper';
 import { useDebugStore } from '@/src/store/debug';
@@ -9,6 +9,14 @@ import { useDebugStore } from '@/src/store/debug';
 export const DebugOverlay: React.FC = () => {
   const { enabled, logs } = useDebugStore();
   const theme = useTheme();
+  // ScrollView の参照を保持するための "ref" を用意
+  const scrollRef = useRef<ScrollView | null>(null);
+
+  // ログ一覧が変わったとき、最新行が見えるよう末尾へスクロールする
+  useEffect(() => {
+    // scrollToEnd は内容の一番下まで移動するメソッド
+    scrollRef.current?.scrollToEnd({ animated: true });
+  }, [logs]);
 
   if (!enabled) return null;
 
@@ -25,7 +33,7 @@ export const DebugOverlay: React.FC = () => {
         },
       ]}
     >
-      <ScrollView>
+      <ScrollView ref={scrollRef}>
         {logs.map((l, i) => (
           <Text key={i} style={styles.text}>
             {l.timestamp} [{l.level}] {l.message}

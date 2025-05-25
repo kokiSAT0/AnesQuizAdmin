@@ -23,14 +23,13 @@ export const AppHeader: React.FC<Props> = ({
   onRightPress,
   additionalStyles,
 }) => {
-  const { top } = useSafeAreaInsets();
   const theme = useTheme();
 
   return (
     <View
       style={[
         styles.container,
-        { paddingTop: top, backgroundColor: theme.colors.background },
+        { backgroundColor: theme.colors.background },
         additionalStyles,
       ]}
     >

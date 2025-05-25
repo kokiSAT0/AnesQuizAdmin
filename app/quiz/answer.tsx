@@ -1,5 +1,6 @@
 // app/quiz/answer.tsx
 // useRef を追加して後述の自動お気に入り処理で利用します
+
 import React, { useEffect, useState, useMemo, useRef } from 'react';
 import { router, useLocalSearchParams } from 'expo-router';
 import {
@@ -61,17 +62,20 @@ export default function AnswerScreen() {
     );
   }, [question, userChoices]);
 
+
   // 不正解だった場合は自動でお気に入りに追加します
   const didAutoFavorite = useRef(false);
   useEffect(() => {
     // 問題が存在し、不正解で、まだお気に入り登録されておらず、
     // かつ自動処理が未実行の場合のみ実行します
+
     if (
       question &&
       !isCorrect &&
       !question.is_favorite &&
       !didAutoFavorite.current
     ) {
+
       didAutoFavorite.current = true; // 連続実行を防ぐフラグ
 
       (async () => {
@@ -79,6 +83,7 @@ export default function AnswerScreen() {
           await updateFavorite(question.id, true);
           // question ステートを更新して UI を即時反映
           setQuestion((prev) => (prev ? { ...prev, is_favorite: true } : prev));
+
         } catch (e) {
           console.error('自動お気に入り失敗', e);
         }
@@ -91,9 +96,11 @@ export default function AnswerScreen() {
     ? theme.colors.categoryChipSelected
     : theme.colors.error;
 
+
   /* ───── お気に入り切替 ───── */
   const toggleFavorite = async () => {
     if (!question) return;
+
     const newFlag = !question.is_favorite;
     console.info('answer toggle favorite', { id: question.id, flag: newFlag });
     try {
@@ -103,6 +110,7 @@ export default function AnswerScreen() {
     } catch (err) {
       console.error('お気に入り更新失敗', err);
     }
+
   };
 
   /* ───── 次の問題へ ───── */
@@ -145,12 +153,7 @@ export default function AnswerScreen() {
       />
 
       {/* ─── スクロール領域 ─── */}
-      <ScrollView
-        contentContainerStyle={[
-          styles.scrollContent,
-          { paddingTop: 56 + insets.top + 12 },
-        ]}
-      >
+      <ScrollView contentContainerStyle={[styles.scrollContent]}>
         {/* ───── 問題カード（位置・サイズは quiz/index と同じ） ───── */}
         <View style={[styles.card, { borderColor: theme.colors.outline }]}>
           <Text style={styles.question}>{question.question}</Text>
