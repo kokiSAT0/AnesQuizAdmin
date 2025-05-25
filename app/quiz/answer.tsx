@@ -170,7 +170,7 @@ export default function AnswerScreen() {
           </ScrollView>
 
           {/* 解説本文 */}
-          <Text style={styles.explanation}>{question.explanation}</Text>
+          <Text style={styles.explanation}>解説：{question.explanation}</Text>
         </View>
       </ScrollView>
       {/* ───────── 固定フッター ───────── */}
