@@ -8,7 +8,7 @@ const baseSize = Dimensions.get('window').width < 350 ? 18 : 20;
 export const createQuestionTextStyle = (theme: ReturnType<typeof useTheme>) =>
   StyleSheet.create({
     question: {
-      fontSize: baseSize * 1.2,
+      fontSize: baseSize * 1.1,
       lineHeight: baseSize * 1.6,
       fontWeight: '400',
       color: theme.colors.onBackground,

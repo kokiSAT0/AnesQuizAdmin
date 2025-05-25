@@ -315,14 +315,19 @@ const styles = StyleSheet.create({
   },
   choice: {
     alignSelf: 'center',
-    paddingVertical: 16,
+    marginHorizontal: 16,
     marginVertical: 8,
-    borderRadius: 9999,
+    paddingVertical: 16,
+    paddingHorizontal: 16,
+    borderRadius: 24,
     alignItems: 'center',
   },
   choiceText: {
     fontSize: 18,
     fontWeight: '400',
+    flexShrink: 1,
+    flexWrap: 'wrap',
+    textAlign: 'center',
   },
   answerBtn: {
     alignSelf: 'center',
