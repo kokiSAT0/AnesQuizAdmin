@@ -137,12 +137,19 @@ export default function SelectScreen() {
 
   const startQuiz = async () => {
     try {
+      console.info('startQuiz condition', {
+        levels: selected,
+        categories: selectedCategories,
+        favoriteOnly,
+        progress: selectedProgress,
+      });
       const ids = await getQuestionIdsByFilter(
         selected,
         selectedCategories,
         favoriteOnly,
         selectedProgress,
       );
+      console.info('startQuiz ids', ids);
       if (ids.length === 0) {
         Alert.alert('該当する問題がありません');
         return;

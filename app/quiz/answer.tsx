@@ -38,6 +38,7 @@ export default function AnswerScreen() {
   useEffect(() => {
     if (questionId)
       void (async () => {
+        console.info('load answer question', questionId);
         const q = await getQuestionById(questionId);
         setQuestion(q);
         setIsFavorite(q?.is_favorite ?? false);
@@ -65,12 +66,14 @@ export default function AnswerScreen() {
   const toggleFavorite = async () => {
     if (!question) return;
     const next = !isFavorite;
+    console.info('answer toggle favorite', { id: question.id, flag: next });
     await updateFavorite(question.id, next);
     setIsFavorite(next);
   };
 
   /* ───── 次の問題へ ───── */
   const goNext = () => {
+    console.info('go next question');
     const nextIndex = (current ? parseInt(current, 10) : 0) + 1;
     const list = ids?.split(',').filter(Boolean) ?? [];
     if (nextIndex < list.length) {
