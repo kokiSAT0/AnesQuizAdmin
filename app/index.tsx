@@ -1,42 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import {
-  View,
-  StyleSheet,
-  Modal,
-  ActivityIndicator,
-  ScrollView,
-  Platform,
-} from 'react-native';
+import { View, ScrollView, StyleSheet, ActivityIndicator } from 'react-native';
 import { Screen } from '@/components/Screen';
-import { ModalScreen } from '@/components/ModalScreen';
+import { AppHeader } from '@/components/AppHeader';
 import { Text, Button, useTheme } from 'react-native-paper';
 import NetInfo from '@react-native-community/netinfo';
 import { router } from 'expo-router';
+import { useDebugStore } from '@/src/store/debug';
 
 import {
   initializeDatabaseIfNeeded,
   getQuestionsCount,
-  getQuestionsLimit5,
   getOrCreateUserId,
-  getLatestLearningLogs,
-  dropQuestionsTable,
-  dropAppInfoTable,
-  dropLearningLogsTable,
 } from '@/src/utils/db';
 import { syncFirestoreToSQLite } from '@/src/utils/firestoreSync';
 
 export default function IndexScreen() {
   const theme = useTheme();
+  const debugEnabled = useDebugStore((s) => s.enabled);
   const [isSyncing, setIsSyncing] = useState(false); // 同期中フラグ（複数連打防止）
   const [isConnected, setIsConnected] = useState(true); // ネットワーク接続状態
   const [logMessages, setLogMessages] = useState<string[]>([]);
-
-  // SQLite 表示用
-  const [showDataModal, setShowDataModal] = useState(false);
-  const [totalRecords, setTotalRecords] = useState(0);
-  const [fetchedRows, setFetchedRows] = useState<any[]>([]);
-  const [showLogModal, setShowLogModal] = useState(false);
-  const [dailyLogs, setDailyLogs] = useState<any[]>([]);
 
   // 起動時に DB 初期化
   useEffect(() => {
@@ -45,6 +28,11 @@ export default function IndexScreen() {
         await initializeDatabaseIfNeeded();
         const id = await getOrCreateUserId();
         appendLog(`DB initialization complete (user_id: ${id})`);
+        const count = await getQuestionsCount();
+        if (count === 0 && isConnected) {
+          appendLog('初回起動のため Firestore から同期します');
+          await handleSync();
+        }
       } catch (err: any) {
         appendLog(`DB init error: ${err.message}`);
       }
@@ -92,96 +80,15 @@ export default function IndexScreen() {
     }
   };
 
-  // SQLite の内容表示
-  const handleShowData = async () => {
-    try {
-      const total = await getQuestionsCount();
-      const rows = await getQuestionsLimit5();
-      setTotalRecords(total);
-      setFetchedRows(rows);
-      setShowDataModal(true);
-    } catch (err: any) {
-      appendLog(`SQLite 取得エラー: ${err.message}`);
-    }
-  };
-
-  // LearningDailyLogs を表示
-  const handleShowLogs = async () => {
-    try {
-      const rows = await getLatestLearningLogs();
-      // dailyLogs ステートの値を更新
-      // 「ステート」とは React で扱う画面の状態を指します
-      setDailyLogs(rows);
-      setShowLogModal(true);
-    } catch (err: any) {
-      appendLog(`ログ取得エラー: ${err.message}`);
-    }
-  };
-
-  // テーブル削除 (Questions)
-  const handleDropQuestions = async () => {
-    try {
-      await dropQuestionsTable();
-      await initializeDatabaseIfNeeded();
-      appendLog('Questions テーブルを削除しました');
-    } catch (err: any) {
-      appendLog(`削除エラー: ${err.message}`);
-    }
-  };
-
-  // テーブル削除 (AppInfo)
-  const handleDropAppInfo = async () => {
-    try {
-      await dropAppInfoTable();
-      appendLog('AppInfo テーブルを削除しました');
-    } catch (err: any) {
-      appendLog(`削除エラー: ${err.message}`);
-    }
-  };
-
-  // テーブル削除 (LearningDailyLogs)
-  const handleDropLogsTbl = async () => {
-    try {
-      await dropLearningLogsTable();
-      appendLog('LearningDailyLogs テーブルを削除しました');
-    } catch (err: any) {
-      appendLog(`削除エラー: ${err.message}`);
-    }
-  };
-
   return (
     <Screen style={{ backgroundColor: theme.colors.background }}>
-      {/* Screen コンポーネントで全体の余白を統一 */}
-      <Text
-        variant="titleLarge"
-        style={{ textAlign: 'center', marginBottom: 12 }}
-      >
-        AnesQuiz α版
-      </Text>
+      <AppHeader
+        title="AnesQuiz α版"
+        rightIcon="cog"
+        onRightPress={() => router.push('/settings')}
+      />
 
-      <View style={{ alignItems: 'center' }}>
-        <Button
-          mode="contained"
-          onPress={handleSync}
-          disabled={!isConnected || isSyncing}
-          style={{ width: '100%', maxWidth: 320, marginVertical: 4 }}
-        >
-          🔄 Firestore → SQLite 同期
-        </Button>
-        <Button
-          mode="contained"
-          onPress={handleShowData}
-          style={{ width: '100%', maxWidth: 320, marginVertical: 4 }}
-        >
-          📂 SQLite の内容表示
-        </Button>
-        <Button
-          mode="contained"
-          onPress={handleShowLogs}
-          style={{ width: '100%', maxWidth: 320, marginVertical: 4 }}
-        >
-          📜 学習ログ表示
-        </Button>
+      <View style={{ alignItems: 'center', flex: 1, justifyContent: 'center' }}>
         <Button
           mode="contained"
           onPress={() => router.push('/select')}
@@ -189,131 +96,44 @@ export default function IndexScreen() {
         >
           クイズを始める
         </Button>
-        <Button
-          mode="outlined"
-          onPress={handleDropQuestions}
-          style={{ width: '100%', maxWidth: 320, marginVertical: 4 }}
-        >
-          Questions 削除
-        </Button>
-        <Button
-          mode="outlined"
-          onPress={handleDropAppInfo}
-          style={{ width: '100%', maxWidth: 320, marginVertical: 4 }}
-        >
-          AppInfo 削除
-        </Button>
-        <Button
-          mode="outlined"
-          onPress={handleDropLogsTbl}
-          style={{ width: '100%', maxWidth: 320, marginVertical: 4 }}
-        >
-          Logs 削除
-        </Button>
+
+        {debugEnabled && (
+          <View style={styles.logArea}>
+            <ScrollView>
+              {logMessages.map((msg, idx) => (
+                <Text key={idx} style={{ fontSize: 12, marginVertical: 4 }}>
+                  {msg}
+                </Text>
+              ))}
+            </ScrollView>
+          </View>
+        )}
+
+        {isSyncing && (
+          <View
+            style={[
+              StyleSheet.absoluteFillObject,
+              {
+                backgroundColor: 'rgba(0,0,0,0.3)',
+                alignItems: 'center',
+                justifyContent: 'center',
+              },
+            ]}
+          >
+            <ActivityIndicator size="large" color={theme.colors.onPrimary} />
+          </View>
+        )}
       </View>
-
-      {/* 結果・ログ表示 */}
-      <View
-        style={{
-          flex: 1,
-          marginTop: 8,
-          backgroundColor: theme.colors.surfaceVariant,
-          borderRadius: 4,
-          padding: 8,
-        }}
-      >
-        <ScrollView>
-          {logMessages.map((msg, idx) => (
-            <Text key={idx} style={{ fontSize: 12, marginVertical: 4 }}>
-              {msg}
-            </Text>
-          ))}
-        </ScrollView>
-      </View>
-
-      {/* 同期中スピナー */}
-      {isSyncing && (
-        <View
-          style={[
-            StyleSheet.absoluteFillObject,
-            {
-              backgroundColor: 'rgba(0,0,0,0.3)',
-              alignItems: 'center',
-              justifyContent: 'center',
-            },
-          ]}
-        >
-          <ActivityIndicator size="large" color={theme.colors.onPrimary} />
-        </View>
-      )}
-
-      {/* SQLite の内容を JSON 表示するモーダル */}
-      <Modal
-        visible={showDataModal}
-        animationType="slide"
-        onRequestClose={() => setShowDataModal(false)}
-      >
-        {/* ModalScreen でモーダル内の余白を調整 */}
-        <ModalScreen style={{ backgroundColor: theme.colors.background }}>
-          <Text
-            variant="titleMedium"
-            style={{ textAlign: 'center', marginBottom: 12 }}
-          >
-            SQLite レコード内容
-          </Text>
-          <Text>合計件数: {totalRecords}</Text>
-          <ScrollView
-            style={{
-              flex: 1,
-              marginVertical: 8,
-              backgroundColor: theme.colors.surfaceVariant,
-              borderRadius: 4,
-              padding: 8,
-            }}
-          >
-            <Text selectable style={styles.jsonText}>
-              {JSON.stringify(fetchedRows, null, 2)}
-            </Text>
-          </ScrollView>
-          <Button onPress={() => setShowDataModal(false)}>閉じる</Button>
-        </ModalScreen>
-      </Modal>
-      {/* 学習ログを表示するモーダル */}
-      <Modal
-        visible={showLogModal}
-        animationType="slide"
-        onRequestClose={() => setShowLogModal(false)}
-      >
-        <ModalScreen style={{ backgroundColor: theme.colors.background }}>
-          <Text
-            variant="titleMedium"
-            style={{ textAlign: 'center', marginBottom: 12 }}
-          >
-            最近の学習ログ
-          </Text>
-          <ScrollView
-            style={{
-              flex: 1,
-              marginVertical: 8,
-              backgroundColor: theme.colors.surfaceVariant,
-              borderRadius: 4,
-              padding: 8,
-            }}
-          >
-            <Text selectable style={styles.jsonText}>
-              {JSON.stringify(dailyLogs, null, 2)}
-            </Text>
-          </ScrollView>
-          <Button onPress={() => setShowLogModal(false)}>閉じる</Button>
-        </ModalScreen>
-      </Modal>
     </Screen>
   );
 }
 
 const styles = StyleSheet.create({
-  jsonText: {
-    fontFamily: Platform.select({ ios: 'Courier', android: 'monospace' }),
-    fontSize: 12,
+  logArea: {
+    flex: 1,
+    width: '100%',
+    marginTop: 8,
+    borderRadius: 4,
+    padding: 8,
   },
 });
