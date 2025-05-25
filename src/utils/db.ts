@@ -25,12 +25,16 @@ export function getDB(): Promise<SQLiteDatabase> {
 export async function initializeDatabaseIfNeeded(): Promise<void> {
   const db = await getDB(); // ← Promise を await
 
+  // デバッグ用: DB 初期化開始を記録
+  console.info('initializeDatabaseIfNeeded start');
+
   // ① 現在の user_version を取得
   const { user_version = 0 } = await db.getFirstAsync<{ user_version: number }>(
     'PRAGMA user_version;',
   );
 
   if (user_version === 0) {
+    console.info('create tables since user_version is 0');
     // ② トランザクション内でテーブル作成 & user_version 更新
     // トランザクションとは複数の処理をひとまとめにして、途中で失敗したら全部なかったことにする仕組みです
     await db.withTransactionAsync(async () => {
@@ -67,6 +71,9 @@ export async function initializeDatabaseIfNeeded(): Promise<void> {
       // user_version を 1 に設定
       await db.execAsync(`PRAGMA user_version = 1;`);
     });
+  } else {
+    // 既に初期化済みの場合
+    console.info(`db already initialized (version ${user_version})`);
   }
 
   // AppInfo テーブルを作成（存在しない場合のみ）
@@ -88,6 +95,8 @@ export async function initializeDatabaseIfNeeded(): Promise<void> {
         PRIMARY KEY (user_id, learning_date)
       );
     `);
+
+  console.info('database initialization finished');
 }
 
 /* ------------------------------------------------------------------ */
@@ -248,6 +257,8 @@ export async function getQuestionIdsByFilter(
 ): Promise<string[]> {
   const db = await getDB();
 
+  console.info('search ids', { levels, categories, favoriteOnly });
+
   // レベルまたはカテゴリが未選択の場合は空配列を返す
   // AND 条件を満たす組み合わせが存在しないため
   if (levels.length === 0 || categories.length === 0) {
@@ -281,7 +292,9 @@ export async function getQuestionIdsByFilter(
     `SELECT id FROM Questions ${where} ORDER BY id;`,
     params,
   );
-  return rows.map((r) => r.id);
+  const ids = rows.map((r) => r.id);
+  console.info(`found ${ids.length} ids`);
+  return ids;
 }
 
 /* ------------------------------------------------------------------ */
@@ -319,6 +332,8 @@ export async function countQuestionsByFilter(
 ): Promise<number> {
   const db = await getDB();
 
+  console.info('count questions', { levels, categories, favoriteOnly });
+
   // レベルかカテゴリが未選択なら 0 件とする
   if (levels.length === 0 || categories.length === 0) {
     return 0;
@@ -351,6 +366,7 @@ export async function countQuestionsByFilter(
     `SELECT COUNT(*) AS total FROM Questions ${where};`,
     params,
   );
+  console.info(`count result: ${total}`);
   return total;
 }
 
@@ -387,11 +403,15 @@ export interface SQLiteQuestionRow {
 
 export async function getQuestionById(id: string) {
   const db = await getDB();
+  console.info(`load question ${id}`);
   const row = await db.getFirstAsync<SQLiteQuestionRow>(
     'SELECT * FROM Questions WHERE id = ?;',
     [id],
   );
-  if (!row) return null;
+  if (!row) {
+    console.info('question not found');
+    return null;
+  }
 
   return {
     id: row.id,
@@ -434,6 +454,7 @@ export async function getQuestionById(id: string) {
 /* ------------------------------------------------------------------ */
 export async function updateFavorite(id: string, flag: boolean): Promise<void> {
   const db = await getDB();
+  console.info('update favorite', { id, flag });
   await db.runAsync('UPDATE Questions SET is_favorite = ? WHERE id = ?;', [
     flag ? 1 : 0,
     id,
@@ -448,6 +469,7 @@ export async function recordAnswer(
   isCorrect: boolean,
 ): Promise<void> {
   const db = await getDB();
+  console.info('record answer', { id, isCorrect });
   const now = new Date().toISOString();
   const lastCorrect = isCorrect ? now : null;
   const lastIncorrect = isCorrect ? null : now;
@@ -472,6 +494,7 @@ export async function recordFirstAttempt(
   isCorrect: boolean,
 ): Promise<void> {
   const db = await getDB();
+  console.info('record first attempt', { id, isCorrect });
   const now = new Date().toISOString();
   await db.runAsync(
     `UPDATE Questions
@@ -535,6 +558,7 @@ export async function updateLearningDailyLog(
   isCorrect: boolean,
 ): Promise<void> {
   const db = await getDB();
+  console.info('update daily log', { questionId, isCorrect });
   const userId = await getOrCreateUserId();
   const today = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
   const now = new Date().toISOString();
@@ -563,6 +587,8 @@ export async function updateLearningDailyLog(
       [userId, today, jsonStr, now, now],
     );
   }
+
+  console.info('daily log updated');
 }
 
 /* ------------------------------------------------------------------ */

@@ -38,6 +38,7 @@ export default function AnswerScreen() {
   useEffect(() => {
     if (questionId)
       void (async () => {
+        console.info('load answer question', questionId);
         const q = await getQuestionById(questionId);
         setQuestion(q);
         setIsFavorite(q?.is_favorite ?? false);
@@ -89,19 +90,12 @@ export default function AnswerScreen() {
   /* ───── お気に入り切替 ───── */
   const toggleFavorite = async () => {
     if (!question) return;
-    const newFlag = !question.is_favorite;
-    // まずローカル SQLite を更新（await で完了を待つ）
-    try {
-      await updateFavorite(question.id, newFlag);
-    } catch (err) {
-      console.error('お気に入り更新失敗', err);
-      return;
-    }
-    setQuestion((prev) => (prev ? { ...prev, is_favorite: newFlag } : prev));
+
   };
 
   /* ───── 次の問題へ ───── */
   const goNext = () => {
+    console.info('go next question');
     const nextIndex = (current ? parseInt(current, 10) : 0) + 1;
     const list = ids?.split(',').filter(Boolean) ?? [];
     if (nextIndex < list.length) {
