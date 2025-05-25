@@ -23,7 +23,6 @@ export const AppHeader: React.FC<Props> = ({
   onRightPress,
   additionalStyles,
 }) => {
-  const { top } = useSafeAreaInsets();
   const theme = useTheme();
 
   return (

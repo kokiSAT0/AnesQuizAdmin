@@ -116,12 +116,7 @@ export default function AnswerScreen() {
       />
 
       {/* ─── スクロール領域 ─── */}
-      <ScrollView
-        contentContainerStyle={[
-          styles.scrollContent,
-          { paddingTop: insets.top },
-        ]}
-      >
+      <ScrollView contentContainerStyle={[styles.scrollContent]}>
         {/* ───── 問題カード（位置・サイズは quiz/index と同じ） ───── */}
         <View style={[styles.card, { borderColor: theme.colors.outline }]}>
           <Text style={styles.question}>{question.question}</Text>

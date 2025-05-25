@@ -176,7 +176,6 @@ export default function SelectScreen() {
       <ScrollView
         contentContainerStyle={[
           styles.scrollContent,
-          { paddingTop: 16 }, // ヘッダー分だけ動的
           { paddingBottom: insets.bottom }, // フッター余白を加算
         ]}
       >
