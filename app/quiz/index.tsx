@@ -1,9 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { router, useLocalSearchParams } from 'expo-router';
-import { View, Pressable, Dimensions } from 'react-native';
-import { Screen } from '@/components/Screen';
+import {
+  View,
+  Pressable,
+  Dimensions,
+  ScrollView,
+  StyleSheet,
+} from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { AppHeader } from '@/components/AppHeader';
 import { Text, Button, useTheme } from 'react-native-paper';
-import { AntDesign, Feather } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 import {
   getQuestionById,
   updateLearningDailyLog,
@@ -18,6 +25,7 @@ const { width } = Dimensions.get('window');
 
 export default function Quiz() {
   const theme = useTheme();
+  const insets = useSafeAreaInsets();
   // ids: 出題する問題ID一覧、current: 現在の問題番号（0始まり）
   const { ids, current } = useLocalSearchParams<{
     ids?: string;
@@ -50,8 +58,14 @@ export default function Quiz() {
   const toggleFavorite = async () => {
     if (!question) return;
     const newFlag = !question.is_favorite;
-    await updateFavorite(question.id, newFlag);
-    setQuestion({ ...question, is_favorite: newFlag });
+    // まずローカル SQLite を更新（await で完了を待つ）
+    try {
+      await updateFavorite(question.id, newFlag);
+    } catch (err) {
+      console.error('お気に入り更新失敗', err);
+      return;
+    }
+    setQuestion((prev) => (prev ? { ...prev, is_favorite: newFlag } : prev));
   };
 
   useEffect(() => {
@@ -135,122 +149,147 @@ export default function Quiz() {
   const currentNo = currentIndex + 1;
 
   return (
-    <Screen style={{ backgroundColor: theme.colors.background }}>
-      {/* ───────── ヘッダ ───────── */}
-      <View
-        style={{
-          height: 56,
-          paddingHorizontal: 16,
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-        }}
-      >
-        {/* 戻るボタン。router.replace を使い履歴を残さない */}
-        <Pressable onPress={() => router.replace('/select')}>
-          <Feather
-            name="arrow-left"
-            size={28}
-            color={theme.colors.onBackground}
-          />
-        </Pressable>
-        <Text variant="titleMedium">{`クイズ（${currentNo} / ${total}）`}</Text>
-        <AntDesign name="user" size={28} color={theme.colors.onBackground} />
-      </View>
+    <View
+      style={[styles.container, { backgroundColor: theme.colors.background }]}
+    >
+      {/* ───────── 固定ヘッダー ───────── */}
+      <AppHeader
+        title={`クイズ（${currentIndex + 1} / ${questionIds.length}）`}
+        onBack={() => router.replace('/select')}
+        rightIcon="cog"
+        onRightPress={() => router.push('/settings')}
+      />
+      {/* ───────── 固定ヘッダー ここまで───────── */}
 
-      {/* 進捗バー */}
-      <View
-        style={{
-          height: 4,
-          backgroundColor: theme.colors.surfaceVariant,
-          marginBottom: 12,
-          marginHorizontal: 16,
-          borderRadius: 4,
-        }}
+      {/* ───────── スクロール可能コンテンツ ───────── */}
+      <ScrollView
+        contentContainerStyle={[
+          styles.scrollContent,
+          { paddingTop: 56 + insets.top + 12 }, // 動的分だけ残す
+        ]}
       >
+        {/* 進捗バー */}
+
         <View
-          style={{
-            width: `${(currentNo / total) * 100}%`,
-            height: 4,
-            backgroundColor: theme.colors.primary,
-            borderRadius: 4,
-          }}
-        />
-      </View>
-
-      {/* ───────── 問題カード ───────── */}
-      <View
-        style={{
-          margin: 16,
-          padding: 24,
-          borderWidth: 1,
-          borderColor: theme.colors.outline,
-          borderRadius: 16,
-          minHeight: 140,
-          justifyContent: 'center',
-        }}
-      >
-        <Text style={{ textAlign: 'center', lineHeight: 24 }}>
-          {question.question}
-        </Text>
-        <Pressable
-          onPress={toggleFavorite}
-          style={{ position: 'absolute', top: 12, right: 12 }}
+          style={[
+            styles.progressBarTrack,
+            { backgroundColor: theme.colors.surfaceVariant },
+          ]}
         >
-          {question.is_favorite ? (
-            <AntDesign name="star" size={24} color={theme.colors.tertiary} />
-          ) : (
-            <AntDesign
-              name="staro"
-              size={24}
-              color={theme.colors.onBackground}
-            />
-          )}
-        </Pressable>
-      </View>
-
-      {/* ───────── 選択肢 ───────── */}
-      {question.options.map((opt, idx) => {
-        const chosen = selected.includes(idx);
-        return (
-          <Pressable
-            key={idx}
+          <View
             style={{
-              width: width * 0.9,
-              alignSelf: 'center',
-              paddingVertical: 16,
-              marginVertical: 8,
-              borderRadius: 9999,
-              alignItems: 'center',
-              backgroundColor: chosen
-                ? theme.colors.primary
-                : theme.colors.secondaryContainer,
+              width: `${(currentNo / total) * 100}%`,
+              height: 4,
+              backgroundColor: theme.colors.primary,
+              borderRadius: 4,
             }}
-            onPress={() => toggleSelect(idx)}
-            disabled={isAnswered}
-          >
-            <Text
-              style={{
-                fontSize: 18,
-                fontWeight: '600',
-                color: theme.colors.onPrimary,
-              }}
-            >
-              {opt}
-            </Text>
-          </Pressable>
-        );
-      })}
+          />
+        </View>
 
-      {/* ───────── 解答ボタン ───────── */}
-      <Button
-        mode="contained"
-        style={{ width: width * 0.9, alignSelf: 'center', marginTop: 16 }}
-        onPress={onSubmit}
-        disabled={selected.length === 0}
-      >
-        解答する
-      </Button>
-    </Screen>
+        {/* ───────── 問題カード ───────── */}
+        <View style={[styles.card, { borderColor: theme.colors.outline }]}>
+          <Text style={{ textAlign: 'center', lineHeight: 24 }}>
+            {question.question}
+          </Text>
+          <Pressable onPress={toggleFavorite} style={styles.favoriteBtn}>
+            {question.is_favorite ? (
+              <AntDesign
+                name="star"
+                size={24}
+                color={theme.colors.onBackground}
+              />
+            ) : (
+              <AntDesign
+                name="staro"
+                size={24}
+                color={theme.colors.onBackground}
+              />
+            )}
+          </Pressable>
+        </View>
+
+        {/* ───────── 選択肢 ───────── */}
+        {question.options.map((opt, idx) => {
+          const chosen = selected.includes(idx);
+          return (
+            <Pressable
+              key={idx}
+              style={[
+                styles.choice,
+                {
+                  width: width * 0.9,
+                  backgroundColor: chosen
+                    ? theme.colors.primary
+                    : theme.colors.secondaryContainer,
+                },
+              ]}
+              onPress={() => toggleSelect(idx)}
+              disabled={isAnswered}
+            >
+              <Text
+                style={{
+                  fontSize: 18,
+                  fontWeight: '600',
+                  color: theme.colors.onPrimary,
+                }}
+              >
+                {opt}
+              </Text>
+            </Pressable>
+          );
+        })}
+
+        {/* ───────── 解答ボタン ───────── */}
+        <Button
+          mode="contained"
+          style={[styles.answerBtn, { width: width * 0.9 }]}
+          onPress={onSubmit}
+          disabled={selected.length === 0}
+        >
+          解答する
+        </Button>
+      </ScrollView>
+    </View>
   );
 }
+
+// Quiz.tsx 最下部
+const styles = StyleSheet.create({
+  /** 共通マージン・パディング */
+  container: {
+    flex: 1,
+  },
+  scrollContent: {
+    paddingBottom: 32,
+  },
+  progressBar: {
+    height: 4,
+    marginBottom: 12,
+    marginHorizontal: 16,
+    borderRadius: 4,
+  },
+  card: {
+    margin: 16,
+    padding: 24,
+    borderWidth: 1,
+    borderRadius: 16,
+    minHeight: 140,
+    justifyContent: 'center',
+  },
+  favoriteBtn: {
+    position: 'absolute',
+    top: 12,
+    right: 12,
+  },
+  choice: {
+    alignSelf: 'center',
+    paddingVertical: 16,
+    marginVertical: 8,
+    borderRadius: 9999,
+    alignItems: 'center',
+  },
+  answerBtn: {
+    alignSelf: 'center',
+    marginTop: 16,
+  },
+});

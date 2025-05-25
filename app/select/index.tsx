@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { View, Alert, TouchableOpacity, ScrollView } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import {
-  Text,
-  Button,
-  Switch,
-  Chip,
-  Card,
-  useTheme,
-  IconButton,
-} from 'react-native-paper';
+  View,
+  Alert,
+  TouchableOpacity,
+  ScrollView,
+  StyleSheet,
+} from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { AppHeader } from '@/components/AppHeader';
+import { Text, Button, Switch, Chip, Card, useTheme } from 'react-native-paper';
 import { router } from 'expo-router';
 import { getQuestionIdsByFilter, countQuestionsByFilter } from '@/src/utils/db';
 import { SelectableChip } from '@/components/SelectableChip';
@@ -162,67 +161,44 @@ export default function SelectScreen() {
   const insets = useSafeAreaInsets();
 
   return (
-    <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
-      {/* ───────── 固定ヘッダー ───────── */}
-      <View
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          flexDirection: 'row',
-          alignItems: 'center',
-          paddingTop: insets.top,
-          height: 56 + insets.top,
-          paddingHorizontal: 8,
-          backgroundColor: theme.colors.background,
-          borderBottomWidth: 1,
-          borderBottomColor: '#ddd',
-          zIndex: 10,
-        }}
-      >
-        <IconButton icon="arrow-left" onPress={() => router.back()} />
-        <Text
-          variant="titleLarge"
-          style={{ flex: 1, textAlign: 'center', marginRight: 48 }}
-        >
-          クイズ選択画面
-        </Text>
-        {/* ←―― 右上の歯車アイコン ――― */}
-        <IconButton icon="cog" onPress={() => router.push('/settings')} />
-      </View>
+    <View
+      style={[styles.container, { backgroundColor: theme.colors.background }]}
+    >
+      <AppHeader
+        title="クイズ選択画面"
+        onBack={() => router.replace('/')}
+        rightIcon="cog"
+        onRightPress={() => router.push('/settings')}
+      />
 
       {/* ───────── スクロール領域 ───────── */}
 
       <ScrollView
-        contentContainerStyle={{
-          paddingTop: 56 + insets.top + 16, // ヘッダー高さ分 + 余白
-          paddingBottom: 72 + insets.bottom, // フッター高さ分 + 余白
-          paddingHorizontal: 16,
-        }}
+        contentContainerStyle={[
+          styles.scrollContent,
+          { paddingTop: 56 + insets.top + 16 }, // ヘッダー分だけ動的
+          { paddingBottom: 72 + insets.bottom }, // フッター余白を加算
+        ]}
       >
         {/* ───────── ランダム出題のアイコンボタン ───────── */}
         <TouchableOpacity
           onPress={() => setRandom(!random)}
           activeOpacity={0.8}
-          style={{
-            flexDirection: 'row-reverse',
-            alignItems: 'center',
-            marginVertical: 8,
-          }}
+          style={styles.randomRow}
         >
-          <Text style={{ fontSize: 16 }}>
+          <Text style={styles.label}>
             ランダム出題：{random ? 'ON' : 'OFF'}
           </Text>
           <View
-            style={{
-              backgroundColor: random
-                ? theme.colors.primaryContainer
-                : 'transparent',
-              borderRadius: 20,
-              elevation: random ? 4 : 0,
-              marginLeft: 8,
-            }}
+            style={[
+              styles.randomIconWrapper,
+              {
+                backgroundColor: random
+                  ? theme.colors.primaryContainer
+                  : 'transparent',
+                elevation: random ? 4 : 0,
+              },
+            ]}
           >
             <MaterialCommunityIcons
               name="shuffle-variant"
@@ -236,7 +212,7 @@ export default function SelectScreen() {
         </TouchableOpacity>
         {/* ───────── レベル選択 ───────── */}
         <Card
-          style={{ marginBottom: 16, backgroundColor: theme.colors.levelCard }}
+          style={[styles.card, { backgroundColor: theme.colors.levelCard }]}
         >
           <Card.Title
             title="レベル"
@@ -253,7 +229,7 @@ export default function SelectScreen() {
             )}
           />
           <Card.Content>
-            <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+            <View style={styles.chipRow}>
               {LEVELS.map((lv) => (
                 <LevelChip
                   key={lv}
@@ -267,10 +243,7 @@ export default function SelectScreen() {
         </Card>
         {/* ───────── カテゴリ選択 ───────── */}
         <Card
-          style={{
-            marginBottom: 16,
-            backgroundColor: theme.colors.categoryCard,
-          }}
+          style={[styles.card, { backgroundColor: theme.colors.categoryCard }]}
         >
           <Card.Title
             title="カテゴリ"
@@ -286,7 +259,7 @@ export default function SelectScreen() {
             )}
           />
           <Card.Content>
-            <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+            <View style={styles.chipRow}>
               {CATEGORIES.map((cat) => (
                 <CategoryChip
                   key={cat}
@@ -298,12 +271,9 @@ export default function SelectScreen() {
             </View>
           </Card.Content>
         </Card>
-        {/* ───────── カテゴリ選択 ───────── */}
+        {/* ───────── 学習達成度選択 ───────── */}
         <Card
-          style={{
-            marginBottom: 16,
-            backgroundColor: theme.colors.progressCard,
-          }}
+          style={[styles.card, { backgroundColor: theme.colors.progressCard }]}
         >
           <Card.Title
             title="学習達成度"
@@ -319,7 +289,7 @@ export default function SelectScreen() {
             )}
           />
           <Card.Content>
-            <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+            <View style={styles.chipRow}>
               {PROGRESS.map((p) => (
                 <ProgressChip
                   key={p}
@@ -332,56 +302,83 @@ export default function SelectScreen() {
           </Card.Content>
         </Card>
 
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            marginVertical: 8,
-          }}
-        >
-          <Text style={{ marginRight: 8, fontSize: 16 }}>
+        <View style={styles.filterRow}>
+          <Text style={[styles.label, styles.labelMarginRight]}>
             お気に入りのみ出題する
           </Text>
           <Switch value={favoriteOnly} onValueChange={setFavoriteOnly} />
         </View>
         {/* 選択条件に合致する問題数を表示 */}
-        <Text style={{ marginVertical: 8, fontSize: 16 }}>
+        <Text style={[styles.label, styles.matchCount]}>
           該当問題数: {matchCount} 件
         </Text>
-
-        {/*  */}
-        {/*<View*/}
-        {/*  style={{*/}
-        {/*    flexDirection: 'row',*/}
-        {/*    alignItems: 'center',*/}
-        {/*    marginVertical: 8,*/}
-        {/*  }}*/}
-        {/*>*/}
-        {/*  <Text style={{ marginRight: 8, fontSize: 16 }}>ランダムに出題する</Text>*/}
-        {/*  <Switch value={random} onValueChange={setRandom} />*/}
-        {/*</View>*/}
-        {/*  */}
       </ScrollView>
 
       {/* ───────── 固定フッター ───────── */}
       <View
-        style={{
-          position: 'absolute',
-          bottom: 0,
-          left: 0,
-          right: 0,
-          paddingBottom: insets.bottom,
-          paddingTop: 8,
-          backgroundColor: theme.colors.background,
-          borderTopWidth: 1,
-          borderTopColor: '#ddd',
-          alignItems: 'center',
-        }}
+        style={[
+          styles.footer,
+          {
+            paddingBottom: insets.bottom,
+            backgroundColor: theme.colors.background,
+          },
+        ]}
       >
-        <Button mode="contained" onPress={startQuiz} style={{ width: '90%' }}>
+        <Button mode="contained" onPress={startQuiz} style={styles.startBtn}>
           クイズ開始
         </Button>
       </View>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: { flex: 1 },
+
+  scrollContent: {
+    paddingBottom: 72, // フッター分
+    paddingHorizontal: 16,
+  },
+
+  randomRow: {
+    flexDirection: 'row-reverse',
+    alignItems: 'center',
+    marginVertical: 8,
+  },
+
+  randomIconWrapper: {
+    borderRadius: 20,
+    marginLeft: 8,
+  },
+  label: { fontSize: 16 },
+
+  labelMarginRight: { marginRight: 8 },
+
+  card: {
+    marginBottom: 16,
+  },
+  chipRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+
+  filterRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 8,
+  },
+
+  matchCount: { marginVertical: 8 },
+
+  footer: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    paddingTop: 8,
+    borderTopWidth: 1,
+    borderTopColor: '#ddd',
+    alignItems: 'center',
+  },
+  startBtn: { width: '90%' },
+});
