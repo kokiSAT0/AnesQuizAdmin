@@ -1,6 +1,6 @@
 // components/AppHeader.tsx
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, ViewStyle } from 'react-native';
 import { IconButton, Text, useTheme } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -12,6 +12,8 @@ type Props = {
   rightIcon?: string;
   /** 右端アイコンのハンドラ */
   onRightPress?: () => void;
+  /** 画面ごとに背景色など上書きしたい場合 */
+  additionalStyles?: ViewStyle;
 };
 
 export const AppHeader: React.FC<Props> = ({
@@ -19,6 +21,7 @@ export const AppHeader: React.FC<Props> = ({
   onBack,
   rightIcon,
   onRightPress,
+  additionalStyles,
 }) => {
   const { top } = useSafeAreaInsets();
   const theme = useTheme();
@@ -28,6 +31,7 @@ export const AppHeader: React.FC<Props> = ({
       style={[
         styles.container,
         { paddingTop: top, backgroundColor: theme.colors.background },
+        additionalStyles,
       ]}
     >
       {onBack ? (
@@ -37,7 +41,12 @@ export const AppHeader: React.FC<Props> = ({
         <View style={{ width: 48 }} />
       )}
 
-      <Text variant="titleLarge" style={styles.title}>
+      <Text
+        variant="titleLarge"
+        numberOfLines={1}
+        adjustsFontSizeToFit
+        style={styles.title}
+      >
         {title}
       </Text>
 
@@ -54,14 +63,18 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    height: 56, // SafeArea 分は paddingTop で追加
+    /* ❶ “固定高さ” をやめて可変に */
+    minHeight: 56,
+    paddingHorizontal: 16,
     borderBottomWidth: 1,
     borderBottomColor: '#ddd',
-    paddingHorizontal: 16,
     zIndex: 10,
+    /* ❷ 子要素を縦方向中央に配置 */
+    justifyContent: 'center',
   },
   title: {
     flex: 1,
     textAlign: 'center',
+    lineHeight: 24,
   },
 });
