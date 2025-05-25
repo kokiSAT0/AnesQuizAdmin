@@ -14,10 +14,13 @@ export const DebugOverlay: React.FC = () => {
 
   return (
     <View
+      // pointerEvents="none" でこのビューはタッチを受け付けず、背後のボタンが押せる
+      pointerEvents="none"
       style={[
         styles.container,
         {
-          backgroundColor: theme.colors.surfaceVariant,
+          // 半透明にして下の UI を見やすくする
+          backgroundColor: 'rgba(0,0,0,0.6)',
           borderColor: theme.colors.outline,
         },
       ]}
@@ -39,7 +42,8 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    maxHeight: '40%',
+    // ログをより多く表示できるよう高さを広げる
+    maxHeight: '50%',
     padding: 8,
     borderTopWidth: 1,
   },

@@ -98,7 +98,9 @@ export default function IndexScreen() {
         </Button>
 
         {debugEnabled && (
-          <View style={styles.logArea}>
+          // pointerEvents="none" により、このビュー自体はタッチを受け付けない
+          // (下のボタンなどが押せるようになる)。
+          <View style={styles.logArea} pointerEvents="none">
             <ScrollView>
               {logMessages.map((msg, idx) => (
                 <Text key={idx} style={{ fontSize: 12, marginVertical: 4 }}>
@@ -130,9 +132,12 @@ export default function IndexScreen() {
 
 const styles = StyleSheet.create({
   logArea: {
-    flex: 1,
+    // ログ表示エリアを画面上部に半透明で重ねて広めに確保
+    position: 'absolute',
+    top: 0,
     width: '100%',
-    marginTop: 8,
+    height: '50%', // 以前より広くして見やすさ向上
+    backgroundColor: 'rgba(0,0,0,0.6)',
     borderRadius: 4,
     padding: 8,
   },
