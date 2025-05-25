@@ -26,6 +26,16 @@ import type { Question } from '@/types/firestore';
 const { width } = Dimensions.get('window');
 const FOOTER_HEIGHT = 64;
 
+// カード枠色を決める関数
+const getCardBorderColor = (
+  type: Question['type'],
+  theme: ReactNativePaper.Theme,
+) => {
+  return type === 'multiple_choice'
+    ? theme.colors.error // MD3 の error (赤系)
+    : theme.colors.outline; // 既定（グレー）
+};
+
 export default function Quiz() {
   const theme = useTheme();
   const tStyles = createQuestionTextStyle(theme);
@@ -217,7 +227,12 @@ export default function Quiz() {
         </View>
 
         {/* ───────── 問題カード ───────── */}
-        <View style={[styles.card, { borderColor: theme.colors.outline }]}>
+        <View
+          style={[
+            styles.card,
+            { borderColor: getCardBorderColor(question.type, theme) },
+          ]}
+        >
           {/* ─ カテゴリ表示 ─ */}
           <View style={styles.categoryRow}>
             {question.categories.map((cat) => (
