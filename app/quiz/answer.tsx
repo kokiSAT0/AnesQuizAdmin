@@ -1,5 +1,6 @@
 // app/quiz/answer.tsx
-import React, { useEffect, useState, useMemo } from 'react';
+// useRef を追加して後述の自動お気に入り処理で利用します
+import React, { useEffect, useState, useMemo, useRef } from 'react';
 import { router, useLocalSearchParams } from 'expo-router';
 import {
   View,
@@ -32,7 +33,6 @@ export default function AnswerScreen() {
   const [question, setQuestion] = useState<Awaited<
     ReturnType<typeof getQuestionById>
   > | null>(null);
-  const [isFavorite, setIsFavorite] = useState(false);
 
   /* ───── DB から問題を取得 ───── */
   useEffect(() => {
@@ -41,7 +41,6 @@ export default function AnswerScreen() {
         console.info('load answer question', questionId);
         const q = await getQuestionById(questionId);
         setQuestion(q);
-        setIsFavorite(q?.is_favorite ?? false);
       })();
   }, [questionId]);
 
@@ -62,13 +61,48 @@ export default function AnswerScreen() {
     );
   }, [question, userChoices]);
 
+  // 不正解だった場合は自動でお気に入りに追加します
+  const didAutoFavorite = useRef(false);
+  useEffect(() => {
+    // 問題が存在し、不正解で、まだお気に入り登録されておらず、
+    // かつ自動処理が未実行の場合のみ実行します
+    if (
+      question &&
+      !isCorrect &&
+      !question.is_favorite &&
+      !didAutoFavorite.current
+    ) {
+      didAutoFavorite.current = true; // 連続実行を防ぐフラグ
+
+      (async () => {
+        try {
+          await updateFavorite(question.id, true);
+          // question ステートを更新して UI を即時反映
+          setQuestion((prev) => (prev ? { ...prev, is_favorite: true } : prev));
+        } catch (e) {
+          console.error('自動お気に入り失敗', e);
+        }
+      })();
+    }
+  }, [question, isCorrect]);
+
+  // 正誤でヘッダー背景色を切り替えます
+  const headerColor = isCorrect
+    ? theme.colors.categoryChipSelected
+    : theme.colors.error;
+
   /* ───── お気に入り切替 ───── */
   const toggleFavorite = async () => {
     if (!question) return;
-    const next = !isFavorite;
-    console.info('answer toggle favorite', { id: question.id, flag: next });
-    await updateFavorite(question.id, next);
-    setIsFavorite(next);
+    const newFlag = !question.is_favorite;
+    console.info('answer toggle favorite', { id: question.id, flag: newFlag });
+    try {
+      // SQLite に反映し、画面でも即時更新します
+      await updateFavorite(question.id, newFlag);
+      setQuestion((prev) => (prev ? { ...prev, is_favorite: newFlag } : prev));
+    } catch (err) {
+      console.error('お気に入り更新失敗', err);
+    }
   };
 
   /* ───── 次の問題へ ───── */
@@ -107,6 +141,7 @@ export default function AnswerScreen() {
         onBack={() => router.replace('/select')}
         rightIcon="cog"
         onRightPress={() => router.push('/settings')}
+        additionalStyles={{ backgroundColor: headerColor }}
       />
 
       {/* ─── スクロール領域 ─── */}
@@ -141,9 +176,9 @@ export default function AnswerScreen() {
           const isAnswer = question.correct_answers.includes(idx);
           const isUserWrong = userChoices.includes(idx) && !isAnswer;
           const bg = isAnswer
-            ? '#4CAF50'
+            ? theme.colors.categoryChipSelected
             : isUserWrong
-              ? '#E53935'
+              ? theme.colors.error
               : theme.colors.secondaryContainer;
 
           return (
@@ -183,6 +218,7 @@ export default function AnswerScreen() {
           {
             paddingBottom: insets.bottom,
             backgroundColor: theme.colors.background,
+            borderTopColor: theme.colors.outline,
           },
         ]}
       >
@@ -249,6 +285,16 @@ const styles = StyleSheet.create({
   tagText: { fontSize: 12, color: '#444' },
 
   explanation: { fontSize: 16, lineHeight: 24 },
+
+  footer: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    paddingTop: 8,
+    borderTopWidth: 1,
+    alignItems: 'center',
+  },
 
   nextBtn: { alignSelf: 'center', marginTop: 24 },
 });
