@@ -12,6 +12,7 @@ import {
   dropQuestionsTable,
   dropAppInfoTable,
   dropLearningLogsTable,
+  initializeDatabaseIfNeeded,
 } from '@/src/utils/db';
 import { syncFirestoreToSQLite } from '@/src/utils/firestoreSync';
 
@@ -50,6 +51,8 @@ export default function Settings() {
     setIsSyncing(true);
     appendLog('同期開始');
     try {
+      // テーブルが存在しない場合もあるため、毎回初期化を試みる
+      await initializeDatabaseIfNeeded();
       const { importedCount } = await syncFirestoreToSQLite();
       appendLog(`同期完了: ${importedCount}件`);
     } catch (err: any) {
