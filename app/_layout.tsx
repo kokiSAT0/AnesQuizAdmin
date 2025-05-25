@@ -1,5 +1,8 @@
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
+// デバッグ用オーバーレイと console ラッパーを初期化
+import { DebugOverlay } from '@/components/DebugOverlay';
+import '@/lib/debugger';
 import {
   Provider as PaperProvider,
   MD3DarkTheme,
@@ -44,6 +47,8 @@ export default function RootLayout() {
             contentStyle: { backgroundColor: theme.colors.background },
           }}
         />
+        {/* デバッグモード中のみログを表示 */}
+        <DebugOverlay />
       </View>
     </PaperProvider>
   );
