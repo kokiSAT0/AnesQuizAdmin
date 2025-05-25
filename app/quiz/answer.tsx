@@ -1,5 +1,5 @@
 // app/quiz/answer.tsx
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo, useRef } from 'react';
 import { router, useLocalSearchParams } from 'expo-router';
 import {
   View,
@@ -62,13 +62,35 @@ export default function AnswerScreen() {
     );
   }, [question, userChoices]);
 
+  const didAutoFavorite = useRef(false);
+  /* ───── 不正解なら自動でお気に入り登録 ───── */
+  useEffect(() => {
+    // ❶ question が取れている ❷不正解 ❸まだ未登録 ❹まだ自動処理していない
+    if (
+      question &&
+      !isCorrect &&
+      !question.is_favorite &&
+      !didAutoFavorite.current
+    ) {
+      didAutoFavorite.current = true; // 無限ループ防止フラグ
+
+      (async () => {
+        try {
+          await updateFavorite(question.id, true); // ← SQLite 反映
+          setQuestion((prev) => (prev ? { ...prev, is_favorite: true } : prev)); // 画面更新
+        } catch (e) {
+          console.error('自動お気に入り失敗', e);
+        }
+      })();
+    }
+  }, [question, isCorrect]);
+
+  const headerColor = isCorrect ? '#4CAF50' : '#E53935'; // 緑 / 赤
+
   /* ───── お気に入り切替 ───── */
   const toggleFavorite = async () => {
     if (!question) return;
-    const next = !isFavorite;
-    console.info('answer toggle favorite', { id: question.id, flag: next });
-    await updateFavorite(question.id, next);
-    setIsFavorite(next);
+
   };
 
   /* ───── 次の問題へ ───── */
@@ -107,15 +129,11 @@ export default function AnswerScreen() {
         onBack={() => router.replace('/select')}
         rightIcon="cog"
         onRightPress={() => router.push('/settings')}
+        additionalStyles={{ backgroundColor: headerColor }}
       />
 
       {/* ─── スクロール領域 ─── */}
-      <ScrollView
-        contentContainerStyle={[
-          styles.scrollContent,
-          { paddingTop: 56 + insets.top + 12 },
-        ]}
-      >
+      <ScrollView contentContainerStyle={[styles.scrollContent]}>
         {/* ───── 問題カード（位置・サイズは quiz/index と同じ） ───── */}
         <View style={[styles.card, { borderColor: theme.colors.outline }]}>
           <Text style={styles.question}>{question.question}</Text>
