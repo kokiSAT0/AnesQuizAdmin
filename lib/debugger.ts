@@ -1,7 +1,7 @@
 import { useDebugStore } from '@/src/store/debug';
 
 // 元々の console を保存します
-// eslint-disable-next-line no-console
+
 const orig = {
   log: console.log,
   info: console.info,
@@ -26,7 +26,7 @@ const orig = {
     if (useDebugStore.getState().enabled) {
       useDebugStore.getState().addLog(level, msg);
     }
-    // eslint-disable-next-line no-console
+
     orig[level](...args);
   };
 });

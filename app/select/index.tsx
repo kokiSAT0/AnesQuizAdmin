@@ -167,6 +167,8 @@ export default function SelectScreen() {
 
   const insets = useSafeAreaInsets();
 
+  const FOOTER_HEIGHT = 64;
+
   return (
     <View
       style={[styles.container, { backgroundColor: theme.colors.background }]}
@@ -183,7 +185,7 @@ export default function SelectScreen() {
       <ScrollView
         contentContainerStyle={[
           styles.scrollContent,
-          { paddingBottom: insets.bottom }, // フッター余白を加算
+          { paddingBottom: FOOTER_HEIGHT + insets.bottom }, // フッター余白を加算
         ]}
       >
         {/* ───────── ランダム出題のアイコンボタン ───────── */}

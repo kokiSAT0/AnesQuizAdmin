@@ -17,6 +17,7 @@ import { AppHeader } from '@/components/AppHeader';
 import { getQuestionById, updateFavorite } from '@/src/utils/db';
 
 const { width } = Dimensions.get('window');
+const FOOTER_HEIGHT = 64;
 
 export default function AnswerScreen() {
   const theme = useTheme();
@@ -103,6 +104,7 @@ export default function AnswerScreen() {
     ? theme.colors.categoryChipSelected
     : theme.colors.error;
 
+
   // 受け取った順序で選択肢を並べ替える
   const orderedOptions = useMemo(() => {
     if (!question) return [];
@@ -169,7 +171,12 @@ export default function AnswerScreen() {
       />
 
       {/* ─── スクロール領域 ─── */}
-      <ScrollView contentContainerStyle={[styles.scrollContent]}>
+      <ScrollView
+        contentContainerStyle={[
+          styles.scrollContent,
+          { paddingBottom: FOOTER_HEIGHT + insets.bottom },
+        ]}
+      >
         {/* ───── 問題カード（位置・サイズは quiz/index と同じ） ───── */}
         <View style={[styles.card, { borderColor: theme.colors.outline }]}>
           <Text style={styles.question}>{question.question}</Text>
