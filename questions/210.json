@@ -1,0 +1,311 @@
+[
+  {
+    "id": "an0000200",
+    "type": "single_choice",
+    "categories": ["麻酔薬"],
+    "tags": ["中級", "プロポフォール", "代謝"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "プロポフォール持続投与中に血中濃度が上昇しやすい要因として最も考えられるのはどれか？",
+    "options": [
+      "高体温環境下での投与",
+      "肝機能低下や低血圧による代謝・クリアランスの低下",
+      "投与開始直後の短時間投与",
+      "ミオクローヌス（筋の痙攣様運動）の出現"
+    ],
+    "correct_answers": [1],
+    "explanation": "プロポフォールは主に肝臓で代謝されるため、肝機能低下や低血圧で肝血流が減少するとクリアランスが低下し、血中濃度が上がりやすい。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000201",
+    "type": "multiple_choice",
+    "categories": ["気道管理"],
+    "tags": ["中級", "喉頭鏡", "挿管困難"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "マッキントッシュ型喉頭鏡で困難挿管が予測される場合の対策として適切なものを2つ選べ。",
+    "options": [
+      "複数回同じ方法で喉頭鏡挿管を試みる",
+      "喉頭展開が不良ならビデオ喉頭鏡やファイバースコープの準備を考慮する",
+      "口腔内出血時でも吸引を行わずに速やかに挿管を進める",
+      "他の経験豊富な麻酔科医の協力を得る",
+      "ラリンジアルマスクを使用する選択肢は、困難挿管では不要"
+    ],
+    "correct_answers": [1, 3],
+    "explanation": "困難挿管時はビデオ喉頭鏡やファイバースコープの補助器具を用い、チームで安全に対応する。複数回同じ方法で失敗を重ねるのは危険。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000202",
+    "type": "single_choice",
+    "categories": ["循環管理"],
+    "tags": ["中級", "心拍出量モニタリング", "動脈圧解析"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "FloTrac™などの動脈圧波形解析による心拍出量測定で注意すべき点として最も適切なのはどれか？",
+    "options": [
+      "動脈圧波形解析は体動や血管抵抗変化に影響されず、常に一定の正確度を保つ",
+      "脈圧変動（PPV）やSV変動（SVV）は律動的換気を行っているときに有用な指標となる",
+      "肺高血圧症の患者では解析精度が向上する",
+      "拍動が不整（心房細動など）の場合、測定値は安定性が増す"
+    ],
+    "correct_answers": [1],
+    "explanation": "FloTrac™などの動脈圧波形解析では脈圧変動やSV変動を使用し、規則的な人工呼吸状態でこそ正確な輸液反応性評価が可能。一方、心房細動等では変動が大きく、精度が低下する。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000203",
+    "type": "single_choice",
+    "categories": ["術後・疼痛管理"],
+    "tags": ["中級", "硬膜外鎮痛", "ブロックレベル"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "胸部硬膜外鎮痛を行う場合に確保したいブロックレベルの目安として、上腹部手術（例：胃切除）で最も一般的に必要とされる感覚ブロック範囲はどれか？",
+    "options": ["C5～T1", "T4～T8", "T10～L1", "L2～L5"],
+    "correct_answers": [1],
+    "explanation": "上腹部領域の手術鎮痛にはT4～T8程度の感覚ブロックが必要とされる。下腹部手術ではT6～T10など術部に応じて調整する。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000204",
+    "type": "multiple_choice",
+    "categories": ["麻酔薬"],
+    "tags": ["中級", "吸入麻酔薬", "血液ガス分配係数"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "吸入麻酔薬の血液/ガス分配係数に関する説明として正しいものを2つ選べ。",
+    "options": [
+      "血液/ガス分配係数が高いほど導入と覚醒が速やかになる",
+      "セボフルランはイソフルランより血液/ガス分配係数が低く、導入は比較的早い",
+      "デスフルランは血液/ガス分配係数が低い部類に入り、覚醒が速いとされる",
+      "血液/ガス分配係数が低い麻酔薬は必ずしも術中の血圧変動が大きくなるわけではない",
+      "血液/ガス分配係数は吸入酸素濃度を決定する指標である"
+    ],
+    "correct_answers": [1, 2],
+    "explanation": "セボフルラン（約2.0）とイソフルラン（約1.4）を比べるとイソフルランの方がやや低いが、実臨床ではセボフルランの導入覚醒は十分速い。デスフルラン（約0.42）は極めて低い数値で、導入覚醒が速い。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000205",
+    "type": "single_choice",
+    "categories": ["緊急対応"],
+    "tags": ["中級", "アナフィラキシー", "アレルギー"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "術中にアナフィラキシーショックが疑われた際、最も優先して行うべき対応はどれか？",
+    "options": [
+      "ヒスタミン拮抗薬の単独投与から開始する",
+      "気道確保と同時にアドレナリン投与を検討する",
+      "急性期の輸液は控えるほうが良い",
+      "ステロイドのみで対応し、循環管理は後回しにする"
+    ],
+    "correct_answers": [1],
+    "explanation": "アナフィラキシーショックでは、まず気道確保と循環維持のためアドレナリン投与が最優先となり、併せて輸液管理などを行う。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000206",
+    "type": "multiple_choice",
+    "categories": ["医療安全・ヒューマンファクター"],
+    "tags": ["中級", "リスクマネジメント", "Incidence Reporting"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "手術室でのインシデントレポート（ヒヤリハット報告）の活用に関して、正しいものを2つ選べ。",
+    "options": [
+      "スタッフの指導・教育の材料として活用できる",
+      "当事者の個人責任を追及するために利用する",
+      "同様の事例が再発しないようアクションプランを策定するきっかけとなる",
+      "内容を公開すると患者の不安が高まりやすいので極力秘匿化する",
+      "インシデント報告は実際に被害が発生した場合のみ必要"
+    ],
+    "correct_answers": [0, 2],
+    "explanation": "ヒヤリハット報告はスタッフ教育や再発防止策の構築に活用される。未然に防ぐために被害が出ない段階の事例も報告対象となる。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000207",
+    "type": "single_choice",
+    "categories": ["区域麻酔"],
+    "tags": ["中級", "神経解剖", "腕神経叢"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "腋窩アプローチによる腕神経叢ブロックでブロック範囲に含まれやすいのはどれか？",
+    "options": [
+      "肩関節周囲の鎮痛",
+      "前腕から手掌領域の大部分",
+      "上腕後面の深部領域",
+      "上腕二頭筋近位付着部付近の感覚遮断"
+    ],
+    "correct_answers": [1],
+    "explanation": "腋窩アプローチでは腕神経叢の最も末梢部分をブロックしやすく、前腕～手掌領域の感覚が遮断されやすい。一方、肩関節周囲の鎮痛には不十分なことが多い。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000208",
+    "type": "single_choice",
+    "categories": ["麻酔合併症"],
+    "tags": ["中級", "術中覚醒", "BISモニタ"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "術中覚醒のリスクが高い状況として一般的に考えられるのはどれか？",
+    "options": [
+      "手術が極めて短時間で局所麻酔のみの場合",
+      "大量出血を伴う緊急手術で麻酔薬投与が制限される状況",
+      "若年健常者で予定の全身麻酔を実施できる状況",
+      "フェンタニルを併用せずにプロポフォールTIVAを施行している状況"
+    ],
+    "correct_answers": [1],
+    "explanation": "緊急手術や循環動態が不安定な状況では十分な麻酔薬投与が困難になり、術中覚醒リスクが高まることがある。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000209",
+    "type": "multiple_choice",
+    "categories": ["ICU管理"],
+    "tags": ["中級", "酸素療法", "HFNC"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "高流量鼻カニュラ（HFNC）による酸素療法の特徴として正しいものを2つ選べ。",
+    "options": [
+      "過度の気道内圧がかかるため、ARDS患者には禁忌",
+      "鼻カニュラを用いるため患者が会話や食事を行いやすい",
+      "適度なPEEP効果が期待できる",
+      "固定された酸素濃度しか設定できない",
+      "不快感が強く、患者の受容性が低い傾向がある"
+    ],
+    "correct_answers": [1, 2],
+    "explanation": "HFNCは鼻カニュラを用いるため会話や経口摂取が可能で、ある程度の呼気終末陽圧効果（PEEP）が得られる。ARDS患者にも有用な場合がある。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  }
+]

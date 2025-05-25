@@ -1,0 +1,316 @@
+[
+  {
+    "id": "an0000131",
+    "type": "single_choice",
+    "categories": ["特殊患者"],
+    "tags": ["高齢者", "中級"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "高齢者に全身麻酔を行う場合、特に注意が必要な理由として最も適切なのはどれか？",
+    "options": [
+      "体重が軽いほど麻酔薬の分布容積は必ず増える",
+      "肝腎機能低下により薬物の排泄が遅れやすい",
+      "鎮静薬への反応性が若年者に比べて低い",
+      "気道確保が容易になる"
+    ],
+    "correct_answers": [1],
+    "explanation": "高齢者は肝腎機能の予備能が低下しており、麻酔薬の代謝・排泄が遅延するため、過剰投与や蓄積による副作用に注意が必要。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000132",
+    "type": "multiple_choice",
+    "categories": ["気道管理"],
+    "tags": ["ファイバースコープ挿管", "中級"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "ファイバースコープ挿管（気管支ファイバースコピーによる気管挿管）の利点として正しいものを2つ選べ。",
+    "options": [
+      "可視化しながら経鼻・経口で挿管が可能である",
+      "挿管操作が常に迅速で、緊急時に最適である",
+      "無呼吸で行うのが原則であり、酸素投与は不要",
+      "解剖学的に困難な気道でも比較的安全に挿管できる",
+      "ファイバースコープを使うとチューブサイズは常に固定される"
+    ],
+    "correct_answers": [0, 3],
+    "explanation": "ファイバースコープ挿管は気道内部を可視化しながら挿管できるため、解剖学的に困難な気道にも対応しやすい利点がある。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000133",
+    "type": "single_choice",
+    "categories": ["循環管理"],
+    "tags": ["揮発性麻酔薬", "中級"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "揮発性麻酔薬の循環に及ぼす作用として最も一般的なのはどれか？",
+    "options": [
+      "血圧上昇と頻脈が主である",
+      "心筋収縮力増強が著しくなる",
+      "血管拡張や心筋抑制により血圧が低下しやすい",
+      "心拍数は大幅に減少し、徐脈が常に生じる"
+    ],
+    "correct_answers": [2],
+    "explanation": "揮発性麻酔薬は一般に血管拡張作用や心筋抑制作用を持ち、血圧低下が起こりやすい。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000134",
+    "type": "single_choice",
+    "categories": ["ICU管理"],
+    "tags": ["qSOFA", "中級"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "ICUで敗血症疑い患者の重症度を簡便に評価するqSOFAの3項目に該当しないものはどれか？",
+    "options": [
+      "収縮期血圧 ≤100 mmHg",
+      "意識レベルの変化（GCS <15）",
+      "呼吸数 ≥22回/分",
+      "体温 >39℃"
+    ],
+    "correct_answers": [3],
+    "explanation": "qSOFAの3項目は「収縮期血圧 ≤100 mmHg」「GCS <15」「呼吸数 ≥22回/分」であり、発熱の有無は評価項目に含まれない。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000135",
+    "type": "single_choice",
+    "categories": ["緊急対応"],
+    "tags": ["エスマルヒ法", "中級"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "四肢の手術などで血液を排除するために用いられるエスマルヒ法に関する説明で最も適切なのはどれか？",
+    "options": [
+      "気道確保のテクニックの一つである",
+      "駆血帯を巻く前に遠位部から近位部に向かって弾力包帯で血液を絞り出す方法",
+      "術後の術野出血を増大させる効果がある",
+      "頭蓋内圧を低下させる目的で行う"
+    ],
+    "correct_answers": [1],
+    "explanation": "エスマルヒ法では弾力包帯を遠位から近位へ巻き上げて血液を絞り出し、その後駆血帯を巻くことで無血野を確保する。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000136",
+    "type": "multiple_choice",
+    "categories": ["麻酔薬"],
+    "tags": ["デクスメデトミジン", "中級"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "デクスメデトミジン（α2作動薬）の作用や特徴として正しいものを2つ選べ。",
+    "options": [
+      "鎮静や鎮痛効果を持つ",
+      "心拍数や血圧を上昇させることが多い",
+      "呼吸抑制が強く、人工呼吸管理が必須",
+      "せん妄の頻度を抑える可能性がある",
+      "突然の中止による離脱症候は全く問題にならない"
+    ],
+    "correct_answers": [0, 3],
+    "explanation": "デクスメデトミジンは鎮静・鎮痛効果があり、せん妄リスク軽減が期待される。一方、徐脈や血圧低下を起こす場合があるため注意を要する。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000137",
+    "type": "single_choice",
+    "categories": ["術後・疼痛管理"],
+    "tags": ["経口鎮痛", "中級"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "術後の経口鎮痛薬使用において最も注意が必要な点として適切なのはどれか？",
+    "options": [
+      "術後すぐから高用量を投与しても問題ない",
+      "患者が経口摂取できるかを考慮し、内服開始時期を判断する",
+      "エビデンス上、経口鎮痛薬は術後には効果が期待できない",
+      "手術部位を問わず無制限に使用可能"
+    ],
+    "correct_answers": [1],
+    "explanation": "術後に経口摂取が困難な場合は経口鎮痛が不可能となるため、術後経過や患者の状態を確認して投与開始を判断する。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000138",
+    "type": "multiple_choice",
+    "categories": ["術中モニタリング"],
+    "tags": ["EMG", "中級"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "術中に運動誘発電位（EMG）モニタリングを行う目的として正しいものを2つ選べ。",
+    "options": [
+      "骨折の状態を評価する",
+      "脊髄や末梢神経への損傷を早期に検出する",
+      "筋弛緩薬使用下でもEMGは変化しないため参考にならない",
+      "頭蓋内圧の評価に用いる",
+      "神経根や脊髄周囲での手術操作中に神経機能を保護する"
+    ],
+    "correct_answers": [1, 4],
+    "explanation": "運動誘発電位（EMG）は脊髄・神経根への手術操作の影響をリアルタイムで検出し、神経機能保護に役立つ。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000139",
+    "type": "single_choice",
+    "categories": ["医療安全・ヒューマンファクター"],
+    "tags": ["手術室ストレス", "中級"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "手術室で働くスタッフのストレスを軽減し、安全性を高めるための取り組みとして最も有効なのはどれか？",
+    "options": [
+      "コミュニケーションを最小限にし、個人の判断で行動させる",
+      "役割分担を曖昧にして柔軟性を持たせる",
+      "環境要因（騒音・温度など）や勤務体制を整備し、定期的な休憩を確保する",
+      "問題が発生した際にのみマニュアルを活用する"
+    ],
+    "correct_answers": [2],
+    "explanation": "手術室での騒音・温度、休憩の確保、明確な役割分担や円滑なコミュニケーションはスタッフのストレス軽減と医療安全に寄与する。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000140",
+    "type": "multiple_choice",
+    "categories": ["区域麻酔"],
+    "tags": ["鎖骨上腕神経叢ブロック", "中級"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "鎖骨上アプローチによる腕神経叢ブロックに関する説明として正しいものを2つ選べ。",
+    "options": [
+      "上肢全体の手術に対応しやすいブロック範囲が得られる",
+      "横隔神経ブロックのリスクがない",
+      "超音波ガイド下で神経走行を確認しながら穿刺するのが一般的",
+      "気胸発生のリスクが全くない",
+      "手根管症候群の診断目的で行う"
+    ],
+    "correct_answers": [0, 2],
+    "explanation": "鎖骨上アプローチでは腕神経叢のほぼ根元付近をブロックするため上肢広範囲がカバー可能。気胸リスクがあるため、超音波ガイドを使用して安全に行うことが推奨される。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  }
+]

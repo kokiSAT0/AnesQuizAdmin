@@ -1,0 +1,316 @@
+[
+  {
+    "id": "an0000150",
+    "type": "single_choice",
+    "categories": ["麻酔薬"],
+    "tags": ["中級", "筋弛緩薬", "非脱分極性"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "非脱分極性筋弛緩薬ロクロニウムの特徴として最も正しいのはどれか？",
+    "options": [
+      "脱分極性筋弛緩薬であるサクシニルコリンと同程度の作用発現の速さ",
+      "肝臓でのみ代謝され、腎機能とは無関係",
+      "スガマデクスにより効果を速やかに拮抗できる",
+      "常に心拍数を著しく低下させる副作用を持つ"
+    ],
+    "correct_answers": [2],
+    "explanation": "ロクロニウムは非脱分極性筋弛緩薬で、スガマデクスを用いることで効果を迅速に解除できることが特徴の一つ。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000151",
+    "type": "multiple_choice",
+    "categories": ["循環管理"],
+    "tags": ["中級", "心拍出量モニタ"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "FloTrac™などの脈波解析による心拍出量モニタリングに関する説明として正しいものを2つ選べ。",
+    "options": [
+      "肺動脈カテーテルが必要となる",
+      "動脈圧波形を解析することで連続的に心拍出量を推定する",
+      "大量の生理食塩液をボーラス投与する必要がある",
+      "血管抵抗の変化などの影響を受けやすい",
+      "中心静脈圧（CVP）の測定が必須となる"
+    ],
+    "correct_answers": [1, 3],
+    "explanation": "FloTrac™などの脈波解析モニタは動脈圧波形から心拍出量を推定し、血管抵抗変化の影響を受けやすい点に留意が必要。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000152",
+    "type": "single_choice",
+    "categories": ["緊急対応"],
+    "tags": ["中級", "ショックマネジメント"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "ショックマネジメントの初期対応として正しいのはどれか？",
+    "options": [
+      "局所血圧のみ測定し、全身状態の評価は後回しにする",
+      "気道確保・呼吸・循環を迅速に評価し、必要に応じて輸液・輸血や昇圧薬を使用する",
+      "ハイフロー酸素投与はショック増悪の原因になるため避ける",
+      "時間をかけて詳細な検査結果が揃うのを待ち、治療を開始する"
+    ],
+    "correct_answers": [1],
+    "explanation": "ショック時はABCDE（気道・呼吸・循環など）の初期評価を素早く行い、必要に応じて酸素投与、輸液、昇圧薬などを速やかに開始する。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000153",
+    "type": "multiple_choice",
+    "categories": ["ICU管理"],
+    "tags": ["中級", "PICS"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "PICS（Post-Intensive Care Syndrome）の特徴として正しいものを2つ選べ。",
+    "options": [
+      "集中治療後に認知機能障害をきたす場合がある",
+      "ICU退室直後のみ起きるせん妄の総称",
+      "身体機能の低下や筋力低下が生じることがある",
+      "集中治療を受けたことがない患者でも同様の症状が定義される",
+      "ICUに入ると必ず起こる症候群で予防は不可能"
+    ],
+    "correct_answers": [0, 2],
+    "explanation": "PICSは集中治療後に生じる身体的・精神的・認知的な問題の総称で、筋力低下や認知機能障害が含まれる。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000154",
+    "type": "single_choice",
+    "categories": ["麻酔合併症"],
+    "tags": ["中級", "ナルコティックアナレプシー"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "オピオイドに対する拮抗薬ナロキソンの投与時に注意すべき点として最も適切なのはどれか？",
+    "options": [
+      "呼吸抑制が悪化する場合がある",
+      "拮抗作用により急激な疼痛増強や離脱症状が生じる可能性がある",
+      "ナロキソンは長時間作用型で追加投与は不要",
+      "オピオイドの代謝を促進して血中濃度を低下させる"
+    ],
+    "correct_answers": [1],
+    "explanation": "ナロキソン投与によりオピオイド作用が一気に解除され、術後疼痛の増強や離脱症状を起こすことがあるため慎重に使用する。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000155",
+    "type": "multiple_choice",
+    "categories": ["区域麻酔"],
+    "tags": ["中級", "硬膜外麻酔", "テストドーズ"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "硬膜外麻酔でテストドーズを行う理由として正しいものを2つ選べ。",
+    "options": [
+      "局所麻酔薬中毒を防ぐために全身麻酔導入前に高容量を一気に投与する",
+      "血管内カテーテル留置かどうかを早期に判定する",
+      "誤ってクモ膜下腔へ穿刺していないか確認する",
+      "投与直後の筋弛緩状況を観察し、予想ブロック範囲を決定する",
+      "テストドーズ時の痛みやしびれがブロック成功の目安"
+    ],
+    "correct_answers": [1, 2],
+    "explanation": "テストドーズは血管内留置やクモ膜下腔への穿刺を排除するため少量投与し、急激な血中濃度上昇や脊椎麻酔様の広範囲ブロックが起きないか確認する。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000156",
+    "type": "single_choice",
+    "categories": ["特殊患者"],
+    "tags": ["中級", "小児麻酔", "静脈路確保"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "小児麻酔導入時に難渋することの多い静脈路確保への対策として最も適切なのはどれか？",
+    "options": [
+      "無理やり確保を行うために筋弛緩薬を先に投与する",
+      "表在静脈の可視化デバイスや温罨法を併用して血管拡張を促す",
+      "鎮静や保定をせずに素早く穿刺する",
+      "必ず中心静脈カテーテルから挿入する"
+    ],
+    "correct_answers": [1],
+    "explanation": "小児静脈路確保では表在静脈を可視化するデバイス（近赤外線など）や温罨法で血管拡張を図る方法が実践的である。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000157",
+    "type": "multiple_choice",
+    "categories": ["術中モニタリング"],
+    "tags": ["中級", "TOFモニタ", "筋弛緩"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "TOF（Train of Four）モニタリングにおいて正しい説明を2つ選べ。",
+    "options": [
+      "連続4回の電気刺激に対する筋応答を観察する",
+      "筋弛緩が完全に解除されるとTOF比は1.0以上になる",
+      "TOF刺激は非脱分極性筋弛緩薬の効果判定には使えない",
+      "Phase II block（サクシニルコリンの反復投与など）でもTOF変化がみられる",
+      "術後の疼痛評価にはTOFモニタリングが必須である"
+    ],
+    "correct_answers": [0, 3],
+    "explanation": "TOFは4回の連続刺激によって筋弛緩状態を評価し、非脱分極性だけでなくフェーズIIブロックにも応用できる。完全解除時のTOF比はおおよそ1.0。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000158",
+    "type": "single_choice",
+    "categories": ["医療安全・ヒューマンファクター"],
+    "tags": ["中級", "チェックシステム"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "手術室での器械カウントミス防止対策として最も適切なのはどれか？",
+    "options": [
+      "滅菌器械はリストと照合せずに開封する",
+      "手術終了時の器械カウントは看護師1名のみで行う",
+      "開腹手術などでは術中・術後に複数回カウントし、ダブルチェックする",
+      "もし不足があっても術者の判断で退室させる"
+    ],
+    "correct_answers": [2],
+    "explanation": "手術室では器械やガーゼを紛失して体内に遺残しないよう、複数回かつダブルチェックなど厳重なカウントを行うのが一般的である。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000159",
+    "type": "single_choice",
+    "categories": ["術後・疼痛管理"],
+    "tags": ["中級", "PCEA"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "PCEA（患者制御硬膜外鎮痛）におけるメリットとして最も適切なのはどれか？",
+    "options": [
+      "痛みがあっても自分で投与量を調節できない",
+      "オピオイドを使わなくて済むため呼吸抑制リスクが完全に排除される",
+      "痛みの程度に応じて患者自身が追加投与でき、術後鎮痛の質が向上する",
+      "デバイスのロックアウト機能がないため、過剰投与は起こりやすい"
+    ],
+    "correct_answers": [2],
+    "explanation": "PCEAでは患者が痛みに応じて追加投与を行えるため、個別化された鎮痛が可能となり、術後鎮痛の満足度が向上する。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  }
+]

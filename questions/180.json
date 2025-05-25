@@ -1,0 +1,317 @@
+[
+  {
+    "id": "an0000170",
+    "type": "single_choice",
+    "categories": ["麻酔薬"],
+    "tags": ["上級", "全静脈麻酔", "TCI"],
+    "difficulty": {
+      "level": "上級",
+      "correct_rate": 0.0
+    },
+    "question": "プロポフォールのTCI（Target Controlled Infusion）において、特に考慮が必要な薬物動態モデルの要因はどれか？",
+    "options": [
+      "薬物の血漿蛋白結合率は考慮不要",
+      "体温や臓器血流の変化による分布容積の変動",
+      "効果部位の濃度は常に血中濃度より高くなる",
+      "アラーム機能は付与できない"
+    ],
+    "correct_answers": [1],
+    "explanation": "TCIでは体温低下や臓器血流分布の変化などが体内での薬物動態に影響を与え、特に分布容積やクリアランスが変動するため注意が必要となる。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000171",
+    "type": "multiple_choice",
+    "categories": ["循環管理"],
+    "tags": ["上級", "ECMO"],
+    "difficulty": {
+      "level": "上級",
+      "correct_rate": 0.0
+    },
+    "question": "VA-ECMO（Veno-Arterial ECMO）管理中に留意すべき点として正しいものを2つ選べ。",
+    "options": [
+      "自己心拍出量が完全に回復していてもVA-ECMOは短期間では離脱しない",
+      "左室アフター負荷が上昇し、心負荷が増加する可能性がある",
+      "脳血流は完全に体外循環が代替するため、低血圧のリスクはない",
+      "駆動回路の血栓形成を防ぐために抗凝固療法を行う",
+      "VV-ECMOに比べ、酸素化は二次的に行われるため呼吸機能が重要視される"
+    ],
+    "correct_answers": [1, 3],
+    "explanation": "VA-ECMOは大動脈側へ血液を還流するため左室アフター負荷が増大し得るほか、抗凝固管理が不可欠である。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000172",
+    "type": "single_choice",
+    "categories": ["麻酔合併症"],
+    "tags": ["上級", "SER"],
+    "difficulty": {
+      "level": "上級",
+      "correct_rate": 0.0
+    },
+    "question": "麻酔中に手術刺激が加わった際、脳波モニタにおける覚醒反応に準じて見られる可能性がある生体電位の変化を何と呼ぶか？",
+    "options": [
+      "デルタウェーブ",
+      "筋電図アーチファクト",
+      "SER（Stimulus Evoked Response）",
+      "バーストサプレッション"
+    ],
+    "correct_answers": [2],
+    "explanation": "術中に強い疼痛刺激などが加わると、脳波や関連モニタ上でStimulus Evoked Response（SER）が観察される場合がある。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000173",
+    "type": "multiple_choice",
+    "categories": ["特殊患者"],
+    "tags": ["上級", "非心臓手術", "心疾患患者"],
+    "difficulty": {
+      "level": "上級",
+      "correct_rate": 0.0
+    },
+    "question": "非心臓手術を受ける重症心疾患患者の麻酔管理において、正しい対応を2つ選べ。",
+    "options": [
+      "β遮断薬は術前に必ず中止する",
+      "ヘモダイナミクスを安定化するため、前負荷・後負荷管理を徹底する",
+      "麻酔導入時は急激な血圧低下を避けるため、低濃度揮発性麻酔薬のみで行う",
+      "出血などで血圧が急落した場合は、まず強力な血管収縮薬を最大投与する",
+      "心機能評価（エコーや負荷試験など）でリスクを把握し、必要に応じて術中経食道エコーを使用する"
+    ],
+    "correct_answers": [1, 4],
+    "explanation": "重症心疾患患者の非心臓手術では、前負荷・後負荷の管理が重要で、必要に応じて術中経食道エコーにより心機能を評価することが推奨される。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000174",
+    "type": "single_choice",
+    "categories": ["区域麻酔"],
+    "tags": ["上級", "頚部神経ブロック"],
+    "difficulty": {
+      "level": "上級",
+      "correct_rate": 0.0
+    },
+    "question": "深頚神経ブロック（deep cervical plexus block）の合併症として最も注意すべきなのはどれか？",
+    "options": [
+      "上腕骨骨折",
+      "硬膜外血腫",
+      "横隔神経麻痺による呼吸機能低下",
+      "中心静脈カテーテルの感染"
+    ],
+    "correct_answers": [2],
+    "explanation": "深頚神経ブロックでは頚神経叢の深部に局所麻酔薬を投与するため、横隔神経をブロックして呼吸機能に影響を及ぼすリスクがある。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000175",
+    "type": "multiple_choice",
+    "categories": ["ICU管理"],
+    "tags": ["上級", "人工呼吸器設定"],
+    "difficulty": {
+      "level": "上級",
+      "correct_rate": 0.0
+    },
+    "question": "ARDS患者に対する人工呼吸管理で推奨される肺保護戦略として正しいものを2つ選べ。",
+    "options": [
+      "1回換気量を理想体重あたり10 mL/kg以上に設定する",
+      "PEEPを適切にかけて肺胞虚脱を防ぐ",
+      "PaO₂目標は常に150 mmHg以上に固定する",
+      "Prone position（腹臥位）は重症ARDSで有効性が示唆されている",
+      "呼吸回数は20回/分を超えないよう制限することが推奨"
+    ],
+    "correct_answers": [1, 3],
+    "explanation": "ARDS管理では低い1回換気量（約6 mL/kg）と適切なPEEP設定、および重症例での腹臥位が有効とされている。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000176",
+    "type": "single_choice",
+    "categories": ["麻酔薬"],
+    "tags": ["上級", "ケタミン", "痛覚閾値"],
+    "difficulty": {
+      "level": "上級",
+      "correct_rate": 0.0
+    },
+    "question": "ケタミンの低用量持続投与が一部の術後慢性疼痛予防に寄与する可能性があるとされる理由として最も適切なのはどれか？",
+    "options": [
+      "NMDA受容体拮抗作用で中枢性感作を抑制する",
+      "筋弛緩作用が強く長時間の麻痺を維持する",
+      "代謝を促進し局所麻酔薬を早期に分解させる",
+      "副交感神経刺激により自律神経機能を低下させる"
+    ],
+    "correct_answers": [0],
+    "explanation": "ケタミンのNMDA受容体拮抗作用により、痛覚の中枢性感作を抑制し、長期的な痛みの発生リスクを低減させる可能性が報告されている。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000177",
+    "type": "multiple_choice",
+    "categories": ["術後・疼痛管理"],
+    "tags": ["上級", "CPSP"],
+    "difficulty": {
+      "level": "上級",
+      "correct_rate": 0.0
+    },
+    "question": "術後慢性疼痛（CPSP）の発生リスクを下げる戦略として正しいものを2つ選べ。",
+    "options": [
+      "術中の鎮痛を最小限にして覚醒時に痛みを感じさせる",
+      "神経因性疼痛の予防を意図した多模式鎮痛（オピオイド、NSAIDs、局所麻酔ブロックなど）を行う",
+      "長時間作用型筋弛緩薬を大量投与する",
+      "患者教育や期待コントロールを含む心理的ケアを行う",
+      "術中・術後の痛み刺激が強いほど組織修復が促進される"
+    ],
+    "correct_answers": [1, 3],
+    "explanation": "CPSPのリスク低減には、術中からの十分な鎮痛（多模式鎮痛）や術前からの患者教育・心理的ケアが有用とされる。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000178",
+    "type": "single_choice",
+    "categories": ["医療安全・ヒューマンファクター"],
+    "tags": ["上級", "自動化バイアス"],
+    "difficulty": {
+      "level": "上級",
+      "correct_rate": 0.0
+    },
+    "question": "医療機器の自動化機能やアラームに過度に依存し、人間の監視がおろそかになる現象を何と呼ぶか？",
+    "options": [
+      "認知的不協和",
+      "自動化バイアス（Automation Bias）",
+      "アンカリング効果",
+      "サンクコスト効果"
+    ],
+    "correct_answers": [1],
+    "explanation": "自動化バイアスとは、医療機器の自動機能やアラームへの過度な信頼により、人間のダブルチェックや判断が疎かになる心理的傾向を指す。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000179",
+    "type": "multiple_choice",
+    "categories": ["緊急対応"],
+    "tags": ["上級", "REBOA"],
+    "difficulty": {
+      "level": "上級",
+      "correct_rate": 0.0
+    },
+    "question": "緊急時におけるREBOA（Resuscitative Endovascular Balloon Occlusion of the Aorta）の活用に関して正しいものを2つ選べ。",
+    "options": [
+      "体幹部外傷の大出血時に、大動脈内にバルーンを挿入し近位の出血を制御する手技",
+      "心肺停止時には必ず施行が推奨される",
+      "長時間バルーン閉塞を維持すると末梢臓器虚血のリスクが高まる",
+      "止血目的ではなく、肺酸素化を改善するために実施される",
+      "バルーンサイズや閉塞位置を誤ると血圧低下や破裂を引き起こす可能性がある"
+    ],
+    "correct_answers": [0, 2],
+    "explanation": "REBOAは下行大動脈をバルーンで一時的に閉塞し、大量出血による循環不全に対処する手技だが、閉塞時間が長いと虚血・合併症リスクが増大する。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  }
+]

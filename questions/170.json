@@ -1,0 +1,316 @@
+[
+  {
+    "id": "an0000160",
+    "type": "single_choice",
+    "categories": ["呼吸管理"],
+    "tags": ["中級", "肺分画術"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "肺分画術（肺葉あるいは区域切除術）の際に片肺換気が必要となる理由として最も適切なのはどれか？",
+    "options": [
+      "手術側肺を膨張させることで術野を明瞭にするため",
+      "手術側肺を虚脱させ術野を確保しやすくするため",
+      "反対側肺を虚脱させて低酸素血症を誘導するため",
+      "両肺の同時換気では常に重度の高二酸化炭素血症を起こすため"
+    ],
+    "correct_answers": [1],
+    "explanation": "肺手術時には手術側肺を虚脱させることで視野を確保しやすくするため片肺換気が行われる。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000161",
+    "type": "multiple_choice",
+    "categories": ["循環管理"],
+    "tags": ["中級", "自己血輸血"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "自己血輸血（術中血液回収など）に関する利点として正しいものを2つ選べ。",
+    "options": [
+      "同種血輸血に比べ血液感染リスクを減らせる",
+      "血液型不適合による副作用が必ず起きる",
+      "凝固因子は含まれないため止血には無効",
+      "大量出血手術時に輸血量を減らせる可能性がある",
+      "高齢者では禁忌となる"
+    ],
+    "correct_answers": [0, 3],
+    "explanation": "自己血輸血は同種血輸血に伴う感染リスクや血液型不適合リスクを回避でき、大量出血時に同種輸血量を減らすことが期待できる。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000162",
+    "type": "single_choice",
+    "categories": ["術中モニタリング"],
+    "tags": ["中級", "温度管理"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "術中低体温が続いた場合に特にリスクが高まる合併症はどれか？",
+    "options": [
+      "肺塞栓の増加",
+      "術創部感染リスクの上昇",
+      "精神神経症状の改善",
+      "骨折治癒の促進"
+    ],
+    "correct_answers": [1],
+    "explanation": "術中低体温が持続すると末梢血管収縮や免疫機能低下などが起こり、術創部感染のリスクが上昇する。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000163",
+    "type": "single_choice",
+    "categories": ["区域麻酔"],
+    "tags": ["中級", "股関節手術"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "高齢者の股関節手術（人工骨頭置換など）において、脊椎くも膜下麻酔が選択される主な理由として最も適切なのはどれか？",
+    "options": [
+      "術後の感染リスクが高まる",
+      "呼吸抑制をきたしやすい",
+      "血圧変動が少なく心臓への負荷が高まらない",
+      "全身麻酔に比べ呼吸合併症や認知機能障害のリスクを低減できる可能性がある"
+    ],
+    "correct_answers": [3],
+    "explanation": "脊椎くも膜下麻酔は呼吸機能への影響が少なく、全身麻酔に比べ高齢者の認知機能障害や肺合併症を抑えやすい利点があるとされる。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000164",
+    "type": "multiple_choice",
+    "categories": ["麻酔薬"],
+    "tags": ["中級", "鎮静薬"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "鎮静薬のミダゾラムについて、正しい特徴を2つ選べ。",
+    "options": [
+      "強力な鎮痛作用がある",
+      "ベンゾジアゼピン系鎮静薬であり呼吸抑制を起こし得る",
+      "フルマゼニルで拮抗できる",
+      "消化管運動を強力に促進する",
+      "筋弛緩薬と同様の作用機序をもつ"
+    ],
+    "correct_answers": [1, 2],
+    "explanation": "ミダゾラムはベンゾジアゼピン系薬物で、呼吸抑制や意識低下をもたらす可能性がある。拮抗薬としてフルマゼニルがある。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000165",
+    "type": "single_choice",
+    "categories": ["麻酔合併症"],
+    "tags": ["中級", "静脈空気塞栓"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "開頭手術や整形外科手術などで起こり得る静脈空気塞栓の兆候として最も典型的なのはどれか？",
+    "options": [
+      "体温の急上昇",
+      "急激な血圧低下とミルク様の吸引液",
+      "SpO₂の低下やETCO₂の突然の低下",
+      "心電図で徐脈のみ"
+    ],
+    "correct_answers": [2],
+    "explanation": "静脈空気塞栓が生じると肺循環障害によるETCO₂低下やSpO₂低下が急激に見られる。血圧低下や右室負荷所見なども伴うことが多い。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000166",
+    "type": "multiple_choice",
+    "categories": ["緊急対応"],
+    "tags": ["中級", "出血コントロール"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "大量出血時の初期対応として正しいものを2つ選べ。",
+    "options": [
+      "ショックバイタルでも血圧測定は後回しで構わない",
+      "気道確保と同時に大径静脈路を確保する",
+      "即座に手術中断し、術後に輸血を行うのが基本",
+      "手術室内で出血源を迅速にコントロールする努力をする",
+      "過度の急速輸液は絶対に避ける"
+    ],
+    "correct_answers": [1, 3],
+    "explanation": "大量出血に対しては気道・呼吸・循環を同時に評価し、大径静脈路を確保したうえで速やかに出血源コントロールを行う必要がある。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000167",
+    "type": "single_choice",
+    "categories": ["術後・疼痛管理"],
+    "tags": ["中級", "硬膜外鎮痛"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "術後硬膜外鎮痛を中止する際に最も注意が必要な評価項目はどれか？",
+    "options": [
+      "術後悪心嘔吐が生じた回数",
+      "尿道カテーテルの有無",
+      "凝固状態（INRや血小板数など）",
+      "体温の推移"
+    ],
+    "correct_answers": [2],
+    "explanation": "硬膜外カテーテル抜去時には凝固状態を確認し、硬膜外血腫リスクを最小化するために抜去タイミングを慎重に判断する必要がある。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000168",
+    "type": "multiple_choice",
+    "categories": ["麻酔関連機器"],
+    "tags": ["中級", "ガス分析"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "手術室で使用されるガス分析装置（カプノグラフや揮発麻酔薬測定）に関する説明として正しいものを2つ選べ。",
+    "options": [
+      "カプノグラムの形状変化で換気回路のリークや痰詰まりを推定できる",
+      "揮発性麻酔薬濃度は常に設定値通りであるため測定不要",
+      "サイドストリーム方式の分析では、ガスを一部吸引して測定する",
+      "主流式カプノグラフは経鼻カニュラ専用である",
+      "ガス分析装置が故障していても緊急手術には大きな影響がない"
+    ],
+    "correct_answers": [0, 2],
+    "explanation": "カプノグラムの波形変化から回路リークや気道分泌物の影響を推測でき、サイドストリーム方式はサンプリングラインでガスを取り込み測定する方式である。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000169",
+    "type": "single_choice",
+    "categories": ["医療安全・ヒューマンファクター"],
+    "tags": ["中級", "ラピッドリスポンスチーム"],
+    "difficulty": {
+      "level": "中級",
+      "correct_rate": 0.0
+    },
+    "question": "ラピッドリスポンスチーム（RRT）の導入目的として最も適切なのはどれか？",
+    "options": [
+      "術中のみ稼働し、術者への指示を行う専門チーム",
+      "重症化が進んでからの対応に特化するチーム",
+      "病棟などで急変の兆候がある患者を早期に発見し、迅速に対応する",
+      "ICU患者を一般病棟に戻す際の事務手続きを代行する"
+    ],
+    "correct_answers": [2],
+    "explanation": "RRTは病棟などでの患者の急変リスクを早期に発見・対応するために作られたチームであり、重症化や心停止を未然に防ぐ役割を担う。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  }
+]

@@ -1,0 +1,317 @@
+[
+  {
+    "id": "an0000180",
+    "type": "single_choice",
+    "categories": ["特殊患者"],
+    "tags": ["上級", "成人先天性心疾患"],
+    "difficulty": {
+      "level": "上級",
+      "correct_rate": 0.0
+    },
+    "question": "成人先天性心疾患（ACHD）患者の非心臓手術麻酔で特に注意すべき点として最も適切なのはどれか？",
+    "options": [
+      "右左シャントを有する場合、静脈内投与薬は肺を経由して十分に希釈される",
+      "チアノーゼ型心疾患の場合でも酸素投与は無効",
+      "シャント方向に応じて血行動態を悪化させないよう前負荷・後負荷のバランスを慎重に管理する",
+      "房室ブロックの合併は極めて稀であり、心電図モニタは不要"
+    ],
+    "correct_answers": [2],
+    "explanation": "ACHD 患者にはシャントや不整脈の合併が多く、前負荷・後負荷管理とモニタリングが重要。特に右左シャントでは薬物動態への影響も大きい。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000181",
+    "type": "multiple_choice",
+    "categories": ["麻酔薬"],
+    "tags": ["上級", "レミマゾラム"],
+    "difficulty": {
+      "level": "上級",
+      "correct_rate": 0.0
+    },
+    "question": "レミマゾラムに関する特徴として正しいものを2つ選べ。",
+    "options": [
+      "非ベンゾジアゼピン系に分類される",
+      "代謝が速く、手術中の鎮静・麻酔導入から短時間手技にも使いやすい",
+      "専用の拮抗薬は存在しない",
+      "フルマゼニルにより効果を迅速に拮抗できる",
+      "ミダゾラムよりも強い筋弛緩効果がある"
+    ],
+    "correct_answers": [1, 3],
+    "explanation": "レミマゾラムはベンゾジアゼピン系で、代謝が速く短時間の手技や持続投与に向く。またフルマゼニルで拮抗可能。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000182",
+    "type": "single_choice",
+    "categories": ["ICU管理"],
+    "tags": ["上級", "CRRT"],
+    "difficulty": {
+      "level": "上級",
+      "correct_rate": 0.0
+    },
+    "question": "CRRT（持続的腎代替療法）の導入時に特に注意すべき点として最も適切なのはどれか？",
+    "options": [
+      "短時間で急激に体液を除去し、血行動態を安定化させる",
+      "抗凝固法の選択（クエン酸式、ヘパリンなど）と血行動態の管理",
+      "CRRT開始前に大量造影剤を投与する",
+      "CRRT中は酸素投与を中断する"
+    ],
+    "correct_answers": [1],
+    "explanation": "CRRT導入では抗凝固管理（ヘパリンやクエン酸など）と血行動態の安定化への配慮が特に重要。急速な除水はかえって不安定を招く。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000183",
+    "type": "multiple_choice",
+    "categories": ["緊急対応"],
+    "tags": ["上級", "PTE", "肺血栓塞栓症"],
+    "difficulty": {
+      "level": "上級",
+      "correct_rate": 0.0
+    },
+    "question": "術中に急性肺血栓塞栓症（PTE）が疑われる場合、対応策として正しいものを2つ選べ。",
+    "options": [
+      "ETCO₂の急激な上昇が起こるため、換気量を抑制する",
+      "経食道エコー（TEE）で右室拡大や血流途絶を評価する",
+      "100%酸素投与と血行動態サポートを速やかに開始する",
+      "PTE時にはノルアドレナリンは禁忌",
+      "ヘパリンや血栓溶解療法の適応を考慮する"
+    ],
+    "correct_answers": [1, 2],
+    "explanation": "急性PTE疑い時、ETCO₂急降下や右室負荷サインがあり得る。TEEによる右室評価や100%酸素投与、場合によっては抗凝固/血栓溶解療法の適応を検討する。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000184",
+    "type": "single_choice",
+    "categories": ["術後・疼痛管理"],
+    "tags": ["上級", "ERAS"],
+    "difficulty": {
+      "level": "上級",
+      "correct_rate": 0.0
+    },
+    "question": "ERAS（Enhanced Recovery After Surgery）プロトコルの概念で強調される疼痛管理の基本方針として最も適切なのはどれか？",
+    "options": [
+      "強力なオピオイド単剤投与による深い鎮痛",
+      "多模式鎮痛の採用と、可能な限り低侵襲なアプローチ",
+      "術前禁飲食を48時間徹底する",
+      "硬膜外鎮痛はERASでは原則推奨されない"
+    ],
+    "correct_answers": [1],
+    "explanation": "ERASではオピオイドの使用を最小限にし、多様な鎮痛方法（神経ブロック、NSAIDs、アセトアミノフェンなど）を組み合わせる多模式鎮痛が基本となる。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000185",
+    "type": "multiple_choice",
+    "categories": ["術中モニタリング"],
+    "tags": ["上級", "TcMEP", "運動誘発電位"],
+    "difficulty": {
+      "level": "上級",
+      "correct_rate": 0.0
+    },
+    "question": "術中モニタリングとしてのTcMEP（経頭蓋運動誘発電位）における注意点として正しいものを2つ選べ。",
+    "options": [
+      "筋弛緩薬の使用はTcMEPの振幅に影響を与えない",
+      "脊髄虚血や神経根損傷が疑われる際、TcMEPの振幅減少が早期指標となる可能性がある",
+      "電気刺激により顔面や四肢の一過性けいれん様収縮が起こることがある",
+      "ホットドッグ加温法との併用で精度が向上する",
+      "呼吸器ドライブへの影響が大きいので全身麻酔では使用できない"
+    ],
+    "correct_answers": [1, 2],
+    "explanation": "TcMEPは運動経路の脊髄機能を評価するため、脊髄虚血の早期指標となり得る。また筋活動を伴うので身体がけいれん様に動く場合がある。筋弛緩薬の影響は大きい。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000186",
+    "type": "single_choice",
+    "categories": ["麻酔関連機器"],
+    "tags": ["上級", "TIVA", "マルチチャンネルポンプ"],
+    "difficulty": {
+      "level": "上級",
+      "correct_rate": 0.0
+    },
+    "question": "TIVAでマルチチャンネルポンプを使用しプロポフォールとレミフェンタニルを同時投与する際に最も注意すべき点はどれか？",
+    "options": [
+      "各ポンプの投与速度を逆に設定しても問題ない",
+      "両者のスルーラインを合流させるため、片方のラインがオフになる場合がある",
+      "投与速度や濃度を変更する時は混線や設定ミスが起きやすいのでダブルチェックが必須",
+      "ポンプアラームが鳴っても麻酔深度に影響しないため対処不要"
+    ],
+    "correct_answers": [2],
+    "explanation": "複数の輸液ポンプを併用する場合、薬剤の濃度・流量設定を取り違えるヒューマンエラーが起こりやすくダブルチェックが重要。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000187",
+    "type": "multiple_choice",
+    "categories": ["麻酔合併症"],
+    "tags": ["上級", "PNB", "神経障害"],
+    "difficulty": {
+      "level": "上級",
+      "correct_rate": 0.0
+    },
+    "question": "末梢神経ブロック（PNB）後に生じる神経障害を予防するための戦略として正しいものを2つ選べ。",
+    "options": [
+      "神経刺激装置のみ使用し、超音波ガイドは併用しない",
+      "針先が神経と極めて近いときには高圧力で注入しても問題ない",
+      "局所麻酔薬注入時に異常な抵抗や疼痛があれば注入を中断し再評価する",
+      "必要に応じて低濃度局所麻酔薬を使用し、総投与量を抑える",
+      "末梢神経ブロックでは神経障害が起こるリスクはゼロであり、対策は不要"
+    ],
+    "correct_answers": [2, 3],
+    "explanation": "PNB中、注入圧が高い/鋭い疼痛がある場合は注入を中断して針先位置を確認する。超音波ガイドと低濃度使用などで神経損傷リスクを低減できる。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000188",
+    "type": "single_choice",
+    "categories": ["術後・疼痛管理"],
+    "tags": ["上級", "神経ブロック持続"],
+    "difficulty": {
+      "level": "上級",
+      "correct_rate": 0.0
+    },
+    "question": "末梢神経ブロック用カテーテルを用いた持続鎮痛で最も注意すべき点として適切なのはどれか？",
+    "options": [
+      "挿入から1週間後でも抜去時の感染リスクはごく低い",
+      "ポンプ誤作動があっても気付く必要はない",
+      "カテーテル留置部位の感染兆候や皮膚状態を定期的にチェックする",
+      "末梢神経ブロック持続では鎮痛効果が弱くオピオイドの併用が必須"
+    ],
+    "correct_answers": [2],
+    "explanation": "持続神経ブロックカテーテルでは、留置部位の感染リスクに注意し定期的な観察が必須となる。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000189",
+    "type": "multiple_choice",
+    "categories": ["医療安全・ヒューマンファクター"],
+    "tags": ["上級", "M&Mカンファレンス"],
+    "difficulty": {
+      "level": "上級",
+      "correct_rate": 0.0
+    },
+    "question": "麻酔科で行われるM&M（Morbidity & Mortality）カンファレンスの目的として正しいものを2つ選べ。",
+    "options": [
+      "手術時間を短縮するためのコスト評価を行う",
+      "症例における合併症や死亡の原因を追究し、再発防止策を検討する",
+      "発生した問題点は個人の能力不足として処分を決定する",
+      "合併症発生のメカニズムを分析し、システム面の改善点を洗い出す",
+      "カンファレンスの内容は秘匿し、院外への情報共有は一切行わない"
+    ],
+    "correct_answers": [1, 3],
+    "explanation": "M&Mカンファレンスの目的は合併症や死亡例を分析し、再発防止・質改善のための対策をチームで検討することにある。個人攻撃が目的ではない。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  }
+]

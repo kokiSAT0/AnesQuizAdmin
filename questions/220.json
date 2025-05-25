@@ -1,0 +1,349 @@
+[
+  {
+    "id": "an0000210",
+    "type": "single_choice",
+    "categories": ["麻酔薬"],
+    "tags": ["上級", "プロポフォールTCI", "ファーマコキネティクス"],
+    "difficulty": {
+      "level": "上級",
+      "correct_rate": 0.0
+    },
+    "question": "プロポフォールのTCI（Target Controlled Infusion）を行う際に特に考慮すべき因子として最も適切なのはどれか？",
+    "options": [
+      "肺胞濃度が揮発性麻酔薬と同程度に反映される",
+      "低体温や低循環動態が薬物の分布・クリアランスを変化させる",
+      "完全な個人間差を補正できるため、過度の鎮静は起こらない",
+      "効果部位濃度が血中濃度に必ず先行して到達する"
+    ],
+    "correct_answers": [1],
+    "explanation": "TCIでは薬物動態モデルを用いて投与速度を自動制御するが、低体温や低血圧などにより分布容積やクリアランスが変動し、実際の効果濃度がモデル予測と乖離することがある。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000211",
+    "type": "multiple_choice",
+    "categories": ["循環管理"],
+    "tags": ["上級", "不整脈", "電気生理学"],
+    "difficulty": {
+      "level": "上級",
+      "correct_rate": 0.0
+    },
+    "question": "術中に心房細動が新たに発生し、頻脈を呈した際の対応において正しいものを2つ選べ。",
+    "options": [
+      "可逆的要因（疼痛、低血圧、電解質異常）をまず除去してから薬物療法を考慮する",
+      "β遮断薬は短時間作用型を慎重に使用し、過度の血圧低下を避ける",
+      "ワルファリンの静脈注射が第一選択である",
+      "一度頻脈が始まると心拍数管理は不要である",
+      "カルディオバージョンは循環不安定な場合に検討される"
+    ],
+    "correct_answers": [0, 4],
+    "explanation": "新規発生のAF（心房細動）頻脈が起こった場合、疼痛や電解質異常などの原因除去が優先される。循環動態が不安定なら電気的カルディオバージョンも適応となりうる。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000212",
+    "type": "multiple_choice",
+    "categories": ["緊急対応"],
+    "tags": ["上級", "抗不整脈薬", "Amiodarone"],
+    "difficulty": {
+      "level": "上級",
+      "correct_rate": 0.0
+    },
+    "question": "心肺蘇生時、アミオダロン投与が考慮される状況と注意点として正しいものを2つ選べ。",
+    "options": [
+      "無脈性VT/VFが持続し、除細動やアドレナリンで改善しない場合に投与を検討する",
+      "投与後に血圧が必ず上昇するため昇圧薬は不要になる",
+      "アミオダロンは長い半減期を持つため、術後に甲状腺機能への影響をフォローする必要がある",
+      "必ずリドカインと併用する必要がある",
+      "浅い鎮静状態でもアミオダロンによる大脳皮質刺激は起こらない"
+    ],
+    "correct_answers": [0, 2],
+    "explanation": "アミオダロンは除細動抵抗性の無脈性VT/VFで考慮されるが、甲状腺機能異常など長期的な副作用に注意が必要。血圧低下を招くリスクもあるため昇圧薬不要というわけではない。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000213",
+    "type": "single_choice",
+    "categories": ["術中モニタリング"],
+    "tags": ["上級", "脳波解析", "バーストサプレッション"],
+    "difficulty": {
+      "level": "上級",
+      "correct_rate": 0.0
+    },
+    "question": "BISなどの脳波モニタでバーストサプレッションが長時間観察される場合、最も懸念される状態はどれか？",
+    "options": [
+      "麻酔深度が浅すぎる可能性",
+      "呼吸抑制が起きている可能性",
+      "過度の脳活動による痙攣リスク増加",
+      "深い麻酔や脳循環不全による脳波抑制"
+    ],
+    "correct_answers": [3],
+    "explanation": "バーストサプレッションは深麻酔や脳血流低下などで脳活動が強く抑制されている状態を示す。特に脳血流が不十分な場合は注意が必要。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000214",
+    "type": "multiple_choice",
+    "categories": ["ICU管理"],
+    "tags": ["上級", "敗血症管理", "Surviving Sepsis Campaign"],
+    "difficulty": {
+      "level": "上級",
+      "correct_rate": 0.0
+    },
+    "question": "重症敗血症管理におけるサバイビングシープシスキャンペーンの推奨事項として、適切なものを2つ選べ。",
+    "options": [
+      "初期輸液負荷は最低限に抑え、血圧低下を認めても輸液は控える",
+      "48時間以内の抗菌薬投与開始を推奨する",
+      "血清乳酸値を指標として蘇生目標を設定し、乳酸値が高ければ蘇生を強化する",
+      "血圧管理にはノルアドレナリンが第一選択とされることが多い",
+      "常に副腎皮質ステロイドの大量投与が必要である"
+    ],
+    "correct_answers": [2, 3],
+    "explanation": "重症敗血症では初期輸液負荷と早期の抗菌薬投与が重要。乳酸値をモニターしながら蘇生を行い、血圧管理にはノルアドレナリンが推奨されることが多い。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000215",
+    "type": "single_choice",
+    "categories": ["特殊患者"],
+    "tags": ["上級", "妊婦麻酔", "ラピッドシークエンス"],
+    "difficulty": {
+      "level": "上級",
+      "correct_rate": 0.0
+    },
+    "question": "妊婦の全身麻酔導入時にラピッドシークエンスイントキュベーション（RSI）が推奨される最も重要な理由はどれか？",
+    "options": [
+      "妊婦では気管チューブ径を小さくする必要があるため",
+      "妊婦は正常人よりも低酸素耐性が高く、吸入導入でも誤嚥リスクが低い",
+      "妊婦は胃内容排出遅延や食道括約筋緊張低下により誤嚥リスクが高い",
+      "RSIでは必ず経鼻挿管が行われるため、妊娠時の鼻出血を抑えられる"
+    ],
+    "correct_answers": [2],
+    "explanation": "妊婦は胃内容物の排出遅延や食道括約筋弛緩により誤嚥リスクが高まるため、ラピッドシークエンスイントキュベーションが推奨される。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000216",
+    "type": "multiple_choice",
+    "categories": ["術後・疼痛管理"],
+    "tags": ["上級", "CPSP", "慢性術後疼痛"],
+    "difficulty": {
+      "level": "上級",
+      "correct_rate": 0.0
+    },
+    "question": "術後慢性疼痛（CPSP）の予防戦略として、エビデンスに基づき有効性が示唆されている手段を2つ選べ。",
+    "options": [
+      "術前から術中まで高用量のオピオイドを持続投与し、痛みを完全遮断する",
+      "低用量ケタミンの追加投与で中枢性感作を抑制する",
+      "マインドフルネスや認知行動療法など心理的アプローチも併用する",
+      "神経ブロックは急性疼痛にのみ有効であり、慢性化予防には無効とされている",
+      "呼吸訓練のみで長期的な疼痛増悪は抑制できる"
+    ],
+    "correct_answers": [1, 2],
+    "explanation": "CPSP予防には中枢性感作を抑える低用量ケタミンや神経ブロック、多様な心理的アプローチの併用が有効とされている。過度なオピオイドは副作用増大に繋がる可能性がある。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000217",
+    "type": "single_choice",
+    "categories": ["麻酔関連機器"],
+    "tags": ["上級", "換気モード", "ASV"],
+    "difficulty": {
+      "level": "上級",
+      "correct_rate": 0.0
+    },
+    "question": "ASV（Adaptive Support Ventilation）の特徴として最も適切なのはどれか？",
+    "options": [
+      "術中の過換気を促進することが主な目的",
+      "患者の呼吸パターンに合わせて換気量や呼吸回数を自動調整し、肺保護を図る",
+      "自発呼吸を完全に排除するため、深鎮静が必須となる",
+      "SIMVやPSVに比べて設定項目が少なく、常に固定換気量を維持する"
+    ],
+    "correct_answers": [1],
+    "explanation": "ASVは患者の換気需要に応じて呼吸回数や1回換気量を自動調整し、肺保護と過不足のない換気を狙うモードである。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000218",
+    "type": "multiple_choice",
+    "categories": ["麻酔合併症"],
+    "tags": ["上級", "神経損傷", "体位管理"],
+    "difficulty": {
+      "level": "上級",
+      "correct_rate": 0.0
+    },
+    "question": "長時間の手術で起こりうる末梢神経損傷を予防する対策として正しいものを2つ選べ。",
+    "options": [
+      "上腕神経叢保護のため、上肢は肩より上に高く挙上し続ける",
+      "腰椎部や仙骨部への局所圧迫を軽減するため、体位パッドやクッションを使用する",
+      "肘の屈曲位を深く保つことで血管や神経を安定させる",
+      "手術時間が延長しても同じ体位を維持し、定期的な再評価は不要",
+      "尺骨神経や腓骨神経への圧迫予防に、接触部位に適切なクッション材を当てる"
+    ],
+    "correct_answers": [1, 4],
+    "explanation": "神経損傷の予防には過度な関節可動域を避けるとともに、圧迫部位にパッドやクッションを用いて保護し、適宜体位の再評価を行うことが重要。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000219",
+    "type": "single_choice",
+    "categories": ["呼吸管理"],
+    "tags": ["上級", "VV-ECMO", "体外循環"],
+    "difficulty": {
+      "level": "上級",
+      "correct_rate": 0.0
+    },
+    "question": "VV-ECMO（静脈-静脈ECMO）導入時に特に考慮すべき点として最も適切なのはどれか？",
+    "options": [
+      "回路閉塞を防ぐため、抗凝固療法は一切行わない",
+      "主に心機能補助を目的とするため、右室負荷が軽減される",
+      "肺保護換気を行いつつ、血液酸素化を補助する手段として使用される",
+      "VV-ECMOは脳虚血リスクが常に高まりやすいため実施は避ける"
+    ],
+    "correct_answers": [2],
+    "explanation": "VV-ECMOは呼吸不全時に肺保護換気を継続しながら血液のガス交換を補助する方法である。心機能補助には向かず、抗凝固管理も必要。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000220",
+    "type": "multiple_choice",
+    "categories": ["麻酔薬"],
+    "tags": ["上級", "オピオイドローテーション"],
+    "difficulty": {
+      "level": "上級",
+      "correct_rate": 0.0
+    },
+    "question": "オピオイドローテーションを行う際のポイントとして正しいものを2つ選べ。",
+    "options": [
+      "モルヒネからフェンタニルへ切り替える場合、常に同等用量の100倍で置換する",
+      "オピオイド等価換算はあくまで目安であり、交差耐性や患者個人差を考慮して用量調整を行う",
+      "フェンタニル経皮製剤は効果発現が速やかであり、急性疼痛対応に最適",
+      "ローテーション時には一時的な鎮痛効果の低下や離脱症状を防ぐため、併用期間を設ける場合がある",
+      "全てのオピオイドで感受性が同一とみなせるため、交差耐性は問題にならない"
+    ],
+    "correct_answers": [1, 3],
+    "explanation": "オピオイドローテーションでは異なるオピオイドへの換算（equianalgesic dose）を目安にしつつ、交差耐性や患者の状態を踏まえて用量調整する。また離脱症状を回避するため併用期間を設けることがある。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  }
+]

@@ -1,0 +1,309 @@
+[
+  {
+    "id": "an0000101",
+    "type": "single_choice",
+    "categories": ["気道管理"],
+    "tags": ["初級", "フェイスマスク換気"],
+    "difficulty": {
+      "level": "初級",
+      "correct_rate": 0.0
+    },
+    "question": "全身麻酔導入後のフェイスマスク換気で重要な注意点として最も適切なのはどれか？",
+    "options": [
+      "口唇とマスクの間に空気の逃げ道を作る",
+      "マスクを顔面に密着させ、リークを最小限にする",
+      "自発呼吸が消失してからマスクを当てる",
+      "麻酔導入時から圧迫ベルトで頭部を固定する"
+    ],
+    "correct_answers": [1],
+    "explanation": "フェイスマスク換気では顔面への密着が必要であり、空気漏れ（リーク）を極力抑えることで十分な換気を行う。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000102",
+    "type": "single_choice",
+    "categories": ["循環管理"],
+    "tags": ["初級", "血圧測定"],
+    "difficulty": {
+      "level": "初級",
+      "correct_rate": 0.0
+    },
+    "question": "腕帯式の非侵襲的血圧測定（NIBP）で誤差が生じやすい原因として最も適切なのはどれか？",
+    "options": [
+      "測定部位が心臓の高さと大きくずれている",
+      "腕帯の幅が測定する腕の太さより大幅に広い",
+      "被検者が深呼吸を続けている",
+      "ベッドサイドモニタの明るさが強すぎる"
+    ],
+    "correct_answers": [0],
+    "explanation": "血圧の測定部位が心臓の高さより上下にずれていると、その分の静水圧差により測定値に誤差が生じる。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000103",
+    "type": "single_choice",
+    "categories": ["呼吸管理"],
+    "tags": ["初級", "ファイナルチェック"],
+    "difficulty": {
+      "level": "初級",
+      "correct_rate": 0.0
+    },
+    "question": "手術後に患者を抜管する際、抜管前に必ず確認すべきことで最も重要なのはどれか？",
+    "options": [
+      "術着が濡れていないか",
+      "頭部を自力で挙上できるか（筋力の回復）",
+      "好きな食べ物を言えるか",
+      "足の冷感が残っていないか"
+    ],
+    "correct_answers": [1],
+    "explanation": "抜管時は気道防護反射の回復や筋力の回復（頭部挙上など）を確認し、安全に呼吸が確保できる状態かを確認する。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000104",
+    "type": "single_choice",
+    "categories": ["麻酔薬"],
+    "tags": ["初級", "フェンタニル"],
+    "difficulty": {
+      "level": "初級",
+      "correct_rate": 0.0
+    },
+    "question": "フェンタニルの特徴として正しいのはどれか？",
+    "options": [
+      "強い呼吸抑制作用がある",
+      "筋弛緩作用をもつ",
+      "NSAIDsに分類される",
+      "頻脈を必ず引き起こす"
+    ],
+    "correct_answers": [0],
+    "explanation": "フェンタニルは強力なオピオイド鎮痛薬であり、呼吸抑制を含むオピオイド特有の副作用がある。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000105",
+    "type": "single_choice",
+    "categories": ["術後・疼痛管理"],
+    "tags": ["初級", "アセトアミノフェン"],
+    "difficulty": {
+      "level": "初級",
+      "correct_rate": 0.0
+    },
+    "question": "アセトアミノフェンの術後鎮痛で注意すべき代表的な副作用はどれか？",
+    "options": ["悪性高熱症", "肝機能障害", "無呼吸", "せん妄"],
+    "correct_answers": [1],
+    "explanation": "アセトアミノフェンは比較的安全な鎮痛薬だが、大量投与や肝機能が悪い患者では肝障害に注意が必要。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000106",
+    "type": "multiple_choice",
+    "categories": ["区域麻酔"],
+    "tags": ["初級", "神経ブロック"],
+    "difficulty": {
+      "level": "初級",
+      "correct_rate": 0.0
+    },
+    "question": "神経ブロックによる疼痛管理の利点として正しいものを2つ選べ。",
+    "options": [
+      "全身麻酔よりもむしろ血圧変動が大きい",
+      "術後の鎮痛効果が高まることがある",
+      "局所麻酔薬による全身性副作用のリスクはゼロ",
+      "オピオイドの使用量を減らせる場合がある",
+      "ブロックが失敗しても常に無痛状態が続く"
+    ],
+    "correct_answers": [1, 3],
+    "explanation": "神経ブロックはオピオイド使用量を減らし、術後疼痛コントロールを向上させる効果がある。一方、局所麻酔薬の全身毒性リスクはゼロではない。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000107",
+    "type": "single_choice",
+    "categories": ["術前評価・麻酔計画"],
+    "tags": ["初級", "既往歴確認"],
+    "difficulty": {
+      "level": "初級",
+      "correct_rate": 0.0
+    },
+    "question": "術前評価で最も重要とされるのはどれか？",
+    "options": [
+      "患者の国内旅行歴",
+      "麻酔や手術に関連する持病やアレルギー歴",
+      "ペットの種類",
+      "好きなスポーツ"
+    ],
+    "correct_answers": [1],
+    "explanation": "術前には患者の既往歴・合併症・薬剤アレルギーなどを把握し、適切な麻酔計画を立案することが極めて重要となる。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000108",
+    "type": "single_choice",
+    "categories": ["輸液・輸血"],
+    "tags": ["初級", "血漿交換"],
+    "difficulty": {
+      "level": "初級",
+      "correct_rate": 0.0
+    },
+    "question": "血漿製剤（FFP）投与の際に最も気をつけるべき副作用はどれか？",
+    "options": [
+      "溶血性貧血",
+      "輸血関連急性肺障害（TRALI）",
+      "重度の高カリウム血症",
+      "意識レベル低下"
+    ],
+    "correct_answers": [1],
+    "explanation": "血漿製剤の投与によって、まれに輸血関連急性肺障害（TRALI）が引き起こされる可能性があるため注意が必要。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000109",
+    "type": "single_choice",
+    "categories": ["ICU管理"],
+    "tags": ["初級", "患者モニタリング"],
+    "difficulty": {
+      "level": "初級",
+      "correct_rate": 0.0
+    },
+    "question": "ICUにおけるバイタルサイン監視で確認しないといけない項目として最も適切なのはどれか？",
+    "options": [
+      "寝返り回数",
+      "血圧・心拍数・呼吸数・体温・SpO₂",
+      "テレビ視聴時間",
+      "家族の来室回数"
+    ],
+    "correct_answers": [1],
+    "explanation": "ICU管理では血圧、心拍数、呼吸数、体温、SpO₂（酸素飽和度）などのバイタルサインを連続的に監視する。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  },
+  {
+    "id": "an0000110",
+    "type": "multiple_choice",
+    "categories": ["医療安全・ヒューマンファクター"],
+    "tags": ["初級", "インシデントレポート"],
+    "difficulty": {
+      "level": "初級",
+      "correct_rate": 0.0
+    },
+    "question": "医療現場でのインシデントレポート（ヒヤリハット報告）に関する利点として正しいものを2つ選べ。",
+    "options": [
+      "問題点の共有と再発防止策の検討が可能になる",
+      "個人責任を追及することが主目的となる",
+      "患者の信頼を損なうため、報告しない方がよい",
+      "インシデントを早期に把握して、組織的な対策を立てられる",
+      "提出者に罰則を与えることでエラーが減る"
+    ],
+    "correct_answers": [0, 3],
+    "explanation": "インシデントレポートを積極的に活用することで問題点を可視化し、組織全体で再発防止策を講じることができる。",
+    "media_urls": [],
+    "references": [],
+    "metadata": {
+      "created_at": "2025-05-13T00:00:00Z",
+      "updated_at": "2025-05-13T00:00:00Z",
+      "created_by": "koki",
+      "reviewed": false
+    },
+    "statistics": {
+      "attempts": 0,
+      "correct": 0
+    }
+  }
+]
