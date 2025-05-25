@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Text, Button, useTheme } from 'react-native-paper';
+import { createQuestionTextStyle } from '@/components/TextStyles';
 import { AntDesign } from '@expo/vector-icons';
 import { AppHeader } from '@/components/AppHeader';
 import { getQuestionById, updateFavorite } from '@/src/utils/db';
@@ -19,8 +20,16 @@ import { getQuestionById, updateFavorite } from '@/src/utils/db';
 const { width } = Dimensions.get('window');
 const FOOTER_HEIGHT = 64;
 
+const pickPair = (theme: any, key: keyof typeof theme.colors) => ({
+  bg: theme.colors[key],
+  fg: theme.colors[
+    ('on' + key[0].toUpperCase() + key.slice(1)) as keyof typeof theme.colors
+  ],
+});
+
 export default function AnswerScreen() {
   const theme = useTheme();
+  const tStyles = createQuestionTextStyle(theme);
   const insets = useSafeAreaInsets();
 
   /* ───── URL パラメータ ───── */
@@ -104,7 +113,6 @@ export default function AnswerScreen() {
     ? theme.colors.categoryChipSelected
     : theme.colors.error;
 
-
   // 受け取った順序で選択肢を並べ替える
   const orderedOptions = useMemo(() => {
     if (!question) return [];
@@ -155,7 +163,7 @@ export default function AnswerScreen() {
   }
 
   /* ───── タグ文字列 (#tag1 #tag2) ───── */
-  const tagChips = JSON.parse(question.tag_json ?? '[]') as string[];
+  const tagChips = question.tags as string[];
 
   return (
     <View
@@ -179,7 +187,16 @@ export default function AnswerScreen() {
       >
         {/* ───── 問題カード（位置・サイズは quiz/index と同じ） ───── */}
         <View style={[styles.card, { borderColor: theme.colors.outline }]}>
-          <Text style={styles.question}>{question.question}</Text>
+          {/* ─ カテゴリ表示 ─ */}
+          <View style={styles.categoryRow}>
+            {question.categories.map((cat) => (
+              <View key={cat} style={styles.categoryChip}>
+                <Text style={styles.categoryText}>{cat}</Text>
+              </View>
+            ))}
+          </View>
+
+          <Text style={tStyles.question}>{question.question}</Text>
           <Pressable onPress={toggleFavorite} style={styles.favoriteBtn}>
             {question.is_favorite ? (
               <AntDesign
@@ -201,11 +218,11 @@ export default function AnswerScreen() {
         {orderedOptions.map((opt) => {
           const isAnswer = question.correct_answers.includes(opt.idx);
           const isUserWrong = userChoices.includes(opt.idx) && !isAnswer;
-          const bg = isAnswer
-            ? theme.colors.categoryChipSelected
+          const { bg, fg } = isAnswer
+            ? pickPair(theme, 'categoryChipSelected')
             : isUserWrong
-              ? theme.colors.error
-              : theme.colors.secondaryContainer;
+              ? pickPair(theme, 'error')
+              : pickPair(theme, 'secondaryContainer');
 
           return (
             <View
@@ -215,7 +232,7 @@ export default function AnswerScreen() {
                 { width: width * 0.9, backgroundColor: bg },
               ]}
             >
-              <Text style={styles.choiceText}>{opt.text}</Text>
+              <Text style={[styles.choiceText, { color: fg }]}>{opt.text}</Text>
             </View>
           );
         })}
@@ -224,14 +241,14 @@ export default function AnswerScreen() {
         <View
           style={[styles.explainCard, { borderColor: theme.colors.outline }]}
         >
-          {/* タグ表示 */}
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          {/* ① タグを 1 行で横並び表示 */}
+          <View style={styles.tagRow}>
             {tagChips.map((tag) => (
               <View key={tag} style={styles.tagChip}>
-                <Text style={styles.tagText}>#{tag}</Text>
+                <Text style={styles.tagText}>#{tag} </Text>
               </View>
             ))}
-          </ScrollView>
+          </View>
 
           {/* 解説本文 */}
           <Text style={styles.explanation}>解説：{question.explanation}</Text>
@@ -276,6 +293,28 @@ const styles = StyleSheet.create({
     minHeight: 140,
     justifyContent: 'center',
   },
+
+  categoryRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    position: 'absolute',
+    top: 8,
+    left: 8,
+    right: 48,
+  },
+  categoryChip: {
+    backgroundColor: '#E0E0E0', // お好みで
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 12,
+    marginRight: 4,
+    marginBottom: 4,
+  },
+  categoryText: {
+    fontSize: 12,
+    color: '#444', // テーマに無ければ '#fff' など
+  },
+
   question: { textAlign: 'center', lineHeight: 24 },
 
   favoriteBtn: {
@@ -286,12 +325,20 @@ const styles = StyleSheet.create({
 
   choice: {
     alignSelf: 'center',
-    paddingVertical: 16,
+    marginHorizontal: 16,
     marginVertical: 8,
-    borderRadius: 9999,
+    paddingVertical: 16,
+    paddingHorizontal: 16,
+    borderRadius: 24,
     alignItems: 'center',
   },
-  choiceText: { fontSize: 18, fontWeight: '600', color: '#fff' },
+  choiceText: {
+    fontSize: 18,
+    fontWeight: '400',
+    flexShrink: 1,
+    flexWrap: 'wrap',
+    textAlign: 'center',
+  },
 
   explainCard: {
     margin: 16,
@@ -300,13 +347,17 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 12,
   },
+  tagRow: {
+    flexDirection: 'row',
+    flexWrap: 'nowrap', // 折り返させたくない場合
+    marginBottom: 8,
+  },
   tagChip: {
     backgroundColor: '#E0E0E0',
     borderRadius: 12,
     paddingHorizontal: 8,
     paddingVertical: 4,
     marginRight: 8,
-    marginBottom: 8,
   },
   tagText: { fontSize: 12, color: '#444' },
 

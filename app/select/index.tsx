@@ -21,21 +21,21 @@ type Level = (typeof LEVELS)[number];
 
 // ───────── カテゴリ一覧 ─────────
 const CATEGORIES = [
-  'ICU管理',
-  '区域麻酔',
-  '医療安全・ヒューマンファクター',
+  '気道管理',
   '呼吸管理',
   '循環管理',
-  '気道管理',
-  '特殊患者',
   '緊急対応',
   '術中モニタリング',
+  '輸液・輸血',
+  '麻酔薬',
+  '麻酔合併症',
+  '特殊患者',
   '術前評価・麻酔計画',
   '術後・疼痛管理',
-  '輸液・輸血',
-  '麻酔合併症',
-  '麻酔薬',
   '麻酔関連機器',
+  '区域麻酔',
+  'ICU管理',
+  '医療安全・ヒューマンファクター',
 ] as const;
 type Category = (typeof CATEGORIES)[number];
 
@@ -181,7 +181,6 @@ export default function SelectScreen() {
       />
 
       {/* ───────── スクロール領域 ───────── */}
-
       <ScrollView
         contentContainerStyle={[
           styles.scrollContent,
@@ -194,9 +193,6 @@ export default function SelectScreen() {
           activeOpacity={0.8}
           style={styles.randomRow}
         >
-          <Text style={styles.label}>
-            ランダム出題：{random ? 'ON' : 'OFF'}
-          </Text>
           <View
             style={[
               styles.randomIconWrapper,
@@ -217,6 +213,9 @@ export default function SelectScreen() {
               style={{ padding: 6 }}
             />
           </View>
+          <Text style={styles.label}>
+            ランダム出題：{random ? 'ON' : 'OFF'}
+          </Text>
         </TouchableOpacity>
         {/* ───────── レベル選択 ───────── */}
         <Card
@@ -349,7 +348,7 @@ const styles = StyleSheet.create({
   },
 
   randomRow: {
-    flexDirection: 'row-reverse',
+    flexDirection: 'row',
     alignItems: 'center',
     marginVertical: 8,
   },

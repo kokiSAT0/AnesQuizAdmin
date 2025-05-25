@@ -11,6 +11,7 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { AppHeader } from '@/components/AppHeader';
 import { Text, Button, useTheme } from 'react-native-paper';
+import { createQuestionTextStyle } from '@/components/TextStyles';
 import { AntDesign } from '@expo/vector-icons';
 import {
   getQuestionById,
@@ -27,6 +28,7 @@ const FOOTER_HEIGHT = 64;
 
 export default function Quiz() {
   const theme = useTheme();
+  const tStyles = createQuestionTextStyle(theme);
   const insets = useSafeAreaInsets();
   // ids: 出題する問題ID一覧、current: 現在の問題番号（0始まり）
   const { ids, current } = useLocalSearchParams<{
@@ -216,9 +218,16 @@ export default function Quiz() {
 
         {/* ───────── 問題カード ───────── */}
         <View style={[styles.card, { borderColor: theme.colors.outline }]}>
-          <Text style={{ textAlign: 'center', lineHeight: 24 }}>
-            {question.question}
-          </Text>
+          {/* ─ カテゴリ表示 ─ */}
+          <View style={styles.categoryRow}>
+            {question.categories.map((cat) => (
+              <View key={cat} style={styles.categoryChip}>
+                <Text style={styles.categoryText}>{cat}</Text>
+              </View>
+            ))}
+          </View>
+
+          <Text style={tStyles.question}>{question.question}</Text>
           <Pressable onPress={toggleFavorite} style={styles.favoriteBtn}>
             {question.is_favorite ? (
               <AntDesign
@@ -239,30 +248,24 @@ export default function Quiz() {
         {/* ───────── 選択肢 ───────── */}
         {shuffledOptions.map((opt) => {
           const chosen = selected.includes(opt.idx);
+          // ❶ Material 3 既存トークンで色セットを決める
+          const bg = chosen
+            ? theme.colors.primary
+            : theme.colors.secondaryContainer; // 少し濃いグレー
+          const fg = chosen
+            ? theme.colors.onPrimary
+            : theme.colors.onSecondaryContainer; // ⿊に近い文字⾊
           return (
             <Pressable
               key={opt.idx}
               style={[
                 styles.choice,
-                {
-                  width: width * 0.9,
-                  backgroundColor: chosen
-                    ? theme.colors.primary
-                    : theme.colors.secondaryContainer,
-                },
+                { width: width * 0.9, backgroundColor: bg },
               ]}
               onPress={() => toggleSelect(opt.idx)}
               disabled={isAnswered}
             >
-              <Text
-                style={{
-                  fontSize: 18,
-                  fontWeight: '600',
-                  color: theme.colors.onPrimary,
-                }}
-              >
-                {opt.text}
-              </Text>
+              <Text style={[styles.choiceText, { color: fg }]}>{opt.text}</Text>
             </Pressable>
           );
         })}
@@ -314,6 +317,28 @@ const styles = StyleSheet.create({
     minHeight: 140,
     justifyContent: 'center',
   },
+
+  categoryRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    position: 'absolute',
+    top: 8,
+    left: 8,
+    right: 48,
+  },
+  categoryChip: {
+    backgroundColor: '#E0E0E0', // お好みで
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 12,
+    marginRight: 4,
+    marginBottom: 4,
+  },
+  categoryText: {
+    fontSize: 12,
+    color: '#444', // テーマに無ければ '#fff' など
+  },
+
   favoriteBtn: {
     position: 'absolute',
     top: 12,
@@ -321,10 +346,19 @@ const styles = StyleSheet.create({
   },
   choice: {
     alignSelf: 'center',
-    paddingVertical: 16,
+    marginHorizontal: 16,
     marginVertical: 8,
-    borderRadius: 9999,
+    paddingVertical: 16,
+    paddingHorizontal: 16,
+    borderRadius: 24,
     alignItems: 'center',
+  },
+  choiceText: {
+    fontSize: 18,
+    fontWeight: '400',
+    flexShrink: 1,
+    flexWrap: 'wrap',
+    textAlign: 'center',
   },
   answerBtn: {
     alignSelf: 'center',
