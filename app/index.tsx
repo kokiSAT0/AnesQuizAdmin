@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, ActivityIndicator } from 'react-native';
+import React, { useEffect, useState, useRef } from 'react';
+import { View, StyleSheet, ActivityIndicator, Alert } from 'react-native';
 import { Screen } from '@/components/Screen';
 import { AppHeader } from '@/components/AppHeader';
 import { Button, useTheme } from 'react-native-paper';
@@ -17,6 +17,7 @@ export default function IndexScreen() {
   const theme = useTheme();
   const [isSyncing, setIsSyncing] = useState(false); // 同期中フラグ（複数連打防止）
   const [isConnected, setIsConnected] = useState(true); // ネットワーク接続状態
+  const prevConnected = useRef(true); // 前回の接続状態を記録
 
   // 起動時に DB 初期化
   useEffect(() => {
@@ -32,6 +33,7 @@ export default function IndexScreen() {
         }
       } catch (err: any) {
         logDebug(`DB init error: ${err.message}`);
+        Alert.alert('起動エラー', 'データベースの初期化に失敗しました。');
       }
     })();
   }, []);
@@ -46,6 +48,14 @@ export default function IndexScreen() {
     };
   }, []);
 
+  // 接続状態がオフラインになったらアラート表示
+  useEffect(() => {
+    if (!isConnected && prevConnected.current) {
+      Alert.alert('通信エラー', 'インターネット接続を確認してください。');
+    }
+    prevConnected.current = isConnected;
+  }, [isConnected]);
+
   // デバッグ用ログを出力するヘルパー
   const logDebug = (msg: string) => {
     console.log(msg); // debugger.ts で console をラップしてログを保存している
@@ -55,6 +65,10 @@ export default function IndexScreen() {
   const handleSync = async () => {
     if (isSyncing) {
       logDebug('同期中です。しばらくお待ちください...');
+      return;
+    }
+    if (!isConnected) {
+      Alert.alert('通信エラー', 'ネットワーク接続を確認してから再度お試しください。');
       return;
     }
     setIsSyncing(true);
@@ -68,6 +82,7 @@ export default function IndexScreen() {
       logDebug(`同期完了: ${importedCount}件 (${durationSec}s)`);
     } catch (err: any) {
       logDebug(`同期エラー: ${err.message}`);
+      Alert.alert('同期エラー', 'データ取得中に問題が発生しました。');
     } finally {
       setIsSyncing(false);
     }
