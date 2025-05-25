@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { View, ScrollView, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import { Screen } from '@/components/Screen';
 import { AppHeader } from '@/components/AppHeader';
-import { Text, Button, useTheme } from 'react-native-paper';
+import { Button, useTheme } from 'react-native-paper';
 import NetInfo from '@react-native-community/netinfo';
 import { router } from 'expo-router';
-import { useDebugStore } from '@/src/store/debug';
 
 import {
   initializeDatabaseIfNeeded,
@@ -16,10 +15,8 @@ import { syncFirestoreToSQLite } from '@/src/utils/firestoreSync';
 
 export default function IndexScreen() {
   const theme = useTheme();
-  const debugEnabled = useDebugStore((s) => s.enabled);
   const [isSyncing, setIsSyncing] = useState(false); // 同期中フラグ（複数連打防止）
   const [isConnected, setIsConnected] = useState(true); // ネットワーク接続状態
-  const [logMessages, setLogMessages] = useState<string[]>([]);
 
   // 起動時に DB 初期化
   useEffect(() => {
@@ -27,14 +24,14 @@ export default function IndexScreen() {
       try {
         await initializeDatabaseIfNeeded();
         const id = await getOrCreateUserId();
-        appendLog(`DB initialization complete (user_id: ${id})`);
+        logDebug(`DB initialization complete (user_id: ${id})`);
         const count = await getQuestionsCount();
         if (count === 0 && isConnected) {
-          appendLog('初回起動のため Firestore から同期します');
+          logDebug('初回起動のため Firestore から同期します');
           await handleSync();
         }
       } catch (err: any) {
-        appendLog(`DB init error: ${err.message}`);
+        logDebug(`DB init error: ${err.message}`);
       }
     })();
   }, []);
@@ -49,32 +46,28 @@ export default function IndexScreen() {
     };
   }, []);
 
-  // ログ追記ヘルパー
-  const appendLog = (msg: string) => {
-    setLogMessages((prev) => [
-      ...prev,
-      `${new Date().toLocaleTimeString()}: ${msg}`,
-    ]);
-    console.log(msg);
+  // デバッグ用ログを出力するヘルパー
+  const logDebug = (msg: string) => {
+    console.log(msg); // debugger.ts で console をラップしてログを保存している
   };
 
   // Firestore → SQLite 同期
   const handleSync = async () => {
     if (isSyncing) {
-      appendLog('同期中です。しばらくお待ちください...');
+      logDebug('同期中です。しばらくお待ちください...');
       return;
     }
     setIsSyncing(true);
-    appendLog('同期開始');
+    logDebug('同期開始');
     const startTime = Date.now();
 
     try {
       const { importedCount } = await syncFirestoreToSQLite();
       const endTime = Date.now();
       const durationSec = ((endTime - startTime) / 1000).toFixed(2);
-      appendLog(`同期完了: ${importedCount}件 (${durationSec}s)`);
+      logDebug(`同期完了: ${importedCount}件 (${durationSec}s)`);
     } catch (err: any) {
-      appendLog(`同期エラー: ${err.message}`);
+      logDebug(`同期エラー: ${err.message}`);
     } finally {
       setIsSyncing(false);
     }
@@ -98,20 +91,6 @@ export default function IndexScreen() {
           クイズを始める
         </Button>
 
-        {debugEnabled && (
-          // pointerEvents="none" により、このビュー自体はタッチを受け付けない
-          // (下のボタンなどが押せるようになる)。
-          <View style={styles.logArea} pointerEvents="none">
-            <ScrollView>
-              {logMessages.map((msg, idx) => (
-                <Text key={idx} style={{ fontSize: 12, marginVertical: 4 }}>
-                  {msg}
-                </Text>
-              ))}
-            </ScrollView>
-          </View>
-        )}
-
         {isSyncing && (
           <View
             style={[
@@ -132,17 +111,6 @@ export default function IndexScreen() {
 }
 
 const styles = StyleSheet.create({
-  // ログ表示エリア
-  logArea: {
-    // ログ表示エリアを画面上部に半透明で重ねて広めに確保
-    position: 'absolute',
-    top: 0,
-    width: '100%',
-    height: '50%', // 以前より広くして見やすさ向上
-    backgroundColor: 'rgba(0,0,0,0.6)',
-    borderRadius: 4,
-    padding: 8,
-  },
   // クイズ開始ボタンのスタイル
   startButton: {
     width: 320,
