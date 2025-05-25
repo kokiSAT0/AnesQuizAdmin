@@ -37,22 +37,28 @@ export default function Quiz() {
   // 今何問目を表示しているか記憶します
   const [currentIndex, setCurrentIndex] = useState(0);
   const [question, setQuestion] = useState<Question | null>(null);
-  // ユーザーが選択した選択肢の番号を保存
+  // ユーザーが選択した選択肢の「元の」番号を保存
   const [selected, setSelected] = useState<number[]>([]);
+  // 表示用にシャッフルした選択肢を保持
+  const [shuffledOptions, setShuffledOptions] = useState<
+    { idx: number; text: string }[]
+  >([]);
   const [isAnswered, setIsAnswered] = useState(false);
 
   // 選択肢をタップした時の処理
-  const toggleSelect = (idx: number) => {
+  const toggleSelect = (origIdx: number) => {
     if (!question) return;
-    console.info('select choice', idx);
+    console.info('select choice', origIdx);
     if (question.type === 'multiple_choice') {
       // multiple_choice は複数選択できる形式です
       setSelected((prev) =>
-        prev.includes(idx) ? prev.filter((n) => n !== idx) : [...prev, idx],
+        prev.includes(origIdx)
+          ? prev.filter((n) => n !== origIdx)
+          : [...prev, origIdx],
       );
     } else {
       // 単一選択の場合は 1 つだけ保持します
-      setSelected([idx]);
+      setSelected([origIdx]);
     }
   };
 
@@ -98,6 +104,11 @@ export default function Quiz() {
     if (q) {
       setQuestion(q);
       console.info('loaded question data');
+      // 選択肢を表示用にシャッフル
+      const opts = q.options.map((text, idx) => ({ idx, text }));
+      // sort() にランダム値を返す関数を渡して順序を入れ替え
+      opts.sort(() => Math.random() - 0.5);
+      setShuffledOptions(opts); // シャッフル済みの配列を保持
       setSelected([]); // 新しい問題では選択をリセット
       setIsAnswered(false);
     }
@@ -137,6 +148,7 @@ export default function Quiz() {
     void recordAnswer(question.id, correct);
     // 少し待ってから解説画面へ
     setTimeout(() => {
+      // 解説画面に渡すパラメータを準備
       router.push({
         pathname: '/quiz/answer',
         params: {
@@ -144,6 +156,8 @@ export default function Quiz() {
           ids: ids ?? '',
           current: String(currentIndex),
           selected: selected.join(','),
+          // シャッフル後の順番を文字列化して渡す
+          order: shuffledOptions.map((o) => o.idx).join(','),
         },
       });
     }, 500);
@@ -217,11 +231,11 @@ export default function Quiz() {
         </View>
 
         {/* ───────── 選択肢 ───────── */}
-        {question.options.map((opt, idx) => {
-          const chosen = selected.includes(idx);
+        {shuffledOptions.map((opt) => {
+          const chosen = selected.includes(opt.idx);
           return (
             <Pressable
-              key={idx}
+              key={opt.idx}
               style={[
                 styles.choice,
                 {
@@ -231,7 +245,7 @@ export default function Quiz() {
                     : theme.colors.secondaryContainer,
                 },
               ]}
-              onPress={() => toggleSelect(idx)}
+              onPress={() => toggleSelect(opt.idx)}
               disabled={isAnswered}
             >
               <Text
@@ -241,7 +255,7 @@ export default function Quiz() {
                   color: theme.colors.onPrimary,
                 }}
               >
-                {opt}
+                {opt.text}
               </Text>
             </Pressable>
           );
