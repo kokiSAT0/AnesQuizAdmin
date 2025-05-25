@@ -24,11 +24,12 @@ export default function AnswerScreen() {
   const insets = useSafeAreaInsets();
 
   /* ───── URL パラメータ ───── */
-  const { questionId, ids, current, selected } = useLocalSearchParams<{
+  const { questionId, ids, current, selected, order } = useLocalSearchParams<{
     questionId: string;
     ids?: string;
     current?: string;
     selected?: string;
+    order?: string;
   }>();
 
   /* ───── state ───── */
@@ -54,6 +55,15 @@ export default function AnswerScreen() {
       .filter(Boolean)
       .map((n) => parseInt(n, 10));
   }, [selected]);
+
+  // 表示順を index.tsx と合わせるための配列
+  const optionOrder = useMemo<number[]>(() => {
+    if (!order) return [];
+    return order
+      .split(',')
+      .filter(Boolean)
+      .map((n) => parseInt(n, 10));
+  }, [order]);
 
   const isCorrect = useMemo(() => {
     if (!question) return false;
@@ -93,6 +103,18 @@ export default function AnswerScreen() {
   const headerColor = isCorrect
     ? theme.colors.categoryChipSelected
     : theme.colors.error;
+
+
+  // 受け取った順序で選択肢を並べ替える
+  const orderedOptions = useMemo(() => {
+    if (!question) return [];
+    // order が無い場合は元の並び
+    if (optionOrder.length === 0) {
+      return question.options.map((text, idx) => ({ idx, text }));
+    }
+    // order 配列に従ってオブジェクトを作成
+    return optionOrder.map((idx) => ({ idx, text: question.options[idx] }));
+  }, [question, optionOrder]);
 
   /* ───── お気に入り切替 ───── */
   const toggleFavorite = async () => {
@@ -176,9 +198,9 @@ export default function AnswerScreen() {
         </View>
 
         {/* ───── 選択肢 ───── */}
-        {question.options.map((opt, idx) => {
-          const isAnswer = question.correct_answers.includes(idx);
-          const isUserWrong = userChoices.includes(idx) && !isAnswer;
+        {orderedOptions.map((opt) => {
+          const isAnswer = question.correct_answers.includes(opt.idx);
+          const isUserWrong = userChoices.includes(opt.idx) && !isAnswer;
           const bg = isAnswer
             ? theme.colors.categoryChipSelected
             : isUserWrong
@@ -187,13 +209,13 @@ export default function AnswerScreen() {
 
           return (
             <View
-              key={idx}
+              key={opt.idx}
               style={[
                 styles.choice,
                 { width: width * 0.9, backgroundColor: bg },
               ]}
             >
-              <Text style={styles.choiceText}>{opt}</Text>
+              <Text style={styles.choiceText}>{opt.text}</Text>
             </View>
           );
         })}
