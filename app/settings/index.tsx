@@ -8,10 +8,6 @@ import {
   getQuestionsCount,
   getQuestionsLimit5,
   getLatestLearningLogs,
-  dropQuestionsTable,
-  dropAppInfoTable,
-  dropLearningLogsTable,
-  initializeDatabaseIfNeeded,
 } from '@/src/utils/db';
 
 export default function Settings() {
@@ -48,33 +44,6 @@ export default function Settings() {
     }
   };
 
-  const handleDropQuestions = async () => {
-    try {
-      await dropQuestionsTable();
-      appendLog('Questions テーブルを削除しました');
-    } catch (err: any) {
-      appendLog(`削除エラー: ${err.message}`);
-    }
-  };
-
-  const handleDropAppInfo = async () => {
-    try {
-      await dropAppInfoTable();
-      appendLog('AppInfo テーブルを削除しました');
-    } catch (err: any) {
-      appendLog(`削除エラー: ${err.message}`);
-    }
-  };
-
-  const handleDropLogsTbl = async () => {
-    try {
-      await dropLearningLogsTable();
-      appendLog('LearningDailyLogs テーブルを削除しました');
-    } catch (err: any) {
-      appendLog(`削除エラー: ${err.message}`);
-    }
-  };
-
   return (
     <Screen style={{ backgroundColor: theme.colors.background }}>
       <AppHeader title="設定" onBack={() => router.back()} />
@@ -92,27 +61,6 @@ export default function Settings() {
           style={{ marginBottom: 8 }}
         >
           📜 学習ログ表示
-        </Button>
-        <Button
-          mode="outlined"
-          onPress={handleDropQuestions}
-          style={{ marginBottom: 8 }}
-        >
-          Questions 削除
-        </Button>
-        <Button
-          mode="outlined"
-          onPress={handleDropAppInfo}
-          style={{ marginBottom: 8 }}
-        >
-          AppInfo 削除
-        </Button>
-        <Button
-          mode="outlined"
-          onPress={handleDropLogsTbl}
-          style={{ marginBottom: 8 }}
-        >
-          Logs 削除
         </Button>
       </View>
 

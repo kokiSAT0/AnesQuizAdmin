@@ -532,25 +532,6 @@ export async function recordFirstAttempt(
 }
 
 /* ------------------------------------------------------------------ */
-/* 9. テーブル削除（開発用）                                          */
-/* ------------------------------------------------------------------ */
-export async function dropQuestionsTable(): Promise<void> {
-  const db = await getDB();
-  await db.execAsync('DROP TABLE IF EXISTS Questions;');
-  await db.execAsync('PRAGMA user_version = 0;');
-}
-
-export async function dropAppInfoTable(): Promise<void> {
-  const db = await getDB();
-  await db.execAsync('DROP TABLE IF EXISTS AppInfo;');
-}
-
-export async function dropLearningLogsTable(): Promise<void> {
-  const db = await getDB();
-  await db.execAsync('DROP TABLE IF EXISTS LearningDailyLogs;');
-}
-
-/* ------------------------------------------------------------------ */
 /* 7. user_id を取得（なければ生成）                                   */
 /* ------------------------------------------------------------------ */
 export async function getOrCreateUserId(): Promise<string> {

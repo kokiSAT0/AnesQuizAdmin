@@ -55,6 +55,11 @@ npx expo start --clear
 
 - データベース構成: [docs/sqlite_schema.md](docs/sqlite_schema.md)
 
+### 重要な変更点
+
+- Firestore との同期機能を廃止しました。
+- これに伴い設定画面からデータベース削除ボタンを取り除いています。
+
 ## Expo export / リリース前の準備
 
 `assets/db/app.db` は Git には含めていません。
