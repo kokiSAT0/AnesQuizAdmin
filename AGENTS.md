@@ -1,38 +1,76 @@
-# AGENTS.md – AnesQuiz Repo Guide
+# AGENTS.md – AI Coding Guide for Expo Anesthesia Quiz App Development（初心者個人開発向け）
 
-## Setup
+このファイルは **コーディング AI（ChatGPT／Codex 等）** に対する唯一の指示書です。ここに書かれたガイドラインに従ってコード・ドキュメントを生成してください。
 
-- Run `npm ci` to install packages.
+---
 
-## Code Style
+## 1. 目的
 
-- Use ESLint with the config in `.eslintrc`.
-- Format code via Prettier (`npm run format`).  
-  The CI will fail if `git diff --name-only -- '*.tsx'` shows unformatted code.
+- 麻酔科クイズアプリを **Expo Managed（iOS / Android）** で開発する。
 
-## Testing
+## 2. 技術スタック
 
-- Every task **must pass** `npm run lint && npm test`.
-- For UI changes, run `npx expo export --platform web` to ensure the bundle builds.
+- **Node.js:** 20以上安定版
+- **Expo SDK:** 53安定版
+- **Package Manager:** npm 10+
+- **UI ライブラリ:** `react-native-paper`最新版
+- **TypeScript:** `"strict": false` で開始（段階的に厳格化）
 
-## PR Instructions
+## 3. リポジトリ構成
 
-- Commit message style: **Conventional Commits** (`feat:`, `fix:`, `chore:` …)
-- PR title: `[<type>] <one-line summary>`
-- Description includes:
-  1. **What & Why** (１行)
-  2. **Testing Done** (実行したコマンド)
-  3. **Screenshots** (UI 変更のみ)
+```
+今後記載予定
+```
 
-## Expo Specific
+## 4. Git運用
 
-- Do **not** commit `ios/` or `android/` folders; Codex should work in managed workflow.
-- Use `npx expo prebuild` only when adding native modules.
+- 基本的に `main` ブランチのみを使用
+- コミットメッセージは簡潔で分かりやすく日本語で記載
 
-## SQLite Migration
+## 5. ビルドとテスト
 
-- If `db/schema.sql` is modified, run `npm run migrate:sqlite` and commit the new `db/migrations/*.sql`.
+- ビルドは手動で実施（Expo Goを利用）
+- 最終リリース時のみ `eas build --profile production` を利用
 
-## UI 禁止事項
+## 6. コード品質
 
-1. ハードコードの HEX 値を使わない。必ず `theme\tokens.ts` を import。
+- ESLint + Prettierでコード整形
+- ゲーム進行や主要機能は `jest` と `@testing-library/react-native` を使って自動テストを行う
+
+## 7. 環境構築
+
+- 初心者でも環境構築できるように、README.txtに具体的な手順を記載する。
+
+## 8. AIへの指示
+
+### 8.1 フォーマット
+
+- **言語:** 日本語
+- **コードブロック:** `tsx / ts / bash` など言語名を指定
+- **追加パッケージ:** `npm install` コマンドを併記
+
+### 8.2 コーディングルール
+
+| ルール       | 内容                                                                                     |
+| ------------ | ---------------------------------------------------------------------------------------- |
+| UI           | **必ず `react-native-paper` を使用**。原生 `react-native` コンポーネントはラップして使う |
+| 型           | `export type XxxProps = { ... }` を必ず定義                                              |
+| エラー処理   | `try / catch` を省略しない。ユーザー通知は `Snackbar` or `Alert`                         |
+| データ管理   | `AsyncStorage` を使用                                                                    |
+| スタイリング | `StyleSheet.create` に統一。インラインスタイル禁止                                       |
+
+### 8.3 チェックリスト
+
+1. `react-native-paper` を使ったか？
+2. 型定義はあるか？
+3. コメントは日本語か？
+4. 不要 import はないか？
+
+## 9. リリース
+
+- 内部配布: TestFlight (iOS) / Google Play Internal Testing (Android)
+- バージョン管理は簡易的にSemVerで実施
+
+---
+
+_Last updated: 2025‑06‑19_
