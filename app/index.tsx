@@ -20,19 +20,14 @@ export default function IndexScreen() {
       try {
         await initializeDatabaseIfNeeded();
         const id = await getOrCreateUserId();
-        logDebug(`DB initialization complete (user_id: ${id})`);
+        console.log(`DB initialization complete (user_id: ${id})`);
         await getQuestionsCount();
       } catch (err: any) {
-        logDebug(`DB init error: ${err.message}`);
+        console.log(`DB init error: ${err.message}`);
         Alert.alert('起動エラー', 'データベースの初期化に失敗しました。');
       }
     })();
   }, []);
-
-  // デバッグ用ログを出力するヘルパー
-  const logDebug = (msg: string) => {
-    console.log(msg); // debugger.ts で console をラップしてログを保存している
-  };
 
   return (
     <Screen style={{ backgroundColor: theme.colors.background }}>

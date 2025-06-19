@@ -1,7 +1,5 @@
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-// デバッグ用オーバーレイと console ラッパーを初期化
-import '@/lib/debugger';
 import {
   Provider as PaperProvider,
   MD3DarkTheme,
