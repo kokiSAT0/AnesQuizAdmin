@@ -19,7 +19,20 @@
 ## 3. リポジトリ構成
 
 ```
-今後記載予定
+root
+├─ app/                # 画面ファイルと画面遷移（Expo Router 用）
+├─ components/         # ボタンなど再利用コンポーネント
+├─ constants/          # 色などの定数定義
+├─ hooks/              # 自作 React Hooks
+├─ src/utils/          # データベース操作などのユーティリティ
+├─ theme/              # アプリのテーマ設定
+├─ types/              # 型定義置き場
+├─ questions/          # JSON 形式のクイズデータ
+├─ __tests__/          # Jest のテストコード
+├─ docs/               # ドキュメント類
+├─ scripts/            # ビルド補助スクリプト
+├─ assets/             # 画像や生成した DB などの静的ファイル
+└─ ...                 # その他設定ファイル
 ```
 
 ## 4. Git運用
