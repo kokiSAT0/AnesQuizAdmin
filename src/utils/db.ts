@@ -67,20 +67,12 @@ export async function initializeDatabaseIfNeeded(): Promise<void> {
           type TEXT,
           category_json TEXT,
           tag_json TEXT,
-          difficulty_level TEXT,
-          difficulty_correct_rate REAL,
+          difficulty TEXT,
           question TEXT,
           option_json TEXT,
           correct_json TEXT,
           explanation TEXT,
-          media_json TEXT,
           reference_json TEXT,
-          created_at TEXT,
-          updated_at TEXT,
-          created_by TEXT,
-          reviewed INTEGER,
-          attempts INTEGER,
-          correct INTEGER,
           first_attempt_correct INTEGER,
           first_attempted_at TEXT,
           is_favorite INTEGER,
@@ -137,7 +129,7 @@ export async function getMaxUpdatedAt(): Promise<string> {
 /* ------------------------------------------------------------------ */
 /* 2. Firestore → SQLite UPSERT                                       */
 /* ------------------------------------------------------------------ */
-export async function upsertQuestion(docData: any): Promise<void> {
+export async function upsertQuestion(data: any): Promise<void> {
   const db = await getDB();
 
   const {
@@ -145,51 +137,34 @@ export async function upsertQuestion(docData: any): Promise<void> {
     type,
     categories = [],
     tags = [],
-    difficulty = {},
+    difficulty,
     question,
     options = [],
     correct_answers = [],
     explanation,
-    media_urls = [],
     references = [],
-    metadata = {},
-    statistics = {},
-  } = docData;
-
-  const { level, correct_rate } = difficulty;
-  const { created_at, updated_at, created_by, reviewed } = metadata;
-  const { attempts, correct } = statistics;
+  } = data;
 
   await db.runAsync(
     `
     INSERT INTO Questions (
       id, type,
       category_json, tag_json,
-      difficulty_level, difficulty_correct_rate,
+      difficulty,
       question, option_json, correct_json,
-      explanation, media_json, reference_json,
-      created_at, updated_at, created_by, reviewed,
-      attempts, correct
+      explanation, reference_json
     )
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     ON CONFLICT(id) DO UPDATE SET
       type=excluded.type,
       category_json=excluded.category_json,
       tag_json=excluded.tag_json,
-      difficulty_level=excluded.difficulty_level,
-      difficulty_correct_rate=excluded.difficulty_correct_rate,
+      difficulty=excluded.difficulty,
       question=excluded.question,
       option_json=excluded.option_json,
       correct_json=excluded.correct_json,
       explanation=excluded.explanation,
-      media_json=excluded.media_json,
-      reference_json=excluded.reference_json,
-      created_at=excluded.created_at,
-      updated_at=excluded.updated_at,
-      created_by=excluded.created_by,
-      reviewed=excluded.reviewed,
-      attempts=excluded.attempts,
-      correct=excluded.correct
+      reference_json=excluded.reference_json
     ;
     `,
     [
@@ -197,20 +172,12 @@ export async function upsertQuestion(docData: any): Promise<void> {
       type,
       JSON.stringify(categories),
       JSON.stringify(tags),
-      level ?? null,
-      typeof correct_rate === 'number' ? correct_rate : null,
+      difficulty ?? null,
       question ?? '',
       JSON.stringify(options),
       JSON.stringify(correct_answers),
       explanation ?? '',
-      JSON.stringify(media_urls),
       JSON.stringify(references),
-      created_at ?? '',
-      updated_at ?? '',
-      created_by ?? '',
-      reviewed ? 1 : 0,
-      typeof attempts === 'number' ? attempts : 0,
-      typeof correct === 'number' ? correct : 0,
     ],
   );
 }
@@ -264,7 +231,7 @@ export async function getQuestionIdsByDifficulty(
 
   const placeholders = levels.map(() => '?').join(', ');
   const rows = await db.getAllAsync<{ id: string }>(
-    `SELECT id FROM Questions WHERE is_used = 1 AND difficulty_level IN (${placeholders}) ORDER BY id;`,
+    `SELECT id FROM Questions WHERE is_used = 1 AND difficulty IN (${placeholders}) ORDER BY id;`,
     levels,
   );
   return rows.map((r) => r.id);
@@ -297,7 +264,7 @@ export async function getQuestionIdsByFilter(
 
   if (levels.length) {
     const placeholders = levels.map(() => '?').join(', ');
-    conditions.push(`difficulty_level IN (${placeholders})`);
+    conditions.push(`difficulty IN (${placeholders})`);
     params.push(...levels);
   }
 
@@ -342,7 +309,7 @@ export async function countQuestionsByDifficulty(
   // IN 句の ? をレベルの個数分並べる
   const placeholders = levels.map(() => '?').join(', ');
   const { total } = await db.getFirstAsync<{ total: number }>(
-    `SELECT COUNT(*) AS total FROM Questions WHERE is_used = 1 AND difficulty_level IN (${placeholders});`,
+    `SELECT COUNT(*) AS total FROM Questions WHERE is_used = 1 AND difficulty IN (${placeholders});`,
     levels,
   );
   return total;
@@ -368,7 +335,7 @@ export async function countQuestionsByFilter(
 
   if (levels.length) {
     const placeholders = levels.map(() => '?').join(', ');
-    conditions.push(`difficulty_level IN (${placeholders})`);
+    conditions.push(`difficulty IN (${placeholders})`);
     params.push(...levels);
   }
 
@@ -401,20 +368,12 @@ export interface SQLiteQuestionRow {
   type: string;
   category_json: string;
   tag_json: string;
-  difficulty_level: string | null;
-  difficulty_correct_rate: number | null;
+  difficulty: string | null;
   question: string;
   option_json: string;
   correct_json: string;
   explanation: string;
-  media_json: string;
   reference_json: string;
-  created_at: string;
-  updated_at: string;
-  created_by: string;
-  reviewed: number;
-  attempts: number;
-  correct: number;
   first_attempt_correct: number | null; // 初回解答が正解かどうか（0/1）
   first_attempted_at: string | null; // 初回解答日時
   is_favorite: number; // お気に入り登録されているかどうか（0/1）
@@ -441,26 +400,12 @@ export async function getQuestionById(id: string) {
     type: row.type,
     categories: JSON.parse(row.category_json),
     tags: JSON.parse(row.tag_json),
-    difficulty: {
-      level: row.difficulty_level,
-      correct_rate: row.difficulty_correct_rate,
-    },
+    difficulty: row.difficulty,
     question: row.question,
     options: JSON.parse(row.option_json),
     correct_answers: JSON.parse(row.correct_json),
     explanation: row.explanation,
-    media_urls: JSON.parse(row.media_json),
     references: JSON.parse(row.reference_json),
-    metadata: {
-      created_at: row.created_at,
-      updated_at: row.updated_at,
-      created_by: row.created_by,
-      reviewed: !!row.reviewed,
-    },
-    statistics: {
-      attempts: row.attempts,
-      correct: row.correct,
-    },
     first_attempt_correct:
       row.first_attempt_correct === null ? null : !!row.first_attempt_correct,
     first_attempted_at: row.first_attempted_at,
@@ -509,14 +454,12 @@ export async function recordAnswer(
   const lastIncorrect = isCorrect ? null : now;
   await db.runAsync(
     `UPDATE Questions
-        SET attempts = attempts + 1,
-            correct = correct + ?,
-            last_answer_correct = ?,
+        SET last_answer_correct = ?,
             last_answered_at = ?,
             last_correct_at = COALESCE(?, last_correct_at),
             last_incorrect_at = COALESCE(?, last_incorrect_at)
       WHERE id = ?;`,
-    [isCorrect ? 1 : 0, isCorrect ? 1 : 0, now, lastCorrect, lastIncorrect, id],
+    [isCorrect ? 1 : 0, now, lastCorrect, lastIncorrect, id],
   );
 }
 

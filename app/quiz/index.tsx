@@ -22,7 +22,8 @@ import {
   updateFavorite,
   updateUsed,
 } from '@/src/utils/db';
-import type { Question } from '@/types/firestore';
+// 問題データの型
+import type { Question } from '@/types/question';
 
 const { width } = Dimensions.get('window');
 const FOOTER_HEIGHT = 64;

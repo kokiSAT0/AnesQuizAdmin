@@ -1,29 +1,21 @@
-// types/firestore.ts
-// Firestore から取得する問題データ
-// 個人ごとの進捗情報は含みません
-export interface FirestoreQuestion {
+// types/question.ts
+// クイズデータの基本構造
+export interface BaseQuestion {
   id: string;
   type: 'single_choice' | 'multiple_choice';
   categories: string[];
   tags: string[];
-  difficulty: { level: '初級' | '中級' | '上級'; correct_rate: number };
+  // 難易度文字列（初級・中級・上級）
+  difficulty: '初級' | '中級' | '上級';
   question: string;
   options: string[];
   correct_answers: number[];
   explanation: string;
-  media_urls: string[];
   references: { title: string; url: string }[];
-  metadata: {
-    created_at: string;
-    updated_at: string;
-    created_by: 'koki';
-    reviewed: boolean;
-  };
-  statistics: { attempts: number; correct: number };
 }
 
-// SQLite では Firestore の内容に加えて下記の情報を保持します
-export interface Question extends FirestoreQuestion {
+// SQLite 上で保持する追加情報
+export interface Question extends BaseQuestion {
   /** 初回解答が正解かどうか。未解答なら null */
   first_attempt_correct: boolean | null;
   /** 初回解答日時 (ISO 文字列)。未解答なら null */
