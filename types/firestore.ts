@@ -30,6 +30,8 @@ export interface Question extends FirestoreQuestion {
   first_attempted_at: string | null;
   /** お気に入り登録フラグ */
   is_favorite: boolean;
+  /** 使用対象かどうか */
+  is_used: boolean;
   /** 直近の回答が正解かどうか */
   last_answer_correct: boolean;
   /** 最後に回答した日時 (ISO 文字列) */

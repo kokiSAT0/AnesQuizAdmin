@@ -24,6 +24,7 @@ erDiagram
       int     first_attempt_correct
       string  first_attempted_at
       int     is_favorite
+      int     is_used
       int     last_answer_correct
       string  last_answered_at
       string  last_correct_at
@@ -49,6 +50,7 @@ erDiagram
 - `reviewed` は **0/1 の整数**で、`boolean` として扱います。
 - 統計情報として `attempts` (解答数)、`correct` (正解数) に加え
   `first_attempt_correct` と `first_attempted_at` を記録します。
+- `is_used` も **0/1 の整数**で、0 の場合は出題対象から除外されます。
 
 ### LearningDailyLogs テーブルの記録ルール
 
