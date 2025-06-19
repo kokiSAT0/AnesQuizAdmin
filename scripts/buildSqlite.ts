@@ -42,6 +42,7 @@ CREATE TABLE IF NOT EXISTS Questions (
   first_attempt_correct INTEGER,
   first_attempted_at TEXT,
   is_favorite INTEGER,
+  is_used INTEGER,
   last_answer_correct INTEGER,
   last_answered_at TEXT,
   last_correct_at TEXT,
@@ -62,6 +63,7 @@ INSERT INTO Questions (
   attempts, correct,
   first_attempt_correct, first_attempted_at,
   is_favorite, last_answer_correct,
+  is_used,
   last_answered_at, last_correct_at, last_incorrect_at
 ) VALUES (
   @id, @type,
@@ -73,6 +75,7 @@ INSERT INTO Questions (
   @attempts, @correct,
   @first_attempt_correct, @first_attempted_at,
   @is_favorite, @last_answer_correct,
+  @is_used,
   @last_answered_at, @last_correct_at, @last_incorrect_at
 );
 `);
@@ -114,6 +117,7 @@ for (const file of files) {
       first_attempt_correct: null,
       first_attempted_at: null,
       is_favorite: 0,
+      is_used: 1,
       last_answer_correct: 0,
       last_answered_at: null,
       last_correct_at: null,

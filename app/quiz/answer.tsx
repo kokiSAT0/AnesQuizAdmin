@@ -15,7 +15,7 @@ import { Text, Button, useTheme } from 'react-native-paper';
 import { createQuestionTextStyle } from '@/components/TextStyles';
 import { AntDesign } from '@expo/vector-icons';
 import { AppHeader } from '@/components/AppHeader';
-import { getQuestionById, updateFavorite } from '@/src/utils/db';
+import { getQuestionById, updateFavorite, updateUsed } from '@/src/utils/db';
 
 const { width } = Dimensions.get('window');
 const FOOTER_HEIGHT = 64;
@@ -139,6 +139,20 @@ export default function AnswerScreen() {
     }
   };
 
+  /* ───── 使用フラグ切替 ───── */
+  const toggleUsed = async () => {
+    if (!question) return;
+
+    const newFlag = !question.is_used;
+    console.info('answer toggle used', { id: question.id, flag: newFlag });
+    try {
+      await updateUsed(question.id, newFlag);
+      setQuestion((prev) => (prev ? { ...prev, is_used: newFlag } : prev));
+    } catch (err) {
+      console.error('使用フラグ更新失敗', err);
+    }
+  };
+
   /* ───── 次の問題へ ───── */
   const goNext = () => {
     console.info('go next question');
@@ -197,6 +211,21 @@ export default function AnswerScreen() {
           </View>
 
           <Text style={tStyles.question}>{question.question}</Text>
+          <Pressable onPress={toggleUsed} style={styles.usedBtn}>
+            {question.is_used ? (
+              <AntDesign
+                name="checkcircle"
+                size={24}
+                color={theme.colors.onBackground}
+              />
+            ) : (
+              <AntDesign
+                name="closecircleo"
+                size={24}
+                color={theme.colors.onBackground}
+              />
+            )}
+          </Pressable>
           <Pressable onPress={toggleFavorite} style={styles.favoriteBtn}>
             {question.is_favorite ? (
               <AntDesign
@@ -321,6 +350,11 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 12,
     right: 12,
+  },
+  usedBtn: {
+    position: 'absolute',
+    top: 12,
+    right: 48,
   },
 
   choice: {
