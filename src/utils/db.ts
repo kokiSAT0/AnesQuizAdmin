@@ -84,6 +84,7 @@ export async function initializeDatabaseIfNeeded(): Promise<void> {
           first_attempt_correct INTEGER,
           first_attempted_at TEXT,
           is_favorite INTEGER,
+          is_used INTEGER DEFAULT 1,
           last_answer_correct INTEGER,
           last_answered_at TEXT,
           last_correct_at TEXT,
@@ -230,7 +231,9 @@ export async function getQuestionsCount(): Promise<number> {
 /* ------------------------------------------------------------------ */
 export async function getQuestionsLimit5(): Promise<any[]> {
   const db = await getDB();
-  return await db.getAllAsync('SELECT * FROM Questions ORDER BY id LIMIT 5;');
+  return await db.getAllAsync(
+    'SELECT * FROM Questions WHERE is_used = 1 ORDER BY id LIMIT 5;',
+  );
 }
 
 /* ------------------------------------------------------------------ */
@@ -239,7 +242,7 @@ export async function getQuestionsLimit5(): Promise<any[]> {
 export async function getAllQuestionIds(): Promise<string[]> {
   const db = await getDB();
   const rows = await db.getAllAsync<{ id: string }>(
-    'SELECT id FROM Questions ORDER BY id;',
+    'SELECT id FROM Questions WHERE is_used = 1 ORDER BY id;',
   );
   return rows.map((r) => r.id);
 }
@@ -254,14 +257,14 @@ export async function getQuestionIdsByDifficulty(
 
   if (levels.length === 0) {
     const rows = await db.getAllAsync<{ id: string }>(
-      'SELECT id FROM Questions ORDER BY id;',
+      'SELECT id FROM Questions WHERE is_used = 1 ORDER BY id;',
     );
     return rows.map((r) => r.id);
   }
 
   const placeholders = levels.map(() => '?').join(', ');
   const rows = await db.getAllAsync<{ id: string }>(
-    `SELECT id FROM Questions WHERE difficulty_level IN (${placeholders}) ORDER BY id;`,
+    `SELECT id FROM Questions WHERE is_used = 1 AND difficulty_level IN (${placeholders}) ORDER BY id;`,
     levels,
   );
   return rows.map((r) => r.id);
@@ -285,6 +288,12 @@ export async function getQuestionIdsByFilter(
 
   const conditions: string[] = [];
   const params: any[] = [];
+
+  // 常に使用中の問題のみカウント
+  conditions.push('is_used = 1');
+
+  // 使用中の問題のみ取得
+  conditions.push('is_used = 1');
 
   if (levels.length) {
     const placeholders = levels.map(() => '?').join(', ');
@@ -325,7 +334,7 @@ export async function countQuestionsByDifficulty(
   // 難易度が選択されていない場合は全件数を返す
   if (levels.length === 0) {
     const { total } = await db.getFirstAsync<{ total: number }>(
-      'SELECT COUNT(*) AS total FROM Questions;',
+      'SELECT COUNT(*) AS total FROM Questions WHERE is_used = 1;',
     );
     return total;
   }
@@ -333,7 +342,7 @@ export async function countQuestionsByDifficulty(
   // IN 句の ? をレベルの個数分並べる
   const placeholders = levels.map(() => '?').join(', ');
   const { total } = await db.getFirstAsync<{ total: number }>(
-    `SELECT COUNT(*) AS total FROM Questions WHERE difficulty_level IN (${placeholders});`,
+    `SELECT COUNT(*) AS total FROM Questions WHERE is_used = 1 AND difficulty_level IN (${placeholders});`,
     levels,
   );
   return total;
@@ -409,6 +418,7 @@ export interface SQLiteQuestionRow {
   first_attempt_correct: number | null; // 初回解答が正解かどうか（0/1）
   first_attempted_at: string | null; // 初回解答日時
   is_favorite: number; // お気に入り登録されているかどうか（0/1）
+  is_used: number; // 出題対象として使うかどうか（0/1）
   last_answer_correct: number; // 直近の回答が正解かどうか（0/1）
   last_answered_at: string | null; // 最後に回答した日時
   last_correct_at: string | null; // 最後に正解した日時
@@ -455,6 +465,7 @@ export async function getQuestionById(id: string) {
       row.first_attempt_correct === null ? null : !!row.first_attempt_correct,
     first_attempted_at: row.first_attempted_at,
     is_favorite: !!row.is_favorite,
+    is_used: !!row.is_used,
     last_answer_correct: !!row.last_answer_correct,
     last_answered_at: row.last_answered_at,
     last_correct_at: row.last_correct_at,
@@ -468,6 +479,18 @@ export async function getQuestionById(id: string) {
 export async function updateFavorite(id: string, flag: boolean): Promise<void> {
   const db = await getDB();
   await db.runAsync('UPDATE Questions SET is_favorite = ? WHERE id = ?;', [
+    flag ? 1 : 0,
+    id,
+  ]);
+}
+
+/* ------------------------------------------------------------------ */
+/* 7-1. 使用フラグを更新                                               */
+/* ------------------------------------------------------------------ */
+export async function updateUsed(id: string, flag: boolean): Promise<void> {
+  const db = await getDB();
+  console.info('update used', { id, flag });
+  await db.runAsync('UPDATE Questions SET is_used = ? WHERE id = ?;', [
     flag ? 1 : 0,
     id,
   ]);
@@ -513,25 +536,6 @@ export async function recordFirstAttempt(
       WHERE id = ? AND first_attempt_correct IS NULL;`,
     [isCorrect ? 1 : 0, now, id],
   );
-}
-
-/* ------------------------------------------------------------------ */
-/* 9. テーブル削除（開発用）                                          */
-/* ------------------------------------------------------------------ */
-export async function dropQuestionsTable(): Promise<void> {
-  const db = await getDB();
-  await db.execAsync('DROP TABLE IF EXISTS Questions;');
-  await db.execAsync('PRAGMA user_version = 0;');
-}
-
-export async function dropAppInfoTable(): Promise<void> {
-  const db = await getDB();
-  await db.execAsync('DROP TABLE IF EXISTS AppInfo;');
-}
-
-export async function dropLearningLogsTable(): Promise<void> {
-  const db = await getDB();
-  await db.execAsync('DROP TABLE IF EXISTS LearningDailyLogs;');
 }
 
 /* ------------------------------------------------------------------ */

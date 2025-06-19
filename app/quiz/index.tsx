@@ -19,6 +19,7 @@ import {
   recordAnswer,
   recordFirstAttempt,
   updateFavorite,
+  updateUsed,
 } from '@/src/utils/db';
 import type { Question } from '@/types/firestore';
 
@@ -85,6 +86,20 @@ export default function Quiz() {
       return;
     }
     setQuestion((prev) => (prev ? { ...prev, is_favorite: newFlag } : prev));
+  };
+
+  // 使用フラグ切り替え
+  const toggleUsed = async () => {
+    if (!question) return;
+    const newFlag = !question.is_used;
+    console.info('toggle used', { id: question.id, flag: newFlag });
+    try {
+      await updateUsed(question.id, newFlag);
+    } catch (err) {
+      console.error('使用フラグ更新失敗', err);
+      return;
+    }
+    setQuestion((prev) => (prev ? { ...prev, is_used: newFlag } : prev));
   };
 
   useEffect(() => {
@@ -232,6 +247,21 @@ export default function Quiz() {
           </View>
 
           <Text style={tStyles.question}>{question.question}</Text>
+          <Pressable onPress={toggleUsed} style={styles.usedBtn}>
+            {question.is_used ? (
+              <AntDesign
+                name="checkcircle"
+                size={24}
+                color={theme.colors.onBackground}
+              />
+            ) : (
+              <AntDesign
+                name="closecircleo"
+                size={24}
+                color={theme.colors.onBackground}
+              />
+            )}
+          </Pressable>
           <Pressable onPress={toggleFavorite} style={styles.favoriteBtn}>
             {question.is_favorite ? (
               <AntDesign
@@ -347,6 +377,11 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 12,
     right: 12,
+  },
+  usedBtn: {
+    position: 'absolute',
+    top: 12,
+    right: 48,
   },
   choice: {
     alignSelf: 'center',

@@ -8,10 +8,6 @@ import {
   getQuestionsCount,
   getQuestionsLimit5,
   getLatestLearningLogs,
-  dropQuestionsTable,
-  dropAppInfoTable,
-  dropLearningLogsTable,
-  initializeDatabaseIfNeeded,
 } from '@/src/utils/db';
 
 export default function Settings() {
@@ -43,6 +39,7 @@ export default function Settings() {
       // エラー内容は一旦無視
     }
   };
+
 
   const handleDropQuestions = async () => {
     try {
@@ -85,27 +82,6 @@ export default function Settings() {
           style={{ marginBottom: 8 }}
         >
           📜 学習ログ表示
-        </Button>
-        <Button
-          mode="outlined"
-          onPress={handleDropQuestions}
-          style={{ marginBottom: 8 }}
-        >
-          Questions 削除
-        </Button>
-        <Button
-          mode="outlined"
-          onPress={handleDropAppInfo}
-          style={{ marginBottom: 8 }}
-        >
-          AppInfo 削除
-        </Button>
-        <Button
-          mode="outlined"
-          onPress={handleDropLogsTbl}
-          style={{ marginBottom: 8 }}
-        >
-          Logs 削除
         </Button>
       </View>
 
