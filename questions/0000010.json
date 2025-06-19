@@ -3,7 +3,7 @@
     "id": "an0000006",
     "type": "single_choice",
     "categories": [
-      "筋弛緩薬"
+      "麻酔薬"
     ],
     "tags": [
       "スキサメトニウム",
@@ -72,7 +72,7 @@
     "id": "an0000009",
     "type": "single_choice",
     "categories": [
-      "体温管理"
+      "術中モニタリング"
     ],
     "tags": [
       "保温",

@@ -14,30 +14,13 @@ import { getQuestionIdsByFilter, countQuestionsByFilter } from '@/src/utils/db';
 import { SelectableChip } from '@/components/SelectableChip';
 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { CATEGORIES, Category } from '@/constants/Categories';
 
 // 選択可能な難易度のリスト
 const LEVELS = ['初級', '中級', '上級'] as const;
 type Level = (typeof LEVELS)[number];
 
-// ───────── カテゴリ一覧 ─────────
-const CATEGORIES = [
-  '気道管理',
-  '呼吸管理',
-  '循環管理',
-  '緊急対応',
-  '術中モニタリング',
-  '輸液・輸血',
-  '麻酔薬',
-  '麻酔合併症',
-  '特殊患者',
-  '術前評価・麻酔計画',
-  '術後・疼痛管理',
-  '麻酔関連機器',
-  '区域麻酔',
-  'ICU管理',
-  '医療安全・ヒューマンファクター',
-] as const;
-type Category = (typeof CATEGORIES)[number];
+// カテゴリ一覧は共通定数から読み込む
 
 const PROGRESS = ['正解', '不正解', '未学習'] as const;
 type Progress = (typeof PROGRESS)[number];

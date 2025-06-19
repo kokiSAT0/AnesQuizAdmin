@@ -3,7 +3,7 @@
     "id": "an0000016",
     "type": "single_choice",
     "categories": [
-      "全身麻酔"
+      "術前評価・麻酔計画"
     ],
     "tags": [
       "ASA‑PS",
@@ -26,7 +26,7 @@
     "id": "an0000017",
     "type": "single_choice",
     "categories": [
-      "鎮痛薬"
+      "術後・疼痛管理"
     ],
     "tags": [
       "NSAIDs",
@@ -95,7 +95,7 @@
     "id": "an0000020",
     "type": "single_choice",
     "categories": [
-      "術中輸液"
+      "輸液・輸血"
     ],
     "tags": [
       "維持輸液量",

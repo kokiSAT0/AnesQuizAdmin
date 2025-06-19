@@ -1,9 +1,11 @@
 // types/question.ts
 // クイズデータの基本構造
+import type { Category } from '@/constants/Categories';
+
 export interface BaseQuestion {
   id: string;
   type: 'single_choice' | 'multiple_choice';
-  categories: string[];
+  categories: Category[];
   tags: string[];
   // 難易度文字列（初級・中級・上級）
   difficulty: '初級' | '中級' | '上級';
