@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import Database from 'better-sqlite3';
 import { CATEGORIES } from '../constants/Categories';
+import { DB_VERSION } from '../constants/DbVersion';
 
 // このスクリプトは JSON 形式の問題集から SQLite データベースを生成します。
 // better-sqlite3 は Node.js で SQLite を扱うための高速なライブラリです。
@@ -120,5 +121,8 @@ for (const file of files) {
     insert.run(row);
   }
 }
+
+// DB のバージョンを設定する。これはアプリ側でバージョン管理を行うためのもの。
+db.pragma(`user_version = ${DB_VERSION}`);
 
 console.log(`SQLite DB generated at ${dbPath}`);

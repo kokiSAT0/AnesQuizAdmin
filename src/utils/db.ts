@@ -1,6 +1,7 @@
 import { SQLiteDatabase, openDatabaseAsync } from 'expo-sqlite';
 import * as FileSystem from 'expo-file-system';
 import { Asset } from 'expo-asset';
+import { DB_VERSION } from '../../constants/DbVersion';
 
 /** UUID を簡易生成するヘルパー */
 function generateUUID(): string {
@@ -53,12 +54,23 @@ export async function getDB(): Promise<SQLiteDatabase> {
     }
     dbPromise = openDatabaseAsync('app.db');
   }
-  return dbPromise;
+  const db = await dbPromise;
+
+  // DB バージョンをチェックし、古い場合は削除して再コピーする
+  const { user_version = 0 } = await db.getFirstAsync<{ user_version: number }>(
+    'PRAGMA user_version;',
+  );
+  if (user_version < DB_VERSION) {
+    await deleteDatabase();
+    return getDB();
+  }
+
+  return db;
 }
 
 /**
  * PRAGMA user_version が 0 のときだけ
- * Questions テーブルを作成し、user_version を 1 に更新する。
+ * Questions テーブルを作成し、user_version を DB_VERSION に更新する。
  */
 export async function initializeDatabaseIfNeeded(): Promise<void> {
   const db = await getDB(); // ← Promise を await
@@ -99,8 +111,8 @@ export async function initializeDatabaseIfNeeded(): Promise<void> {
         );
       `);
 
-      // user_version を 1 に設定
-      await db.execAsync(`PRAGMA user_version = 1;`);
+      // user_version を更新（DB_VERSION は定数で管理）
+      await db.execAsync(`PRAGMA user_version = ${DB_VERSION};`);
     });
   } else {
     // 既に初期化済みの場合
