@@ -1,9 +1,5 @@
 const { getDefaultConfig } = require('expo/metro-config');
-const config = getDefaultConfig(__dirname);
 
-// --- Firebase などが持つ .cjs ファイルを解決できるようにする ---
-if (!config.resolver.sourceExts.includes('cjs')) {
-  config.resolver.sourceExts.push('cjs');
-}
-
-module.exports = config;
+// Expo のデフォルト設定をそのまま利用
+// getDefaultConfig: Expo が提供する Metro バンドラの標準設定を返す関数
+module.exports = getDefaultConfig(__dirname);
