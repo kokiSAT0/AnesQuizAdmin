@@ -68,9 +68,11 @@ npx expo start --clear
 
 ## Expo export / リリース前の準備
 
-`assets/db/app.db` が無いとアプリが正しく動作しません。
-`expo export` など本番ビルドの前に以下を実行してください。
+`assets/db/app.db` は Git には含めていません。
+リリース前や `expo export` の前に以下を実行してデータベースを生成してください。
 
 ```bash
 npm run build:sqlite
 ```
+実行後、`assets/db/app.db` が生成されます。
+

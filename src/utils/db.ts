@@ -1,4 +1,6 @@
 import { SQLiteDatabase, openDatabaseAsync } from 'expo-sqlite';
+import * as FileSystem from 'expo-file-system';
+import { Asset } from 'expo-asset';
 
 /** UUID を簡易生成するヘルパー */
 function generateUUID(): string {
@@ -11,10 +13,31 @@ function generateUUID(): string {
 }
 
 let dbPromise: Promise<SQLiteDatabase> | null = null;
+let dbCopiedFromAsset = false;
 
 /** シングルトンで DB を取得（新 API 版） */
-export function getDB(): Promise<SQLiteDatabase> {
-  dbPromise ??= openDatabaseAsync('app.db');
+export async function getDB(): Promise<SQLiteDatabase> {
+  if (!dbPromise) {
+    const sqlitePath = `${FileSystem.documentDirectory}SQLite/app.db`;
+    const info = await FileSystem.getInfoAsync(sqlitePath);
+    if (!info.exists) {
+      // Expo が使う SQLite フォルダを作成（存在しない場合）
+      await FileSystem.makeDirectoryAsync(
+        `${FileSystem.documentDirectory}SQLite`,
+        { intermediates: true },
+      );
+
+      // アセットから DB ファイルをコピー
+      const asset = Asset.fromModule(require('../../assets/db/app.db'));
+      await asset.downloadAsync();
+      if (!asset.localUri) {
+        throw new Error('app.db asset not found');
+      }
+      await FileSystem.copyAsync({ from: asset.localUri, to: sqlitePath });
+      dbCopiedFromAsset = true;
+    }
+    dbPromise = openDatabaseAsync('app.db');
+  }
   return dbPromise;
 }
 
@@ -33,7 +56,10 @@ export async function initializeDatabaseIfNeeded(): Promise<void> {
     'PRAGMA user_version;',
   );
 
-  if (user_version === 0) {
+  if (dbCopiedFromAsset) {
+    // 事前生成された DB を使っている場合、テーブル作成処理を省略
+    console.info('skip table creation because db came from asset');
+  } else if (user_version === 0) {
     console.info('create tables since user_version is 0');
     // ② トランザクション内でテーブル作成 & user_version 更新
     // トランザクションとは複数の処理をひとまとめにして、途中で失敗したら全部なかったことにする仕組みです
