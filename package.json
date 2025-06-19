@@ -11,8 +11,8 @@
     "lint": "expo lint",
     "lint:fix": "eslint . --fix",
     "test": "jest --passWithNoTests",
-    "prepare": "husky install"
-    
+    "prepare": "husky install",
+    "build:sqlite": "tsx scripts/buildSqlite.ts"
   },
   "expo": {
     "doctor": {

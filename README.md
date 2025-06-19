@@ -65,3 +65,12 @@ npx expo start --clear
 
 - Firestore の構成: [docs/firestore_schema.md](docs/firestore_schema.md)
 - SQLite の構成: [docs/sqlite_schema.md](docs/sqlite_schema.md)
+
+## Expo export / リリース前の準備
+
+`assets/db/app.db` が無いとアプリが正しく動作しません。
+`expo export` など本番ビルドの前に以下を実行してください。
+
+```bash
+npm run build:sqlite
+```
