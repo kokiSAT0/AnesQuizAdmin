@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import Database from 'better-sqlite3';
+import { CATEGORIES } from '../constants/Categories';
 
 // このスクリプトは JSON 形式の問題集から SQLite データベースを生成します。
 // better-sqlite3 は Node.js で SQLite を扱うための高速なライブラリです。
@@ -75,6 +76,8 @@ INSERT INTO Questions (
 // questions ディレクトリにあるすべての JSON ファイルを読み込む
 const questionsDir = path.join(__dirname, '..', 'questions');
 const files = fs.readdirSync(questionsDir).filter((f) => f.endsWith('.json'));
+// 定義済みカテゴリを素早く照合するため Set 化
+const categorySet = new Set(CATEGORIES);
 
 for (const file of files) {
   const jsonPath = path.join(questionsDir, file);
@@ -82,6 +85,12 @@ for (const file of files) {
   const list = JSON.parse(fs.readFileSync(jsonPath, 'utf8')) as any[];
 
   for (const q of list) {
+    const invalid = (q.categories ?? []).filter(
+      (c: string) => !categorySet.has(c),
+    );
+    if (invalid.length) {
+      throw new Error(`Invalid category in ${file}: ${invalid.join(', ')}`);
+    }
     // DB のカラムに合わせて値を整形
     const row = {
       id: q.id,

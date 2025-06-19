@@ -3,7 +3,7 @@
     "id": "an0000011",
     "type": "single_choice",
     "categories": [
-      "吸入麻酔薬"
+      "麻酔薬"
     ],
     "tags": [
       "MAC",
@@ -49,7 +49,7 @@
     "id": "an0000013",
     "type": "single_choice",
     "categories": [
-      "モニタリング"
+      "術中モニタリング"
     ],
     "tags": [
       "パルスオキシメータ",
@@ -72,7 +72,7 @@
     "id": "an0000014",
     "type": "single_choice",
     "categories": [
-      "筋弛緩薬"
+      "麻酔薬"
     ],
     "tags": [
       "ロクロニウム",
@@ -95,7 +95,7 @@
     "id": "an0000015",
     "type": "single_choice",
     "categories": [
-      "術後管理"
+      "術後・疼痛管理"
     ],
     "tags": [
       "PONV",
