@@ -61,7 +61,6 @@ export default function Quiz() {
   // 選択肢をタップした時の処理
   const toggleSelect = (origIdx: number) => {
     if (!question) return;
-    console.info('select choice', origIdx);
     if (question.type === 'multiple_choice') {
       // multiple_choice は複数選択できる形式です
       setSelected((prev) =>
@@ -79,12 +78,11 @@ export default function Quiz() {
   const toggleFavorite = async () => {
     if (!question) return;
     const newFlag = !question.is_favorite;
-    console.info('toggle favorite', { id: question.id, flag: newFlag });
     // まずローカル SQLite を更新（await で完了を待つ）
     try {
       await updateFavorite(question.id, newFlag);
     } catch (err) {
-      console.error('お気に入り更新失敗', err);
+      // お気に入り更新失敗
       return;
     }
     setQuestion((prev) => (prev ? { ...prev, is_favorite: newFlag } : prev));
@@ -110,12 +108,9 @@ export default function Quiz() {
       const list = ids.split(',').filter(Boolean);
       setQuestionIds(list);
 
-      console.info('quiz ids', list);
-
       // current が無ければ 0 (最初の問題) を使います
       const idx = current ? parseInt(current, 10) : 0;
       setCurrentIndex(idx);
-      console.info('current index', idx);
 
       // その番号の問題を読み込み
       if (list[idx]) {
@@ -126,11 +121,10 @@ export default function Quiz() {
 
   // SQLite から指定IDの問題を読み込む
   const loadQuestion = async (id: string) => {
-    console.info('load question', id);
+    // 指定IDの問題を読み込み
     const q = await getQuestionById(id);
     if (q) {
       setQuestion(q);
-      console.info('loaded question data');
       // 選択肢を表示用にシャッフル
       const opts = q.options.map((text, idx) => ({ idx, text }));
       // sort() にランダム値を返す関数を渡して順序を入れ替え
@@ -148,11 +142,6 @@ export default function Quiz() {
     const sort = (arr: number[]) => [...arr].sort((a, b) => a - b);
     const correct =
       sort(selected).join(',') === sort(question.correct_answers).join(',');
-    console.info('submit answer', {
-      id: question.id,
-      selected,
-      correct,
-    });
     setIsAnswered(true);
     // 解答結果を DB に保存します。void で非同期実行
     void updateLearningDailyLog(question.id, correct);

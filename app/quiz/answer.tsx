@@ -50,7 +50,6 @@ export default function AnswerScreen() {
   useEffect(() => {
     if (questionId)
       void (async () => {
-        console.info('load answer question', questionId);
         const q = await getQuestionById(questionId);
         setQuestion(q);
       })();
@@ -102,7 +101,7 @@ export default function AnswerScreen() {
           // question ステートを更新して UI を即時反映
           setQuestion((prev) => (prev ? { ...prev, is_favorite: true } : prev));
         } catch (e) {
-          console.error('自動お気に入り失敗', e);
+          // 自動お気に入り失敗
         }
       })();
     }
@@ -129,13 +128,12 @@ export default function AnswerScreen() {
     if (!question) return;
 
     const newFlag = !question.is_favorite;
-    console.info('answer toggle favorite', { id: question.id, flag: newFlag });
     try {
       // SQLite に反映し、画面でも即時更新します
       await updateFavorite(question.id, newFlag);
       setQuestion((prev) => (prev ? { ...prev, is_favorite: newFlag } : prev));
     } catch (err) {
-      console.error('お気に入り更新失敗', err);
+      // お気に入り更新失敗
     }
   };
 
@@ -155,7 +153,6 @@ export default function AnswerScreen() {
 
   /* ───── 次の問題へ ───── */
   const goNext = () => {
-    console.info('go next question');
     const nextIndex = (current ? parseInt(current, 10) : 0) + 1;
     const list = ids?.split(',').filter(Boolean) ?? [];
     if (nextIndex < list.length) {
