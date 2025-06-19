@@ -1,7 +1,6 @@
 | ライブラリ / ツール          | 推奨バージョン (2025年)            | 備考                                   |
 | ---------------------------- | ---------------------------------- | -------------------------------------- |
 | Zustand                      | **5.0.4 以上**（v5 系）            | RN 0.79 対応の安定版                   |
-| Firebase (JS SDK)            | **11.x 系列**（例: 11.7.1）        | Expo Go で Firestore 利用可            |
 | Jest                         | **29.7.x**（最新安定版）           | 安定版（v30 は大規模アップデート予定） |
 | React Native Testing Library | **13.2.0**（v13 系 最新安定）      | React 18/19 & RN 0.78+ 対応            |
 | GitHub Actions               | **最新安定**（公式 Actions v3 系） | バージョン番号は固定でなく最新版を推奨 |
@@ -36,22 +35,13 @@ git clone https://github.com/<YOUR_ORG>/AnesQuiz.git
 cd AnesQuiz
 npm install
 
-### 3. 環境変数 .env
+### 3. SQLite データベース生成
 
+```bash
+npm run build:sqlite
 ```
 
-ルートに .env を作成（コミットしない）
-
-Firebase の各種キーを記入してください。
-
-# .env 例
-
-FIREBASE_API_KEY="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-FIREBASE_AUTH_DOMAIN="anesquiz.firebaseapp.com"
-FIREBASE_PROJECT_ID="anesquiz"
-FIREBASE_STORAGE_BUCKET="anesquiz.appspot.com"
-FIREBASE_MESSAGING_SENDER_ID="1234567890"
-FIREBASE_APP_ID="1:1234567890:web:abcdef123456"
+`assets/db/app.db` が作成されます。
 
 ### 4. 開発サーバ起動
 
@@ -74,5 +64,5 @@ npx expo start --clear
 ```bash
 npm run build:sqlite
 ```
-実行後、`assets/db/app.db` が生成されます。
 
+実行後、`assets/db/app.db` が生成されます。
