@@ -8,6 +8,7 @@ import {
   getQuestionsCount,
   getQuestionsLimit5,
   getLatestLearningLogs,
+  deleteDatabase,
 } from '@/src/utils/db';
 
 export default function Settings() {
@@ -40,6 +41,13 @@ export default function Settings() {
     }
   };
 
+  const handleDeleteDb = async () => {
+    try {
+      await deleteDatabase();
+    } catch (err: any) {
+      // エラー内容は一旦無視
+    }
+  };
 
   const handleDropQuestions = async () => {
     try {
@@ -82,6 +90,13 @@ export default function Settings() {
           style={{ marginBottom: 8 }}
         >
           📜 学習ログ表示
+        </Button>
+        <Button
+          mode="contained"
+          onPress={handleDeleteDb}
+          style={{ marginBottom: 8 }}
+        >
+          🗑️ DBファイル削除
         </Button>
       </View>
 

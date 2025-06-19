@@ -15,6 +15,21 @@ function generateUUID(): string {
 let dbPromise: Promise<SQLiteDatabase> | null = null;
 let dbCopiedFromAsset = false;
 
+/* ------------------------------------------------------------------ */
+/* DB ファイルを削除して次回起動時に再コピーさせる                    */
+/* ------------------------------------------------------------------ */
+export async function deleteDatabase(): Promise<void> {
+  const sqlitePath = `${FileSystem.documentDirectory}SQLite/app.db`;
+  const info = await FileSystem.getInfoAsync(sqlitePath);
+  if (info.exists) {
+    // FileSystem.deleteAsync は指定したファイルを非同期で削除します
+    await FileSystem.deleteAsync(sqlitePath, { idempotent: true });
+  }
+  // 次回 getDB 呼び出し時に新しい DB をコピーさせるためリセット
+  dbPromise = null;
+  dbCopiedFromAsset = false;
+}
+
 /** シングルトンで DB を取得（新 API 版） */
 export async function getDB(): Promise<SQLiteDatabase> {
   if (!dbPromise) {

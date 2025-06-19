@@ -78,3 +78,18 @@ npm run build:sqlite
 ```
 
 実行後、`assets/db/app.db` が生成されます。
+
+### DB ファイルの手動削除
+
+Expo アプリを一度起動すると、データベースは端末の
+`FileSystem.documentDirectory/SQLite` にコピーされます。
+新しい DB を反映させたい場合は `deleteDatabase` 関数で
+このファイルを削除してください。
+
+```ts
+import { deleteDatabase } from './src/utils/db';
+
+await deleteDatabase();
+```
+
+設定画面の **DBファイル削除** ボタンからも実行できます。
