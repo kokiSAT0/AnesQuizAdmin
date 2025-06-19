@@ -22,10 +22,6 @@ export default function Settings() {
   const [showLogModal, setShowLogModal] = useState(false);
   const [dailyLogs, setDailyLogs] = useState<any[]>([]);
 
-  const appendLog = (msg: string) => {
-    console.log(msg);
-  };
-
   const handleShowData = async () => {
     try {
       const total = await getQuestionsCount();
@@ -34,7 +30,7 @@ export default function Settings() {
       setFetchedRows(rows);
       setShowDataModal(true);
     } catch (err: any) {
-      appendLog(`SQLite 取得エラー: ${err.message}`);
+      // エラー内容は一旦無視
     }
   };
 
@@ -44,34 +40,31 @@ export default function Settings() {
       setDailyLogs(rows);
       setShowLogModal(true);
     } catch (err: any) {
-      appendLog(`ログ取得エラー: ${err.message}`);
+      // エラー内容は一旦無視
     }
   };
 
   const handleDropQuestions = async () => {
     try {
       await dropQuestionsTable();
-      appendLog('Questions テーブルを削除しました');
     } catch (err: any) {
-      appendLog(`削除エラー: ${err.message}`);
+      // エラー内容は一旦無視
     }
   };
 
   const handleDropAppInfo = async () => {
     try {
       await dropAppInfoTable();
-      appendLog('AppInfo テーブルを削除しました');
     } catch (err: any) {
-      appendLog(`削除エラー: ${err.message}`);
+      // エラー内容は一旦無視
     }
   };
 
   const handleDropLogsTbl = async () => {
     try {
       await dropLearningLogsTable();
-      appendLog('LearningDailyLogs テーブルを削除しました');
     } catch (err: any) {
-      appendLog(`削除エラー: ${err.message}`);
+      // エラー内容は一旦無視
     }
   };
 

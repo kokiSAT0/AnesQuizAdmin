@@ -137,19 +137,12 @@ export default function SelectScreen() {
 
   const startQuiz = async () => {
     try {
-      console.info('startQuiz condition', {
-        levels: selected,
-        categories: selectedCategories,
-        favoriteOnly,
-        progress: selectedProgress,
-      });
       const ids = await getQuestionIdsByFilter(
         selected,
         selectedCategories,
         favoriteOnly,
         selectedProgress,
       );
-      console.info('startQuiz ids', ids);
       if (ids.length === 0) {
         Alert.alert('該当する問題がありません');
         return;
@@ -159,8 +152,6 @@ export default function SelectScreen() {
       }
       router.push({ pathname: '/quiz', params: { ids: ids.join(',') } });
     } catch (e) {
-      // eslint-disable-next-line no-console
-      if (__DEV__) console.error('ID 取得失敗', e);
       Alert.alert('データ取得エラー', '問題一覧を読み込めませんでした。');
     }
   };

@@ -20,10 +20,8 @@ export default function IndexScreen() {
       try {
         await initializeDatabaseIfNeeded();
         const id = await getOrCreateUserId();
-        console.log(`DB initialization complete (user_id: ${id})`);
         await getQuestionsCount();
       } catch (err: any) {
-        console.log(`DB init error: ${err.message}`);
         Alert.alert('起動エラー', 'データベースの初期化に失敗しました。');
       }
     })();
