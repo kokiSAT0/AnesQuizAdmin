@@ -11,9 +11,8 @@
     "lint": "expo lint",
     "lint:fix": "eslint . --fix",
     "test": "jest --passWithNoTests",
-    "prepare": "husky install",
-    "seed": "tsx scripts/bulkInsertQuestions.ts",
-    "seed:prod": "tsx scripts/bulkInsertQuestions.ts --prod"
+    "prepare": "husky install"
+    
   },
   "expo": {
     "doctor": {
