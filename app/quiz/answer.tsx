@@ -12,6 +12,8 @@ import {
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Text, Button, useTheme } from 'react-native-paper';
+// [br] を改行に変換してくれるコンポーネント
+import { ResponsiveText } from '@/components/ResponsiveText';
 import { createQuestionTextStyle } from '@/components/TextStyles';
 import { AntDesign } from '@expo/vector-icons';
 import { AppHeader } from '@/components/AppHeader';
@@ -207,7 +209,8 @@ export default function AnswerScreen() {
             ))}
           </View>
 
-          <Text style={tStyles.question}>{question.question}</Text>
+          {/* [br] マーカーを改行へ変換 */}
+          <ResponsiveText text={question.question} style={tStyles.question} />
           <Pressable onPress={toggleUsed} style={styles.usedBtn}>
             {question.is_used ? (
               <AntDesign
@@ -258,7 +261,11 @@ export default function AnswerScreen() {
                 { width: width * 0.9, backgroundColor: bg },
               ]}
             >
-              <Text style={[styles.choiceText, { color: fg }]}>{opt.text}</Text>
+              {/* 選択肢内の [br] も改行に対応 */}
+              <ResponsiveText
+                text={opt.text}
+                style={[styles.choiceText, { color: fg }]}
+              />
             </View>
           );
         })}
