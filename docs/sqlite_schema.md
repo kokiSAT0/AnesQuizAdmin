@@ -2,6 +2,7 @@
 
 ```mermaid
 erDiagram
+    %% 既存テーブル
     QUESTIONS {
       string  id PK
       string  type
@@ -23,37 +24,66 @@ erDiagram
       string  last_incorrect_at
     }
 
-    LEARNINGDAILYLOGS {
-      string  user_id PK
-      string  learning_date PK
-      string  answers_json
+    %% 追加テーブル
+    USERS {
+      string  id PK
+      string  nickname
       string  created_at
-      string  updated_at
+      string  last_active_at
     }
 
-    QUESTIONS ||--o{ LEARNINGDAILYLOGS : "question_id（JSON 内で参照）"
+    QUESTION_ATTEMPTS {
+      string  user_id PK
+      string  question_id PK
+      string  answered_at PK
+      int     is_correct
+      int     response_ms
+    }
 
+    REVIEW_QUEUE {
+      string  user_id PK
+      string  question_id PK
+      string  next_review_at
+      int     interval_days
+      real    ease_factor
+      int     repetition
+      int     last_is_correct
+      string  last_answered_at
+    }
+
+    LEARNING_DAILY_STATS {
+      string  user_id PK
+      string  learning_date PK
+      int     attempts_total
+      int     correct_total
+      int     xp_gained
+      int     streak_after_today
+    }
+
+    BADGES {
+      string  id PK
+      string  name
+      string  description
+      string  criteria_json
+    }
+
+    USER_BADGES {
+      string  user_id PK
+      string  badge_id PK
+      string  earned_at
+    }
+
+    QUESTIONS ||--o{ QUESTION_ATTEMPTS : question_id
+    QUESTIONS ||--o{ REVIEW_QUEUE : question_id
+    USERS ||--o{ QUESTION_ATTEMPTS : user_id
+    USERS ||--o{ REVIEW_QUEUE : user_id
+    USERS ||--o{ LEARNING_DAILY_STATS : user_id
+    USERS ||--o{ USER_BADGES : user_id
+    BADGES ||--o{ USER_BADGES : badge_id
 ```
 
-- `Questions` テーブルのみを使用します。
-- 各カラムはアプリ側の `Question` 型 (`types/question.ts`) に対応します。
-- 現在は **SQLite のみ** でデータを管理します。
-- `*_json` と付くカラムは配列やオブジェクトを **JSON 文字列** として保存しています。
-- `first_attempt_correct` と `first_attempted_at` を記録して初回解答を判定します。
-- `is_used` も **0/1 の整数**で、0 の場合は出題対象から除外されます。
+- `*_json` と付くカラムには配列やオブジェクトを JSON 文字列として保存します。
+- `LearningDailyStats` はその日の解答数や経験値を集計して保存するテーブルです。
+- `ReviewQueue` は SuperMemo-2 法に基づき次回復習日を管理します。
+- `QuestionAttempts` は 1 回の解答を 1 行として保持し、後から弱点分析に利用します。
 
-### LearningDailyLogs テーブルの記録ルール
-
-`LearningDailyLogs` は 1 日分の学習履歴を 1 行にまとめます。`learning_date` は `YYYY-MM-DD` 形式の日付文字列です。
-`answers_json` には下記のように問題 ID ごとの解答回数と正解回数を保存します。
-
-```json
-{
-  "an0000001": { "attempts": 3, "correct": 2 },
-  "an0000042": { "attempts": 1, "correct": 0 }
-}
-```
-
-同じ日に解答した場合は既存レコードを更新し、`attempts` と `correct` を増やします。
-
-このファイルを参照すれば、SQLite の現在の構造を簡単に確認できます。
