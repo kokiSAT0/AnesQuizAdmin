@@ -53,8 +53,7 @@ npx expo start --clear
 
 ## ドキュメント
 
-- Firestore の構成: [docs/firestore_schema.md](docs/firestore_schema.md)
-- SQLite の構成: [docs/sqlite_schema.md](docs/sqlite_schema.md)
+- データベース構成: [docs/sqlite_schema.md](docs/sqlite_schema.md)
 
 ## Expo export / リリース前の準備
 
