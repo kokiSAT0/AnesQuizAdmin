@@ -33,7 +33,7 @@
 ```bash
 git clone https://github.com/<YOUR_ORG>/AnesQuiz.git
 cd AnesQuiz
-npm install
+npm ci
 
 ### 3. SQLite データベース生成
 
