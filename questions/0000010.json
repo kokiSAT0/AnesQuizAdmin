@@ -1,0 +1,117 @@
+[
+  {
+    "id": "an0000006",
+    "type": "single_choice",
+    "categories": [
+      "筋弛緩薬"
+    ],
+    "tags": [
+      "スキサメトニウム",
+      "作用時間"
+    ],
+    "difficulty": "初級",
+    "question": "スキサメトニウムの[br]作用時間は?",
+    "options": [
+      "約1分",
+      "約10分",
+      "約60分"
+    ],
+    "correct_answers": [
+      0
+    ],
+    "explanation": "超短時間型筋弛緩薬であり作用時間はおよそ1分で消失する。",
+    "references": []
+  },
+  {
+    "id": "an0000007",
+    "type": "single_choice",
+    "categories": [
+      "気道管理"
+    ],
+    "tags": [
+      "声門上器具",
+      "ラリンジアルマスク"
+    ],
+    "difficulty": "初級",
+    "question": "声門上挿入[br]器具はどれ?",
+    "options": [
+      "ラリンジアルマスク",
+      "胃管",
+      "気管支鏡"
+    ],
+    "correct_answers": [
+      0
+    ],
+    "explanation": "ラリンジアルマスクは声門上に留置して換気を行うデバイスである。",
+    "references": []
+  },
+  {
+    "id": "an0000008",
+    "type": "single_choice",
+    "categories": [
+      "循環管理"
+    ],
+    "tags": [
+      "フェニレフリン",
+      "昇圧薬"
+    ],
+    "difficulty": "初級",
+    "question": "フェニレフリンの[br]主作用は?",
+    "options": [
+      "末梢血管収縮",
+      "心拍数増加",
+      "利尿作用"
+    ],
+    "correct_answers": [
+      0
+    ],
+    "explanation": "純α1刺激で末梢血管抵抗を増加させ血圧を上げる。",
+    "references": []
+  },
+  {
+    "id": "an0000009",
+    "type": "single_choice",
+    "categories": [
+      "体温管理"
+    ],
+    "tags": [
+      "保温",
+      "加温ブランケット"
+    ],
+    "difficulty": "初級",
+    "question": "低体温を防ぐ[br]保温法は?",
+    "options": [
+      "加温ブランケット",
+      "冷却マット",
+      "高濃度酸素吸入"
+    ],
+    "correct_answers": [
+      0
+    ],
+    "explanation": "強制加温ブランケットは術中低体温を予防する標準的手法である。",
+    "references": []
+  },
+  {
+    "id": "an0000010",
+    "type": "single_choice",
+    "categories": [
+      "呼吸管理"
+    ],
+    "tags": [
+      "ETCO₂",
+      "正常値"
+    ],
+    "difficulty": "初級",
+    "question": "ETCO₂の[br]正常値は?",
+    "options": [
+      "35‑45 mmHg",
+      "20‑30 mmHg",
+      "50‑60 mmHg"
+    ],
+    "correct_answers": [
+      0
+    ],
+    "explanation": "正常呼吸では終末呼気二酸化炭素分圧は35‑45 mmHgに保たれる。",
+    "references": []
+  }
+]

@@ -1,0 +1,117 @@
+[
+  {
+    "id": "an0000011",
+    "type": "single_choice",
+    "categories": [
+      "吸入麻酔薬"
+    ],
+    "tags": [
+      "MAC",
+      "セボフルラン"
+    ],
+    "difficulty": "初級",
+    "question": "セボフルランの[br]MAC値は?",
+    "options": [
+      "1.8 %",
+      "2.8 %",
+      "0.8 %"
+    ],
+    "correct_answers": [
+      0
+    ],
+    "explanation": "成人では約1.8 %がMAC（最小肺胞濃度）とされる。",
+    "references": []
+  },
+  {
+    "id": "an0000012",
+    "type": "single_choice",
+    "categories": [
+      "区域麻酔"
+    ],
+    "tags": [
+      "硬膜外麻酔",
+      "穿刺部位"
+    ],
+    "difficulty": "初級",
+    "question": "硬膜外麻酔の[br]穿刺部位は?",
+    "options": [
+      "硬膜外腔",
+      "くも膜下腔",
+      "椎間孔"
+    ],
+    "correct_answers": [
+      0
+    ],
+    "explanation": "硬膜外麻酔は硬膜外腔にカテーテルを留置する。",
+    "references": []
+  },
+  {
+    "id": "an0000013",
+    "type": "single_choice",
+    "categories": [
+      "モニタリング"
+    ],
+    "tags": [
+      "パルスオキシメータ",
+      "SpO2"
+    ],
+    "difficulty": "初級",
+    "question": "パルスオキシメータの[br]測定指標は?",
+    "options": [
+      "SpO₂",
+      "PaO₂",
+      "PaCO₂"
+    ],
+    "correct_answers": [
+      0
+    ],
+    "explanation": "パルスオキシメータは動脈血酸素飽和度(SpO₂)を連続測定する。",
+    "references": []
+  },
+  {
+    "id": "an0000014",
+    "type": "single_choice",
+    "categories": [
+      "筋弛緩薬"
+    ],
+    "tags": [
+      "ロクロニウム",
+      "拮抗薬"
+    ],
+    "difficulty": "初級",
+    "question": "ロクロニウムの[br]拮抗薬は?",
+    "options": [
+      "スガマデクス",
+      "ネオスチグミン",
+      "ジアゼパム"
+    ],
+    "correct_answers": [
+      0
+    ],
+    "explanation": "スガマデクスはロクロニウムを包接し可逆化する特異的拮抗薬である。",
+    "references": []
+  },
+  {
+    "id": "an0000015",
+    "type": "single_choice",
+    "categories": [
+      "術後管理"
+    ],
+    "tags": [
+      "PONV",
+      "制吐薬"
+    ],
+    "difficulty": "初級",
+    "question": "PONV予防に[br]推奨される薬剤は?",
+    "options": [
+      "オンダンセトロン",
+      "アセトアミノフェン",
+      "フェニレフリン"
+    ],
+    "correct_answers": [
+      0
+    ],
+    "explanation": "セロトニン受容体拮抗薬オンダンセトロンが術後悪心嘔吐予防に有効。",
+    "references": []
+  }
+]

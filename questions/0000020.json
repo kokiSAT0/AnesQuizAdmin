@@ -1,0 +1,117 @@
+[
+  {
+    "id": "an0000016",
+    "type": "single_choice",
+    "categories": [
+      "全身麻酔"
+    ],
+    "tags": [
+      "ASA‑PS",
+      "術前評価"
+    ],
+    "difficulty": "初級",
+    "question": "健康成人の[br]ASA‑PS分類は?",
+    "options": [
+      "Class I",
+      "Class III",
+      "Class IV"
+    ],
+    "correct_answers": [
+      0
+    ],
+    "explanation": "疾患のない健康成人はASA‑PS Class Iに分類される。",
+    "references": []
+  },
+  {
+    "id": "an0000017",
+    "type": "single_choice",
+    "categories": [
+      "鎮痛薬"
+    ],
+    "tags": [
+      "NSAIDs",
+      "副作用"
+    ],
+    "difficulty": "初級",
+    "question": "NSAIDsの[br]主な副作用は?",
+    "options": [
+      "胃腸障害",
+      "高血糖",
+      "気管支拡張"
+    ],
+    "correct_answers": [
+      0
+    ],
+    "explanation": "プロスタグランジン抑制により胃粘膜障害が起こりやすい。",
+    "references": []
+  },
+  {
+    "id": "an0000018",
+    "type": "single_choice",
+    "categories": [
+      "呼吸管理"
+    ],
+    "tags": [
+      "PEEP",
+      "換気設定"
+    ],
+    "difficulty": "初級",
+    "question": "PEEP設定の[br]主目的は?",
+    "options": [
+      "肺胞虚脱防止",
+      "脳圧上昇",
+      "心拍数低下"
+    ],
+    "correct_answers": [
+      0
+    ],
+    "explanation": "呼気終末陽圧は肺胞を開存させ酸素化を改善する。",
+    "references": []
+  },
+  {
+    "id": "an0000019",
+    "type": "single_choice",
+    "categories": [
+      "循環管理"
+    ],
+    "tags": [
+      "心拍出量",
+      "計算式"
+    ],
+    "difficulty": "初級",
+    "question": "心拍出量の[br]計算要素は?",
+    "options": [
+      "心拍数と1回拍出量",
+      "血圧と心拍数",
+      "末梢抵抗と血圧"
+    ],
+    "correct_answers": [
+      0
+    ],
+    "explanation": "Cardiac output = Heart rate × Stroke volume。",
+    "references": []
+  },
+  {
+    "id": "an0000020",
+    "type": "single_choice",
+    "categories": [
+      "術中輸液"
+    ],
+    "tags": [
+      "維持輸液量",
+      "計算"
+    ],
+    "difficulty": "初級",
+    "question": "成人の維持輸液量[br]の目安は?",
+    "options": [
+      "1‑2 mL/kg/h",
+      "4‑6 mL/kg/h",
+      "10‑12 mL/kg/h"
+    ],
+    "correct_answers": [
+      1
+    ],
+    "explanation": "一般的に基礎維持液は約4‑6 mL/kg/hとされる。",
+    "references": []
+  }
+]
