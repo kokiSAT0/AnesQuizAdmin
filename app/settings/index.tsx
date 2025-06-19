@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, ScrollView, Modal, ActivityIndicator } from 'react-native';
+import { View, ScrollView, Modal } from 'react-native';
 import { router } from 'expo-router';
 import { Screen } from '@/components/Screen';
 import { AppHeader } from '@/components/AppHeader';
@@ -14,7 +14,6 @@ import {
   dropLearningLogsTable,
   initializeDatabaseIfNeeded,
 } from '@/src/utils/db';
-import { syncFirestoreToSQLite } from '@/src/utils/firestoreSync';
 
 export default function Settings() {
   const theme = useTheme();
@@ -23,7 +22,6 @@ export default function Settings() {
   const disable = useDebugStore((s) => s.disable);
   const clearLogs = useDebugStore((s) => s.clearLogs);
   const [pass, setPass] = useState('');
-  const [isSyncing, setIsSyncing] = useState(false);
   const [showDataModal, setShowDataModal] = useState(false);
   const [totalRecords, setTotalRecords] = useState(0);
   const [fetchedRows, setFetchedRows] = useState<any[]>([]);
@@ -44,22 +42,6 @@ export default function Settings() {
 
   const appendLog = (msg: string) => {
     console.log(msg);
-  };
-
-  const handleSync = async () => {
-    if (isSyncing) return;
-    setIsSyncing(true);
-    appendLog('同期開始');
-    try {
-      // テーブルが存在しない場合もあるため、毎回初期化を試みる
-      await initializeDatabaseIfNeeded();
-      const { importedCount } = await syncFirestoreToSQLite();
-      appendLog(`同期完了: ${importedCount}件`);
-    } catch (err: any) {
-      appendLog(`同期エラー: ${err.message}`);
-    } finally {
-      setIsSyncing(false);
-    }
   };
 
   const handleShowData = async () => {
@@ -130,13 +112,6 @@ export default function Settings() {
         </Button>
         <Button
           mode="contained"
-          onPress={handleSync}
-          style={{ marginBottom: 8 }}
-        >
-          🔄 Firestore → SQLite 同期
-        </Button>
-        <Button
-          mode="contained"
           onPress={handleShowData}
           style={{ marginBottom: 8 }}
         >
@@ -170,13 +145,6 @@ export default function Settings() {
         >
           Logs 削除
         </Button>
-        {isSyncing && (
-          <ActivityIndicator
-            style={{ marginTop: 16 }}
-            size="large"
-            color={theme.colors.onPrimary}
-          />
-        )}
       </View>
 
       <Modal
