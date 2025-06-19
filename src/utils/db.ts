@@ -126,6 +126,76 @@ export async function initializeDatabaseIfNeeded(): Promise<void> {
     );
   `);
 
+  // Users テーブル
+  await db.execAsync(`
+    CREATE TABLE IF NOT EXISTS Users (
+      id TEXT PRIMARY KEY,
+      nickname TEXT,
+      created_at TEXT,
+      last_active_at TEXT
+    );
+  `);
+
+  // QuestionAttempts テーブル
+  await db.execAsync(`
+    CREATE TABLE IF NOT EXISTS QuestionAttempts (
+      user_id TEXT,
+      question_id TEXT,
+      answered_at TEXT,
+      is_correct INTEGER,
+      response_ms INTEGER,
+      PRIMARY KEY (user_id, question_id, answered_at)
+    );
+  `);
+
+  // ReviewQueue テーブル
+  await db.execAsync(`
+    CREATE TABLE IF NOT EXISTS ReviewQueue (
+      user_id TEXT,
+      question_id TEXT,
+      next_review_at TEXT,
+      interval_days INTEGER,
+      ease_factor REAL,
+      repetition INTEGER,
+      last_is_correct INTEGER,
+      last_answered_at TEXT,
+      PRIMARY KEY (user_id, question_id)
+    );
+  `);
+
+  // LearningDailyStats テーブル
+  await db.execAsync(`
+    CREATE TABLE IF NOT EXISTS LearningDailyStats (
+      user_id TEXT,
+      learning_date TEXT,
+      attempts_total INTEGER,
+      correct_total INTEGER,
+      xp_gained INTEGER,
+      streak_after_today INTEGER,
+      PRIMARY KEY (user_id, learning_date)
+    );
+  `);
+
+  // Badges テーブル
+  await db.execAsync(`
+    CREATE TABLE IF NOT EXISTS Badges (
+      id TEXT PRIMARY KEY,
+      name TEXT,
+      description TEXT,
+      criteria_json TEXT
+    );
+  `);
+
+  // UserBadges テーブル
+  await db.execAsync(`
+    CREATE TABLE IF NOT EXISTS UserBadges (
+      user_id TEXT,
+      badge_id TEXT,
+      earned_at TEXT,
+      PRIMARY KEY (user_id, badge_id)
+    );
+  `);
+
   // LearningDailyLogs テーブルを必ず作成しておく（古い DB 対策）
   await db.execAsync(`
       CREATE TABLE IF NOT EXISTS LearningDailyLogs (

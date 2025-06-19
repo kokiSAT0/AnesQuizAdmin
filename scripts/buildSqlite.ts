@@ -20,6 +20,12 @@ const db = new Database(dbPath);
 // 既存のテーブルを削除してから作成する
 // スキーマ変更時に古いテーブルが残っているとINSERTに失敗するため
 db.exec('DROP TABLE IF EXISTS Questions;');
+db.exec('DROP TABLE IF EXISTS Users;');
+db.exec('DROP TABLE IF EXISTS QuestionAttempts;');
+db.exec('DROP TABLE IF EXISTS ReviewQueue;');
+db.exec('DROP TABLE IF EXISTS LearningDailyStats;');
+db.exec('DROP TABLE IF EXISTS Badges;');
+db.exec('DROP TABLE IF EXISTS UserBadges;');
 
 // Questions テーブルを作成
 // src/utils/db.ts と同じカラム構成にしています
@@ -45,6 +51,71 @@ CREATE TABLE IF NOT EXISTS Questions (
   last_answered_at TEXT,
   last_correct_at TEXT,
   last_incorrect_at TEXT
+);
+`);
+
+// 以下、追加テーブル定義
+db.exec(`
+CREATE TABLE IF NOT EXISTS Users (
+  id TEXT PRIMARY KEY,
+  nickname TEXT,
+  created_at TEXT,
+  last_active_at TEXT
+);
+`);
+
+db.exec(`
+CREATE TABLE IF NOT EXISTS QuestionAttempts (
+  user_id TEXT,
+  question_id TEXT,
+  answered_at TEXT,
+  is_correct INTEGER,
+  response_ms INTEGER,
+  PRIMARY KEY (user_id, question_id, answered_at)
+);
+`);
+
+db.exec(`
+CREATE TABLE IF NOT EXISTS ReviewQueue (
+  user_id TEXT,
+  question_id TEXT,
+  next_review_at TEXT,
+  interval_days INTEGER,
+  ease_factor REAL,
+  repetition INTEGER,
+  last_is_correct INTEGER,
+  last_answered_at TEXT,
+  PRIMARY KEY (user_id, question_id)
+);
+`);
+
+db.exec(`
+CREATE TABLE IF NOT EXISTS LearningDailyStats (
+  user_id TEXT,
+  learning_date TEXT,
+  attempts_total INTEGER,
+  correct_total INTEGER,
+  xp_gained INTEGER,
+  streak_after_today INTEGER,
+  PRIMARY KEY (user_id, learning_date)
+);
+`);
+
+db.exec(`
+CREATE TABLE IF NOT EXISTS Badges (
+  id TEXT PRIMARY KEY,
+  name TEXT,
+  description TEXT,
+  criteria_json TEXT
+);
+`);
+
+db.exec(`
+CREATE TABLE IF NOT EXISTS UserBadges (
+  user_id TEXT,
+  badge_id TEXT,
+  earned_at TEXT,
+  PRIMARY KEY (user_id, badge_id)
 );
 `);
 
