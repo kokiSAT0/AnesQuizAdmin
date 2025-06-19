@@ -44,6 +44,14 @@ export default function IndexScreen() {
         >
           クイズを始める
         </Button>
+        <Button
+          mode="outlined"
+          onPress={() => router.push('/history')}
+          style={styles.startButton}
+          contentStyle={styles.startButtonContent}
+        >
+          学習履歴
+        </Button>
       </View>
     </Screen>
   );
