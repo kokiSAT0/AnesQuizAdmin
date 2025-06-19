@@ -7,20 +7,12 @@ erDiagram
       string  type
       string  category_json
       string  tag_json
-      string  difficulty_level
-      float   difficulty_correct_rate
+      string  difficulty
       string  question
       string  option_json
       string  correct_json
       string  explanation
-      string  media_json
       string  reference_json
-      string  created_at
-      string  updated_at
-      string  created_by
-      int     reviewed
-      int     attempts
-      int     correct
       int     first_attempt_correct
       string  first_attempted_at
       int     is_favorite
@@ -44,12 +36,10 @@ erDiagram
 ```
 
 - `Questions` テーブルのみを使用します。
-- 各カラムはアプリ側の `Question` 型 (`types/firestore.ts`) に対応します。
+- 各カラムはアプリ側の `Question` 型 (`types/question.ts`) に対応します。
 - 現在は **SQLite のみ** でデータを管理します。
 - `*_json` と付くカラムは配列やオブジェクトを **JSON 文字列** として保存しています。
-- `reviewed` は **0/1 の整数**で、`boolean` として扱います。
-- 統計情報として `attempts` (解答数)、`correct` (正解数) に加え
-  `first_attempt_correct` と `first_attempted_at` を記録します。
+- `first_attempt_correct` と `first_attempted_at` を記録して初回解答を判定します。
 - `is_used` も **0/1 の整数**で、0 の場合は出題対象から除外されます。
 
 ### LearningDailyLogs テーブルの記録ルール
