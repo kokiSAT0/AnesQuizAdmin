@@ -11,6 +11,7 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { AppHeader } from '@/components/AppHeader';
 import { Text, Button, useTheme } from 'react-native-paper';
+import { ResponsiveText } from '@/components/ResponsiveText';
 import { createQuestionTextStyle } from '@/components/TextStyles';
 import { AntDesign } from '@expo/vector-icons';
 import {
@@ -21,7 +22,8 @@ import {
   updateFavorite,
   updateUsed,
 } from '@/src/utils/db';
-import type { Question } from '@/types/firestore';
+// 問題データの型
+import type { Question } from '@/types/question';
 
 const { width } = Dimensions.get('window');
 const FOOTER_HEIGHT = 64;
@@ -246,7 +248,7 @@ export default function Quiz() {
             ))}
           </View>
 
-          <Text style={tStyles.question}>{question.question}</Text>
+          <ResponsiveText text={question.question} style={tStyles.question} />
           <Pressable onPress={toggleUsed} style={styles.usedBtn}>
             {question.is_used ? (
               <AntDesign
@@ -299,7 +301,10 @@ export default function Quiz() {
               onPress={() => toggleSelect(opt.idx)}
               disabled={isAnswered}
             >
-              <Text style={[styles.choiceText, { color: fg }]}>{opt.text}</Text>
+              <ResponsiveText
+                text={opt.text}
+                style={[styles.choiceText, { color: fg }]}
+              />
             </Pressable>
           );
         })}
