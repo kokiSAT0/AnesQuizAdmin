@@ -134,26 +134,3 @@ export async function submitAnswers(
 
   await batch.commit();
 }
-
-/**
- * 初回解答時に問題の統計情報を更新します
- * @param id 更新対象の問題ID
- * @param isCorrect 正解なら true
- */
-export async function incrementQuestionStatistics(
-  id: string,
-  isCorrect: boolean,
-) {
-  // Firestore 上の集計データ(questionStats)を増やす
-  // set(..., { merge: true }) で既存フィールドに加算します
-  await setDoc(
-    doc(db, 'questionStats', id),
-    {
-      attempts: increment(1),
-      correct: increment(isCorrect ? 1 : 0),
-      // 更新日時を ISO 形式で記録
-      updated_at: new Date().toISOString(),
-    },
-    { merge: true },
-  );
-}
