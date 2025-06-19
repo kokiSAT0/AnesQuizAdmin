@@ -15,6 +15,10 @@ fs.mkdirSync(dbDir, { recursive: true });
 // データベースを開く（存在しなければ作成される）
 const db = new Database(dbPath);
 
+// 既存のテーブルを削除してから作成する
+// スキーマ変更時に古いテーブルが残っているとINSERTに失敗するため
+db.exec('DROP TABLE IF EXISTS Questions;');
+
 // Questions テーブルを作成
 // src/utils/db.ts と同じカラム構成にしています
 // INTEGER は数値、TEXT は文字列を保存する型です

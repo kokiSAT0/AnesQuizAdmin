@@ -37,9 +37,7 @@ describe('buildSqlite スクリプト', () => {
       .prepare('SELECT question FROM Questions WHERE id = ?')
       .get('an0000001');
     // 日本語の質問文が正しく保存されているか確認
-    expect(row?.question).toBe(
-      '成人男性の標準的な気管チューブサイズはどれか？',
-    );
+    expect(row?.question).toBe('プロポフォールの[br]投与経路は?');
     db.close();
   });
 });
