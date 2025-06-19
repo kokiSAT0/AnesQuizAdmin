@@ -43,7 +43,8 @@ erDiagram
 ```
 
 - `Questions` テーブルのみを使用します。
-- 各カラムはアプリ側の `Question` 型 (`types/firestore.ts`) に対応します。Firestore 上では `FirestoreQuestion` 型として個人データは保存されません。
+- 各カラムはアプリ側の `Question` 型 (`types/firestore.ts`) に対応します。
+- 現在は **SQLite のみ** でデータを管理します。
 - `*_json` と付くカラムは配列やオブジェクトを **JSON 文字列** として保存しています。
 - `reviewed` は **0/1 の整数**で、`boolean` として扱います。
 - 統計情報として `attempts` (解答数)、`correct` (正解数) に加え
