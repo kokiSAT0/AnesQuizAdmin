@@ -1,5 +1,6 @@
 import { getDB } from './connection';
 import { logInfo } from '../logger';
+import type { QuestionData, Question } from '@/src/types/question';
 export async function getMaxUpdatedAt(): Promise<string> {
   const db = await getDB();
 
@@ -14,7 +15,7 @@ export async function getMaxUpdatedAt(): Promise<string> {
 /* ------------------------------------------------------------------ */
 /* 2. Firestore → SQLite UPSERT                                       */
 /* ------------------------------------------------------------------ */
-export async function upsertQuestion(data: any): Promise<void> {
+export async function upsertQuestion(data: QuestionData): Promise<void> {
   const db = await getDB();
 
   const {
@@ -81,11 +82,32 @@ export async function getQuestionsCount(): Promise<number> {
 /* ------------------------------------------------------------------ */
 /* 4. 先頭 5 件を取得                                                  */
 /* ------------------------------------------------------------------ */
-export async function getQuestionsLimit5(): Promise<any[]> {
+export async function getQuestionsLimit5(): Promise<Question[]> {
   const db = await getDB();
-  return await db.getAllAsync(
+  const rows = await db.getAllAsync<SQLiteQuestionRow>(
     'SELECT * FROM Questions WHERE is_used = 1 ORDER BY id LIMIT 5;',
   );
+  return rows.map((row) => ({
+    id: row.id,
+    type: row.type,
+    categories: JSON.parse(row.category_json),
+    tags: JSON.parse(row.tag_json),
+    difficulty: row.difficulty,
+    question: row.question,
+    options: JSON.parse(row.option_json),
+    correct_answers: JSON.parse(row.correct_json),
+    explanation: row.explanation,
+    references: JSON.parse(row.reference_json),
+    first_attempt_correct:
+      row.first_attempt_correct === null ? null : !!row.first_attempt_correct,
+    first_attempted_at: row.first_attempted_at,
+    is_favorite: !!row.is_favorite,
+    is_used: !!row.is_used,
+    last_answer_correct: !!row.last_answer_correct,
+    last_answered_at: row.last_answered_at,
+    last_correct_at: row.last_correct_at,
+    last_incorrect_at: row.last_incorrect_at,
+  }));
 }
 
 /* ------------------------------------------------------------------ */
@@ -139,7 +161,7 @@ export async function getQuestionIdsByFilter(
   }
 
   const conditions: string[] = [];
-  const params: any[] = [];
+  const params: string[] = [];
 
   // 常に使用中の問題のみカウント
   conditions.push('is_used = 1');
@@ -216,7 +238,7 @@ export async function countQuestionsByFilter(
   }
 
   const conditions: string[] = [];
-  const params: any[] = [];
+  const params: string[] = [];
 
   if (levels.length) {
     const placeholders = levels.map(() => '?').join(', ');

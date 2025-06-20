@@ -1,6 +1,8 @@
 import { getDB } from './connection';
 import { getOrCreateUserId } from './user';
 import { calcSM2 } from '../sm2';
+import type { Question } from '@/src/types/question';
+import type { SQLiteQuestionRow } from './questions';
 
 /* ------------------------------------------------------------------ */
 /* 今日復習すべき問題を取得                                           */
@@ -41,7 +43,15 @@ export interface ReviewQuestion extends Question {
 export async function fetchDueList(limit = 30): Promise<ReviewQuestion[]> {
   const db = await getDB();
   const userId = await getOrCreateUserId();
-  const rows = await db.getAllAsync<any>(
+  const rows = await db.getAllAsync<
+    SQLiteQuestionRow & {
+      next_review_at: string;
+      interval_days: number;
+      ease_factor: number;
+      repetition: number;
+      last_is_correct: number;
+    }
+  >(
     `SELECT Q.*, R.next_review_at, R.interval_days, R.ease_factor, R.repetition, R.last_is_correct
        FROM Questions Q
        JOIN ReviewQueue R ON R.question_id = Q.id

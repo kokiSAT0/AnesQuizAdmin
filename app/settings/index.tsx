@@ -10,14 +10,16 @@ import {
   getLatestLearningLogs,
   deleteDatabase,
 } from '@/src/utils/db/index';
+import type { Question } from '@/src/types/question';
+import type { LearningDailyLog } from '@/src/types/learningLog';
 
 export default function Settings() {
   const theme = useTheme();
   const [showDataModal, setShowDataModal] = useState(false);
   const [totalRecords, setTotalRecords] = useState(0);
-  const [fetchedRows, setFetchedRows] = useState<any[]>([]);
+  const [fetchedRows, setFetchedRows] = useState<Question[]>([]);
   const [showLogModal, setShowLogModal] = useState(false);
-  const [dailyLogs, setDailyLogs] = useState<any[]>([]);
+  const [dailyLogs, setDailyLogs] = useState<LearningDailyLog[]>([]);
 
   const handleShowData = async () => {
     try {
