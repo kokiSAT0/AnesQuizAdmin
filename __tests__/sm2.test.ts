@@ -1,4 +1,4 @@
-import { calcSM2 } from '../src/utils/sm2';
+import { calcSM2 } from '../src/utils/sm2/index';
 
 describe('SM2 アルゴリズム', () => {
   test('初回正解で間隔1日', () => {

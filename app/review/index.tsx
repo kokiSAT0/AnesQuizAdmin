@@ -4,8 +4,8 @@ import { useLocalSearchParams, router } from 'expo-router';
 import { AppHeader } from '@/components/AppHeader';
 import { Screen } from '@/components/Screen';
 import { Button, Text, useTheme } from 'react-native-paper';
-import { fetchDueList, saveReviewResult } from '@/src/utils/db';
-import type { ReviewQuestion } from '@/src/utils/db';
+import { fetchDueList, saveReviewResult } from '@/src/utils/db/index';
+import type { ReviewQuestion } from '@/src/utils/db/index';
 
 export default function ReviewScreen() {
   const theme = useTheme();

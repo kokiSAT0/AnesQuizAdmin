@@ -10,6 +10,7 @@ import {
   Dimensions,
   StyleSheet,
 } from 'react-native';
+import { logInfo, logError } from '@/src/utils/logger';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Text, Button, useTheme } from 'react-native-paper';
 // [br] を改行に変換してくれるコンポーネント
@@ -17,7 +18,11 @@ import { ResponsiveText } from '@/components/ResponsiveText';
 import { createQuestionTextStyle } from '@/components/TextStyles';
 import { AntDesign } from '@expo/vector-icons';
 import { AppHeader } from '@/components/AppHeader';
-import { getQuestionById, updateFavorite, updateUsed } from '@/src/utils/db';
+import {
+  getQuestionById,
+  updateFavorite,
+  updateUsed,
+} from '@/src/utils/db/index';
 
 const { width } = Dimensions.get('window');
 const FOOTER_HEIGHT = 64;
@@ -144,12 +149,12 @@ export default function AnswerScreen() {
     if (!question) return;
 
     const newFlag = !question.is_used;
-    console.info('answer toggle used', { id: question.id, flag: newFlag });
+    logInfo('answer toggle used', { id: question.id, flag: newFlag });
     try {
       await updateUsed(question.id, newFlag);
       setQuestion((prev) => (prev ? { ...prev, is_used: newFlag } : prev));
     } catch (err) {
-      console.error('使用フラグ更新失敗', err);
+      logError('使用フラグ更新失敗', err);
     }
   };
 

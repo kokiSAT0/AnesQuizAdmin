@@ -9,7 +9,7 @@ import {
   initializeDatabaseIfNeeded,
   getQuestionsCount,
   getOrCreateUserId,
-} from '@/src/utils/db';
+} from '@/src/utils/db/index';
 
 export default function IndexScreen() {
   const theme = useTheme();

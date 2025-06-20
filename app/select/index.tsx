@@ -10,7 +10,10 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { AppHeader } from '@/components/AppHeader';
 import { Text, Button, Switch, Chip, Card, useTheme } from 'react-native-paper';
 import { router } from 'expo-router';
-import { getQuestionIdsByFilter, countQuestionsByFilter } from '@/src/utils/db';
+import {
+  getQuestionIdsByFilter,
+  countQuestionsByFilter,
+} from '@/src/utils/db/index';
 import { SelectableChip } from '@/components/SelectableChip';
 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
