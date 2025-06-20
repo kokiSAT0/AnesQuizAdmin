@@ -45,6 +45,14 @@ export default function IndexScreen() {
           クイズを始める
         </Button>
         <Button
+          mode="contained"
+          onPress={() => router.push('/review')}
+          style={styles.startButton}
+          contentStyle={styles.startButtonContent}
+        >
+          復習モード
+        </Button>
+        <Button
           mode="outlined"
           onPress={() => router.push('/history')}
           style={styles.startButton}
