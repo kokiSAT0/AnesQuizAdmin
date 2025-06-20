@@ -9,7 +9,7 @@ import {
   getQuestionsLimit5,
   getLatestLearningLogs,
   deleteDatabase,
-} from '@/src/utils/db';
+} from '@/src/utils/db/index';
 
 export default function Settings() {
   const theme = useTheme();

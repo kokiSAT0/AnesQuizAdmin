@@ -87,7 +87,7 @@ Expo アプリを一度起動すると、データベースは端末の
 このファイルを削除してください。
 
 ```ts
-import { deleteDatabase } from './src/utils/db';
+import { deleteDatabase } from './src/utils/db/index';
 
 await deleteDatabase();
 ```

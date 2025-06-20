@@ -9,6 +9,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { logInfo, logError } from '@/src/utils/logger';
 import { AppHeader } from '@/components/AppHeader';
 import { Text, Button, useTheme } from 'react-native-paper';
 import { ResponsiveText } from '@/components/ResponsiveText';
@@ -21,7 +22,7 @@ import {
   recordFirstAttempt,
   updateFavorite,
   updateUsed,
-} from '@/src/utils/db';
+} from '@/src/utils/db/index';
 // 問題データの型
 import type { Question } from '@/types/question';
 
@@ -94,11 +95,11 @@ export default function Quiz() {
   const toggleUsed = async () => {
     if (!question) return;
     const newFlag = !question.is_used;
-    console.info('toggle used', { id: question.id, flag: newFlag });
+    logInfo('toggle used', { id: question.id, flag: newFlag });
     try {
       await updateUsed(question.id, newFlag);
     } catch (err) {
-      console.error('使用フラグ更新失敗', err);
+      logError('使用フラグ更新失敗', err);
       return;
     }
     setQuestion((prev) => (prev ? { ...prev, is_used: newFlag } : prev));
