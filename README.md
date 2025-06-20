@@ -37,17 +37,20 @@ npm ci
 
 ### 3. SQLite データベース生成
 
+初回のみ手動で実行し、DB ファイル `assets/db/app.db` を生成します。
+
 ```bash
 npm run build:sqlite
 ```
 
-`assets/db/app.db` が作成されます。
-
 ### 4. 開発サーバ起動
 
-# キャッシュクリア付き起動を推奨
+`npm start` もしくは `npm run android/ios/web` を実行すると、
+起動前に自動で `build:sqlite` が走ります。
 
-npx expo start --clear
+```bash
+npm start -- --clear
+```
 
 ---
 
