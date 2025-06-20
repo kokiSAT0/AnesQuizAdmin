@@ -4,11 +4,10 @@ import { router } from 'expo-router';
 import {
   Text,
   useTheme,
-  TabView,
-  TabBar,
   ProgressBar,
   List,
   Button,
+  SegmentedButtons,
 } from 'react-native-paper';
 import { Screen } from '@/components/Screen';
 import { AppHeader } from '@/components/AppHeader';
@@ -53,6 +52,7 @@ export default function HistoryScreen() {
       style={[styles.screen, { backgroundColor: theme.colors.background }]}
     >
       <AppHeader title="学習履歴" onBack={() => router.back()} />
+
       <TabView
         navigationState={{ index, routes }}
         renderScene={renderScene}
@@ -63,7 +63,9 @@ export default function HistoryScreen() {
             style={[styles.tabBar, { backgroundColor: theme.colors.primary }]}
           />
         )}
+
       />
+      {renderScene({ route: routes[index] })}
     </Screen>
   );
 }
