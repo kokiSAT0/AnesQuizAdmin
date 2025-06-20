@@ -34,7 +34,9 @@ export default function ReviewScreen() {
 
   if (!loaded) {
     return (
-      <Screen style={{ backgroundColor: theme.colors.background }}>
+      <Screen
+        style={[styles.screen, { backgroundColor: theme.colors.background }]}
+      >
         <AppHeader title="復習モード" onBack={() => router.back()} />
         <View style={styles.center}>
           <Text>読み込み中...</Text>
@@ -45,13 +47,15 @@ export default function ReviewScreen() {
 
   if (list.length === 0) {
     return (
-      <Screen style={{ backgroundColor: theme.colors.background }}>
+      <Screen
+        style={[styles.screen, { backgroundColor: theme.colors.background }]}
+      >
         <AppHeader title="復習モード" onBack={() => router.back()} />
         <View style={styles.center}>
           <Text>今日は復習すべき問題はありません</Text>
           <Button
             onPress={() => router.replace('/select')}
-            style={{ marginTop: 8 }}
+            style={styles.marginTop}
           >
             通常モード
           </Button>
@@ -63,7 +67,9 @@ export default function ReviewScreen() {
   const q = list[current];
 
   return (
-    <Screen style={{ backgroundColor: theme.colors.background }}>
+    <Screen
+      style={[styles.screen, { backgroundColor: theme.colors.background }]}
+    >
       <AppHeader
         title={`復習 ${current + 1} / ${list.length}`}
         onBack={() => router.back()}
@@ -97,6 +103,12 @@ export default function ReviewScreen() {
 }
 
 const styles = StyleSheet.create({
+  // 画面全体
+  screen: {
+    flex: 1,
+  },
+  // 余白用
+  marginTop: { marginTop: 8 },
   center: { flex: 1, alignItems: 'center', justifyContent: 'center' },
   question: { fontSize: 18, marginBottom: 16, textAlign: 'center' },
   btn: { marginVertical: 4, width: 200 },

@@ -28,14 +28,16 @@ export default function IndexScreen() {
   }, []);
 
   return (
-    <Screen style={{ backgroundColor: theme.colors.background }}>
+    <Screen
+      style={[styles.screen, { backgroundColor: theme.colors.background }]}
+    >
       <AppHeader
         title="AnesQuiz α版"
         rightIcon="cog"
         onRightPress={() => router.push('/settings')}
       />
 
-      <View style={{ alignItems: 'center', flex: 1, justifyContent: 'center' }}>
+      <View style={styles.center}>
         <Button
           mode="contained"
           onPress={() => router.push('/select')}
@@ -66,6 +68,16 @@ export default function IndexScreen() {
 }
 
 const styles = StyleSheet.create({
+  // 画面全体の配置調整
+  screen: {
+    flex: 1,
+  },
+  // 中央寄せレイアウト
+  center: {
+    alignItems: 'center',
+    flex: 1,
+    justifyContent: 'center',
+  },
   // クイズ開始ボタンのスタイル
   startButton: {
     width: 320,

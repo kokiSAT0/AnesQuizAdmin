@@ -8,14 +8,16 @@ import { Button, Text, useTheme } from 'react-native-paper';
 export default function ReviewSummary() {
   const theme = useTheme();
   return (
-    <Screen style={{ backgroundColor: theme.colors.background }}>
+    <Screen
+      style={[styles.screen, { backgroundColor: theme.colors.background }]}
+    >
       <AppHeader title="復習完了" onBack={() => router.replace('/')} />
       <View style={styles.center}>
         <Text>お疲れさまでした！</Text>
         <Button
           mode="contained"
           onPress={() => router.replace('/')}
-          style={{ marginTop: 16 }}
+          style={styles.marginTop}
         >
           ホームに戻る
         </Button>
@@ -25,5 +27,9 @@ export default function ReviewSummary() {
 }
 
 const styles = StyleSheet.create({
+  // 画面全体
+  screen: { flex: 1 },
+  // 上マージン
+  marginTop: { marginTop: 16 },
   center: { flex: 1, alignItems: 'center', justifyContent: 'center' },
 });
