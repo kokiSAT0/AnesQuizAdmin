@@ -1,14 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, FlatList } from 'react-native';
 import { router } from 'expo-router';
-import {
-  Text,
-  useTheme,
-  ProgressBar,
-  List,
-  Button,
-  SegmentedButtons,
-} from 'react-native-paper';
+import { Text, useTheme, ProgressBar, List, Button } from 'react-native-paper';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { Screen } from '@/components/Screen';
 import { AppHeader } from '@/components/AppHeader';
 import {
@@ -19,49 +13,48 @@ import {
   getDueReviewItems,
 } from '@/src/utils/db/index';
 
+const Tab = createMaterialTopTabNavigator();
+
 export default function HistoryScreen() {
   const theme = useTheme();
-  const [index, setIndex] = useState(0);
-  const [routes] = useState([
-    { key: 'overview', title: 'Overview' },
-    { key: 'timeline', title: 'Timeline' },
-    { key: 'categories', title: 'Categories' },
-    { key: 'badges', title: 'Badges' },
-    { key: 'review', title: 'Review' },
-  ]);
-
-  const renderScene = ({ route }: any) => {
-    switch (route.key) {
-      case 'overview':
-        return <OverviewTab />;
-      case 'timeline':
-        return <TimelineTab />;
-      case 'categories':
-        return <CategoriesTab />;
-      case 'badges':
-        return <BadgesTab />;
-      case 'review':
-        return <ReviewTab />;
-      default:
-        return null;
-    }
-  };
 
   return (
     <Screen
       style={[styles.screen, { backgroundColor: theme.colors.background }]}
     >
       <AppHeader title="学習履歴" onBack={() => router.back()} />
-
-      <SegmentedButtons
-        value={routes[index].key}
-        onValueChange={(value) =>
-          setIndex(routes.findIndex((r) => r.key === value))
-        }
-        buttons={routes.map((r) => ({ value: r.key, label: r.title }))}
-        style={styles.segmented}
-      />
-      {renderScene({ route: routes[index] })}
+      {/* TopTabNavigator を配置 */}
+      <Tab.Navigator
+        screenOptions={{
+          tabBarIndicatorStyle: { backgroundColor: theme.colors.primary },
+        }}
+      >
+        <Tab.Screen
+          name="overview"
+          component={OverviewTab}
+          options={{ title: 'Overview' }}
+        />
+        <Tab.Screen
+          name="timeline"
+          component={TimelineTab}
+          options={{ title: 'Timeline' }}
+        />
+        <Tab.Screen
+          name="categories"
+          component={CategoriesTab}
+          options={{ title: 'Categories' }}
+        />
+        <Tab.Screen
+          name="badges"
+          component={BadgesTab}
+          options={{ title: 'Badges' }}
+        />
+        <Tab.Screen
+          name="review"
+          component={ReviewTab}
+          options={{ title: 'Review' }}
+        />
+      </Tab.Navigator>
     </Screen>
   );
 }
@@ -201,10 +194,6 @@ const styles = StyleSheet.create({
   // 画面全体の配置調整
   screen: {
     flex: 1,
-  },
-  // SegmentedButtons 用のスタイル
-  segmented: {
-    marginBottom: 8,
   },
   // 上マージン
   marginTop: {
