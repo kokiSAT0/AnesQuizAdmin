@@ -44,7 +44,7 @@ export async function getDB(): Promise<SQLiteDatabase> {
       );
 
       // アセットから DB ファイルをコピー
-      const asset = Asset.fromModule(require('../../assets/db/app.db'));
+      const asset = Asset.fromModule(require('@/assets/db/app.db'));
       await asset.downloadAsync();
       if (!asset.localUri) {
         throw new Error('app.db asset not found');
