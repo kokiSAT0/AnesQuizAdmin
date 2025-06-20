@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, ScrollView, Modal } from 'react-native';
+import { View, ScrollView, Modal, StyleSheet } from 'react-native';
 import { router } from 'expo-router';
 import { Screen } from '@/components/Screen';
 import { AppHeader } from '@/components/AppHeader';
@@ -74,27 +74,29 @@ export default function Settings() {
   };
 
   return (
-    <Screen style={{ backgroundColor: theme.colors.background }}>
+    <Screen
+      style={[styles.screen, { backgroundColor: theme.colors.background }]}
+    >
       <AppHeader title="設定" onBack={() => router.back()} />
-      <View style={{ marginTop: 24 }}>
+      <View style={styles.marginTop}>
         <Button
           mode="contained"
           onPress={handleShowData}
-          style={{ marginBottom: 8 }}
+          style={styles.marginBottom}
         >
           📂 SQLite の内容表示
         </Button>
         <Button
           mode="contained"
           onPress={handleShowLogs}
-          style={{ marginBottom: 8 }}
+          style={styles.marginBottom}
         >
           📜 学習ログ表示
         </Button>
         <Button
           mode="contained"
           onPress={handleDeleteDb}
-          style={{ marginBottom: 8 }}
+          style={styles.marginBottom}
         >
           🗑️ DBファイル削除
         </Button>
@@ -105,22 +107,18 @@ export default function Settings() {
         animationType="slide"
         onRequestClose={() => setShowDataModal(false)}
       >
-        <Screen style={{ backgroundColor: theme.colors.background }}>
-          <Text
-            variant="titleMedium"
-            style={{ textAlign: 'center', marginBottom: 12 }}
-          >
+        <Screen
+          style={[styles.screen, { backgroundColor: theme.colors.background }]}
+        >
+          <Text variant="titleMedium" style={styles.modalTitle}>
             SQLite レコード内容
           </Text>
           <Text>合計件数: {totalRecords}</Text>
           <ScrollView
-            style={{
-              flex: 1,
-              marginVertical: 8,
-              backgroundColor: theme.colors.surfaceVariant,
-              borderRadius: 4,
-              padding: 8,
-            }}
+            style={[
+              styles.modalScroll,
+              { backgroundColor: theme.colors.surfaceVariant },
+            ]}
           >
             <Text selectable>{JSON.stringify(fetchedRows, null, 2)}</Text>
           </ScrollView>
@@ -133,21 +131,17 @@ export default function Settings() {
         animationType="slide"
         onRequestClose={() => setShowLogModal(false)}
       >
-        <Screen style={{ backgroundColor: theme.colors.background }}>
-          <Text
-            variant="titleMedium"
-            style={{ textAlign: 'center', marginBottom: 12 }}
-          >
+        <Screen
+          style={[styles.screen, { backgroundColor: theme.colors.background }]}
+        >
+          <Text variant="titleMedium" style={styles.modalTitle}>
             最近の学習ログ
           </Text>
           <ScrollView
-            style={{
-              flex: 1,
-              marginVertical: 8,
-              backgroundColor: theme.colors.surfaceVariant,
-              borderRadius: 4,
-              padding: 8,
-            }}
+            style={[
+              styles.modalScroll,
+              { backgroundColor: theme.colors.surfaceVariant },
+            ]}
           >
             <Text selectable>{JSON.stringify(dailyLogs, null, 2)}</Text>
           </ScrollView>
@@ -157,3 +151,21 @@ export default function Settings() {
     </Screen>
   );
 }
+
+const styles = StyleSheet.create({
+  // 画面全体スタイル
+  screen: { flex: 1 },
+  // 上余白
+  marginTop: { marginTop: 24 },
+  // 下余白
+  marginBottom: { marginBottom: 8 },
+  // モーダルタイトル共通
+  modalTitle: { textAlign: 'center', marginBottom: 12 },
+  // モーダル内スクロール領域
+  modalScroll: {
+    flex: 1,
+    marginVertical: 8,
+    borderRadius: 4,
+    padding: 8,
+  },
+});

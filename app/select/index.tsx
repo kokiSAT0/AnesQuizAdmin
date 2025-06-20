@@ -184,7 +184,7 @@ export default function SelectScreen() {
               color={
                 random ? theme.colors.primary : theme.colors.onSurfaceVariant
               }
-              style={{ padding: 6 }}
+              style={styles.iconPadding}
             />
           </View>
           <Text style={styles.label}>
@@ -198,7 +198,7 @@ export default function SelectScreen() {
           <Card.Title
             title="レベル"
             right={() => (
-              <View style={{ flexDirection: 'row' }}>
+              <View style={styles.row}>
                 {/* "compact" を付けて小さいボタンにしています */}
                 <Button compact onPress={selectAllLevels}>
                   すべて選択
@@ -229,7 +229,7 @@ export default function SelectScreen() {
           <Card.Title
             title="カテゴリ"
             right={() => (
-              <View style={{ flexDirection: 'row' }}>
+              <View style={styles.row}>
                 <Button compact onPress={selectAllCategories}>
                   すべて選択
                 </Button>
@@ -259,7 +259,7 @@ export default function SelectScreen() {
           <Card.Title
             title="学習達成度"
             right={() => (
-              <View style={{ flexDirection: 'row' }}>
+              <View style={styles.row}>
                 <Button compact onPress={selectAllProgress}>
                   すべて選択
                 </Button>
@@ -331,6 +331,10 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     marginLeft: 8,
   },
+  // アイコン周囲の余白
+  iconPadding: {
+    padding: 6,
+  },
   label: { fontSize: 16 },
 
   labelMarginRight: { marginRight: 8 },
@@ -341,6 +345,11 @@ const styles = StyleSheet.create({
   chipRow: {
     flexDirection: 'row',
     flexWrap: 'wrap',
+  },
+
+  // 横並びレイアウト
+  row: {
+    flexDirection: 'row',
   },
 
   filterRow: {

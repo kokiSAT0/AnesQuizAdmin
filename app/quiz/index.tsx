@@ -184,7 +184,7 @@ export default function Quiz() {
 
   if (!question) {
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <View style={styles.center}>
         <Text>読み込み中...</Text>
       </View>
     );
@@ -223,12 +223,13 @@ export default function Quiz() {
           ]}
         >
           <View
-            style={{
-              width: `${(currentNo / total) * 100}%`,
-              height: 4,
-              backgroundColor: theme.colors.primary,
-              borderRadius: 4,
-            }}
+            style={[
+              styles.progressBar,
+              {
+                width: `${(currentNo / total) * 100}%`,
+                backgroundColor: theme.colors.primary,
+              },
+            ]}
           />
         </View>
 
@@ -339,13 +340,24 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  // ローディング時中央寄せ
+  center: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   scrollContent: {
     paddingBottom: 32,
   },
-  progressBar: {
-    height: 4,
+  // 進捗バー外枠
+  progressBarTrack: {
+    borderRadius: 4,
     marginBottom: 12,
     marginHorizontal: 16,
+  },
+  // 進捗バー本体
+  progressBar: {
+    height: 4,
     borderRadius: 4,
   },
   card: {

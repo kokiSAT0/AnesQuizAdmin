@@ -48,16 +48,22 @@ export default function HistoryScreen() {
   };
 
   return (
-    <Screen style={{ backgroundColor: theme.colors.background }}>
+    <Screen
+      style={[styles.screen, { backgroundColor: theme.colors.background }]}
+    >
       <AppHeader title="学習履歴" onBack={() => router.back()} />
-      {/* タブ切り替えを SegmentedButtons で実装 */}
-      <SegmentedButtons
-        value={routes[index].key}
-        onValueChange={(value) =>
-          setIndex(routes.findIndex((r) => r.key === value))
-        }
-        buttons={routes.map((r) => ({ value: r.key, label: r.title }))}
-        style={{ marginBottom: 8 }}
+
+      <TabView
+        navigationState={{ index, routes }}
+        renderScene={renderScene}
+        onIndexChange={setIndex}
+        renderTabBar={(props) => (
+          <TabBar
+            {...props}
+            style={[styles.tabBar, { backgroundColor: theme.colors.primary }]}
+          />
+        )}
+
       />
       {renderScene({ route: routes[index] })}
     </Screen>
@@ -91,7 +97,7 @@ function OverviewTab() {
       </Text>
       <ProgressBar
         progress={todayAttempts ? todayCorrect / todayAttempts : 0}
-        style={{ marginTop: 8 }}
+        style={styles.marginTop}
         color={theme.colors.primary}
       />
     </View>
@@ -178,7 +184,7 @@ function ReviewTab() {
   }, []);
   return (
     <View style={styles.tabContent}>
-      <Button mode="contained" style={{ marginBottom: 8 }}>
+      <Button mode="contained" style={styles.marginBottom}>
         復習モード開始
       </Button>
       <FlatList
@@ -196,6 +202,20 @@ function ReviewTab() {
 }
 
 const styles = StyleSheet.create({
+  // 画面全体の配置調整
+  screen: {
+    flex: 1,
+  },
+  // TabBar の基本スタイル
+  tabBar: {},
+  // 上マージン
+  marginTop: {
+    marginTop: 8,
+  },
+  // 下マージン
+  marginBottom: {
+    marginBottom: 8,
+  },
   tabContent: {
     flex: 1,
     padding: 16,
