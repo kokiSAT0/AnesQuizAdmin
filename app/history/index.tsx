@@ -8,6 +8,9 @@ import {
   List,
   Button,
   SegmentedButtons,
+  // Tab 表示に必要なコンポーネント
+  TabView,
+  TabBar,
 } from 'react-native-paper';
 import { Screen } from '@/components/Screen';
 import { AppHeader } from '@/components/AppHeader';
@@ -63,7 +66,6 @@ export default function HistoryScreen() {
             style={[styles.tabBar, { backgroundColor: theme.colors.primary }]}
           />
         )}
-
       />
       {renderScene({ route: routes[index] })}
     </Screen>
