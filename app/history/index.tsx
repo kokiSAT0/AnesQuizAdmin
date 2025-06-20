@@ -8,9 +8,6 @@ import {
   List,
   Button,
   SegmentedButtons,
-  // Tab 表示に必要なコンポーネント
-  TabView,
-  TabBar,
 } from 'react-native-paper';
 import { Screen } from '@/components/Screen';
 import { AppHeader } from '@/components/AppHeader';
@@ -56,16 +53,13 @@ export default function HistoryScreen() {
     >
       <AppHeader title="学習履歴" onBack={() => router.back()} />
 
-      <TabView
-        navigationState={{ index, routes }}
-        renderScene={renderScene}
-        onIndexChange={setIndex}
-        renderTabBar={(props) => (
-          <TabBar
-            {...props}
-            style={[styles.tabBar, { backgroundColor: theme.colors.primary }]}
-          />
-        )}
+      <SegmentedButtons
+        value={routes[index].key}
+        onValueChange={(value) =>
+          setIndex(routes.findIndex((r) => r.key === value))
+        }
+        buttons={routes.map((r) => ({ value: r.key, label: r.title }))}
+        style={styles.segmented}
       />
       {renderScene({ route: routes[index] })}
     </Screen>
@@ -208,8 +202,10 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
   },
-  // TabBar の基本スタイル
-  tabBar: {},
+  // SegmentedButtons 用のスタイル
+  segmented: {
+    marginBottom: 8,
+  },
   // 上マージン
   marginTop: {
     marginTop: 8,
