@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, FlatList } from 'react-native';
 import { router } from 'expo-router';
 import { Text, useTheme, ProgressBar, List, Button } from 'react-native-paper';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+// 画面下部にタブを配置するため BottomTabNavigator を使用
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Screen } from '@/components/Screen';
 import { AppHeader } from '@/components/AppHeader';
 import {
@@ -13,7 +14,8 @@ import {
   getDueReviewItems,
 } from '@/src/utils/db/index';
 
-const Tab = createMaterialTopTabNavigator();
+// BottomTabNavigator のインスタンスを生成
+const Tab = createBottomTabNavigator();
 
 export default function HistoryScreen() {
   const theme = useTheme();
@@ -22,11 +24,18 @@ export default function HistoryScreen() {
     <Screen
       style={[styles.screen, { backgroundColor: theme.colors.background }]}
     >
-      <AppHeader title="学習履歴" onBack={() => router.back()} />
-      {/* TopTabNavigator を配置 */}
+      <AppHeader
+        title="学習履歴"
+        // router.back() ではなくホームに直接戻る
+        onBack={() => router.replace('/')}
+      />
+      {/* BottomTabNavigator を配置 */}
       <Tab.Navigator
         screenOptions={{
-          tabBarIndicatorStyle: { backgroundColor: theme.colors.primary },
+          // 選択中タブの色をテーマに合わせる
+          tabBarActiveTintColor: theme.colors.primary,
+          // Android などでヘッダーを非表示にする
+          headerShown: false,
         }}
       >
         <Tab.Screen
