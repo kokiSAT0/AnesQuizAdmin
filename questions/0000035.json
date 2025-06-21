@@ -1,0 +1,123 @@
+[
+  {
+    "id": "an0000031",
+    "type": "single_choice",
+    "categories": [
+      "輸液・輸血"
+    ],
+    "tags": [
+      "輸液組成",
+      "等張液"
+    ],
+    "difficulty": "初級",
+    "question": "生理食塩液のNaCl[br]濃度はどれか？",
+    "options": [
+      "0.45%",
+      "0.9%",
+      "1.8%",
+      "3%"
+    ],
+    "correct_answers": [
+      1
+    ],
+    "explanation": "生理食塩液は等張で0.9% NaCl溶液である。",
+    "references": []
+  },
+  {
+    "id": "an0000032",
+    "type": "single_choice",
+    "categories": [
+      "緊急対応"
+    ],
+    "tags": [
+      "CPR",
+      "BLS"
+    ],
+    "difficulty": "初級",
+    "question": "成人CPRで推奨される[br]胸骨圧迫深さは？",
+    "options": [
+      "3–4 cm",
+      "4–5 cm",
+      "5–6 cm",
+      "6–7 cm"
+    ],
+    "correct_answers": [
+      2
+    ],
+    "explanation": "成人では胸骨圧迫深さ5–6 cmが推奨される。",
+    "references": []
+  },
+  {
+    "id": "an0000033",
+    "type": "single_choice",
+    "categories": [
+      "区域麻酔"
+    ],
+    "tags": [
+      "脊椎麻酔",
+      "帝王切開"
+    ],
+    "difficulty": "初級",
+    "question": "帝王切開の脊椎麻酔で[br]適切な穿刺椎間は？",
+    "options": [
+      "T12/L1",
+      "L1/2",
+      "L2/3",
+      "L4/5"
+    ],
+    "correct_answers": [
+      2
+    ],
+    "explanation": "妊娠子宮拡大を考慮し、L2/3が安全かつ一般的である。",
+    "references": []
+  },
+  {
+    "id": "an0000034",
+    "type": "single_choice",
+    "categories": [
+      "気道管理",
+      "特殊患者"
+    ],
+    "tags": [
+      "小児",
+      "挿管チューブ"
+    ],
+    "difficulty": "初級",
+    "question": "1歳児の気管チューブ[br]内径(mm)推算式は？",
+    "options": [
+      "年齢/2+3",
+      "年齢/4+3",
+      "年齢/4+4",
+      "年齢+4"
+    ],
+    "correct_answers": [
+      2
+    ],
+    "explanation": "小児の非カフ付チューブサイズは年齢/4+4(mm)で概算する。",
+    "references": []
+  },
+  {
+    "id": "an0000035",
+    "type": "single_choice",
+    "categories": [
+      "麻酔関連機器"
+    ],
+    "tags": [
+      "酸素ボンベ",
+      "安全管理"
+    ],
+    "difficulty": "初級",
+    "question": "医療用酸素ボンベの[br]色はどれか？",
+    "options": [
+      "黒地白肩",
+      "黒地黄肩",
+      "緑一色",
+      "灰色"
+    ],
+    "correct_answers": [
+      0
+    ],
+    "explanation": "日本では酸素ボンベは黒地に白肩と定められている。",
+    "references": []
+  }
+]

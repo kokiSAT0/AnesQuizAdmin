@@ -1,0 +1,122 @@
+[
+  {
+    "id": "an0000036",
+    "type": "single_choice",
+    "categories": [
+      "術前評価・麻酔計画"
+    ],
+    "tags": [
+      "ASA-PS",
+      "リスク評価"
+    ],
+    "difficulty": "初級",
+    "question": "ASA-PS IIIに[br]相当する状態は？",
+    "options": [
+      "健康成人",
+      "制御良好高血圧",
+      "制御不良糖尿病",
+      "一過性感染症"
+    ],
+    "correct_answers": [
+      2
+    ],
+    "explanation": "ASA-PS IIIはコントロール不良の全身疾患を有する患者で、制御不良糖尿病などが該当する。",
+    "references": []
+  },
+  {
+    "id": "an0000037",
+    "type": "single_choice",
+    "categories": [
+      "術後・疼痛管理"
+    ],
+    "tags": [
+      "PCA",
+      "鎮痛薬"
+    ],
+    "difficulty": "初級",
+    "question": "術後PCAで[br]最も多用される薬は？",
+    "options": [
+      "フェンタニル",
+      "モルヒネ",
+      "ケタミン",
+      "レミフェンタニル"
+    ],
+    "correct_answers": [
+      0
+    ],
+    "explanation": "日本では術後静脈PCAにフェンタニルを用いることが一般的である。",
+    "references": []
+  },
+  {
+    "id": "an0000038",
+    "type": "single_choice",
+    "categories": [
+      "呼吸管理"
+    ],
+    "tags": [
+      "分時換気量",
+      "換気計算"
+    ],
+    "difficulty": "初級",
+    "question": "分時換気量は[br]何で求める？",
+    "options": [
+      "肺活量×呼吸数",
+      "一回換気量×呼吸数",
+      "PaO₂×呼吸数",
+      "FRC×呼吸数"
+    ],
+    "correct_answers": [
+      1
+    ],
+    "explanation": "Minute Ventilation＝一回換気量(約6–8 mL/kg)×呼吸数で計算する。",
+    "references": []
+  },
+  {
+    "id": "an0000039",
+    "type": "single_choice",
+    "categories": [
+      "麻酔合併症"
+    ],
+    "tags": [
+      "悪性高熱症",
+      "治療"
+    ],
+    "difficulty": "初級",
+    "question": "悪性高熱症の[br]第一選択治療薬は？",
+    "options": [
+      "ダントロレン",
+      "プロカインアミド",
+      "フルマゼニル",
+      "ジアゼパム"
+    ],
+    "correct_answers": [
+      0
+    ],
+    "explanation": "ダントロレンが悪性高熱症の特効薬である。",
+    "references": []
+  },
+  {
+    "id": "an0000040",
+    "type": "single_choice",
+    "categories": [
+      "術中モニタリング"
+    ],
+    "tags": [
+      "ETCO₂",
+      "正常値"
+    ],
+    "difficulty": "初級",
+    "question": "ETCO₂正常値[br]範囲は？",
+    "options": [
+      "20–30 mmHg",
+      "35–45 mmHg",
+      "50–60 mmHg",
+      "60–70 mmHg"
+    ],
+    "correct_answers": [
+      1
+    ],
+    "explanation": "呼気終末二酸化炭素分圧は通常35–45 mmHgに保たれる。",
+    "references": []
+  }
+]

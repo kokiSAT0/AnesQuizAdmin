@@ -1,0 +1,122 @@
+[
+  {
+    "id": "an0000041",
+    "type": "single_choice",
+    "categories": [
+      "ICU 管理"
+    ],
+    "tags": [
+      "RASS",
+      "鎮静スケール"
+    ],
+    "difficulty": "初級",
+    "question": "ICU鎮静評価スケール[br]RASSで覚醒状態は？",
+    "options": [
+      "0",
+      "-2",
+      "+1",
+      "+3"
+    ],
+    "correct_answers": [
+      0
+    ],
+    "explanation": "RASS 0 は覚醒して落ち着いている状態を示す。",
+    "references": []
+  },
+  {
+    "id": "an0000042",
+    "type": "single_choice",
+    "categories": [
+      "麻酔関連機器"
+    ],
+    "tags": [
+      "気化器",
+      "色識別"
+    ],
+    "difficulty": "初級",
+    "question": "セボフルラン気化器の[br]色は？",
+    "options": [
+      "青",
+      "紫",
+      "黄",
+      "橙"
+    ],
+    "correct_answers": [
+      2
+    ],
+    "explanation": "薬剤識別のためセボフルラン気化器は黄色で統一されている。",
+    "references": []
+  },
+  {
+    "id": "an0000043",
+    "type": "single_choice",
+    "categories": [
+      "術前評価・麻酔計画"
+    ],
+    "tags": [
+      "ASA-PS",
+      "高血圧"
+    ],
+    "difficulty": "初級",
+    "question": "管理良好な高血圧患者の[br]ASA-PS分類は？",
+    "options": [
+      "ASA I",
+      "ASA II",
+      "ASA III",
+      "ASA IV"
+    ],
+    "correct_answers": [
+      1
+    ],
+    "explanation": "コントロールされた全身疾患はASA IIに分類される。",
+    "references": []
+  },
+  {
+    "id": "an0000044",
+    "type": "single_choice",
+    "categories": [
+      "術後・疼痛管理"
+    ],
+    "tags": [
+      "PONV",
+      "危険因子"
+    ],
+    "difficulty": "初級",
+    "question": "PONVの主要危険因子は？",
+    "options": [
+      "女性",
+      "喫煙者",
+      "高血圧",
+      "男性"
+    ],
+    "correct_answers": [
+      0
+    ],
+    "explanation": "女性であることはPONVの最も強力なリスク因子の一つである。",
+    "references": []
+  },
+  {
+    "id": "an0000045",
+    "type": "single_choice",
+    "categories": [
+      "特殊患者"
+    ],
+    "tags": [
+      "小児",
+      "絶食時間"
+    ],
+    "difficulty": "初級",
+    "question": "乳児用ミルクの[br]絶食時間は？",
+    "options": [
+      "2時間",
+      "4時間",
+      "6時間",
+      "8時間"
+    ],
+    "correct_answers": [
+      2
+    ],
+    "explanation": "ガイドラインでは人工乳は術前6時間絶食とされる。",
+    "references": []
+  }
+]

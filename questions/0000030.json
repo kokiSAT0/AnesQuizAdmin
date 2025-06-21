@@ -1,0 +1,122 @@
+[
+  {
+    "id": "an0000026",
+    "type": "single_choice",
+    "categories": [
+      "気道管理"
+    ],
+    "tags": [
+      "挿管",
+      "成人"
+    ],
+    "difficulty": "初級",
+    "question": "成人男性の標準的な[br]挿管チューブサイズはどれか？",
+    "options": [
+      "7.0 mm",
+      "7.5 mm",
+      "8.0 mm",
+      "8.5 mm"
+    ],
+    "correct_answers": [
+      2
+    ],
+    "explanation": "成人男性では一般的に8.0 mmの気管チューブが用いられる。",
+    "references": []
+  },
+  {
+    "id": "an0000027",
+    "type": "single_choice",
+    "categories": [
+      "呼吸管理"
+    ],
+    "tags": [
+      "血液ガス",
+      "基準値"
+    ],
+    "difficulty": "初級",
+    "question": "動脈血二酸化炭素分圧PaCO₂[br]の正常値範囲は？",
+    "options": [
+      "25–35 mmHg",
+      "35–45 mmHg",
+      "45–55 mmHg",
+      "55–65 mmHg"
+    ],
+    "correct_answers": [
+      1
+    ],
+    "explanation": "正常なPaCO₂はおよそ35–45 mmHgである。",
+    "references": []
+  },
+  {
+    "id": "an0000028",
+    "type": "single_choice",
+    "categories": [
+      "循環管理"
+    ],
+    "tags": [
+      "平均動脈圧",
+      "基礎公式"
+    ],
+    "difficulty": "初級",
+    "question": "平均動脈圧(MAP)はどの式で[br]概算できるか？",
+    "options": [
+      "(SBP+DBP)/2",
+      "(SBP+2×DBP)/3",
+      "(2×SBP+DBP)/3",
+      "(SBP−DBP)/2"
+    ],
+    "correct_answers": [
+      1
+    ],
+    "explanation": "MAP≈(SBP+2×DBP)/3 で概算できる。",
+    "references": []
+  },
+  {
+    "id": "an0000029",
+    "type": "single_choice",
+    "categories": [
+      "麻酔薬"
+    ],
+    "tags": [
+      "筋弛緩薬",
+      "作用時間"
+    ],
+    "difficulty": "初級",
+    "question": "スキサメトニウムの作用[br]持続時間はおおよそ？",
+    "options": [
+      "30 秒",
+      "1 分",
+      "5 分",
+      "15 分"
+    ],
+    "correct_answers": [
+      2
+    ],
+    "explanation": "スキサメトニウムは速効性で、作用は約5–10分持続する。",
+    "references": []
+  },
+  {
+    "id": "an0000030",
+    "type": "single_choice",
+    "categories": [
+      "術中モニタリング"
+    ],
+    "tags": [
+      "BIS",
+      "麻酔深度"
+    ],
+    "difficulty": "初級",
+    "question": "BIS値で適切な[br]全身麻酔深度を示す範囲は？",
+    "options": [
+      "0–20",
+      "20–40",
+      "40–60",
+      "60–80"
+    ],
+    "correct_answers": [
+      2
+    ],
+    "explanation": "BIS40–60が意識消失と運動抑制が得られる推奨範囲。",
+    "references": []
+  }
+]
