@@ -1,0 +1,62 @@
+[
+  {
+    "id": "an0000021",
+    "type": "single_choice",
+    "categories": ["麻酔薬"],
+    "tags": ["全身麻酔薬", "作用機序"],
+    "difficulty": "初級",
+    "question": "プロポフォールの[br]作用部位はどこか？",
+    "options": ["GABAA受容体", "NMDA受容体", "オピオイド受容体", "α2受容体"],
+    "correct_answers": [0],
+    "explanation": "プロポフォールは主にGABAA受容体を介し抑制性シナプス伝達を増強する。",
+    "references": []
+  },
+  {
+    "id": "an0000022",
+    "type": "single_choice",
+    "categories": ["麻酔薬"],
+    "tags": ["吸入麻酔薬", "MAC"],
+    "difficulty": "初級",
+    "question": "セボフルランの[br]MAC値は？",
+    "options": ["1.0%", "1.8%", "2.0%", "2.6%"],
+    "correct_answers": [1],
+    "explanation": "セボフルランの最小肺胞濃度（MAC）は約1.8%である。",
+    "references": []
+  },
+  {
+    "id": "an0000023",
+    "type": "single_choice",
+    "categories": ["緊急対応"],
+    "tags": ["アナフィラキシー", "薬剤濃度"],
+    "difficulty": "初級",
+    "question": "アドレナリン1:1000[br]製剤の濃度は？",
+    "options": ["0.1 mg/mL", "1 mg/mL", "1 g/L", "10 mg/mL"],
+    "correct_answers": [1],
+    "explanation": "1:1000（0.1%）アドレナリン製剤は1 mg/mLの濃度である。",
+    "references": []
+  },
+  {
+    "id": "an0000024",
+    "type": "single_choice",
+    "categories": ["術中モニタリング"],
+    "tags": ["SpO2", "パルスオキシメータ"],
+    "difficulty": "初級",
+    "question": "パルスオキシメータは何を[br]測定するか？",
+    "options": ["動脈血酸素飽和度", "末梢血流速", "呼吸数", "体温"],
+    "correct_answers": [0],
+    "explanation": "パルスオキシメータは動脈血酸素飽和度（SpO₂）を推定する装置である。",
+    "references": []
+  },
+  {
+    "id": "an0000025",
+    "type": "single_choice",
+    "categories": ["輸液・輸血"],
+    "tags": ["輸液組成", "電解質"],
+    "difficulty": "初級",
+    "question": "乳酸リンゲル液の[br]主な陽イオンは？",
+    "options": ["Na⁺", "K⁺", "Ca²⁺", "HCO₃⁻"],
+    "correct_answers": [0],
+    "explanation": "乳酸リンゲル液の主な陽イオンはナトリウム（Na⁺）である。",
+    "references": []
+  }
+]
