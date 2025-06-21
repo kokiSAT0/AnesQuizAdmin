@@ -3,6 +3,7 @@ import { getOrCreateUserId } from './user';
 import { calcSM2 } from '../sm2';
 import type { Question } from '@/src/types/question';
 import type { SQLiteQuestionRow } from './questions';
+import { mapRowToQuestion } from './questions';
 
 /* ------------------------------------------------------------------ */
 /* 今日復習すべき問題を取得                                           */
@@ -159,26 +160,9 @@ export async function fetchDueList(limit = 20): Promise<ReviewQuestion[]> {
     }
   }
 
+  // Question 部分は共通関数で変換し、復習用の追加情報を付与する
   return results.map((r) => ({
-    id: r.id,
-    type: r.type,
-    categories: JSON.parse(r.category_json),
-    tags: JSON.parse(r.tag_json),
-    difficulty: r.difficulty,
-    question: r.question,
-    options: JSON.parse(r.option_json),
-    correct_answers: JSON.parse(r.correct_json),
-    explanation: r.explanation,
-    references: JSON.parse(r.reference_json),
-    first_attempt_correct:
-      r.first_attempt_correct === null ? null : !!r.first_attempt_correct,
-    first_attempted_at: r.first_attempted_at,
-    is_favorite: !!r.is_favorite,
-    is_used: !!r.is_used,
-    last_answer_correct: !!r.last_answer_correct,
-    last_answered_at: r.last_answered_at,
-    last_correct_at: r.last_correct_at,
-    last_incorrect_at: r.last_incorrect_at,
+    ...mapRowToQuestion(r),
     next_review_at: r.next_review_at,
     interval_days: r.interval_days,
     ease_factor: r.ease_factor,
