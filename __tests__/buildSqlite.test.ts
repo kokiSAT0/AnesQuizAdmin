@@ -48,4 +48,35 @@ describe('buildSqlite スクリプト', () => {
     expect(hasAttempts).toBe(true);
     db.close();
   });
+
+  test('進捗フィルタで件数が変わる', () => {
+    const db = new Database(dbPath);
+    db.prepare(
+      'UPDATE Questions SET first_attempt_correct = 1, last_answer_correct = 1 WHERE id = ?',
+    ).run('an0000001');
+    db.prepare(
+      'UPDATE Questions SET first_attempt_correct = 0, last_answer_correct = 0 WHERE id = ?',
+    ).run('an0000002');
+    const total = db.prepare('SELECT COUNT(*) AS c FROM Questions').get()
+      .c as number;
+    const correct = db
+      .prepare(
+        'SELECT COUNT(*) AS c FROM Questions WHERE last_answer_correct = 1',
+      )
+      .get().c as number;
+    const incorrect = db
+      .prepare(
+        'SELECT COUNT(*) AS c FROM Questions WHERE last_answer_correct = 0',
+      )
+      .get().c as number;
+    const unlearned = db
+      .prepare(
+        'SELECT COUNT(*) AS c FROM Questions WHERE first_attempt_correct IS NULL',
+      )
+      .get().c as number;
+    expect(correct).toBe(1);
+    expect(incorrect).toBe(total - 1);
+    expect(unlearned).toBe(total - 2);
+    db.close();
+  });
 });

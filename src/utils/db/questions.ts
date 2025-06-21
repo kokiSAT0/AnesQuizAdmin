@@ -151,6 +151,7 @@ export async function getQuestionIdsByFilter(
   levels: string[],
   categories: string[],
   favoriteOnly = false,
+  progress: string[] = [],
 ): Promise<string[]> {
   const db = await getDB();
 
@@ -163,10 +164,7 @@ export async function getQuestionIdsByFilter(
   const conditions: string[] = [];
   const params: string[] = [];
 
-  // 常に使用中の問題のみカウント
-  conditions.push('is_used = 1');
-
-  // 使用中の問題のみ取得
+  // 常に使用中の問題のみ取得する
   conditions.push('is_used = 1');
 
   if (levels.length) {
@@ -185,6 +183,23 @@ export async function getQuestionIdsByFilter(
 
   if (favoriteOnly) {
     conditions.push('is_favorite = 1');
+  }
+
+  // 進捗フィルタを OR 条件で追加
+  if (progress.length) {
+    const progConds: string[] = [];
+    if (progress.includes('正解')) {
+      progConds.push('last_answer_correct = 1');
+    }
+    if (progress.includes('不正解')) {
+      progConds.push('last_answer_correct = 0');
+    }
+    if (progress.includes('未学習')) {
+      progConds.push('first_attempt_correct IS NULL');
+    }
+    if (progConds.length) {
+      conditions.push(`(${progConds.join(' OR ')})`);
+    }
   }
 
   const where = conditions.length ? `WHERE ${conditions.join(' AND ')}` : '';
@@ -229,6 +244,7 @@ export async function countQuestionsByFilter(
   levels: string[],
   categories: string[],
   favoriteOnly = false,
+  progress: string[] = [],
 ): Promise<number> {
   const db = await getDB();
 
@@ -256,6 +272,23 @@ export async function countQuestionsByFilter(
 
   if (favoriteOnly) {
     conditions.push('is_favorite = 1');
+  }
+
+  // 進捗フィルタを OR 条件で追加
+  if (progress.length) {
+    const progConds: string[] = [];
+    if (progress.includes('正解')) {
+      progConds.push('last_answer_correct = 1');
+    }
+    if (progress.includes('不正解')) {
+      progConds.push('last_answer_correct = 0');
+    }
+    if (progress.includes('未学習')) {
+      progConds.push('first_attempt_correct IS NULL');
+    }
+    if (progConds.length) {
+      conditions.push(`(${progConds.join(' OR ')})`);
+    }
   }
 
   const where = conditions.length ? `WHERE ${conditions.join(' AND ')}` : '';
