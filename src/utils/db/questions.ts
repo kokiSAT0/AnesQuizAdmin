@@ -132,12 +132,13 @@ export async function getQuestionIdsByFilter(
   levels: string[],
   categories: string[],
   favoriteOnly = false,
+  progress: string[] = [],
 ): Promise<string[]> {
   const db = await getDB();
 
-  // レベルまたはカテゴリが未選択の場合は空配列を返す
+  // レベル、カテゴリ、進捗のいずれかが未選択なら空配列を返す
   // AND 条件を満たす組み合わせが存在しないため
-  if (levels.length === 0 || categories.length === 0) {
+  if (levels.length === 0 || categories.length === 0 || progress.length === 0) {
     return [];
   }
 
@@ -159,6 +160,22 @@ export async function getQuestionIdsByFilter(
       `EXISTS (SELECT 1 FROM json_each(Questions.category_json) WHERE value IN (${placeholders}))`,
     );
     params.push(...categories);
+  }
+
+  if (progress.length) {
+    const progressConds: string[] = [];
+    if (progress.includes('正解')) {
+      progressConds.push('last_answer_correct = 1');
+    }
+    if (progress.includes('不正解')) {
+      progressConds.push('last_answer_correct = 0');
+    }
+    if (progress.includes('未学習')) {
+      progressConds.push('first_attempt_correct IS NULL');
+    }
+    if (progressConds.length) {
+      conditions.push(`(${progressConds.join(' OR ')})`);
+    }
   }
 
   if (favoriteOnly) {
@@ -207,11 +224,12 @@ export async function countQuestionsByFilter(
   levels: string[],
   categories: string[],
   favoriteOnly = false,
+  progress: string[] = [],
 ): Promise<number> {
   const db = await getDB();
 
-  // レベルかカテゴリが未選択なら 0 件とする
-  if (levels.length === 0 || categories.length === 0) {
+  // レベル・カテゴリ・進捗のいずれかが未選択なら 0 件とする
+  if (levels.length === 0 || categories.length === 0 || progress.length === 0) {
     return 0;
   }
 
@@ -230,6 +248,22 @@ export async function countQuestionsByFilter(
       `EXISTS (SELECT 1 FROM json_each(Questions.category_json) WHERE value IN (${placeholders}))`,
     );
     params.push(...categories);
+  }
+
+  if (progress.length) {
+    const progressConds: string[] = [];
+    if (progress.includes('正解')) {
+      progressConds.push('last_answer_correct = 1');
+    }
+    if (progress.includes('不正解')) {
+      progressConds.push('last_answer_correct = 0');
+    }
+    if (progress.includes('未学習')) {
+      progressConds.push('first_attempt_correct IS NULL');
+    }
+    if (progressConds.length) {
+      conditions.push(`(${progressConds.join(' OR ')})`);
+    }
   }
 
   if (favoriteOnly) {
