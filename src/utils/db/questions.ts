@@ -87,27 +87,8 @@ export async function getQuestionsLimit5(): Promise<Question[]> {
   const rows = await db.getAllAsync<SQLiteQuestionRow>(
     'SELECT * FROM Questions WHERE is_used = 1 ORDER BY id LIMIT 5;',
   );
-  return rows.map((row) => ({
-    id: row.id,
-    type: row.type,
-    categories: JSON.parse(row.category_json),
-    tags: JSON.parse(row.tag_json),
-    difficulty: row.difficulty,
-    question: row.question,
-    options: JSON.parse(row.option_json),
-    correct_answers: JSON.parse(row.correct_json),
-    explanation: row.explanation,
-    references: JSON.parse(row.reference_json),
-    first_attempt_correct:
-      row.first_attempt_correct === null ? null : !!row.first_attempt_correct,
-    first_attempted_at: row.first_attempted_at,
-    is_favorite: !!row.is_favorite,
-    is_used: !!row.is_used,
-    last_answer_correct: !!row.last_answer_correct,
-    last_answered_at: row.last_answered_at,
-    last_correct_at: row.last_correct_at,
-    last_incorrect_at: row.last_incorrect_at,
-  }));
+  // 取得した各行を mapRowToQuestion で変換して返す
+  return rows.map((row) => mapRowToQuestion(row));
 }
 
 /* ------------------------------------------------------------------ */
@@ -162,9 +143,6 @@ export async function getQuestionIdsByFilter(
 
   const conditions: string[] = [];
   const params: string[] = [];
-
-  // 常に使用中の問題のみカウント
-  conditions.push('is_used = 1');
 
   // 使用中の問題のみ取得
   conditions.push('is_used = 1');
@@ -291,17 +269,12 @@ export interface SQLiteQuestionRow {
   last_incorrect_at: string | null; // 最後に不正解だった日時
 }
 
-export async function getQuestionById(id: string) {
-  const db = await getDB();
-  const row = await db.getFirstAsync<SQLiteQuestionRow>(
-    'SELECT * FROM Questions WHERE id = ?;',
-    [id],
-  );
-  if (!row) {
-    // 該当する問題が無い
-    return null;
-  }
-
+/* ------------------------------------------------------------------ */
+/* SQLite の行データを Question 型へ変換する共通処理                    */
+/* ------------------------------------------------------------------ */
+export function mapRowToQuestion(row: SQLiteQuestionRow): Question {
+  // JSON 文字列で保存している項目をオブジェクトや配列に戻す
+  // データベースから取得したままだと文字列のため、ここでパースする
   return {
     id: row.id,
     type: row.type,
@@ -323,6 +296,21 @@ export async function getQuestionById(id: string) {
     last_correct_at: row.last_correct_at,
     last_incorrect_at: row.last_incorrect_at,
   };
+}
+
+export async function getQuestionById(id: string) {
+  const db = await getDB();
+  const row = await db.getFirstAsync<SQLiteQuestionRow>(
+    'SELECT * FROM Questions WHERE id = ?;',
+    [id],
+  );
+  if (!row) {
+    // 該当する問題が無い
+    return null;
+  }
+
+  // 共通変換関数に委譲して Question 型に組み立てる
+  return mapRowToQuestion(row);
 }
 
 /* ------------------------------------------------------------------ */

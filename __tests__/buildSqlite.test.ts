@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import Database from 'better-sqlite3';
+import { spawnSync } from 'child_process';
 
 // buildSqlite.ts を実行して SQLite DB を生成する
 // テスト実行前に一度だけ呼び出し、終了後に削除する
@@ -8,8 +9,13 @@ import Database from 'better-sqlite3';
 const dbPath = path.join(__dirname, '..', 'assets', 'db', 'app.db');
 
 beforeAll(() => {
-  // スクリプトを読み込むだけで DB が生成される
-  require('../scripts/buildSqlite.ts');
+  // tsx を使ってスクリプトを実行し、同期的に終了するか確認
+  const tsxPath = path.join(__dirname, '..', 'node_modules', '.bin', 'tsx');
+  const scriptPath = path.join(__dirname, '..', 'scripts', 'buildSqlite.ts');
+  const result = spawnSync(tsxPath, [scriptPath], { encoding: 'utf8' });
+  if (result.error) throw result.error;
+  // 正常終了しているかチェック
+  expect(result.status).toBe(0);
 });
 
 afterAll(() => {
@@ -39,5 +45,25 @@ describe('buildSqlite スクリプト', () => {
     // 日本語の質問文が正しく保存されているか確認
     expect(row?.question).toBe('プロポフォールの[br]投与経路は?');
     db.close();
+  });
+
+  test('ReviewQueue テーブルに attempts カラムがある', () => {
+    const db = new Database(dbPath, { readonly: true });
+    const info = db.prepare("PRAGMA table_info('ReviewQueue')").all();
+    const hasAttempts = info.some((c: any) => c.name === 'attempts');
+    expect(hasAttempts).toBe(true);
+    db.close();
+  });
+
+  test('スクリプト実行後にプロセスが残らない', () => {
+    const tsxPath = path.join(__dirname, '..', 'node_modules', '.bin', 'tsx');
+    const scriptPath = path.join(__dirname, '..', 'scripts', 'buildSqlite.ts');
+    const result = spawnSync(tsxPath, [scriptPath], {
+      encoding: 'utf8',
+      timeout: 5000,
+    });
+    if (result.error) throw result.error;
+    // 5秒以内に終了し、成功しているか確認
+    expect(result.status).toBe(0);
   });
 });

@@ -1,3 +1,5 @@
+// カラースキーム型をインポート
+import type { ColorScheme } from '@/theme/tokens';
 import React from 'react';
 import { Chip, useTheme } from 'react-native-paper';
 

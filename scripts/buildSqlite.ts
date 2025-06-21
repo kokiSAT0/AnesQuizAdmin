@@ -84,6 +84,8 @@ CREATE TABLE IF NOT EXISTS ReviewQueue (
   ease_factor REAL,
   repetition INTEGER,
   last_is_correct INTEGER,
+  attempts INTEGER DEFAULT 0,
+  last_grade INTEGER,
   last_answered_at TEXT,
   PRIMARY KEY (user_id, question_id)
 );
@@ -197,3 +199,7 @@ for (const file of files) {
 db.pragma(`user_version = ${DB_VERSION}`);
 
 console.log(`SQLite DB generated at ${dbPath}`);
+
+// DB を使い終わったら必ず close() で接続を閉じる
+// 開きっぱなしにするとプロセスが終了しないことがあるため
+db.close();

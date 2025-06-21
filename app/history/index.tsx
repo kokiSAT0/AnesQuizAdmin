@@ -1,11 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { View, StyleSheet, FlatList } from 'react-native';
 import { router } from 'expo-router';
-import { Text, useTheme, ProgressBar, List, Button } from 'react-native-paper';
-// 画面下部にタブを配置するため BottomTabNavigator を使用
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {
+  Text,
+  useTheme,
+  ProgressBar,
+  List,
+  Button,
+  BottomNavigation,
+} from 'react-native-paper';
+// BottomNavigation を使うことでタブの移動をスワイプ操作にも対応させる
 import { Screen } from '@/components/Screen';
 import { AppHeader } from '@/components/AppHeader';
+import { LearningCalendar } from '@/components/LearningCalendar';
 import {
   getLatestLearningLogs,
   getCategoryStats,
@@ -14,11 +21,27 @@ import {
   getDueReviewItems,
 } from '@/src/utils/db/index';
 
-// BottomTabNavigator のインスタンスを生成
-const Tab = createBottomTabNavigator();
+// BottomNavigation 用のルート定義
+const routes = [
+  { key: 'overview', title: 'Overview', focusedIcon: 'clipboard-text' },
+  { key: 'timeline', title: 'Timeline', focusedIcon: 'timeline' },
+  { key: 'categories', title: 'Categories', focusedIcon: 'shape' },
+  { key: 'badges', title: 'Badges', focusedIcon: 'star' },
+  { key: 'review', title: 'Review', focusedIcon: 'book' },
+];
+
+const renderScene = BottomNavigation.SceneMap({
+  overview: OverviewTab,
+  timeline: TimelineTab,
+  categories: CategoriesTab,
+  badges: BadgesTab,
+  review: ReviewTab,
+});
 
 export default function HistoryScreen() {
   const theme = useTheme();
+  // 表示中タブのインデックスを保持
+  const [index, setIndex] = useState(0);
 
   return (
     <Screen
@@ -29,41 +52,13 @@ export default function HistoryScreen() {
         // router.back() ではなくホームに直接戻る
         onBack={() => router.replace('/')}
       />
-      {/* BottomTabNavigator を配置 */}
-      <Tab.Navigator
-        screenOptions={{
-          // 選択中タブの色をテーマに合わせる
-          tabBarActiveTintColor: theme.colors.primary,
-          // Android などでヘッダーを非表示にする
-          headerShown: false,
-        }}
-      >
-        <Tab.Screen
-          name="overview"
-          component={OverviewTab}
-          options={{ title: 'Overview' }}
-        />
-        <Tab.Screen
-          name="timeline"
-          component={TimelineTab}
-          options={{ title: 'Timeline' }}
-        />
-        <Tab.Screen
-          name="categories"
-          component={CategoriesTab}
-          options={{ title: 'Categories' }}
-        />
-        <Tab.Screen
-          name="badges"
-          component={BadgesTab}
-          options={{ title: 'Badges' }}
-        />
-        <Tab.Screen
-          name="review"
-          component={ReviewTab}
-          options={{ title: 'Review' }}
-        />
-      </Tab.Navigator>
+      {/* BottomNavigation によりスワイプでのタブ移動に対応 */}
+      <BottomNavigation
+        navigationState={{ index, routes }}
+        onIndexChange={setIndex}
+        renderScene={renderScene}
+        sceneAnimationEnabled
+      />
     </Screen>
   );
 }
@@ -106,16 +101,25 @@ function TimelineTab() {
   const [logs, setLogs] = useState<any[]>([]);
   useEffect(() => {
     (async () => {
-      const rows = await getLatestLearningLogs(30);
+      const rows = await getLatestLearningLogs(35);
       setLogs(rows);
     })();
   }, []);
+
+  const countMap = useMemo(() => {
+    const map: Record<string, number> = {};
+    for (const log of logs) {
+      map[log.learning_date] = Object.keys(log.answers).length;
+    }
+    return map;
+  }, [logs]);
 
   return (
     <FlatList
       style={styles.tabContent}
       data={logs}
       keyExtractor={(item) => item.learning_date}
+      ListHeaderComponent={<LearningCalendar logs={countMap} />}
       renderItem={({ item }) => (
         <List.Item
           title={item.learning_date}
