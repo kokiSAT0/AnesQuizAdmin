@@ -40,4 +40,12 @@ describe('buildSqlite スクリプト', () => {
     expect(row?.question).toBe('プロポフォールの[br]投与経路は?');
     db.close();
   });
+
+  test('ReviewQueue テーブルに attempts カラムがある', () => {
+    const db = new Database(dbPath, { readonly: true });
+    const info = db.prepare("PRAGMA table_info('ReviewQueue')").all();
+    const hasAttempts = info.some((c: any) => c.name === 'attempts');
+    expect(hasAttempts).toBe(true);
+    db.close();
+  });
 });
