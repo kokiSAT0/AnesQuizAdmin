@@ -163,9 +163,6 @@ export async function getQuestionIdsByFilter(
   const conditions: string[] = [];
   const params: string[] = [];
 
-  // 常に使用中の問題のみカウント
-  conditions.push('is_used = 1');
-
   // 使用中の問題のみ取得
   conditions.push('is_used = 1');
 
