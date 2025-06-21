@@ -190,7 +190,8 @@ export default function AnswerScreen() {
       {/* ─── ヘッダー ─── */}
       <AppHeader
         title={isCorrect ? '正解！' : '不正解'}
-        onBack={() => router.replace('/select')}
+        // 戻るボタンでホーム画面へ
+        onBack={() => router.replace('/')}
         rightIcon="cog"
         onRightPress={() => router.push('/settings')}
         additionalStyles={{ backgroundColor: headerColor }}

@@ -202,7 +202,8 @@ export default function Quiz() {
       {/* ───────── 固定ヘッダー ───────── */}
       <AppHeader
         title={`クイズ（${currentIndex + 1} / ${questionIds.length}）`}
-        onBack={() => router.replace('/select')}
+        // 戻るボタンでホーム画面へ遷移
+        onBack={() => router.replace('/')}
         rightIcon="cog"
         onRightPress={() => router.push('/settings')}
       />
