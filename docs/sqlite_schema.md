@@ -48,6 +48,8 @@ erDiagram
       real    ease_factor
       int     repetition
       int     last_is_correct
+      int     attempts
+      int     last_grade
       string  last_answered_at
     }
 
@@ -85,5 +87,6 @@ erDiagram
 - `*_json` と付くカラムには配列やオブジェクトを JSON 文字列として保存します。
 - `LearningDailyStats` はその日の解答数や経験値を集計して保存するテーブルです。
 - `ReviewQueue` は SuperMemo-2 法に基づき次回復習日を管理します。
+- `ReviewQueue` では解答回数(`attempts`)と直近の採点値(`last_grade`)も保持します。
 - `QuestionAttempts` は 1 回の解答を 1 行として保持し、後から弱点分析に利用します。
 

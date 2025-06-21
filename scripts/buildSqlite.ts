@@ -84,6 +84,8 @@ CREATE TABLE IF NOT EXISTS ReviewQueue (
   ease_factor REAL,
   repetition INTEGER,
   last_is_correct INTEGER,
+  attempts INTEGER DEFAULT 0,
+  last_grade INTEGER,
   last_answered_at TEXT,
   PRIMARY KEY (user_id, question_id)
 );
