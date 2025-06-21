@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { View, StyleSheet, FlatList } from 'react-native';
 import { router } from 'expo-router';
 import {
@@ -12,6 +12,7 @@ import {
 // BottomNavigation を使うことでタブの移動をスワイプ操作にも対応させる
 import { Screen } from '@/components/Screen';
 import { AppHeader } from '@/components/AppHeader';
+import { LearningCalendar } from '@/components/LearningCalendar';
 import {
   getLatestLearningLogs,
   getCategoryStats,
@@ -100,16 +101,25 @@ function TimelineTab() {
   const [logs, setLogs] = useState<any[]>([]);
   useEffect(() => {
     (async () => {
-      const rows = await getLatestLearningLogs(30);
+      const rows = await getLatestLearningLogs(35);
       setLogs(rows);
     })();
   }, []);
+
+  const countMap = useMemo(() => {
+    const map: Record<string, number> = {};
+    for (const log of logs) {
+      map[log.learning_date] = Object.keys(log.answers).length;
+    }
+    return map;
+  }, [logs]);
 
   return (
     <FlatList
       style={styles.tabContent}
       data={logs}
       keyExtractor={(item) => item.learning_date}
+      ListHeaderComponent={<LearningCalendar logs={countMap} />}
       renderItem={({ item }) => (
         <List.Item
           title={item.learning_date}
