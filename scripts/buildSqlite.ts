@@ -199,3 +199,7 @@ for (const file of files) {
 db.pragma(`user_version = ${DB_VERSION}`);
 
 console.log(`SQLite DB generated at ${dbPath}`);
+
+// DB を使い終わったら必ず close() で接続を閉じる
+// 開きっぱなしにするとプロセスが終了しないことがあるため
+db.close();
