@@ -135,61 +135,19 @@ export async function getQuestionIdsByFilter(
   progress: string[] = [],
 ): Promise<string[]> {
   const db = await getDB();
-
-  // レベル、カテゴリ、進捗のいずれかが未選択なら空配列を返す
-  // AND 条件を満たす組み合わせが存在しないため
-  if (levels.length === 0 || categories.length === 0 || progress.length === 0) {
-    return [];
-  }
-
-  const conditions: string[] = [];
-  const params: string[] = [];
-
-  // 使用中の問題のみ取得
-  conditions.push('is_used = 1');
-
-  if (levels.length) {
-    const placeholders = levels.map(() => '?').join(', ');
-    conditions.push(`difficulty IN (${placeholders})`);
-    params.push(...levels);
-  }
-
-  if (categories.length) {
-    const placeholders = categories.map(() => '?').join(', ');
-    conditions.push(
-      `EXISTS (SELECT 1 FROM json_each(Questions.category_json) WHERE value IN (${placeholders}))`,
-    );
-    params.push(...categories);
-  }
-
-  if (progress.length) {
-    const progressConds: string[] = [];
-    if (progress.includes('正解')) {
-      progressConds.push('last_answer_correct = 1');
-    }
-    if (progress.includes('不正解')) {
-      progressConds.push('last_answer_correct = 0');
-    }
-    if (progress.includes('未学習')) {
-      progressConds.push('first_attempt_correct IS NULL');
-    }
-    if (progressConds.length) {
-      conditions.push(`(${progressConds.join(' OR ')})`);
-    }
-  }
-
-  if (favoriteOnly) {
-    conditions.push('is_favorite = 1');
-  }
-
-  const where = conditions.length ? `WHERE ${conditions.join(' AND ')}` : '';
+  const query = buildFilterQuery({
+    levels,
+    categories,
+    favoriteOnly,
+    progress,
+  });
+  if (!query) return [];
 
   const rows = await db.getAllAsync<{ id: string }>(
-    `SELECT id FROM Questions ${where} ORDER BY id;`,
-    params,
+    `SELECT id FROM Questions ${query.where} ORDER BY id;`,
+    query.params,
   );
-  const ids = rows.map((r) => r.id);
-  return ids;
+  return rows.map((r) => r.id);
 }
 
 /* ------------------------------------------------------------------ */
@@ -218,22 +176,27 @@ export async function countQuestionsByDifficulty(
 }
 
 /* ------------------------------------------------------------------ */
-/* 5-2b. レベルとカテゴリを指定して問題数をカウントする                 */
+/* フィルター条件を共通生成するヘルパー                               */
 /* ------------------------------------------------------------------ */
-export async function countQuestionsByFilter(
-  levels: string[],
-  categories: string[],
-  favoriteOnly = false,
-  progress: string[] = [],
-): Promise<number> {
-  const db = await getDB();
+export type QuestionFilterOptions = {
+  levels: string[];
+  categories: string[];
+  favoriteOnly?: boolean;
+  progress?: string[];
+};
 
-  // レベル・カテゴリ・進捗のいずれかが未選択なら 0 件とする
+function buildFilterQuery({
+  levels,
+  categories,
+  favoriteOnly = false,
+  progress = [],
+}: QuestionFilterOptions): { where: string; params: string[] } | null {
+  // レベル・カテゴリ・進捗のいずれかが未選択ならクエリなし
   if (levels.length === 0 || categories.length === 0 || progress.length === 0) {
-    return 0;
+    return null;
   }
 
-  const conditions: string[] = [];
+  const conditions: string[] = ['is_used = 1'];
   const params: string[] = [];
 
   if (levels.length) {
@@ -252,15 +215,12 @@ export async function countQuestionsByFilter(
 
   if (progress.length) {
     const progressConds: string[] = [];
-    if (progress.includes('正解')) {
+    if (progress.includes('正解'))
       progressConds.push('last_answer_correct = 1');
-    }
-    if (progress.includes('不正解')) {
+    if (progress.includes('不正解'))
       progressConds.push('last_answer_correct = 0');
-    }
-    if (progress.includes('未学習')) {
+    if (progress.includes('未学習'))
       progressConds.push('first_attempt_correct IS NULL');
-    }
     if (progressConds.length) {
       conditions.push(`(${progressConds.join(' OR ')})`);
     }
@@ -271,10 +231,30 @@ export async function countQuestionsByFilter(
   }
 
   const where = conditions.length ? `WHERE ${conditions.join(' AND ')}` : '';
+  return { where, params };
+}
+
+/* ------------------------------------------------------------------ */
+/* 5-2b. レベルとカテゴリを指定して問題数をカウントする                 */
+/* ------------------------------------------------------------------ */
+export async function countQuestionsByFilter(
+  levels: string[],
+  categories: string[],
+  favoriteOnly = false,
+  progress: string[] = [],
+): Promise<number> {
+  const db = await getDB();
+  const query = buildFilterQuery({
+    levels,
+    categories,
+    favoriteOnly,
+    progress,
+  });
+  if (!query) return 0;
 
   const { total } = await db.getFirstAsync<{ total: number }>(
-    `SELECT COUNT(*) AS total FROM Questions ${where};`,
-    params,
+    `SELECT COUNT(*) AS total FROM Questions ${query.where};`,
+    query.params,
   );
   return total;
 }
