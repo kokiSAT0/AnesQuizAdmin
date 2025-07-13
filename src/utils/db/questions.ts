@@ -1,5 +1,6 @@
 import { getDB } from './connection';
 import { logInfo } from '../logger';
+import { buildPlaceholders } from './helpers';
 import type { QuestionData, Question } from '@/src/types/question';
 export async function getMaxUpdatedAt(): Promise<string> {
   const db = await getDB();
@@ -117,7 +118,7 @@ export async function getQuestionIdsByDifficulty(
     return rows.map((r) => r.id);
   }
 
-  const placeholders = levels.map(() => '?').join(', ');
+  const placeholders = buildPlaceholders(levels.length);
   const rows = await db.getAllAsync<{ id: string }>(
     `SELECT id FROM Questions WHERE is_used = 1 AND difficulty IN (${placeholders}) ORDER BY id;`,
     levels,
@@ -167,7 +168,7 @@ export async function countQuestionsByDifficulty(
   }
 
   // IN 句の ? をレベルの個数分並べる
-  const placeholders = levels.map(() => '?').join(', ');
+  const placeholders = buildPlaceholders(levels.length);
   const { total } = await db.getFirstAsync<{ total: number }>(
     `SELECT COUNT(*) AS total FROM Questions WHERE is_used = 1 AND difficulty IN (${placeholders});`,
     levels,
@@ -200,13 +201,13 @@ function buildFilterQuery({
   const params: string[] = [];
 
   if (levels.length) {
-    const placeholders = levels.map(() => '?').join(', ');
+    const placeholders = buildPlaceholders(levels.length);
     conditions.push(`difficulty IN (${placeholders})`);
     params.push(...levels);
   }
 
   if (categories.length) {
-    const placeholders = categories.map(() => '?').join(', ');
+    const placeholders = buildPlaceholders(categories.length);
     conditions.push(
       `EXISTS (SELECT 1 FROM json_each(Questions.category_json) WHERE value IN (${placeholders}))`,
     );
