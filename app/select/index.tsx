@@ -15,6 +15,8 @@ import {
   countQuestionsByFilter,
 } from '@/src/utils/db/index';
 import { SelectableChip } from '@/components/SelectableChip';
+// 先ほどエクスポートした型をインポート
+import type { SelectableChipProps } from '@/components/SelectableChip';
 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { CATEGORIES, Category } from '@/constants/Categories';
@@ -29,18 +31,18 @@ const PROGRESS = ['正解', '不正解', '未学習'] as const;
 type Progress = (typeof PROGRESS)[number];
 
 // レベル選択用の Chip を表示するコンポーネント
+// "Omit" は指定したプロパティを取り除くユーティリティ型です
+const LevelChip: React.FC<Omit<SelectableChipProps, 'selectedColorToken'>> = (
+  p,
+) => <SelectableChip {...p} selectedColorToken="levelChipSelected" />;
 
-const LevelChip = (p: any) => (
-  <SelectableChip {...p} selectedColorToken="levelChipSelected" />
-);
+const CategoryChip: React.FC<
+  Omit<SelectableChipProps, 'selectedColorToken'>
+> = (p) => <SelectableChip {...p} selectedColorToken="categoryChipSelected" />;
 
-const CategoryChip = (p: any) => (
-  <SelectableChip {...p} selectedColorToken="categoryChipSelected" />
-);
-
-const ProgressChip = (p: any) => (
-  <SelectableChip {...p} selectedColorToken="progressChipSelected" />
-);
+const ProgressChip: React.FC<
+  Omit<SelectableChipProps, 'selectedColorToken'>
+> = (p) => <SelectableChip {...p} selectedColorToken="progressChipSelected" />;
 
 export default function SelectScreen() {
   const theme = useTheme();
