@@ -9,7 +9,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { logInfo, logError } from '@/src/utils/logger';
+
 import { AppHeader } from '@/components/AppHeader';
 import { Text, Button, useTheme } from 'react-native-paper';
 import { ResponsiveText } from '@/components/ResponsiveText';
@@ -20,9 +20,8 @@ import {
   updateLearningDailyLog,
   recordAnswer,
   recordFirstAttempt,
-  updateFavorite,
-  updateUsed,
 } from '@/src/utils/db/index';
+import { useQuestionActions } from '@/hooks/useQuestionActions';
 // 問題データの型
 import type { Question } from '@/types/question';
 
@@ -77,33 +76,11 @@ export default function Quiz() {
     }
   };
 
-  // お気に入り切り替え
-  const toggleFavorite = async () => {
-    if (!question) return;
-    const newFlag = !question.is_favorite;
-    // まずローカル SQLite を更新（await で完了を待つ）
-    try {
-      await updateFavorite(question.id, newFlag);
-    } catch (err) {
-      // お気に入り更新失敗
-      return;
-    }
-    setQuestion((prev) => (prev ? { ...prev, is_favorite: newFlag } : prev));
-  };
-
-  // 使用フラグ切り替え
-  const toggleUsed = async () => {
-    if (!question) return;
-    const newFlag = !question.is_used;
-    logInfo('toggle used', { id: question.id, flag: newFlag });
-    try {
-      await updateUsed(question.id, newFlag);
-    } catch (err) {
-      logError('使用フラグ更新失敗', err);
-      return;
-    }
-    setQuestion((prev) => (prev ? { ...prev, is_used: newFlag } : prev));
-  };
+  // 共通処理をカスタムフックに委譲
+  const { toggleFavorite, toggleUsed } = useQuestionActions({
+    question,
+    setQuestion,
+  });
 
   useEffect(() => {
     if (typeof ids === 'string') {

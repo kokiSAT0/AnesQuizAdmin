@@ -10,7 +10,6 @@ import {
   Dimensions,
   StyleSheet,
 } from 'react-native';
-import { logInfo, logError } from '@/src/utils/logger';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Text, Button, useTheme } from 'react-native-paper';
 // [br] を改行に変換してくれるコンポーネント
@@ -18,11 +17,8 @@ import { ResponsiveText } from '@/components/ResponsiveText';
 import { createQuestionTextStyle } from '@/components/TextStyles';
 import { AntDesign } from '@expo/vector-icons';
 import { AppHeader } from '@/components/AppHeader';
-import {
-  getQuestionById,
-  updateFavorite,
-  updateUsed,
-} from '@/src/utils/db/index';
+import { getQuestionById, updateFavorite } from '@/src/utils/db/index';
+import { useQuestionActions } from '@/hooks/useQuestionActions';
 
 const { width } = Dimensions.get('window');
 const FOOTER_HEIGHT = 64;
@@ -130,33 +126,11 @@ export default function AnswerScreen() {
     return optionOrder.map((idx) => ({ idx, text: question.options[idx] }));
   }, [question, optionOrder]);
 
-  /* ───── お気に入り切替 ───── */
-  const toggleFavorite = async () => {
-    if (!question) return;
-
-    const newFlag = !question.is_favorite;
-    try {
-      // SQLite に反映し、画面でも即時更新します
-      await updateFavorite(question.id, newFlag);
-      setQuestion((prev) => (prev ? { ...prev, is_favorite: newFlag } : prev));
-    } catch (err) {
-      // お気に入り更新失敗
-    }
-  };
-
-  /* ───── 使用フラグ切替 ───── */
-  const toggleUsed = async () => {
-    if (!question) return;
-
-    const newFlag = !question.is_used;
-    logInfo('answer toggle used', { id: question.id, flag: newFlag });
-    try {
-      await updateUsed(question.id, newFlag);
-      setQuestion((prev) => (prev ? { ...prev, is_used: newFlag } : prev));
-    } catch (err) {
-      logError('使用フラグ更新失敗', err);
-    }
-  };
+  // 共通処理をカスタムフックにまとめる
+  const { toggleFavorite, toggleUsed } = useQuestionActions({
+    question,
+    setQuestion,
+  });
 
   /* ───── 次の問題へ ───── */
   const goNext = () => {
