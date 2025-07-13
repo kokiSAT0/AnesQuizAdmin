@@ -3,7 +3,11 @@ import * as FileSystem from 'expo-file-system';
 import { Asset } from 'expo-asset';
 import { Alert } from 'react-native';
 import { DB_VERSION } from '@/constants/DbVersion';
+
+import { logInfo, logError, logWarn } from '../logger';
+
 import { TABLE_SCHEMAS } from './schema';
+
 
 let dbPromise: Promise<SQLiteDatabase> | null = null;
 let dbCopiedFromAsset = false;
@@ -17,6 +21,7 @@ export async function deleteDatabase(): Promise<void> {
   if (info.exists) {
     // FileSystem.deleteAsync は指定したファイルを非同期で削除します
     await FileSystem.deleteAsync(sqlitePath, { idempotent: true });
+    logWarn('既存 DB を削除しました');
   }
   // 次回 getDB 呼び出し時に新しい DB をコピーさせるためリセット
   dbPromise = null;
@@ -46,8 +51,9 @@ export async function getDB(): Promise<SQLiteDatabase> {
         dbCopiedFromAsset = true;
       }
       dbPromise = openDatabaseAsync('app.db');
+      logInfo('DB オープン準備完了');
     } catch (err) {
-      console.error('DB初期化エラー', err);
+      logError('DB初期化エラー', err);
       Alert.alert('DB初期化エラー', 'データベースの準備に失敗しました。');
       throw err;
     }
@@ -55,8 +61,9 @@ export async function getDB(): Promise<SQLiteDatabase> {
   let db: SQLiteDatabase;
   try {
     db = await dbPromise;
+    logInfo('DB 接続確立');
   } catch (err) {
-    console.error('DB接続エラー', err);
+    logError('DB接続エラー', err);
     Alert.alert('DB接続エラー', 'データベースを開けませんでした。');
     throw err;
   }
@@ -66,6 +73,7 @@ export async function getDB(): Promise<SQLiteDatabase> {
     'PRAGMA user_version;',
   );
   if (user_version < DB_VERSION) {
+    logWarn('DB バージョンが古いため再コピーします');
     await deleteDatabase();
     return getDB();
   }
@@ -79,6 +87,7 @@ export async function getDB(): Promise<SQLiteDatabase> {
  */
 export async function initializeDatabaseIfNeeded(): Promise<void> {
   const db = await getDB(); // ← Promise を await
+  logInfo('DB 初期化開始');
   try {
     // DB 初期化開始
 
@@ -102,8 +111,9 @@ export async function initializeDatabaseIfNeeded(): Promise<void> {
       }
     }
   } catch (err) {
-    console.error('DB初期化処理エラー', err);
+    logError('DB初期化処理エラー', err);
     Alert.alert('DB初期化処理エラー', 'データベースの初期化に失敗しました。');
     throw err;
   }
+  logInfo('DB 初期化完了');
 }

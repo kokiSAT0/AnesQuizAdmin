@@ -20,6 +20,7 @@ import {
   getAllBadgesWithStatus,
   getDueReviewItems,
 } from '@/src/utils/db/index';
+import { logInfo } from '@/src/utils/logger';
 import type { LearningDailyLog } from '@/src/types/learningLog';
 import type { CategoryStat, BadgeInfo } from '@/src/utils/db/index';
 import type { ReviewItem } from '@/src/types/review';
@@ -83,6 +84,7 @@ function OverviewTab() {
         setTodayAttempts(attempts);
         setTodayCorrect(correct);
       }
+      logInfo('Overview 情報取得完了');
     })();
   }, []);
   return (
@@ -106,6 +108,7 @@ function TimelineTab() {
     (async () => {
       const rows = await getLatestLearningLogs(35);
       setLogs(rows);
+      logInfo('Timeline データ取得完了');
     })();
   }, []);
 
@@ -139,6 +142,7 @@ function CategoriesTab() {
     (async () => {
       const rows = await getCategoryStats();
       setStats(rows);
+      logInfo('Categories データ取得完了');
     })();
   }, []);
   return (
@@ -162,6 +166,7 @@ function BadgesTab() {
     (async () => {
       const rows = await getAllBadgesWithStatus();
       setBadges(rows);
+      logInfo('Badges データ取得完了');
     })();
   }, []);
   return (
@@ -185,6 +190,7 @@ function ReviewTab() {
     (async () => {
       const rows = await getDueReviewItems();
       setItems(rows);
+      logInfo('Review データ取得完了');
     })();
   }, []);
   return (
