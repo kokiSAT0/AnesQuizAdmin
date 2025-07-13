@@ -3,7 +3,9 @@ import type { ColorScheme } from '@/theme/tokens';
 import React from 'react';
 import { Chip, useTheme } from 'react-native-paper';
 
-type Props = {
+// コンポーネントが受け取るプロパティ型
+// "export" を付けることで他のファイルからも利用できます
+export type SelectableChipProps = {
   label: string;
   selected: boolean;
   onToggle: () => void;
@@ -15,7 +17,7 @@ export function SelectableChip({
   selected,
   onToggle,
   selectedColorToken,
-}: Props) {
+}: SelectableChipProps) {
   const { colors } = useTheme();
   return (
     <Chip
