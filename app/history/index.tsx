@@ -20,6 +20,8 @@ import {
   getAllBadgesWithStatus,
   getDueReviewItems,
 } from '@/src/utils/db/index';
+import type { LearningDailyLog } from '@/src/types/learningLog';
+import type { CategoryStat, BadgeInfo, ReviewItem } from '@/src/utils/db/index';
 
 // BottomNavigation 用のルート定義
 const routes = [
@@ -98,7 +100,7 @@ function OverviewTab() {
 }
 
 function TimelineTab() {
-  const [logs, setLogs] = useState<any[]>([]);
+  const [logs, setLogs] = useState<LearningDailyLog[]>([]);
   useEffect(() => {
     (async () => {
       const rows = await getLatestLearningLogs(35);
@@ -131,7 +133,7 @@ function TimelineTab() {
 }
 
 function CategoriesTab() {
-  const [stats, setStats] = useState<any[]>([]);
+  const [stats, setStats] = useState<CategoryStat[]>([]);
   useEffect(() => {
     (async () => {
       const rows = await getCategoryStats();
@@ -154,7 +156,7 @@ function CategoriesTab() {
 }
 
 function BadgesTab() {
-  const [badges, setBadges] = useState<any[]>([]);
+  const [badges, setBadges] = useState<BadgeInfo[]>([]);
   useEffect(() => {
     (async () => {
       const rows = await getAllBadgesWithStatus();
@@ -177,7 +179,7 @@ function BadgesTab() {
 }
 
 function ReviewTab() {
-  const [items, setItems] = useState<any[]>([]);
+  const [items, setItems] = useState<ReviewItem[]>([]);
   useEffect(() => {
     (async () => {
       const rows = await getDueReviewItems();
