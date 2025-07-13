@@ -329,26 +329,36 @@ export async function getQuestionById(id: string) {
 }
 
 /* ------------------------------------------------------------------ */
-/* 7. お気に入りフラグを更新                                          */
+/* Questions テーブルのフラグを更新する汎用関数                       */
 /* ------------------------------------------------------------------ */
-export async function updateFavorite(id: string, flag: boolean): Promise<void> {
+export async function updateQuestionFlag(
+  id: string,
+  field: 'is_favorite' | 'is_used',
+  flag: boolean,
+): Promise<void> {
   const db = await getDB();
-  await db.runAsync('UPDATE Questions SET is_favorite = ? WHERE id = ?;', [
+  // `${field}` はテンプレートリテラルと呼ばれる記法で変数を文字列に埋め込めます
+  await db.runAsync(`UPDATE Questions SET ${field} = ? WHERE id = ?;`, [
     flag ? 1 : 0,
     id,
   ]);
 }
 
 /* ------------------------------------------------------------------ */
+/* 7. お気に入りフラグを更新                                          */
+/* ------------------------------------------------------------------ */
+export async function updateFavorite(id: string, flag: boolean): Promise<void> {
+  // 共通関数に処理を委譲することで将来的な項目追加に対応しやすくします
+  await updateQuestionFlag(id, 'is_favorite', flag);
+}
+
+/* ------------------------------------------------------------------ */
 /* 7-1. 使用フラグを更新                                               */
 /* ------------------------------------------------------------------ */
 export async function updateUsed(id: string, flag: boolean): Promise<void> {
-  const db = await getDB();
+  // ログ出力だけ行い、更新処理は共通関数に任せます
   logInfo('update used', { id, flag });
-  await db.runAsync('UPDATE Questions SET is_used = ? WHERE id = ?;', [
-    flag ? 1 : 0,
-    id,
-  ]);
+  await updateQuestionFlag(id, 'is_used', flag);
 }
 
 /* ------------------------------------------------------------------ */
