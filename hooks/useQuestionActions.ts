@@ -4,7 +4,7 @@
 
 import React from 'react';
 import type { Question } from '@/types/question';
-import { updateFavorite, updateUsed } from '@/src/utils/db';
+import { updateQuestionFlag } from '@/src/utils/db';
 import { logInfo, logError } from '@/src/utils/logger';
 
 export type UseQuestionActionsProps = {
@@ -25,33 +25,26 @@ export function useQuestionActions({
   question,
   setQuestion,
 }: UseQuestionActionsProps): UseQuestionActionsReturn {
-  // お気に入りをトグルする処理
-  const toggleFavorite = async () => {
+  /**
+   * 任意のフラグをトグルする共通処理
+   * @param field 更新対象のフィールド名
+   */
+  const toggleFlag = async (field: 'is_favorite' | 'is_used') => {
     if (!question) return;
-    const newFlag = !question.is_favorite;
+    const newFlag = !question[field];
     try {
-      // SQLite を更新し、状態も反映
-      await updateFavorite(question.id, newFlag);
-      setQuestion((prev) => (prev ? { ...prev, is_favorite: newFlag } : prev));
-      logInfo('toggle favorite', { id: question.id, flag: newFlag });
+      // DB 更新と状態反映をまとめて実行
+      await updateQuestionFlag(question.id, field, newFlag);
+      setQuestion((prev) => (prev ? { ...prev, [field]: newFlag } : prev));
+      logInfo(`toggle ${field}`, { id: question.id, flag: newFlag });
     } catch (err) {
-      logError('お気に入り更新失敗', err);
+      logError(`${field} 更新失敗`, err);
     }
   };
 
-  // 使用中フラグをトグルする処理
-  const toggleUsed = async () => {
-    if (!question) return;
-    const newFlag = !question.is_used;
-    try {
-      await updateUsed(question.id, newFlag);
-      setQuestion((prev) => (prev ? { ...prev, is_used: newFlag } : prev));
-      logInfo('toggle used', { id: question.id, flag: newFlag });
-    } catch (err) {
-      logError('使用フラグ更新失敗', err);
-    }
-  };
+  // 各操作用のラッパー関数を返す
+  const toggleFavorite = async () => toggleFlag('is_favorite');
+  const toggleUsed = async () => toggleFlag('is_used');
 
-  // 2 つの関数を返します
   return { toggleFavorite, toggleUsed };
 }
