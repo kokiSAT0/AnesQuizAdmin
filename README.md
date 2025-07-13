@@ -31,9 +31,10 @@
 ### 2. リポジトリ取得
 
 ```bash
-git clone https://github.com/<YOUR_ORG>/AnesQuiz.git
-cd AnesQuiz
+git clone https://github.com/<YOUR_ORG>/AnesQuizAdmin.git
+cd AnesQuizAdmin
 npm ci
+```
 
 ### 3. SQLite データベース生成
 
@@ -61,7 +62,7 @@ npm start -- --clear
 ### 重要な変更点
 
 - Firestore との同期機能を廃止しました。
-- これに伴い設定画面からデータベース削除ボタンを取り除いています。
+- 設定画面には DB ファイルを削除するボタンを用意しています。
 
 ### テキストの改行指定
 
