@@ -1,6 +1,7 @@
 /**
- * Below are the colors that are used in the app. The colors are defined in the light and dark mode.
- * There are many other ways to style your app. For example, [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
+ * ここではアプリで使用する色を定義します。ライトモードとダークモードで値を分けています。
+ * スタイルの付け方には他にも [Tamagui](https://tamagui.dev/) や
+ * [unistyles](https://reactnativeunistyles.vercel.app) などの方法があります。
  */
 
 const tintColorLight = '#0a7ea4';

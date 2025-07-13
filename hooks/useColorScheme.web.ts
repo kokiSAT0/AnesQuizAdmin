@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useColorScheme as useRNColorScheme } from 'react-native';
 
 /**
- * To support static rendering, this value needs to be re-calculated on the client side for web
+ * Web の静的レンダリングをサポートするため、クライアント側で色設定を再取得します
  */
 export function useColorScheme() {
   const [hasHydrated, setHasHydrated] = useState(false);
