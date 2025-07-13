@@ -12,7 +12,6 @@ export const CATEGORIES = [
   '麻酔関連機器',
   '術前評価・麻酔計画',
   '輸液・輸血',
-  'ICU管理',
   'ICU 管理',
   '医療安全・ヒューマンファクター',
 ] as const;
