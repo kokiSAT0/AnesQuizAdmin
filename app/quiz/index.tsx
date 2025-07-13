@@ -1,13 +1,8 @@
 // app/quiz/index.tsx
 import React, { useEffect, useState } from 'react';
 import { router, useLocalSearchParams } from 'expo-router';
-import {
-  View,
-  Pressable,
-  Dimensions,
-  ScrollView,
-  StyleSheet,
-} from 'react-native';
+import { View, Dimensions, ScrollView, StyleSheet } from 'react-native';
+import { PaperPressable } from '@/components/PaperPressable';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { AppHeader } from '@/components/AppHeader';
@@ -229,7 +224,7 @@ export default function Quiz() {
             ? theme.colors.onPrimary
             : theme.colors.onSecondaryContainer; // ⿊に近い文字⾊
           return (
-            <Pressable
+            <PaperPressable
               key={opt.idx}
               style={[
                 styles.choice,
@@ -242,7 +237,7 @@ export default function Quiz() {
                 text={opt.text}
                 style={[styles.choiceText, { color: fg }]}
               />
-            </Pressable>
+            </PaperPressable>
           );
         })}
       </ScrollView>
