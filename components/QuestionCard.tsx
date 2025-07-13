@@ -28,6 +28,8 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
   const theme = useTheme();
   const tStyles = createQuestionTextStyle(theme);
 
+  const styles = createStyles(theme);
+
   return (
     <View style={[styles.card, { borderColor }]}>
       {/* ─ カテゴリ表示エリア ─ */}
@@ -71,44 +73,45 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
   );
 };
 
-// コンポーネント内スタイル定義
-const styles = StyleSheet.create({
-  card: {
-    margin: 16,
-    padding: 24,
-    borderWidth: 1,
-    borderRadius: 16,
-    minHeight: 140,
-    justifyContent: 'center',
-  },
-  categoryRow: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    position: 'absolute',
-    top: 8,
-    left: 8,
-    right: 48,
-  },
-  categoryChip: {
-    backgroundColor: '#E0E0E0',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 12,
-    marginRight: 4,
-    marginBottom: 4,
-  },
-  categoryText: {
-    fontSize: 12,
-    color: '#444',
-  },
-  favoriteBtn: {
-    position: 'absolute',
-    top: 12,
-    right: 12,
-  },
-  usedBtn: {
-    position: 'absolute',
-    top: 12,
-    right: 48,
-  },
-});
+// スタイルはテーマから色を受け取って生成します
+const createStyles = (theme: ReturnType<typeof useTheme>) =>
+  StyleSheet.create({
+    card: {
+      margin: 16,
+      padding: 24,
+      borderWidth: 1,
+      borderRadius: 16,
+      minHeight: 140,
+      justifyContent: 'center',
+    },
+    categoryRow: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      position: 'absolute',
+      top: 8,
+      left: 8,
+      right: 48,
+    },
+    categoryChip: {
+      backgroundColor: theme.colors.categoryChip,
+      paddingHorizontal: 8,
+      paddingVertical: 4,
+      borderRadius: 12,
+      marginRight: 4,
+      marginBottom: 4,
+    },
+    categoryText: {
+      fontSize: 12,
+      color: theme.colors.onSurfaceVariant,
+    },
+    favoriteBtn: {
+      position: 'absolute',
+      top: 12,
+      right: 12,
+    },
+    usedBtn: {
+      position: 'absolute',
+      top: 12,
+      right: 48,
+    },
+  });
