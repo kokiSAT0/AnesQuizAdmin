@@ -3,6 +3,7 @@ import path from 'path';
 import Database from 'better-sqlite3';
 import { CATEGORIES } from '../constants/Categories';
 import { DB_VERSION } from '../constants/DbVersion';
+import { TABLE_SCHEMAS } from '../src/utils/db/schema';
 
 // このスクリプトは JSON 形式の問題集から SQLite データベースを生成します。
 // better-sqlite3 は Node.js で SQLite を扱うための高速なライブラリです。
@@ -26,100 +27,14 @@ db.exec('DROP TABLE IF EXISTS ReviewQueue;');
 db.exec('DROP TABLE IF EXISTS LearningDailyStats;');
 db.exec('DROP TABLE IF EXISTS Badges;');
 db.exec('DROP TABLE IF EXISTS UserBadges;');
+db.exec('DROP TABLE IF EXISTS AppInfo;');
 
-// Questions テーブルを作成
-// src/utils/db.ts と同じカラム構成にしています
-// INTEGER は数値、TEXT は文字列を保存する型です
+db.exec('DROP TABLE IF EXISTS LearningDailyLogs;');
 
-db.exec(`
-CREATE TABLE IF NOT EXISTS Questions (
-  id TEXT PRIMARY KEY,
-  type TEXT,
-  category_json TEXT,
-  tag_json TEXT,
-  difficulty TEXT,
-  question TEXT,
-  option_json TEXT,
-  correct_json TEXT,
-  explanation TEXT,
-  reference_json TEXT,
-  first_attempt_correct INTEGER,
-  first_attempted_at TEXT,
-  is_favorite INTEGER,
-  is_used INTEGER,
-  last_answer_correct INTEGER,
-  last_answered_at TEXT,
-  last_correct_at TEXT,
-  last_incorrect_at TEXT
-);
-`);
-
-// 以下、追加テーブル定義
-db.exec(`
-CREATE TABLE IF NOT EXISTS Users (
-  id TEXT PRIMARY KEY,
-  nickname TEXT,
-  created_at TEXT,
-  last_active_at TEXT
-);
-`);
-
-db.exec(`
-CREATE TABLE IF NOT EXISTS QuestionAttempts (
-  user_id TEXT,
-  question_id TEXT,
-  answered_at TEXT,
-  is_correct INTEGER,
-  response_ms INTEGER,
-  PRIMARY KEY (user_id, question_id, answered_at)
-);
-`);
-
-db.exec(`
-CREATE TABLE IF NOT EXISTS ReviewQueue (
-  user_id TEXT,
-  question_id TEXT,
-  next_review_at TEXT,
-  interval_days INTEGER,
-  ease_factor REAL,
-  repetition INTEGER,
-  last_is_correct INTEGER,
-  attempts INTEGER DEFAULT 0,
-  last_grade INTEGER,
-  last_answered_at TEXT,
-  PRIMARY KEY (user_id, question_id)
-);
-`);
-
-db.exec(`
-CREATE TABLE IF NOT EXISTS LearningDailyStats (
-  user_id TEXT,
-  learning_date TEXT,
-  attempts_total INTEGER,
-  correct_total INTEGER,
-  xp_gained INTEGER,
-  streak_after_today INTEGER,
-  PRIMARY KEY (user_id, learning_date)
-);
-`);
-
-db.exec(`
-CREATE TABLE IF NOT EXISTS Badges (
-  id TEXT PRIMARY KEY,
-  name TEXT,
-  description TEXT,
-  criteria_json TEXT
-);
-`);
-
-db.exec(`
-CREATE TABLE IF NOT EXISTS UserBadges (
-  user_id TEXT,
-  badge_id TEXT,
-  earned_at TEXT,
-  PRIMARY KEY (user_id, badge_id)
-);
-`);
+// schema.ts にある SQL を順に実行してテーブルを作成
+for (const sql of TABLE_SCHEMAS) {
+  db.exec(sql);
+}
 
 // プリペアドステートメントを作成
 // SQL を一度解析しておくことで高速に実行できます
