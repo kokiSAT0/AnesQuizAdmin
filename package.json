@@ -9,7 +9,6 @@
     "prestart": "npm run build:sqlite",
     "start": "expo start",
     "preandroid": "npm run build:sqlite",
-    "reset-project": "node ./scripts/reset-project.js",
     "android": "DARK_MODE=media expo start --android",
     "preios": "npm run build:sqlite",
     "ios": "DARK_MODE=media expo start --ios",
