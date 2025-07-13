@@ -53,6 +53,10 @@ export const colors = {
     progressChip: '#FEF5E7',
     progressChipSelected: '#FCE8CE',
 
+    // ハッシュタグ表示用 Chip
+    tagChip: '#E0E0E0',
+    tagChipText: '#444444',
+
     /* --- Quiz-App custom cards (light) ------------------- */
     levelCard: '#E8F4FD',
     categoryCard: '#E9F7EF',
@@ -102,6 +106,10 @@ export const colors = {
 
     progressChip: '#56391A',
     progressChipSelected: '#644826',
+
+    // ハッシュタグ表示用 Chip
+    tagChip: '#4A4A4A',
+    tagChipText: '#E0E0E0',
 
     /* --- Quiz-App custom cards (light) ------------------- */
     levelCard: '#27486B',

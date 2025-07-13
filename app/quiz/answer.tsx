@@ -212,8 +212,18 @@ export default function AnswerScreen() {
           {/* ① タグを 1 行で横並び表示 */}
           <View style={styles.tagRow}>
             {tagChips.map((tag) => (
-              <View key={tag} style={styles.tagChip}>
-                <Text style={styles.tagText}>#{tag} </Text>
+              <View
+                key={tag}
+                style={[
+                  styles.tagChip,
+                  { backgroundColor: theme.colors.tagChip },
+                ]}
+              >
+                <Text
+                  style={[styles.tagText, { color: theme.colors.tagChipText }]}
+                >
+                  #{tag}{' '}
+                </Text>
               </View>
             ))}
           </View>
@@ -283,13 +293,12 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   tagChip: {
-    backgroundColor: '#E0E0E0',
     borderRadius: 12,
     paddingHorizontal: 8,
     paddingVertical: 4,
     marginRight: 8,
   },
-  tagText: { fontSize: 12, color: '#444' },
+  tagText: { fontSize: 12 },
 
   explanation: { fontSize: 16, lineHeight: 24 },
 
