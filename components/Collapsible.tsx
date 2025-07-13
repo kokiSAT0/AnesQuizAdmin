@@ -26,7 +26,8 @@ export function Collapsible({
           size={18}
           weight="medium"
           color={theme === 'light' ? Colors.light.icon : Colors.dark.icon}
-          style={{ transform: [{ rotate: isOpen ? '90deg' : '0deg' }] }}
+          // 折りたたみ状態に応じて回転させる
+          style={[styles.icon, isOpen && styles.iconOpen]}
         />
 
         <ThemedText type="defaultSemiBold">{title}</ThemedText>
@@ -45,5 +46,13 @@ const styles = StyleSheet.create({
   content: {
     marginTop: 6,
     marginLeft: 24,
+  },
+  // アイコンの回転スタイル（初期は0度）
+  icon: {
+    transform: [{ rotate: '0deg' }],
+  },
+  // 開いているときは90度回転させる
+  iconOpen: {
+    transform: [{ rotate: '90deg' }],
   },
 });

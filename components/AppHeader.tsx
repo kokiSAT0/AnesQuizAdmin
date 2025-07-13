@@ -37,7 +37,7 @@ export const AppHeader: React.FC<Props> = ({
         <IconButton icon="arrow-left" onPress={onBack} />
       ) : (
         /* アイコン分のダミーで中央寄せを保つ */
-        <View style={{ width: 48 }} />
+        <View style={styles.spacer} />
       )}
 
       <Text
@@ -52,7 +52,7 @@ export const AppHeader: React.FC<Props> = ({
       {rightIcon ? (
         <IconButton icon={rightIcon} onPress={onRightPress} />
       ) : (
-        <View style={{ width: 48 }} />
+        <View style={styles.spacer} />
       )}
     </View>
   );
@@ -75,5 +75,9 @@ const styles = StyleSheet.create({
     flex: 1,
     textAlign: 'center',
     lineHeight: 24,
+  },
+  // アイコン未表示時のスペース確保用
+  spacer: {
+    width: 48,
   },
 });

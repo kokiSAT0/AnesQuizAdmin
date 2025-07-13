@@ -2,6 +2,7 @@
 import type { ColorScheme } from '@/theme/tokens';
 import React from 'react';
 import { Chip, useTheme } from 'react-native-paper';
+import { StyleSheet } from 'react-native';
 
 // コンポーネントが受け取るプロパティ型
 // "export" を付けることで他のファイルからも利用できます
@@ -19,16 +20,24 @@ export function SelectableChip({
   selectedColorToken,
 }: SelectableChipProps) {
   const { colors } = useTheme();
+  // 選択状態に応じて背景色を変える
+  const backgroundStyle = {
+    backgroundColor: selected ? colors[selectedColorToken] : '#FFFFFF',
+  };
+
   return (
     <Chip
       mode="outlined"
       onPress={onToggle}
-      style={{
-        margin: 4,
-        backgroundColor: selected ? colors[selectedColorToken] : '#FFFFFF',
-      }}
+      style={[styles.chip, backgroundStyle]}
     >
       {label}
     </Chip>
   );
 }
+
+const styles = StyleSheet.create({
+  chip: {
+    margin: 4,
+  },
+});
