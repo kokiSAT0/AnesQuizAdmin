@@ -3,16 +3,6 @@ import * as FileSystem from 'expo-file-system';
 import { Asset } from 'expo-asset';
 import { DB_VERSION } from '@/constants/DbVersion';
 
-/** UUID を簡易生成するヘルパー */
-export function generateUUID(): string {
-  // x と y をランダムな 16 進数に置き換えて UUID v4 形式の文字列を作る
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
-    const r = Math.floor(Math.random() * 16);
-    const v = c === 'x' ? r : (r & 0x3) | 0x8;
-    return v.toString(16);
-  });
-}
-
 let dbPromise: Promise<SQLiteDatabase> | null = null;
 let dbCopiedFromAsset = false;
 

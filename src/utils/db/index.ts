@@ -1,3 +1,4 @@
+export * from '../uuid';
 export * from './connection';
 export * from './questions';
 export * from './user';
