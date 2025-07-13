@@ -1,6 +1,6 @@
 import type { Category } from '@/constants/Categories';
 
-/** Firestore などから取得する問題データの型 */
+/** 外部から取得する問題データの型 */
 export interface QuestionData {
   id: string;
   type: 'single_choice' | 'multiple_choice';

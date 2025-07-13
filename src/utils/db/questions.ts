@@ -14,7 +14,7 @@ export async function getMaxUpdatedAt(): Promise<string> {
 }
 
 /* ------------------------------------------------------------------ */
-/* 2. Firestore → SQLite UPSERT                                       */
+/* 2. 外部データ → SQLite UPSERT                                     */
 /* ------------------------------------------------------------------ */
 export async function upsertQuestion(data: QuestionData): Promise<void> {
   const db = await getDB();
