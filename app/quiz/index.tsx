@@ -52,6 +52,8 @@ export default function Quiz() {
     { idx: number; text: string }[]
   >([]);
   const [isAnswered, setIsAnswered] = useState(false);
+  // 連続タップ防止用のフラグ
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // 選択肢をタップした時の処理
   const toggleSelect = (origIdx: number) => {
@@ -110,7 +112,10 @@ export default function Quiz() {
 
   // 解答ボタンが押されたときの処理
   const onSubmit = () => {
-    if (!question || selected.length === 0) return;
+    // 既に送信中なら何もしない
+    if (isSubmitting || !question || selected.length === 0) return;
+    // ボタンを無効化
+    setIsSubmitting(true);
     // 選択された番号と正解番号を昇順で比較し、完全一致なら正解
     const sort = (arr: number[]) => [...arr].sort((a, b) => a - b);
     const correct =
@@ -256,7 +261,7 @@ export default function Quiz() {
           mode="contained"
           style={[styles.answerBtn, { width: width * 0.9 }]}
           onPress={onSubmit}
-          disabled={selected.length === 0}
+          disabled={selected.length === 0 || isSubmitting}
         >
           解答する
         </Button>
