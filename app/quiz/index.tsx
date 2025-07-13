@@ -13,8 +13,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { AppHeader } from '@/components/AppHeader';
 import { Text, Button, useTheme } from 'react-native-paper';
 import { ResponsiveText } from '@/components/ResponsiveText';
-import { createQuestionTextStyle } from '@/components/TextStyles';
-import { AntDesign } from '@expo/vector-icons';
+import { QuestionCard } from '@/components/QuestionCard';
 import {
   getQuestionById,
   updateLearningDailyLog,
@@ -40,7 +39,6 @@ const getCardBorderColor = (
 
 export default function Quiz() {
   const theme = useTheme();
-  const tStyles = createQuestionTextStyle(theme);
   const insets = useSafeAreaInsets();
   // ids: 出題する問題ID一覧、current: 現在の問題番号（0始まり）
   const { ids, current } = useLocalSearchParams<{
@@ -213,53 +211,12 @@ export default function Quiz() {
         </View>
 
         {/* ───────── 問題カード ───────── */}
-        <View
-          style={[
-            styles.card,
-            { borderColor: getCardBorderColor(question.type, theme) },
-          ]}
-        >
-          {/* ─ カテゴリ表示 ─ */}
-          <View style={styles.categoryRow}>
-            {question.categories.map((cat) => (
-              <View key={cat} style={styles.categoryChip}>
-                <Text style={styles.categoryText}>{cat}</Text>
-              </View>
-            ))}
-          </View>
-
-          <ResponsiveText text={question.question} style={tStyles.question} />
-          <Pressable onPress={toggleUsed} style={styles.usedBtn}>
-            {question.is_used ? (
-              <AntDesign
-                name="checkcircle"
-                size={24}
-                color={theme.colors.onBackground}
-              />
-            ) : (
-              <AntDesign
-                name="closecircleo"
-                size={24}
-                color={theme.colors.onBackground}
-              />
-            )}
-          </Pressable>
-          <Pressable onPress={toggleFavorite} style={styles.favoriteBtn}>
-            {question.is_favorite ? (
-              <AntDesign
-                name="star"
-                size={24}
-                color={theme.colors.onBackground}
-              />
-            ) : (
-              <AntDesign
-                name="staro"
-                size={24}
-                color={theme.colors.onBackground}
-              />
-            )}
-          </Pressable>
-        </View>
+        <QuestionCard
+          question={question}
+          borderColor={getCardBorderColor(question.type, theme)}
+          onToggleFavorite={toggleFavorite}
+          onToggleUsed={toggleUsed}
+        />
 
         {/* ───────── 選択肢 ───────── */}
         {shuffledOptions.map((opt) => {
@@ -338,46 +295,6 @@ const styles = StyleSheet.create({
   progressBar: {
     height: 4,
     borderRadius: 4,
-  },
-  card: {
-    margin: 16,
-    padding: 24,
-    borderWidth: 1,
-    borderRadius: 16,
-    minHeight: 140,
-    justifyContent: 'center',
-  },
-
-  categoryRow: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    position: 'absolute',
-    top: 8,
-    left: 8,
-    right: 48,
-  },
-  categoryChip: {
-    backgroundColor: '#E0E0E0', // お好みで
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 12,
-    marginRight: 4,
-    marginBottom: 4,
-  },
-  categoryText: {
-    fontSize: 12,
-    color: '#444', // テーマに無ければ '#fff' など
-  },
-
-  favoriteBtn: {
-    position: 'absolute',
-    top: 12,
-    right: 12,
-  },
-  usedBtn: {
-    position: 'absolute',
-    top: 12,
-    right: 48,
   },
   choice: {
     alignSelf: 'center',

@@ -3,19 +3,12 @@
 
 import React, { useEffect, useState, useMemo, useRef } from 'react';
 import { router, useLocalSearchParams } from 'expo-router';
-import {
-  View,
-  ScrollView,
-  Pressable,
-  Dimensions,
-  StyleSheet,
-} from 'react-native';
+import { View, ScrollView, Dimensions, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Text, Button, useTheme } from 'react-native-paper';
 // [br] を改行に変換してくれるコンポーネント
 import { ResponsiveText } from '@/components/ResponsiveText';
-import { createQuestionTextStyle } from '@/components/TextStyles';
-import { AntDesign } from '@expo/vector-icons';
+import { QuestionCard } from '@/components/QuestionCard';
 import { AppHeader } from '@/components/AppHeader';
 import { getQuestionById, updateFavorite } from '@/src/utils/db/index';
 import { useQuestionActions } from '@/hooks/useQuestionActions';
@@ -32,7 +25,6 @@ const pickPair = (theme: any, key: keyof typeof theme.colors) => ({
 
 export default function AnswerScreen() {
   const theme = useTheme();
-  const tStyles = createQuestionTextStyle(theme);
   const insets = useSafeAreaInsets();
 
   /* ───── URL パラメータ ───── */
@@ -179,49 +171,12 @@ export default function AnswerScreen() {
         ]}
       >
         {/* ───── 問題カード（位置・サイズは quiz/index と同じ） ───── */}
-        <View style={[styles.card, { borderColor: theme.colors.outline }]}>
-          {/* ─ カテゴリ表示 ─ */}
-          <View style={styles.categoryRow}>
-            {question.categories.map((cat) => (
-              <View key={cat} style={styles.categoryChip}>
-                <Text style={styles.categoryText}>{cat}</Text>
-              </View>
-            ))}
-          </View>
-
-          {/* [br] マーカーを改行へ変換 */}
-          <ResponsiveText text={question.question} style={tStyles.question} />
-          <Pressable onPress={toggleUsed} style={styles.usedBtn}>
-            {question.is_used ? (
-              <AntDesign
-                name="checkcircle"
-                size={24}
-                color={theme.colors.onBackground}
-              />
-            ) : (
-              <AntDesign
-                name="closecircleo"
-                size={24}
-                color={theme.colors.onBackground}
-              />
-            )}
-          </Pressable>
-          <Pressable onPress={toggleFavorite} style={styles.favoriteBtn}>
-            {question.is_favorite ? (
-              <AntDesign
-                name="star"
-                size={24}
-                color={theme.colors.onBackground}
-              />
-            ) : (
-              <AntDesign
-                name="staro"
-                size={24}
-                color={theme.colors.onBackground}
-              />
-            )}
-          </Pressable>
-        </View>
+        <QuestionCard
+          question={question}
+          borderColor={theme.colors.outline}
+          onToggleFavorite={toggleFavorite}
+          onToggleUsed={toggleUsed}
+        />
 
         {/* ───── 選択肢 ───── */}
         {orderedOptions.map((opt) => {
@@ -297,49 +252,6 @@ const styles = StyleSheet.create({
   center: { flex: 1, alignItems: 'center', justifyContent: 'center' },
 
   scrollContent: { paddingBottom: 32 },
-
-  card: {
-    margin: 16,
-    padding: 24,
-    borderWidth: 1,
-    borderRadius: 16,
-    minHeight: 140,
-    justifyContent: 'center',
-  },
-
-  categoryRow: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    position: 'absolute',
-    top: 8,
-    left: 8,
-    right: 48,
-  },
-  categoryChip: {
-    backgroundColor: '#E0E0E0', // お好みで
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 12,
-    marginRight: 4,
-    marginBottom: 4,
-  },
-  categoryText: {
-    fontSize: 12,
-    color: '#444', // テーマに無ければ '#fff' など
-  },
-
-  question: { textAlign: 'center', lineHeight: 24 },
-
-  favoriteBtn: {
-    position: 'absolute',
-    top: 12,
-    right: 12,
-  },
-  usedBtn: {
-    position: 'absolute',
-    top: 12,
-    right: 48,
-  },
 
   choice: {
     alignSelf: 'center',
