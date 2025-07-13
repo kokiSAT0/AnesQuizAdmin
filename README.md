@@ -3,7 +3,6 @@
 | Zustand                      | **5.0.4 以上**（v5 系）            | RN 0.79 対応の安定版                   |
 | Jest                         | **29.7.x**（最新安定版）           | 安定版（v30 は大規模アップデート予定） |
 | React Native Testing Library | **13.2.0**（v13 系 最新安定）      | React 18/19 & RN 0.78+ 対応            |
-| GitHub Actions               | **最新安定**（公式 Actions v3 系） | バージョン番号は固定でなく最新版を推奨 |
 | ESLint                       | **9.x 系列**（例: 9.26.0）         | Node 18+ 対応                          |
 | Prettier                     | **3.x 系列**（例: 3.5.x）          | Prettier 3 + eslint-plugin-prettier 5  |
 | husky                        | **9.x 系列**（例: 9.1.7）          | Git フックの最新安定版                 |
