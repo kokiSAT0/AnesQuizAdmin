@@ -1,4 +1,4 @@
-// components/TextStyles.ts
+// components/TextStyles.ts ファイル
 import { StyleSheet, Dimensions } from 'react-native';
 import { useTheme } from 'react-native-paper';
 

@@ -1,4 +1,4 @@
-// components/AppHeader.tsx
+// components/AppHeader.tsx ファイル
 import React from 'react';
 import { View, StyleSheet, ViewStyle } from 'react-native';
 import { IconButton, Text, useTheme } from 'react-native-paper';
