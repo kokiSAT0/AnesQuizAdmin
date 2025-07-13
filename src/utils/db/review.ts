@@ -5,6 +5,7 @@ import type { Question } from '@/src/types/question';
 import type { SQLiteQuestionRow } from './questions';
 import { mapRowToQuestion } from './questions';
 import type { ReviewItem, ReviewQuestion } from '@/src/types/review';
+import type { ReviewQueue } from '@/src/types/reviewQueue';
 
 /* ------------------------------------------------------------------ */
 /* 今日復習すべき問題を取得                                           */
@@ -13,7 +14,18 @@ import type { ReviewItem, ReviewQuestion } from '@/src/types/review';
 export async function getDueReviewItems(limit = 20): Promise<ReviewItem[]> {
   const db = await getDB();
   const userId = await getOrCreateUserId();
-  const rows = await db.getAllAsync<ReviewItem>(
+  const rows = await db.getAllAsync<
+    Pick<
+      ReviewQueue,
+      | 'question_id'
+      | 'next_review_at'
+      | 'interval_days'
+      | 'repetition'
+      | 'last_is_correct'
+      | 'attempts'
+      | 'last_grade'
+    >
+  >(
     `SELECT question_id, next_review_at, interval_days, repetition, last_is_correct,
             attempts, last_grade
        FROM ReviewQueue
@@ -33,29 +45,33 @@ export async function fetchDueList(limit = 20): Promise<ReviewQuestion[]> {
   const db = await getDB();
   const userId = await getOrCreateUserId();
 
-  const results: (SQLiteQuestionRow & {
-    next_review_at: string;
-    interval_days: number;
-    ease_factor: number;
-    repetition: number;
-    last_is_correct: number;
-    attempts: number;
-    last_grade: number | null;
-  })[] = [];
+  const results: (SQLiteQuestionRow &
+    Pick<
+      ReviewQueue,
+      | 'next_review_at'
+      | 'interval_days'
+      | 'ease_factor'
+      | 'repetition'
+      | 'last_is_correct'
+      | 'attempts'
+      | 'last_grade'
+    >)[] = [];
   const added = new Set<string>();
   let remaining = limit;
 
   // 優先度 P1: 期限到来カード
   const p1 = await db.getAllAsync<
-    SQLiteQuestionRow & {
-      next_review_at: string;
-      interval_days: number;
-      ease_factor: number;
-      repetition: number;
-      last_is_correct: number;
-      attempts: number;
-      last_grade: number | null;
-    }
+    SQLiteQuestionRow &
+      Pick<
+        ReviewQueue,
+        | 'next_review_at'
+        | 'interval_days'
+        | 'ease_factor'
+        | 'repetition'
+        | 'last_is_correct'
+        | 'attempts'
+        | 'last_grade'
+      >
   >(
     `SELECT Q.*, R.next_review_at, R.interval_days, R.ease_factor, R.repetition,
             R.last_is_correct, R.attempts, R.last_grade
@@ -79,15 +95,17 @@ export async function fetchDueList(limit = 20): Promise<ReviewQuestion[]> {
   const p2Limit = Math.min(Math.floor(limit * 0.5), remaining);
   if (p2Limit > 0) {
     const p2 = await db.getAllAsync<
-      SQLiteQuestionRow & {
-        next_review_at: string;
-        interval_days: number;
-        ease_factor: number;
-        repetition: number;
-        last_is_correct: number;
-        attempts: number;
-        last_grade: number | null;
-      }
+      SQLiteQuestionRow &
+        Pick<
+          ReviewQueue,
+          | 'next_review_at'
+          | 'interval_days'
+          | 'ease_factor'
+          | 'repetition'
+          | 'last_is_correct'
+          | 'attempts'
+          | 'last_grade'
+        >
     >(
       `SELECT Q.*, R.next_review_at, R.interval_days, R.ease_factor, R.repetition,
               R.last_is_correct, R.attempts, R.last_grade
@@ -113,15 +131,17 @@ export async function fetchDueList(limit = 20): Promise<ReviewQuestion[]> {
   // 優先度 P3: その他ランダム
   if (remaining > 0) {
     const p3 = await db.getAllAsync<
-      SQLiteQuestionRow & {
-        next_review_at: string;
-        interval_days: number;
-        ease_factor: number;
-        repetition: number;
-        last_is_correct: number;
-        attempts: number;
-        last_grade: number | null;
-      }
+      SQLiteQuestionRow &
+        Pick<
+          ReviewQueue,
+          | 'next_review_at'
+          | 'interval_days'
+          | 'ease_factor'
+          | 'repetition'
+          | 'last_is_correct'
+          | 'attempts'
+          | 'last_grade'
+        >
     >(
       `SELECT Q.*, R.next_review_at, R.interval_days, R.ease_factor, R.repetition,
               R.last_is_correct, R.attempts, R.last_grade
@@ -188,12 +208,12 @@ export async function saveReviewResult(
 ): Promise<void> {
   const db = await getDB();
   const userId = await getOrCreateUserId();
-  const existing = await db.getFirstAsync<{
-    repetition: number;
-    interval_days: number;
-    ease_factor: number;
-    attempts: number;
-  }>(
+  const existing = await db.getFirstAsync<
+    Pick<
+      ReviewQueue,
+      'repetition' | 'interval_days' | 'ease_factor' | 'attempts'
+    >
+  >(
     `SELECT repetition, interval_days, ease_factor, attempts
        FROM ReviewQueue
       WHERE user_id = ? AND question_id = ?;`,
