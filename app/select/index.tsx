@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Alert,
@@ -15,6 +15,8 @@ import {
   countQuestionsByFilter,
 } from '@/src/utils/db/index';
 import { SelectableChip } from '@/components/SelectableChip';
+// 選択状態を管理する共通フック
+import { useSelectionSet } from '@/hooks/useSelectionSet';
 // 先ほどエクスポートした型をインポート
 import type { SelectableChipProps } from '@/components/SelectableChip';
 
@@ -46,90 +48,72 @@ const ProgressChip: React.FC<
 
 export default function SelectScreen() {
   const theme = useTheme();
-  const [selected, setSelected] = useState<Level[]>([...LEVELS]);
-  const [selectedCategories, setSelectedCategories] = useState<Category[]>([
-    ...CATEGORIES,
-  ]);
-  const [selectedProgress, setSelectedProgress] = useState<Progress[]>([
-    ...PROGRESS,
-  ]);
+  // 各種選択肢は useSelectionSet フックで共通管理します
+  const levelSet = useSelectionSet<Level>([...LEVELS]);
+  const categorySet = useSelectionSet<Category>([...CATEGORIES]);
+  const progressSet = useSelectionSet<Progress>([...PROGRESS]);
 
   const [random, setRandom] = useState(false);
   const [favoriteOnly, setFavoriteOnly] = useState(false);
   const [matchCount, setMatchCount] = useState<number>(0);
 
-  // レベルとカテゴリのどちらも選ばれている場合のみ件数を取得
-  // どちらか片方でも未選択なら 0 件になる
+  // 選択条件の変更時に該当件数を再計算します
   useEffect(() => {
     (async () => {
       const count = await countQuestionsByFilter(
-        selected,
-        selectedCategories,
+        levelSet.selected,
+        categorySet.selected,
         favoriteOnly,
-        selectedProgress,
+        progressSet.selected,
       );
       setMatchCount(count);
     })();
-  }, [selected, selectedCategories, favoriteOnly, selectedProgress]);
+  }, [levelSet.selected, categorySet.selected, favoriteOnly, progressSet.selected]);
 
   const toggleLevel = (level: Level) => {
-    setSelected((prev) =>
-      prev.includes(level) ? prev.filter((l) => l !== level) : [...prev, level],
-    );
+    levelSet.toggle(level);
   };
 
-  // レベルをすべて選択する
   const selectAllLevels = () => {
-    setSelected([...LEVELS]);
+    levelSet.selectAll(LEVELS);
   };
 
-  // レベルの選択をすべて解除する
   const clearLevels = () => {
-    setSelected([]);
+    levelSet.clear();
   };
 
   const toggleCategory = (category: Category) => {
-    setSelectedCategories((prev) =>
-      prev.includes(category)
-        ? prev.filter((c) => c !== category)
-        : [...prev, category],
-    );
+    categorySet.toggle(category);
   };
 
-  // カテゴリをすべて選択する
   const selectAllCategories = () => {
-    setSelectedCategories([...CATEGORIES]);
+    categorySet.selectAll(CATEGORIES);
   };
 
-  // カテゴリの選択をすべて解除する
   const clearCategories = () => {
-    setSelectedCategories([]);
+    categorySet.clear();
   };
 
   //学習達成度
   const toggleProgress = (status: Progress) => {
-    setSelectedProgress((prev) =>
-      prev.includes(status)
-        ? prev.filter((s) => s !== status)
-        : [...prev, status],
-    );
+    progressSet.toggle(status);
   };
 
   const selectAllProgress = () => {
-    setSelectedProgress([...PROGRESS]);
+    progressSet.selectAll(PROGRESS);
   };
 
   const clearProgress = () => {
-    setSelectedProgress([]);
+    progressSet.clear();
   };
 
   const startQuiz = async () => {
     try {
       const ids = await getQuestionIdsByFilter(
-        selected,
-        selectedCategories,
+        levelSet.selected,
+        categorySet.selected,
         favoriteOnly,
-        selectedProgress,
+        progressSet.selected,
       );
       if (ids.length === 0) {
         Alert.alert('該当する問題がありません');
@@ -220,7 +204,7 @@ export default function SelectScreen() {
                 <LevelChip
                   key={lv}
                   label={lv}
-                  selected={selected.includes(lv)}
+                  selected={levelSet.selected.includes(lv)}
                   onToggle={() => toggleLevel(lv)}
                 />
               ))}
@@ -250,7 +234,7 @@ export default function SelectScreen() {
                 <CategoryChip
                   key={cat}
                   label={cat}
-                  selected={selectedCategories.includes(cat)}
+                  selected={categorySet.selected.includes(cat)}
                   onToggle={() => toggleCategory(cat)}
                 />
               ))}
@@ -280,7 +264,7 @@ export default function SelectScreen() {
                 <ProgressChip
                   key={p}
                   label={p}
-                  selected={selectedProgress.includes(p)}
+                  selected={progressSet.selected.includes(p)}
                   onToggle={() => toggleProgress(p)}
                 />
               ))}
