@@ -9,6 +9,9 @@ import {
   getQuestionsLimit5,
   getLatestLearningLogs,
   deleteDatabase,
+  dropQuestionsTable,
+  dropAppInfoTable,
+  dropLearningLogsTable,
 } from '@/src/utils/db/index';
 import type { Question } from '@/src/types/question';
 import type { LearningDailyLog } from '@/src/types/learningLog';
