@@ -4,19 +4,11 @@ import { calcSM2 } from '../sm2';
 import type { Question } from '@/src/types/question';
 import type { SQLiteQuestionRow } from './questions';
 import { mapRowToQuestion } from './questions';
+import type { ReviewItem, ReviewQuestion } from '@/src/types/review';
 
 /* ------------------------------------------------------------------ */
 /* 今日復習すべき問題を取得                                           */
 /* ------------------------------------------------------------------ */
-export interface ReviewItem {
-  question_id: string;
-  next_review_at: string;
-  interval_days: number;
-  repetition: number;
-  last_is_correct: number;
-  attempts: number;
-  last_grade: number | null;
-}
 
 export async function getDueReviewItems(limit = 20): Promise<ReviewItem[]> {
   const db = await getDB();
@@ -36,15 +28,6 @@ export async function getDueReviewItems(limit = 20): Promise<ReviewItem[]> {
 /* ------------------------------------------------------------------ */
 /* 出題対象の復習リストを取得                                         */
 /* ------------------------------------------------------------------ */
-export interface ReviewQuestion extends Question {
-  next_review_at: string;
-  interval_days: number;
-  ease_factor: number;
-  repetition: number;
-  last_is_correct: number;
-  attempts: number;
-  last_grade: number | null;
-}
 
 export async function fetchDueList(limit = 20): Promise<ReviewQuestion[]> {
   const db = await getDB();

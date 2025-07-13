@@ -21,7 +21,8 @@ import {
   getDueReviewItems,
 } from '@/src/utils/db/index';
 import type { LearningDailyLog } from '@/src/types/learningLog';
-import type { CategoryStat, BadgeInfo, ReviewItem } from '@/src/utils/db/index';
+import type { CategoryStat, BadgeInfo } from '@/src/utils/db/index';
+import type { ReviewItem } from '@/src/types/review';
 
 // BottomNavigation 用のルート定義
 const routes = [
