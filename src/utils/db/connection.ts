@@ -1,6 +1,7 @@
 import { SQLiteDatabase, openDatabaseAsync } from 'expo-sqlite';
 import * as FileSystem from 'expo-file-system';
 import { Asset } from 'expo-asset';
+import { Alert } from 'react-native';
 import { DB_VERSION } from '@/constants/DbVersion';
 
 let dbPromise: Promise<SQLiteDatabase> | null = null;
@@ -25,26 +26,39 @@ export async function deleteDatabase(): Promise<void> {
 export async function getDB(): Promise<SQLiteDatabase> {
   if (!dbPromise) {
     const sqlitePath = `${FileSystem.documentDirectory}SQLite/app.db`;
-    const info = await FileSystem.getInfoAsync(sqlitePath);
-    if (!info.exists) {
-      // Expo が使う SQLite フォルダを作成（存在しない場合）
-      await FileSystem.makeDirectoryAsync(
-        `${FileSystem.documentDirectory}SQLite`,
-        { intermediates: true },
-      );
+    try {
+      const info = await FileSystem.getInfoAsync(sqlitePath);
+      if (!info.exists) {
+        // Expo が使う SQLite フォルダを作成（存在しない場合）
+        await FileSystem.makeDirectoryAsync(
+          `${FileSystem.documentDirectory}SQLite`,
+          { intermediates: true },
+        );
 
-      // アセットから DB ファイルをコピー
-      const asset = Asset.fromModule(require('@/assets/db/app.db'));
-      await asset.downloadAsync();
-      if (!asset.localUri) {
-        throw new Error('app.db asset not found');
+        // アセットから DB ファイルをコピー
+        const asset = Asset.fromModule(require('@/assets/db/app.db'));
+        await asset.downloadAsync();
+        if (!asset.localUri) {
+          throw new Error('app.db asset not found');
+        }
+        await FileSystem.copyAsync({ from: asset.localUri, to: sqlitePath });
+        dbCopiedFromAsset = true;
       }
-      await FileSystem.copyAsync({ from: asset.localUri, to: sqlitePath });
-      dbCopiedFromAsset = true;
+      dbPromise = openDatabaseAsync('app.db');
+    } catch (err) {
+      console.error('DB初期化エラー', err);
+      Alert.alert('DB初期化エラー', 'データベースの準備に失敗しました。');
+      throw err;
     }
-    dbPromise = openDatabaseAsync('app.db');
   }
-  const db = await dbPromise;
+  let db: SQLiteDatabase;
+  try {
+    db = await dbPromise;
+  } catch (err) {
+    console.error('DB接続エラー', err);
+    Alert.alert('DB接続エラー', 'データベースを開けませんでした。');
+    throw err;
+  }
 
   // DB バージョンをチェックし、古い場合は削除して再コピーする
   const { user_version = 0 } = await db.getFirstAsync<{ user_version: number }>(
@@ -64,21 +78,21 @@ export async function getDB(): Promise<SQLiteDatabase> {
  */
 export async function initializeDatabaseIfNeeded(): Promise<void> {
   const db = await getDB(); // ← Promise を await
+  try {
+    // DB 初期化開始
 
-  // DB 初期化開始
+    // ① 現在の user_version を取得
+    const { user_version = 0 } = await db.getFirstAsync<{
+      user_version: number;
+    }>('PRAGMA user_version;');
 
-  // ① 現在の user_version を取得
-  const { user_version = 0 } = await db.getFirstAsync<{ user_version: number }>(
-    'PRAGMA user_version;',
-  );
-
-  if (dbCopiedFromAsset) {
-    // 事前生成された DB を使っている場合、テーブル作成処理を省略
-  } else if (user_version === 0) {
-    // ② トランザクション内でテーブル作成 & user_version 更新
-    // トランザクションとは複数の処理をひとまとめにして、途中で失敗したら全部なかったことにする仕組みです
-    await db.withTransactionAsync(async () => {
-      await db.execAsync(`
+    if (dbCopiedFromAsset) {
+      // 事前生成された DB を使っている場合、テーブル作成処理を省略
+    } else if (user_version === 0) {
+      // ② トランザクション内でテーブル作成 & user_version 更新
+      // トランザクションとは複数の処理をひとまとめにして、途中で失敗したら全部なかったことにする仕組みです
+      await db.withTransactionAsync(async () => {
+        await db.execAsync(`
         CREATE TABLE IF NOT EXISTS Questions (
           id TEXT PRIMARY KEY,
           type TEXT,
@@ -101,23 +115,23 @@ export async function initializeDatabaseIfNeeded(): Promise<void> {
         );
       `);
 
-      // user_version を更新（DB_VERSION は定数で管理）
-      await db.execAsync(`PRAGMA user_version = ${DB_VERSION};`);
-    });
-  } else {
-    // 既に初期化済みの場合
-  }
+        // user_version を更新（DB_VERSION は定数で管理）
+        await db.execAsync(`PRAGMA user_version = ${DB_VERSION};`);
+      });
+    } else {
+      // 既に初期化済みの場合
+    }
 
-  // AppInfo テーブルを作成（存在しない場合のみ）
-  await db.execAsync(`
+    // AppInfo テーブルを作成（存在しない場合のみ）
+    await db.execAsync(`
     CREATE TABLE IF NOT EXISTS AppInfo (
       user_id TEXT PRIMARY KEY,
       created_at TEXT
     );
   `);
 
-  // Users テーブル
-  await db.execAsync(`
+    // Users テーブル
+    await db.execAsync(`
     CREATE TABLE IF NOT EXISTS Users (
       id TEXT PRIMARY KEY,
       nickname TEXT,
@@ -126,8 +140,8 @@ export async function initializeDatabaseIfNeeded(): Promise<void> {
     );
   `);
 
-  // QuestionAttempts テーブル
-  await db.execAsync(`
+    // QuestionAttempts テーブル
+    await db.execAsync(`
     CREATE TABLE IF NOT EXISTS QuestionAttempts (
       user_id TEXT,
       question_id TEXT,
@@ -138,8 +152,8 @@ export async function initializeDatabaseIfNeeded(): Promise<void> {
     );
   `);
 
-  // ReviewQueue テーブル
-  await db.execAsync(`
+    // ReviewQueue テーブル
+    await db.execAsync(`
     CREATE TABLE IF NOT EXISTS ReviewQueue (
       user_id TEXT,
       question_id TEXT,
@@ -155,8 +169,8 @@ export async function initializeDatabaseIfNeeded(): Promise<void> {
     );
   `);
 
-  // LearningDailyStats テーブル
-  await db.execAsync(`
+    // LearningDailyStats テーブル
+    await db.execAsync(`
     CREATE TABLE IF NOT EXISTS LearningDailyStats (
       user_id TEXT,
       learning_date TEXT,
@@ -168,8 +182,8 @@ export async function initializeDatabaseIfNeeded(): Promise<void> {
     );
   `);
 
-  // Badges テーブル
-  await db.execAsync(`
+    // Badges テーブル
+    await db.execAsync(`
     CREATE TABLE IF NOT EXISTS Badges (
       id TEXT PRIMARY KEY,
       name TEXT,
@@ -178,8 +192,8 @@ export async function initializeDatabaseIfNeeded(): Promise<void> {
     );
   `);
 
-  // UserBadges テーブル
-  await db.execAsync(`
+    // UserBadges テーブル
+    await db.execAsync(`
     CREATE TABLE IF NOT EXISTS UserBadges (
       user_id TEXT,
       badge_id TEXT,
@@ -188,8 +202,8 @@ export async function initializeDatabaseIfNeeded(): Promise<void> {
     );
   `);
 
-  // LearningDailyLogs テーブルを必ず作成しておく（古い DB 対策）
-  await db.execAsync(`
+    // LearningDailyLogs テーブルを必ず作成しておく（古い DB 対策）
+    await db.execAsync(`
       CREATE TABLE IF NOT EXISTS LearningDailyLogs (
         user_id TEXT,
         learning_date TEXT,
@@ -199,4 +213,9 @@ export async function initializeDatabaseIfNeeded(): Promise<void> {
         PRIMARY KEY (user_id, learning_date)
       );
     `);
+  } catch (err) {
+    console.error('DB初期化処理エラー', err);
+    Alert.alert('DB初期化処理エラー', 'データベースの初期化に失敗しました。');
+    throw err;
+  }
 }
