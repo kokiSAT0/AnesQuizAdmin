@@ -1,4 +1,5 @@
-import { getDB, generateUUID } from './connection';
+import { getDB } from './connection';
+import { generateUUID } from '../uuid';
 export async function getOrCreateUserId(): Promise<string> {
   const db = await getDB();
 
