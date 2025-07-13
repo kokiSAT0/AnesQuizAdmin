@@ -10,6 +10,7 @@ import {
   getQuestionsCount,
   getOrCreateUserId,
 } from '@/src/utils/db/index';
+import { logInfo, logError } from '@/src/utils/logger';
 
 export default function IndexScreen() {
   const theme = useTheme();
@@ -20,8 +21,11 @@ export default function IndexScreen() {
       try {
         await initializeDatabaseIfNeeded();
         const id = await getOrCreateUserId();
+        logInfo('ユーザーID取得', { id });
         await getQuestionsCount();
+        logInfo('起動処理完了');
       } catch (err: any) {
+        logError('起動処理失敗', err);
         Alert.alert('起動エラー', 'データベースの初期化に失敗しました。');
       }
     })();
