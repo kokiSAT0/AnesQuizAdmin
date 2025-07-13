@@ -20,7 +20,7 @@
 
 | ツール       | 推奨バージョン | インストール例                              |
 | ------------ | -------------- | ------------------------------------------- |
-| **Node.js**  | ≥ 18.x LTS     | <https://nodejs.org/ja>                     |
+| **Node.js**  | ≥ 20.x LTS     | <https://nodejs.org/ja>                     |
 | **npm**      | ≥ 10.x         | Node 同梱（`npm i -g npm@latest` で更新可） |
 | **Expo CLI** | ≥ 7.x          | `npm i -g expo-cli`                         |
 | **Git**      | ≥ 2.40         | <https://git-scm.com/>                      |
