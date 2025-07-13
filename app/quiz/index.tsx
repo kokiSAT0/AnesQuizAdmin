@@ -1,17 +1,12 @@
 // app/quiz/index.tsx
 import React, { useEffect, useState } from 'react';
 import { router, useLocalSearchParams } from 'expo-router';
-import {
-  View,
-  Pressable,
-  Dimensions,
-  ScrollView,
-  StyleSheet,
-} from 'react-native';
+import { View, Dimensions, ScrollView, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { AppHeader } from '@/components/AppHeader';
 import { Text, Button, useTheme } from 'react-native-paper';
+import { PaperPressable } from '@/components/PaperPressable';
 import { ResponsiveText } from '@/components/ResponsiveText';
 import { createQuestionTextStyle } from '@/components/TextStyles';
 import { AntDesign } from '@expo/vector-icons';
@@ -229,7 +224,7 @@ export default function Quiz() {
           </View>
 
           <ResponsiveText text={question.question} style={tStyles.question} />
-          <Pressable onPress={toggleUsed} style={styles.usedBtn}>
+          <PaperPressable onPress={toggleUsed} style={styles.usedBtn}>
             {question.is_used ? (
               <AntDesign
                 name="checkcircle"
@@ -243,8 +238,8 @@ export default function Quiz() {
                 color={theme.colors.onBackground}
               />
             )}
-          </Pressable>
-          <Pressable onPress={toggleFavorite} style={styles.favoriteBtn}>
+          </PaperPressable>
+          <PaperPressable onPress={toggleFavorite} style={styles.favoriteBtn}>
             {question.is_favorite ? (
               <AntDesign
                 name="star"
@@ -258,7 +253,7 @@ export default function Quiz() {
                 color={theme.colors.onBackground}
               />
             )}
-          </Pressable>
+          </PaperPressable>
         </View>
 
         {/* ───────── 選択肢 ───────── */}
@@ -272,7 +267,7 @@ export default function Quiz() {
             ? theme.colors.onPrimary
             : theme.colors.onSecondaryContainer; // ⿊に近い文字⾊
           return (
-            <Pressable
+            <PaperPressable
               key={opt.idx}
               style={[
                 styles.choice,
@@ -285,7 +280,7 @@ export default function Quiz() {
                 text={opt.text}
                 style={[styles.choiceText, { color: fg }]}
               />
-            </Pressable>
+            </PaperPressable>
           );
         })}
       </ScrollView>

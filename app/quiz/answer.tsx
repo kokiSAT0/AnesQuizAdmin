@@ -3,15 +3,10 @@
 
 import React, { useEffect, useState, useMemo, useRef } from 'react';
 import { router, useLocalSearchParams } from 'expo-router';
-import {
-  View,
-  ScrollView,
-  Pressable,
-  Dimensions,
-  StyleSheet,
-} from 'react-native';
+import { View, ScrollView, Dimensions, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Text, Button, useTheme } from 'react-native-paper';
+import { PaperPressable } from '@/components/PaperPressable';
 // [br] を改行に変換してくれるコンポーネント
 import { ResponsiveText } from '@/components/ResponsiveText';
 import { createQuestionTextStyle } from '@/components/TextStyles';
@@ -191,7 +186,7 @@ export default function AnswerScreen() {
 
           {/* [br] マーカーを改行へ変換 */}
           <ResponsiveText text={question.question} style={tStyles.question} />
-          <Pressable onPress={toggleUsed} style={styles.usedBtn}>
+          <PaperPressable onPress={toggleUsed} style={styles.usedBtn}>
             {question.is_used ? (
               <AntDesign
                 name="checkcircle"
@@ -205,8 +200,8 @@ export default function AnswerScreen() {
                 color={theme.colors.onBackground}
               />
             )}
-          </Pressable>
-          <Pressable onPress={toggleFavorite} style={styles.favoriteBtn}>
+          </PaperPressable>
+          <PaperPressable onPress={toggleFavorite} style={styles.favoriteBtn}>
             {question.is_favorite ? (
               <AntDesign
                 name="star"
@@ -220,7 +215,7 @@ export default function AnswerScreen() {
                 color={theme.colors.onBackground}
               />
             )}
-          </Pressable>
+          </PaperPressable>
         </View>
 
         {/* ───── 選択肢 ───── */}
