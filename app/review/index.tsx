@@ -5,7 +5,7 @@ import { AppHeader } from '@/components/AppHeader';
 import { Screen } from '@/components/Screen';
 import { Button, Text, useTheme } from 'react-native-paper';
 import { fetchDueList, saveReviewResult } from '@/src/utils/db/index';
-import type { ReviewQuestion } from '@/src/utils/db/index';
+import type { ReviewQuestion } from '@/src/types/review';
 
 export default function ReviewScreen() {
   const theme = useTheme();
