@@ -55,6 +55,15 @@ describe('buildSqlite スクリプト', () => {
     db.close();
   });
 
+  test('Questions テーブルに pack_id カラムがある', () => {
+    const db = new Database(dbPath, { readonly: true });
+    const info = db.prepare("PRAGMA table_info('Questions')").all();
+    const hasPack = info.some((c: any) => c.name === 'pack_id');
+    const hasLock = info.some((c: any) => c.name === 'is_locked');
+    expect(hasPack && hasLock).toBe(true);
+    db.close();
+  });
+
   test('スクリプト実行後にプロセスが残らない', () => {
     const tsxPath = path.join(__dirname, '..', 'node_modules', '.bin', 'tsx');
     const scriptPath = path.join(__dirname, '..', 'scripts', 'buildSqlite.ts');

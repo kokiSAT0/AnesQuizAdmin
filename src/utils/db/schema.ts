@@ -16,6 +16,8 @@ export const TABLE_SCHEMAS: string[] = [
   first_attempted_at TEXT,
   is_favorite INTEGER,
   is_used INTEGER DEFAULT 1,
+  pack_id TEXT DEFAULT 'core',
+  is_locked INTEGER DEFAULT 0,
   last_answer_correct INTEGER,
   last_answered_at TEXT,
   last_correct_at TEXT,
@@ -72,6 +74,10 @@ export const TABLE_SCHEMAS: string[] = [
   badge_id TEXT,
   earned_at TEXT,
   PRIMARY KEY (user_id, badge_id)
+);`,
+  `CREATE TABLE IF NOT EXISTS PurchasedPacks (
+  id TEXT PRIMARY KEY,
+  purchased_at TEXT
 );`,
   `CREATE TABLE IF NOT EXISTS LearningDailyLogs (
   user_id TEXT,
