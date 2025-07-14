@@ -13,6 +13,35 @@ let dbPromise: Promise<SQLiteDatabase> | null = null;
 let dbCopiedFromAsset = false;
 
 /* ------------------------------------------------------------------ */
+/* アセットDBを既存DBへマージする                                   */
+/* ------------------------------------------------------------------ */
+async function mergeDatabaseFromAsset(db: SQLiteDatabase): Promise<void> {
+  const asset = Asset.fromModule(require('@/assets/db/app.db'));
+  await asset.downloadAsync();
+  if (!asset.localUri) throw new Error('app.db asset not found');
+  const tempPath = `${FileSystem.cacheDirectory}new_app.db`;
+  await FileSystem.copyAsync({ from: asset.localUri, to: tempPath });
+  try {
+    await db.execAsync(`ATTACH DATABASE '${tempPath}' AS newdb;`);
+    // 新カラムを追加（既にある場合はエラーを無視）
+    try { await db.execAsync("ALTER TABLE Questions ADD COLUMN pack_id TEXT DEFAULT 'core';"); } catch {}
+    try { await db.execAsync('ALTER TABLE Questions ADD COLUMN is_locked INTEGER DEFAULT 0;'); } catch {}
+    await db.execAsync(`CREATE TABLE IF NOT EXISTS PurchasedPacks (
+      id TEXT PRIMARY KEY,
+      purchased_at TEXT
+    );`);
+    // 新規問題のみ追加
+    await db.execAsync(`
+      INSERT OR IGNORE INTO Questions
+      SELECT * FROM newdb.Questions;
+    `);
+    await db.execAsync('DETACH DATABASE newdb;');
+  } finally {
+    await FileSystem.deleteAsync(tempPath, { idempotent: true });
+  }
+}
+
+/* ------------------------------------------------------------------ */
 /* DB ファイルを削除して次回起動時に再コピーさせる                    */
 /* ------------------------------------------------------------------ */
 export async function deleteDatabase(): Promise<void> {
@@ -68,14 +97,14 @@ export async function getDB(): Promise<SQLiteDatabase> {
     throw err;
   }
 
-  // DB バージョンをチェックし、古い場合は削除して再コピーする
+  // DB バージョンをチェックし、古い場合はアセットDBをマージする
   const { user_version = 0 } = await db.getFirstAsync<{ user_version: number }>(
     'PRAGMA user_version;',
   );
   if (user_version < DB_VERSION) {
-    logWarn('DB バージョンが古いため再コピーします');
-    await deleteDatabase();
-    return getDB();
+    logWarn('DB バージョンが古いためマージします');
+    await mergeDatabaseFromAsset(db);
+    await db.execAsync(`PRAGMA user_version = ${DB_VERSION};`);
   }
 
   return db;

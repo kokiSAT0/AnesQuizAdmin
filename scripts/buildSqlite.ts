@@ -48,6 +48,7 @@ INSERT INTO Questions (
   first_attempt_correct, first_attempted_at,
   is_favorite, last_answer_correct,
   is_used,
+  pack_id, is_locked,
   last_answered_at, last_correct_at, last_incorrect_at
 ) VALUES (
   @id, @type,
@@ -58,6 +59,7 @@ INSERT INTO Questions (
   @first_attempt_correct, @first_attempted_at,
   @is_favorite, @last_answer_correct,
   @is_used,
+  @pack_id, @is_locked,
   @last_answered_at, @last_correct_at, @last_incorrect_at
 );
 `);
@@ -101,6 +103,8 @@ for (const file of files) {
       first_attempted_at: null,
       is_favorite: 0,
       is_used: 1,
+      pack_id: q.pack_id ?? 'core',
+      is_locked: q.is_locked ?? 0,
       last_answer_correct: 0,
       last_answered_at: null,
       last_correct_at: null,

@@ -278,6 +278,8 @@ export interface SQLiteQuestionRow {
   first_attempted_at: string | null; // 初回解答日時
   is_favorite: number; // お気に入り登録されているかどうか（0/1）
   is_used: number; // 出題対象として使うかどうか（0/1）
+  pack_id: string; // 問題パックID
+  is_locked: number; // ロック状態（0/1）
   last_answer_correct: number; // 直近の回答が正解かどうか（0/1）
   last_answered_at: string | null; // 最後に回答した日時
   last_correct_at: string | null; // 最後に正解した日時
@@ -306,6 +308,8 @@ export function mapRowToQuestion(row: SQLiteQuestionRow): Question {
     first_attempted_at: row.first_attempted_at,
     is_favorite: !!row.is_favorite,
     is_used: !!row.is_used,
+    pack_id: row.pack_id,
+    is_locked: !!row.is_locked,
     last_answer_correct: !!row.last_answer_correct,
     last_answered_at: row.last_answered_at,
     last_correct_at: row.last_correct_at,
@@ -333,7 +337,7 @@ export async function getQuestionById(id: string) {
 /* ------------------------------------------------------------------ */
 export async function updateQuestionFlag(
   id: string,
-  field: 'is_favorite' | 'is_used',
+  field: 'is_favorite' | 'is_used' | 'is_locked',
   flag: boolean,
 ): Promise<void> {
   const db = await getDB();
@@ -359,6 +363,13 @@ export async function updateUsed(id: string, flag: boolean): Promise<void> {
   // ログ出力だけ行い、更新処理は共通関数に任せます
   logInfo('update used', { id, flag });
   await updateQuestionFlag(id, 'is_used', flag);
+}
+
+/**
+ * 問題をアンロックする
+ */
+export async function unlockQuestion(id: string): Promise<void> {
+  await updateQuestionFlag(id, 'is_locked', false);
 }
 
 /* ------------------------------------------------------------------ */
