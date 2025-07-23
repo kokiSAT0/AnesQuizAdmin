@@ -34,6 +34,18 @@ npm ci
 npm start
 ```
 
+4. Python ツールを利用する場合は仮想環境を作成して依存パッケージを
+   インストールしてください。
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+`requirements.txt` は新しいパッケージを追加後に
+`pip freeze > requirements.txt` を実行して最新の状態に保ちます。
+
 初回起動時に自動で SQLite データベースが生成されます。
 
 ---
