@@ -1,0 +1,10 @@
+# Python 用依存パッケージ一覧
+# 仮想環境を有効化した上で以下を実行してください
+#   pip install -r requirements.txt
+# 新しいパッケージを追加したら `pip freeze > requirements.txt` で更新します
+
+# データ処理用
+pandas>=2.2
+# テンプレートエンジン
+jinja2>=3.1
+
