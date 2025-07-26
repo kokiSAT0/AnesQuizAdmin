@@ -21,8 +21,10 @@ async function mergeDatabaseFromAsset(db: SQLiteDatabase): Promise<void> {
   if (!asset.localUri) throw new Error('app.db asset not found');
   const tempPath = `${FileSystem.cacheDirectory}new_app.db`;
   await FileSystem.copyAsync({ from: asset.localUri, to: tempPath });
+  // ATTACH DATABASE に渡す際は file:// を外したローカルパスが必要
+  const localPath = tempPath.replace('file://', '');
   try {
-    await db.execAsync(`ATTACH DATABASE '${tempPath}' AS newdb;`);
+    await db.execAsync(`ATTACH DATABASE '${localPath}' AS newdb;`);
     // 新カラムを追加（既にある場合はエラーを無視）
     try { await db.execAsync("ALTER TABLE Questions ADD COLUMN pack_id TEXT DEFAULT 'core';"); } catch {}
     try { await db.execAsync('ALTER TABLE Questions ADD COLUMN is_locked INTEGER DEFAULT 0;'); } catch {}
