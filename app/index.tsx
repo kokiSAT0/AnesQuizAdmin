@@ -36,7 +36,7 @@ export default function IndexScreen() {
       style={[styles.screen, { backgroundColor: theme.colors.background }]}
     >
       <AppHeader
-        title="AnesQuiz α版"
+        title="AnesQuiz"
         rightIcon="cog"
         onRightPress={() => router.push('/settings')}
       />
@@ -50,7 +50,7 @@ export default function IndexScreen() {
         >
           クイズを始める
         </Button>
-        <Button
+        {/* <Button
           mode="contained"
           onPress={() => router.push('/review')}
           style={styles.startButton}
@@ -65,7 +65,7 @@ export default function IndexScreen() {
           contentStyle={styles.startButtonContent}
         >
           学習履歴
-        </Button>
+        </Button> */}
       </View>
     </Screen>
   );
