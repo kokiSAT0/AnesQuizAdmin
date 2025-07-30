@@ -35,14 +35,14 @@
     "difficulty": "初級",
     "question": "成人男性の[br]挿管管径は?",
     "options": [
-      "6.5 mm",
-      "7.5 mm",
-      "8.5 mm"
+      "6.0 mm",
+      "7.0 mm",
+      "8.0 mm"
     ],
     "correct_answers": [
       1
     ],
-    "explanation": "平均的な成人男性では内径7.5 mmのチューブが標準である。",
+    "explanation": "平均的な成人男性では内径8.0 mmのチューブが標準である。",
     "references": []
   },
   {
