@@ -7,6 +7,8 @@ import {
   StyleSheet,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+// 広告バナーの高さ定数
+import { AD_BANNER_HEIGHT } from '@/constants/Ads';
 import { AppHeader } from '@/components/AppHeader';
 import { Text, Button, Switch, Chip, Card, useTheme } from 'react-native-paper';
 import { router } from 'expo-router';
@@ -130,7 +132,8 @@ export default function SelectScreen() {
 
   const insets = useSafeAreaInsets();
 
-  const FOOTER_HEIGHT = 64;
+  // フッター自身の高さに広告バナーの高さを加算
+  const FOOTER_HEIGHT = 64 + AD_BANNER_HEIGHT;
 
   return (
     <View
@@ -147,7 +150,7 @@ export default function SelectScreen() {
       <ScrollView
         contentContainerStyle={[
           styles.scrollContent,
-          { paddingBottom: FOOTER_HEIGHT + insets.bottom }, // フッター余白を加算
+          { paddingBottom: FOOTER_HEIGHT + insets.bottom }, // 広告分の高さも加算
         ]}
       >
         {/* ───────── ランダム出題のアイコンボタン ───────── */}
@@ -306,7 +309,8 @@ const styles = StyleSheet.create({
   container: { flex: 1 },
 
   scrollContent: {
-    paddingBottom: 72, // フッター分
+    // フッター + 広告分の余白
+    paddingBottom: 72 + AD_BANNER_HEIGHT,
     paddingHorizontal: 16,
   },
 
@@ -351,7 +355,8 @@ const styles = StyleSheet.create({
 
   footer: {
     position: 'absolute',
-    bottom: 0,
+    // 広告バナーの高さ分だけ上に配置
+    bottom: AD_BANNER_HEIGHT,
     left: 0,
     right: 0,
     paddingTop: 8,
