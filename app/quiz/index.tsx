@@ -4,6 +4,8 @@ import { router, useLocalSearchParams } from 'expo-router';
 import { View, Dimensions, ScrollView, StyleSheet } from 'react-native';
 import { PaperPressable } from '@/components/PaperPressable';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+// 広告バナーの高さ定数
+import { AD_BANNER_HEIGHT } from '@/constants/Ads';
 
 import { AppHeader } from '@/components/AppHeader';
 import { Text, Button, useTheme } from 'react-native-paper';
@@ -20,7 +22,8 @@ import { useQuestionActions } from '@/hooks/useQuestionActions';
 import type { Question } from '@/types/question';
 
 const { width } = Dimensions.get('window');
-const FOOTER_HEIGHT = 64;
+// フッター高さに広告バナー分を加算
+const FOOTER_HEIGHT = 64 + AD_BANNER_HEIGHT;
 
 // カード枠色を決める関数
 const getCardBorderColor = (
@@ -283,7 +286,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   scrollContent: {
-    paddingBottom: 32,
+    // フッター + 広告分の余白
+    paddingBottom: 32 + AD_BANNER_HEIGHT,
   },
   // 進捗バー外枠
   progressBarTrack: {
@@ -315,5 +319,15 @@ const styles = StyleSheet.create({
   answerBtn: {
     alignSelf: 'center',
     marginTop: 16,
+  },
+  // 広告バナーと干渉しないよう bottom を調整
+  footer: {
+    position: 'absolute',
+    bottom: AD_BANNER_HEIGHT,
+    left: 0,
+    right: 0,
+    paddingTop: 8,
+    borderTopWidth: 1,
+    alignItems: 'center',
   },
 });

@@ -5,6 +5,8 @@ import React, { useEffect, useState, useMemo, useRef } from 'react';
 import { router, useLocalSearchParams } from 'expo-router';
 import { View, ScrollView, Dimensions, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+// 広告バナーの高さ定数
+import { AD_BANNER_HEIGHT } from '@/constants/Ads';
 import { Text, Button, useTheme } from 'react-native-paper';
 // [br] を改行に変換してくれるコンポーネント
 import { ResponsiveText } from '@/components/ResponsiveText';
@@ -14,7 +16,8 @@ import { getQuestionById, updateFavorite } from '@/src/utils/db/index';
 import { useQuestionActions } from '@/hooks/useQuestionActions';
 
 const { width } = Dimensions.get('window');
-const FOOTER_HEIGHT = 64;
+// フッターの高さ + 広告バナーの高さ
+const FOOTER_HEIGHT = 64 + AD_BANNER_HEIGHT;
 
 const pickPair = (theme: any, key: keyof typeof theme.colors) => ({
   bg: theme.colors[key],
@@ -261,7 +264,8 @@ const styles = StyleSheet.create({
   container: { flex: 1 },
   center: { flex: 1, alignItems: 'center', justifyContent: 'center' },
 
-  scrollContent: { paddingBottom: 32 },
+  // フッター + 広告分の余白
+  scrollContent: { paddingBottom: 32 + AD_BANNER_HEIGHT },
 
   choice: {
     alignSelf: 'center',
@@ -304,7 +308,8 @@ const styles = StyleSheet.create({
 
   footer: {
     position: 'absolute',
-    bottom: 0,
+    // 広告バナーの高さ分だけ余裕を持たせる
+    bottom: AD_BANNER_HEIGHT,
     left: 0,
     right: 0,
     paddingTop: 8,

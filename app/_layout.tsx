@@ -1,5 +1,7 @@
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
+// 追加: 広告用コンポーネントを読み込み
+import { AdBanner } from '@/components/AdBanner';
 import {
   Provider as PaperProvider,
   MD3DarkTheme,
@@ -29,7 +31,11 @@ export default function RootLayout() {
       <View
         style={[
           styles.container,
-          { paddingTop: insets.top, backgroundColor: theme.colors.background },
+          {
+            paddingTop: insets.top,
+            paddingBottom: insets.bottom,
+            backgroundColor: theme.colors.background,
+          },
         ]}
       >
         <StatusBar
@@ -44,6 +50,8 @@ export default function RootLayout() {
             contentStyle: { backgroundColor: theme.colors.background },
           }}
         />
+        {/* 全ページ共通の AdMob バナー */}
+        <AdBanner />
       </View>
     </PaperProvider>
   );
