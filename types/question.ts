@@ -16,8 +16,8 @@ export interface BaseQuestion {
   references: { title: string; url: string }[];
   /** パックID。省略時は 'core' */
   pack_id?: string;
-  /** 初期ロック状態。未指定なら 0 */
-  is_locked?: number;
+  /** 初期ロック状態。未指定なら false */
+  is_locked?: boolean;
 }
 
 // SQLite 上で保持する追加情報

@@ -100,9 +100,10 @@ export async function getDB(): Promise<SQLiteDatabase> {
   }
 
   // DB バージョンをチェックし、古い場合はアセットDBをマージする
-  const { user_version = 0 } = await db.getFirstAsync<{ user_version: number }>(
+  const userRow = await db.getFirstAsync<{ user_version: number }>(
     'PRAGMA user_version;',
   );
+  const user_version = userRow?.user_version ?? 0;
   if (user_version < DB_VERSION) {
     logWarn('DB バージョンが古いためマージします');
     await mergeDatabaseFromAsset(db);
@@ -123,9 +124,10 @@ export async function initializeDatabaseIfNeeded(): Promise<void> {
     // DB 初期化開始
 
     // ① 現在の user_version を取得
-    const { user_version = 0 } = await db.getFirstAsync<{
-      user_version: number;
-    }>('PRAGMA user_version;');
+    const row = await db.getFirstAsync<{ user_version: number }>(
+      'PRAGMA user_version;',
+    );
+    const user_version = row?.user_version ?? 0;
 
     if (!dbCopiedFromAsset && user_version === 0) {
       // 初回のみトランザクション内で全テーブルを作成し user_version を更新

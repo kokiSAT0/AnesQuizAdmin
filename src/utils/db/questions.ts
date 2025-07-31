@@ -74,10 +74,10 @@ export async function upsertQuestion(data: QuestionData): Promise<void> {
 /* ------------------------------------------------------------------ */
 export async function getQuestionsCount(): Promise<number> {
   const db = await getDB();
-  const { total } = await db.getFirstAsync<{ total: number }>(
+  const row = await db.getFirstAsync<{ total: number }>(
     'SELECT COUNT(*) AS total FROM Questions;',
   );
-  return total;
+  return row?.total ?? 0;
 }
 
 /* ------------------------------------------------------------------ */
@@ -161,19 +161,19 @@ export async function countQuestionsByDifficulty(
 
   // 難易度が選択されていない場合は全件数を返す
   if (levels.length === 0) {
-    const { total } = await db.getFirstAsync<{ total: number }>(
+    const row = await db.getFirstAsync<{ total: number }>(
       'SELECT COUNT(*) AS total FROM Questions WHERE is_used = 1;',
     );
-    return total;
+    return row?.total ?? 0;
   }
 
   // IN 句の ? をレベルの個数分並べる
   const placeholders = buildPlaceholders(levels.length);
-  const { total } = await db.getFirstAsync<{ total: number }>(
+  const row = await db.getFirstAsync<{ total: number }>(
     `SELECT COUNT(*) AS total FROM Questions WHERE is_used = 1 AND difficulty IN (${placeholders});`,
     levels,
   );
-  return total;
+  return row?.total ?? 0;
 }
 
 /* ------------------------------------------------------------------ */
@@ -253,11 +253,11 @@ export async function countQuestionsByFilter(
   });
   if (!query) return 0;
 
-  const { total } = await db.getFirstAsync<{ total: number }>(
+  const row = await db.getFirstAsync<{ total: number }>(
     `SELECT COUNT(*) AS total FROM Questions ${query.where};`,
     query.params,
   );
-  return total;
+  return row?.total ?? 0;
 }
 
 /* ------------------------------------------------------------------ */

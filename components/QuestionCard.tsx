@@ -3,7 +3,7 @@
 
 import React from 'react';
 import { View, StyleSheet, Pressable } from 'react-native';
-import { Text, useTheme } from 'react-native-paper';
+import { Text, useTheme, type MD3Theme } from 'react-native-paper';
 import { AntDesign } from '@expo/vector-icons';
 
 import { ResponsiveText } from '@/components/ResponsiveText';
@@ -25,7 +25,8 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
   onToggleFavorite,
   onToggleUsed,
 }) => {
-  const theme = useTheme();
+  // useTheme はジェネリックなので型を明示しておく
+  const theme = useTheme<MD3Theme>();
   const tStyles = createQuestionTextStyle(theme);
 
   const styles = createStyles(theme);
@@ -74,7 +75,8 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
 };
 
 // スタイルはテーマから色を受け取って生成します
-const createStyles = (theme: ReturnType<typeof useTheme>) =>
+// テーマオブジェクトは MD3Theme 型として受け取る
+const createStyles = (theme: MD3Theme) =>
   StyleSheet.create({
     card: {
       margin: 16,
