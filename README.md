@@ -56,3 +56,21 @@ pip install -r requirements.txt
 - テキスト内で `[br]` を使うと画面幅に応じて改行や空白に変換されます。
 
 詳細な DB 構成は [docs/sqlite_schema.md](docs/sqlite_schema.md) を参照してください。
+
+---
+
+## TestFlight 向けビルド手順
+
+Apple Developer Program へ登録し、証明書とプロビジョニングプロファイルを準備しておく必要があります。EAS CLI は対話形式でこれらの情報を登録できますが、自動化したい場合は以下の環境変数を設定してからビルドを実行してください。
+
+- `EXPO_APPLE_APP_SPECIFIC_PASSWORD`: App Store Connect 用のアプリ固有パスワード
+- `EXPO_IOS_DIST_P12_PASSWORD`: 配布用証明書（p12）のパスワード
+
+設定が完了したら、次のコマンドで TestFlight 用のビルドを行います。
+
+```bash
+# TestFlight 向け iOS ビルド
+eas build --profile testflight --platform ios
+```
+
+初回ビルド時は Apple ID へのログインやチーム選択を求められます。`--non-interactive` オプションを利用する場合は、上記環境変数をすべて設定したうえで実行してください。
