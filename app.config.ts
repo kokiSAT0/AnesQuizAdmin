@@ -18,7 +18,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   },
   ios: {
     ...(appJson.expo.ios ?? {}),
-    bundleIdentifier: 'com.kokisato.anesquiz', // ⾃由に決定（Apple Dev 上でも登録）
+    bundleIdentifier: 'com.anesquiz.mobile', // ⾃由に決定（Apple Dev 上でも登録）
     supportsTablet: true,
     // 広告トラッキング許可ダイアログの文言を追加
     infoPlist: {
