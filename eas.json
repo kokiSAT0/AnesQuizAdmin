@@ -8,7 +8,10 @@
       "channel": "production",
       "distribution": "store",
       "autoIncrement": true,
-      "ios": { "simulator": false }
+      "ios": {
+        "simulator": false
+      },
+      "node": "20"
     },
     "testflight": {
       "channel": "testflight",
@@ -16,13 +19,14 @@
       "autoIncrement": true,
       "ios": {
         "simulator": false
-      }
+      },
+      "node": "20"
     },
     "development": {
       "developmentClient": true,
       "distribution": "internal",
-
-      "channel": "development"
+      "channel": "development",
+      "node": "20"
     },
     "preview": {
       "distribution": "internal",
@@ -32,8 +36,8 @@
       "ios": {
         "simulator": false
       },
-
-      "channel": "preview"
+      "channel": "preview",
+      "node": "20"
     }
   }
 }
