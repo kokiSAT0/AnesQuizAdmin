@@ -10,8 +10,7 @@
       "autoIncrement": true,
       "ios": {
         "simulator": false
-      },
-      "node": "20"
+      }
     },
     "testflight": {
       "channel": "testflight",
@@ -19,14 +18,12 @@
       "autoIncrement": true,
       "ios": {
         "simulator": false
-      },
-      "node": "20"
+      }
     },
     "development": {
       "developmentClient": true,
       "distribution": "internal",
-      "channel": "development",
-      "node": "20"
+      "channel": "development"
     },
     "preview": {
       "distribution": "internal",
@@ -36,8 +33,7 @@
       "ios": {
         "simulator": false
       },
-      "channel": "preview",
-      "node": "20"
+      "channel": "preview"
     }
   }
 }
