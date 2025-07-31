@@ -179,8 +179,8 @@ export default function Quiz() {
         title={`クイズ（${currentIndex + 1} / ${questionIds.length}）`}
         // 戻るボタンでホーム画面へ遷移
         onBack={() => router.replace('/')}
-        rightIcon="cog"
-        onRightPress={() => router.push('/settings')}
+        // rightIcon="cog"
+        // onRightPress={() => router.push('/settings')}
       />
       {/* ───────── 固定ヘッダー ここまで───────── */}
 

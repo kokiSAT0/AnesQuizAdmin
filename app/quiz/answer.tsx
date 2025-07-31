@@ -158,8 +158,8 @@ export default function AnswerScreen() {
         title={isCorrect ? '正解！' : '不正解'}
         // 戻るボタンでホーム画面へ
         onBack={() => router.replace('/')}
-        rightIcon="cog"
-        onRightPress={() => router.push('/settings')}
+        // rightIcon="cog"
+        // onRightPress={() => router.push('/settings')}
         additionalStyles={{ backgroundColor: headerColor }}
       />
 

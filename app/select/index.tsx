@@ -68,7 +68,12 @@ export default function SelectScreen() {
       );
       setMatchCount(count);
     })();
-  }, [levelSet.selected, categorySet.selected, favoriteOnly, progressSet.selected]);
+  }, [
+    levelSet.selected,
+    categorySet.selected,
+    favoriteOnly,
+    progressSet.selected,
+  ]);
 
   const toggleLevel = (level: Level) => {
     levelSet.toggle(level);
@@ -139,8 +144,8 @@ export default function SelectScreen() {
       <AppHeader
         title="クイズ選択画面"
         onBack={() => router.replace('/')}
-        rightIcon="cog"
-        onRightPress={() => router.push('/settings')}
+        // rightIcon="cog"
+        // onRightPress={() => router.push('/settings')}
       />
 
       {/* ───────── スクロール領域 ───────── */}
