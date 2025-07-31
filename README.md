@@ -47,6 +47,7 @@ pip install -r requirements.txt
 `pip freeze > requirements.txt` を実行して最新の状態に保ちます。
 
 初回起動時に自動で SQLite データベースが生成されます。
+EAS ビルドでは `eas-build-post-install` スクリプトが走り、`assets/db/app.db` が最新状態に更新されます。
 
 ---
 
