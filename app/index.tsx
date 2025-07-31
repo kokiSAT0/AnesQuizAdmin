@@ -37,8 +37,8 @@ export default function IndexScreen() {
     >
       <AppHeader
         title="AnesQuiz"
-        // rightIcon="cog"
-        // onRightPress={() => router.push('/settings')}
+        rightIcon="cog"
+        onRightPress={() => router.push('/settings')}
       />
 
       <View style={styles.center}>

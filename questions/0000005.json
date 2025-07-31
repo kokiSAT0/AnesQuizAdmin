@@ -2,115 +2,48 @@
   {
     "id": "an0000001",
     "type": "single_choice",
-    "categories": [
-      "麻酔薬"
-    ],
-    "tags": [
-      "プロポフォール",
-      "静脈麻酔"
-    ],
+    "categories": ["麻酔薬"],
+    "tags": ["プロポフォール", "静脈麻酔"],
     "difficulty": "初級",
     "question": "プロポフォールの[br]投与経路は?",
-    "options": [
-      "静脈投与",
-      "筋肉注射",
-      "皮下投与"
-    ],
-    "correct_answers": [
-      0
-    ],
+    "options": ["静脈投与", "筋肉注射", "皮下投与"],
+    "correct_answers": [0],
     "explanation": "プロポフォールは静脈麻酔薬であり、通常は静脈投与する。",
-    "references": []
-  },
-  {
-    "id": "an0000002",
-    "type": "single_choice",
-    "categories": [
-      "気道管理"
-    ],
-    "tags": [
-      "気管挿管",
-      "チューブ径"
-    ],
-    "difficulty": "初級",
-    "question": "成人男性の[br]挿管管径は?",
-    "options": [
-      "6.0 mm",
-      "7.0 mm",
-      "8.0 mm"
-    ],
-    "correct_answers": [
-      1
-    ],
-    "explanation": "平均的な成人男性では内径8.0 mmのチューブが標準である。",
     "references": []
   },
   {
     "id": "an0000003",
     "type": "single_choice",
-    "categories": [
-      "循環管理"
-    ],
-    "tags": [
-      "昇圧薬",
-      "エフェドリン"
-    ],
+    "categories": ["循環管理"],
+    "tags": ["昇圧薬", "エフェドリン"],
     "difficulty": "初級",
     "question": "エフェドリンの[br]主作用は?",
-    "options": [
-      "血圧上昇",
-      "呼吸抑制",
-      "鎮静作用"
-    ],
-    "correct_answers": [
-      0
-    ],
+    "options": ["血圧上昇", "呼吸抑制", "鎮静作用"],
+    "correct_answers": [0],
     "explanation": "エフェドリンはαβ刺激により心拍出量と末梢血管抵抗を増大させ血圧を上げる。",
     "references": []
   },
   {
     "id": "an0000004",
     "type": "single_choice",
-    "categories": [
-      "呼吸管理"
-    ],
-    "tags": [
-      "換気",
-      "血液ガス"
-    ],
+    "categories": ["呼吸管理"],
+    "tags": ["換気", "血液ガス"],
     "difficulty": "初級",
     "question": "低換気を示す[br]血ガス所見は?",
-    "options": [
-      "PaCO₂上昇",
-      "PaO₂上昇",
-      "SpO₂上昇"
-    ],
-    "correct_answers": [
-      0
-    ],
+    "options": ["PaCO₂上昇", "PaO₂上昇", "SpO₂上昇"],
+    "correct_answers": [0],
     "explanation": "換気低下で二酸化炭素排出が減りPaCO₂が上昇する。",
     "references": []
   },
   {
     "id": "an0000005",
     "type": "single_choice",
-    "categories": [
-      "術中モニタリング"
-    ],
-    "tags": [
-      "BIS",
-      "麻酔深度"
-    ],
+    "categories": ["術中モニタリング"],
+    "tags": ["BIS", "麻酔深度"],
     "difficulty": "初級",
     "question": "BIS値80が[br]示す状態は?",
-    "options": [
-      "覚醒近い",
-      "深麻酔",
-      "脳死"
-    ],
-    "correct_answers": [
-      0
-    ],
+    "options": ["覚醒近い", "深麻酔", "脳死"],
+    "correct_answers": [0],
     "explanation": "BIS 80 付近は浅麻酔であり覚醒に近いレベルを示す。",
     "references": []
   }

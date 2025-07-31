@@ -86,7 +86,7 @@ export default function Settings() {
     >
       <AppHeader title="設定" onBack={() => router.back()} />
       <View style={styles.marginTop}>
-        <Button
+        {/* <Button
           mode="contained"
           onPress={handleShowData}
           style={styles.marginBottom}
@@ -106,7 +106,7 @@ export default function Settings() {
           style={styles.marginBottom}
         >
           🗑️ DBファイル削除
-        </Button>
+        </Button> */}
         <Button
           mode="contained"
           onPress={() => setShowDisclaimerModal(true)}
