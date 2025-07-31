@@ -4,6 +4,7 @@ import { router } from 'expo-router';
 import { Screen } from '@/components/Screen';
 import { AppHeader } from '@/components/AppHeader';
 import { Text, Button, useTheme } from 'react-native-paper';
+import { DISCLAIMER_TEXT } from '@/constants/Disclaimer';
 import {
   getQuestionsCount,
   getQuestionsLimit5,
@@ -23,6 +24,7 @@ export default function Settings() {
   const [fetchedRows, setFetchedRows] = useState<Question[]>([]);
   const [showLogModal, setShowLogModal] = useState(false);
   const [dailyLogs, setDailyLogs] = useState<LearningDailyLog[]>([]);
+  const [showDisclaimerModal, setShowDisclaimerModal] = useState(false);
 
   const handleShowData = async () => {
     try {
@@ -105,6 +107,13 @@ export default function Settings() {
         >
           🗑️ DBファイル削除
         </Button>
+        <Button
+          mode="contained"
+          onPress={() => setShowDisclaimerModal(true)}
+          style={styles.marginBottom}
+        >
+          📖 免責事項
+        </Button>
       </View>
 
       <Modal
@@ -151,6 +160,29 @@ export default function Settings() {
             <Text selectable>{JSON.stringify(dailyLogs, null, 2)}</Text>
           </ScrollView>
           <Button onPress={() => setShowLogModal(false)}>閉じる</Button>
+        </Screen>
+      </Modal>
+
+      <Modal
+        visible={showDisclaimerModal}
+        animationType="slide"
+        onRequestClose={() => setShowDisclaimerModal(false)}
+      >
+        <Screen
+          style={[styles.screen, { backgroundColor: theme.colors.background }]}
+        >
+          <Text variant="titleMedium" style={styles.modalTitle}>
+            免責事項
+          </Text>
+          <ScrollView
+            style={[
+              styles.modalScroll,
+              { backgroundColor: theme.colors.surfaceVariant },
+            ]}
+          >
+            <Text selectable>{DISCLAIMER_TEXT}</Text>
+          </ScrollView>
+          <Button onPress={() => setShowDisclaimerModal(false)}>閉じる</Button>
         </Screen>
       </Modal>
     </Screen>
