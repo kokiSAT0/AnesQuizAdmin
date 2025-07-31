@@ -17,6 +17,7 @@
     "lint": "expo lint",
     "lint:fix": "eslint . --fix",
     "test": "jest --passWithNoTests",
+    "eas-build-post-install": "npm run build:sqlite",
     "build:sqlite": "tsx scripts/buildSqlite.ts"
   },
   "expo": {

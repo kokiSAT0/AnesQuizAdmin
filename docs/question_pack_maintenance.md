@@ -37,6 +37,7 @@ npm run build:sqlite  # scripts/buildSqlite.ts が実行される
 ```
 
 - `assets/db/app.db` が生成・更新されます。
+- EAS ビルドでも `eas-build-post-install` スクリプトが自動的に実行され、`assets/db/app.db` が最新化されます。
 - 既存の DB を削除するわけではないので、Git 管理下の `assets/db` を一緒にコミットしてください。
 
 ## 3. DB バージョンの更新 (必要に応じて)
