@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import Database from 'better-sqlite3';
-import { CATEGORIES } from '../constants/Categories';
+import { CATEGORIES, type Category } from '../constants/Categories';
 import { DB_VERSION } from '../constants/DbVersion';
 import { TABLE_SCHEMAS } from '../src/utils/db/schema';
 
@@ -68,6 +68,7 @@ INSERT INTO Questions (
 const questionsDir = path.join(__dirname, '..', 'questions');
 const files = fs.readdirSync(questionsDir).filter((f) => f.endsWith('.json'));
 // 定義済みカテゴリを素早く照合するため Set 化
+// 定義済みカテゴリを Set として保持
 const categorySet = new Set(CATEGORIES);
 
 for (const file of files) {
@@ -77,7 +78,8 @@ for (const file of files) {
 
   for (const q of list) {
     const invalid = (q.categories ?? []).filter(
-      (c: string) => !categorySet.has(c),
+      // 型チェックを簡略化するため as を利用
+      (c: string) => !categorySet.has(c as Category),
     );
     if (invalid.length) {
       throw new Error(`Invalid category in ${file}: ${invalid.join(', ')}`);

@@ -1,8 +1,10 @@
 import React from 'react';
-import { Text, type TextProps } from 'react-native-paper';
+import { Text } from 'react-native-paper';
+import type { ComponentProps } from 'react';
 import { useWindowDimensions, StyleSheet } from 'react-native';
 
-export type ResponsiveTextProps = TextProps & {
+// Text コンポーネントの既存のプロパティに text を追加
+export type ResponsiveTextProps = ComponentProps<typeof Text> & {
   /** 表示する文字列。改行用に [br] を含める */
   text: string;
 };

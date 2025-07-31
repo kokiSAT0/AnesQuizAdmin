@@ -1,7 +1,7 @@
 // カラースキーム型をインポート
 import type { ColorScheme } from '@/theme/tokens';
 import React from 'react';
-import { Chip, useTheme } from 'react-native-paper';
+import { Chip, useTheme, type MD3Theme } from 'react-native-paper';
 import { StyleSheet } from 'react-native';
 
 // コンポーネントが受け取るプロパティ型
@@ -19,10 +19,11 @@ export function SelectableChip({
   onToggle,
   selectedColorToken,
 }: SelectableChipProps) {
-  const { colors } = useTheme();
+  // ジェネリック指定でテーマ型を確定させる
+  const { colors } = useTheme<MD3Theme>();
   // 選択状態に応じて背景色を変える
   const backgroundStyle = {
-    backgroundColor: selected ? colors[selectedColorToken] : '#FFFFFF',
+    backgroundColor: selected ? (colors as any)[selectedColorToken] : '#FFFFFF',
   };
 
   return (
