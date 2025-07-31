@@ -3,14 +3,18 @@
     "name": "AnesQuiz",
     "slug": "AnesQuiz",
     "owner": "kokisato",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "anesquiz",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.kokisato.anesquiz",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -45,6 +49,12 @@
       "eas": {
         "projectId": "293e5640-3337-4f93-9118-f307f1755da2"
       }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/293e5640-3337-4f93-9118-f307f1755da2"
     }
   }
 }
