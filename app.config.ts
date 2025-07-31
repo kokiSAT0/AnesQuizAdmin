@@ -20,13 +20,13 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     ...(appJson.expo.ios ?? {}),
     bundleIdentifier: 'com.anesquiz.mobile', // ⾃由に決定（Apple Dev 上でも登録）
     supportsTablet: true,
-    // 広告トラッキング許可ダイアログの文言を追加
-    infoPlist: {
-      ...(appJson.expo.ios?.infoPlist ?? {}),
-      NSUserTrackingUsageDescription: '広告配信のために端末識別子を利用します',
-      // 将来的に音声録音機能を追加する場合は以下も定義する
-      // NSMicrophoneUsageDescription: "マイクを使用して音声を録音します"
-    },
+    // 現状ユーザートラッキングは未使用のため設定をコメントアウト
+    // infoPlist: {
+    //   ...(appJson.expo.ios?.infoPlist ?? {}),
+    //   NSUserTrackingUsageDescription: '広告配信のために端末識別子を利用します',
+    //   // 将来的に音声録音機能を追加する場合は以下も定義する
+    //   // NSMicrophoneUsageDescription: "マイクを使用して音声を録音します"
+    // },
   },
   // --- extra は前回までのマージを維持 ---
   extra: {
