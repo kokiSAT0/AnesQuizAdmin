@@ -11,7 +11,7 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.kokisato.anesquiz",
+      "bundleIdentifier": "com.anesquiz.mobile",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       }
